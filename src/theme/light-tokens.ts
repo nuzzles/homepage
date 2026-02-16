@@ -1,5 +1,5 @@
 /**
- * Light Design Tokens (Dark Theme)
+ * Light Design Tokens
  */
 
 // ---------------------------------------------------------------------------
@@ -33,8 +33,9 @@ export const lightFontWeight = {
 // ---------------------------------------------------------------------------
 export const lightColor = {
     blue: {
+        700: "#0033DD",
         600: "#0066ff",
-        500: "#4d88ff",
+        500: "#4C7FFF",
     },
     pink: {
         500: "#ff4081",
@@ -55,60 +56,51 @@ export const lightColor = {
         400: "#facc15",
         300: "#fde047",
     },
-    blue2: {
-        500: "#3b82f6",
-        400: "#60a5fa",
-        300: "#93c5fd",
-    },
     grey: {
-        900: "#121212",
-        850: "#1a1a1a",
-        800: "#1e1e1e",
-        700: "#2d2d2d",
-        600: "#333333",
-        500: "#444444",
-        400: "#484848",
-        300: "#707070",
-        200: "#8E8E8E",
-        150: "#B0B0B0",
-        100: "#CACACA",
-        75: "#DEDEDE",
-        50: "#EAEAEA",
-        25: "#F5F5F5",
+        900: "#212529",
+        800: "#32383E",
+        700: "#495057",
+        600: "#6c757d",
+        500: "#adb5bd",
+        400: "#ced4da",
+        300: "#dee2e6",
+        200: "#e9ecef",
+        100: "#f1f3f5",
+        50: "#F8F9FA",
     },
     white: "#ffffff",
     black: "#000000",
 } as const
 
 // ---------------------------------------------------------------------------
-// Semantic tokens (dark theme)
+// Semantic tokens (light theme)
 // ---------------------------------------------------------------------------
 export const lightBackground = {
     base: {
-        default: lightColor.grey[900], // #121212
+        default: lightColor.grey[50], // #F8F9FA
     },
     surface: {
-        default: lightColor.grey[800], // #1e1e1e
-        sidebar: lightColor.grey[850], // #1a1a1a
-        elevated: lightColor.grey[700], // #2d2d2d
+        default: lightColor.white,
+        sidebar: lightColor.grey[100],
+        elevated: lightColor.white,
     },
 } as const
 
 export const lightText = {
-    primary: lightColor.white, // #ffffff
-    secondary: lightColor.grey[150], // #B0B0B0
-    selected: lightColor.grey[25], // #F5F5F5
-    button: lightColor.grey[50], // #EAEAEA
-    input: lightColor.grey[75], // #DEDEDE
-    helper: lightColor.grey[100], // #CACACA
-    inactive: lightColor.grey[200], // #8E8E8E
-    placeholder: lightColor.grey[300], // #707070
+    primary: lightColor.grey[900], // #212529
+    secondary: lightColor.grey[700], // #495057
+    selected: lightColor.grey[800], // #32383E
+    button: lightColor.grey[200], // #e9ecef
+    input: lightColor.grey[900],
+    helper: lightColor.grey[600],
+    inactive: lightColor.grey[500],
+    placeholder: lightColor.grey[600],
 } as const
 
 export const lightBorder = {
-    main: lightColor.grey[600], // #333333
-    light: lightColor.grey[400], // #484848
-    hover: lightColor.grey[500], // #444444
+    main: lightColor.grey[400], // #ced4da
+    light: lightColor.grey[300], // #dee2e6
+    hover: lightColor.grey[500], // #adb5bd
 } as const
 
 // ---------------------------------------------------------------------------

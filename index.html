@@ -22,7 +22,10 @@
             content="This is the web page of Spencer Imbleau. I am an American research software engineer."
         />
         <meta name="title" content="Spencer Imbleau | Homepage" />
-        <meta name="keywords" content="imbleau, contact, resume, cv, blog, research, projects" />
+        <meta
+            name="keywords"
+            content="Spencer Imbleau, software engineer, research engineer, resume, CV, blog, portfolio, projects"
+        />
 
         <!-- Copyright -->
         <meta name="author" content="Spencer Imbleau" />
@@ -52,7 +55,7 @@
         <meta name="twitter:creator" content="@spencerimbleau" />
 
         <!-- Mobile -->
-        <meta name="color-scheme" content="dark light" />
+        <meta name="color-scheme" content="light" />
         <meta name="HandheldFriendly" content="True" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -83,7 +86,7 @@
             rel="stylesheet"
         />
 
-        <!-- Structured Data -->
+        <!-- Structured Data: Person -->
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -94,7 +97,27 @@
                 "description": "American research software engineer.",
                 "image": "https://spencer.imbleau.com/og-banner.png",
                 "nationality": "American",
-                "sameAs": ["https://mastodon.online/@scim", "https://github.com/simbleau"]
+                "sameAs": [
+                    "https://www.linkedin.com/in/simbleau/",
+                    "https://github.com/nuzzles/",
+                    "https://mastodon.online/@scim",
+                    "https://nuzzles.github.io/"
+                ]
+            }
+        </script>
+
+        <!-- Structured Data: WebSite -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Spencer Imbleau",
+                "url": "https://spencer.imbleau.com",
+                "description": "Personal website of Spencer Imbleau, an American research software engineer.",
+                "author": {
+                    "@type": "Person",
+                    "name": "Spencer Imbleau"
+                }
             }
         </script>
     </head>

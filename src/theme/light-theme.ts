@@ -34,10 +34,11 @@ declare module "@mui/material/styles" {
 
 export const lightTheme = createTheme({
     palette: {
-        mode: "dark",
+        mode: "light",
         primary: {
-            main: lightColor.blue[500],
+            main: lightColor.blue[700],
             dark: lightColor.blue[600],
+            light: lightColor.blue[500],
         },
         secondary: {
             main: lightColor.pink[500],
@@ -141,6 +142,27 @@ export const lightTheme = createTheme({
             styleOverrides: {
                 root: {
                     fontFamily: lightFontFamily,
+                },
+            },
+        },
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    color: lightColor.blue[700],
+                    "&:hover": {
+                        color: lightColor.blue[500],
+                    },
+                },
+            },
+        },
+        MuiCssBaseline: {
+            styleOverrides: {
+                a: {
+                    color: lightColor.blue[700],
+                    textDecoration: "none",
+                    "&:hover": {
+                        color: lightColor.blue[500],
+                    },
                 },
             },
         },

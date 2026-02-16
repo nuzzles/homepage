@@ -1,33 +1,32 @@
-import { Box, Typography } from "@mui/material"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { HelmetProvider } from "react-helmet-async"
+import { Box } from "@mui/material"
+import { NavBar } from "@/components/NavBar"
+import { HomePage } from "@/pages/HomePage"
+import { ResumePage } from "@/pages/ResumePage"
 
 function App() {
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                minHeight: "100vh",
-                gap: 2,
-            }}
-        >
-            <Box
-                component="svg"
-                viewBox="0 0 100 100"
-                sx={{ width: 100, height: 100 }}
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2" />
-                <circle cx="50" cy="50" r="4" fill="currentColor" />
-            </Box>
-            <Typography variant="h4" component="h1" sx={{ fontWeight: 700, letterSpacing: "0.05em" }}>
-                Spencer Imbleau
-            </Typography>
-            <Typography variant="body1" sx={(theme) => ({ color: theme.palette.text.secondary })}>
-                Homepage
-            </Typography>
-        </Box>
+        <HelmetProvider>
+            <BrowserRouter>
+                <Box
+                    component="main"
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        mt: 2.5,
+                        mx: 1.25,
+                        mb: 3.75,
+                    }}
+                >
+                    <NavBar />
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/resume" element={<ResumePage />} />
+                    </Routes>
+                </Box>
+            </BrowserRouter>
+        </HelmetProvider>
     )
 }
 
