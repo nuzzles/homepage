@@ -39,9 +39,11 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                         "&:hover": {
                             backgroundColor: theme.palette.background.sidebar,
                             border: `1px solid ${theme.palette.border.hover}`,
+                            color: theme.palette.primary.main,
                         },
                         "&:active": {
                             backgroundColor: alpha(theme.palette.text.primary, 0.08),
+                            color: theme.palette.primary.dark,
                         },
                     }
                 case "tertiary":
@@ -51,9 +53,11 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                         border: "none",
                         "&:hover": {
                             backgroundColor: alpha(theme.palette.text.primary, 0.06),
+                            color: theme.palette.primary.main,
                         },
                         "&:active": {
                             backgroundColor: alpha(theme.palette.text.primary, 0.1),
+                            color: theme.palette.primary.dark,
                         },
                     }
                 case "primary":
@@ -63,10 +67,10 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                         color: theme.palette.background.default,
                         border: "none",
                         "&:hover": {
-                            backgroundColor: theme.palette.text.secondary,
+                            backgroundColor: theme.palette.primary.main,
                         },
                         "&:active": {
-                            backgroundColor: alpha(theme.palette.text.primary, 0.75),
+                            backgroundColor: theme.palette.primary.light,
                         },
                     }
             }
@@ -106,7 +110,7 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
             whiteSpace: "nowrap",
 
             "&:focus": {
-                outline: `2px solid ${theme.palette.accent.main}`,
+                outline: `2px solid ${theme.palette.primary.main}`,
                 outlineOffset: "2px",
             },
 

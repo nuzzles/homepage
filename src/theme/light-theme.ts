@@ -155,6 +155,13 @@ export const lightTheme = createTheme({
                 },
             },
         },
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    fontFamily: lightFontFamily,
+                },
+            },
+        },
         MuiCssBaseline: {
             styleOverrides: {
                 a: {
