@@ -6,6 +6,20 @@ on:
   pull_request:
 
 jobs:
+  tf-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform -chdir=terraform init -backend=false
+
+      - name: Terraform Validate
+        run: terraform -chdir=terraform validate
+
   lint:
     runs-on: ubuntu-latest
     steps:

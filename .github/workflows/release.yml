@@ -8,7 +8,36 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  tf-apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-duration-seconds: 3600
+          role-session-name: GitHubActions
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Apply
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve
+        env:
+          TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
+          TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
   build:
+    needs: [tf-apply]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,20 +76,20 @@ jobs:
           name: dist
           path: dist
 
-      # Add your deployment steps here
-      # Example for AWS S3:
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
-      #
-      # - name: Deploy to S3
-      #   run: aws s3 sync ./dist/ s3://your-bucket-name --delete
-      #
-      # - name: Invalidate CloudFront
-      #   run: aws cloudfront create-invalidation --distribution-id YOUR_DIST_ID --paths "/*"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-duration-seconds: 3600
+          role-session-name: GitHubActions
 
-      - name: Deployment placeholder
-        run: echo "Add your deployment steps here"
+      - name: Deploy to S3
+        run: aws s3 sync ./dist/ s3://www.spencer.imbleau.com --delete
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          bucket="www.spencer.imbleau.com"
+          distribution=$(aws cloudfront list-distributions --query "DistributionList.Items[?Origins.Items[?DomainName=='${bucket}.s3.amazonaws.com']].Id" --output text)
+          aws cloudfront create-invalidation --distribution-id ${distribution} --paths "/*"
