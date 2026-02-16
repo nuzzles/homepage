@@ -111,18 +111,68 @@ export const HomePage = () => {
                 }}
             >
                 <Box
-                    component="img"
-                    alt="Spencer Imbleau"
-                    src="/images/me.webp"
-                    sx={{
-                        borderRadius: 0,
-                        width: 280,
-                        height: 280,
-                        objectFit: "cover",
+                    sx={(theme) => {
+                        const corner = 20
+                        const gap = 6
+                        const borderW = 2
+                        const c = theme.palette.divider
+                        return {
+                            position: "relative",
+                            padding: `${gap + borderW}px`,
+                            "&::before, &::after, & > .corner-bl, & > .corner-br": {
+                                content: '""',
+                                position: "absolute",
+                                width: corner,
+                                height: corner,
+                                pointerEvents: "none",
+                            },
+                            "&::before": {
+                                top: 0,
+                                left: 0,
+                                borderTop: `${borderW}px solid ${c}`,
+                                borderLeft: `${borderW}px solid ${c}`,
+                            },
+                            "&::after": {
+                                top: 0,
+                                right: 0,
+                                borderTop: `${borderW}px solid ${c}`,
+                                borderRight: `${borderW}px solid ${c}`,
+                            },
+                        }
                     }}
-                />
+                >
+                    <Box
+                        className="corner-bl"
+                        sx={(theme) => ({
+                            bottom: 0,
+                            left: 0,
+                            borderBottom: `2px solid ${theme.palette.divider}`,
+                            borderLeft: `2px solid ${theme.palette.divider}`,
+                        })}
+                    />
+                    <Box
+                        className="corner-br"
+                        sx={(theme) => ({
+                            bottom: 0,
+                            right: 0,
+                            borderBottom: `2px solid ${theme.palette.divider}`,
+                            borderRight: `2px solid ${theme.palette.divider}`,
+                        })}
+                    />
+                    <Box
+                        component="img"
+                        alt="Spencer Imbleau"
+                        src="/images/me.webp"
+                        sx={{
+                            display: "block",
+                            width: 280,
+                            height: 280,
+                            objectFit: "cover",
+                        }}
+                    />
+                </Box>
 
-                <Typography variant="h4" component="h1" sx={{ mt: 1, fontWeight: 700, width: 280 }}>
+                <Typography variant="h5" component="h1" sx={{ mt: 1, fontWeight: 700, width: 280, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                     Spencer Imbleau
                 </Typography>
 

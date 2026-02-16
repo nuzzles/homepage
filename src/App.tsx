@@ -13,9 +13,11 @@ function App() {
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        mt: 2.5,
-                        mx: 1.25,
-                        mb: 3.75,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        minHeight: "100vh",
+                        px: 1.25,
+                        py: 2.5,
                     }}
                 >
                     <Routes>
