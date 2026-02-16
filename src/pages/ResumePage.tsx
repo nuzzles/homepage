@@ -105,13 +105,13 @@ export const ResumePage = () => {
 
                 <Box sx={{ mt: 2, display: "flex", alignItems: "center", gap: 2 }}>
                     <Link to="/" style={{ textDecoration: "none" }}>
-                        <LightButton variant="tertiary" size="small">
+                        <LightButton variant="tertiary" size="small" sx={{ px: 1.5 }}>
                             <ArrowBack sx={{ fontSize: "1rem", mr: 0.5 }} />
                             go back
                         </LightButton>
                     </Link>
                     <a href={RESUME_PDF_URL} download style={{ textDecoration: "none" }}>
-                        <LightButton variant="primary" size="small">
+                        <LightButton variant="primary" size="small" sx={{ px: 1.5 }}>
                             <Download sx={{ fontSize: "1rem", mr: 0.5 }} />
                             download résumé
                         </LightButton>
