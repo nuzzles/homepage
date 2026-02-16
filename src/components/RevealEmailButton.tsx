@@ -30,7 +30,7 @@ export const RevealEmailButton = () => {
                     alignItems: "center",
                     border: `1px solid ${theme.palette.border.main}`,
                     backgroundColor: theme.palette.background.paper,
-                    minHeight: 48,
+                    height: 50,
                     width: "100%",
                 })}
             >

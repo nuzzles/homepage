@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material"
-import { OpenInNew } from "@mui/icons-material"
+import { Box, Container, Typography } from "@mui/material"
+import { CalendarMonth, OpenInNew } from "@mui/icons-material"
 import { Helmet } from "react-helmet-async"
 import { LightButton } from "@/components/LightButton"
 import { RevealEmailButton } from "@/components/RevealEmailButton"
@@ -18,10 +18,9 @@ export const HomePage = () => {
                     content="This is the web page of Spencer Imbleau. I am an American research software engineer."
                 />
             </Helmet>
-            <Box
+            <Container
+                maxWidth="sm"
                 sx={{
-                    alignSelf: "center",
-                    maxWidth: 1000,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -33,18 +32,14 @@ export const HomePage = () => {
                     alt="Spencer Imbleau"
                     src="/images/me.webp"
                     sx={{
-                        borderRadius: "50%",
-                        minWidth: 300,
-                        width: "min(40vh, 40vw)",
-                        maxWidth: 450,
-                        minHeight: 300,
-                        height: "min(40vh, 40vw)",
-                        maxHeight: 450,
-                        objectFit: "scale-down",
+                        borderRadius: 0,
+                        width: 280,
+                        height: 280,
+                        objectFit: "cover",
                     }}
                 />
 
-                <Typography variant="h3" component="h1" sx={{ mt: 1, fontWeight: 700 }}>
+                <Typography variant="h4" component="h1" sx={{ mt: 1, fontWeight: 700, width: 280 }}>
                     Spencer Imbleau
                 </Typography>
 
@@ -52,18 +47,19 @@ export const HomePage = () => {
                     <RevealEmailButton />
                     <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                         <LightButton variant="secondary" fullWidth>
-                            schedule a meeting
+                            <CalendarMonth sx={{ fontSize: "1rem", mr: 0.5 }} />
+                            schedule a 1:1
                             <OpenInNew sx={{ fontSize: "1rem", ml: 0.5 }} />
                         </LightButton>
                     </a>
                 </Box>
 
-                <Box sx={{ mt: 3 }}>
+                <Box sx={{ mt: 2, width: 280 }}>
                     <SocialLinks />
                 </Box>
 
                 <Footer />
-            </Box>
+            </Container>
         </>
     )
 }

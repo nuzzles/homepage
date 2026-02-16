@@ -1,41 +1,32 @@
-import { Box, IconButton } from "@mui/material"
-import { GitHub, LinkedIn } from "@mui/icons-material"
+import { Box, Link as MuiLink } from "@mui/material"
+import { LinkedIn } from "@mui/icons-material"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
 
 const socials = [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/simbleau/", Icon: LinkedIn },
-    { label: "GitHub", href: "https://www.github.com/nuzzles/", Icon: GitHub },
+    { label: "in/simbleau", href: "https://www.linkedin.com/in/simbleau/", icon: <LinkedIn sx={{ fontSize: "1rem" }} /> },
+    {
+        label: "@nuzzles",
+        href: "https://www.github.com/nuzzles/",
+        icon: <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />,
+    },
 ] as const
 
 export const SocialLinks = () => {
     return (
-        <Box sx={{ display: "inline-flex", gap: 2.5 }}>
-            {socials.map(({ label, href, Icon }) => (
-                <IconButton
+        <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1 }}>
+            {socials.map(({ label, href, icon }) => (
+                <MuiLink
                     key={label}
-                    aria-label={label}
-                    component="a"
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    sx={(theme) => ({
-                        width: 64,
-                        height: 64,
-                        backgroundColor: `${theme.palette.text.primary}14`,
-                        transition: "background-color 0.5s",
-                        "&:hover": {
-                            backgroundColor: `${theme.palette.text.primary}21`,
-                        },
-                        "& .MuiSvgIcon-root": {
-                            fontSize: 32,
-                            transition: "font-size 0.25s",
-                        },
-                        "&:hover .MuiSvgIcon-root": {
-                            fontSize: 40,
-                        },
-                    })}
+                    underline="hover"
+                    sx={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 0.5 }}
                 >
-                    <Icon />
-                </IconButton>
+                    {icon}
+                    {label}
+                </MuiLink>
             ))}
         </Box>
     )
