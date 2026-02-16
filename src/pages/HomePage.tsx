@@ -1,8 +1,12 @@
 import { Box, Typography } from "@mui/material"
+import { OpenInNew } from "@mui/icons-material"
 import { Helmet } from "react-helmet-async"
+import { LightButton } from "@/components/LightButton"
 import { RevealEmailButton } from "@/components/RevealEmailButton"
 import { SocialLinks } from "@/components/SocialLinks"
 import { Footer } from "@/components/Footer"
+
+const CALENDLY_URL = "https://calendly.com/simbleau/meet"
 
 export const HomePage = () => {
     return (
@@ -44,8 +48,14 @@ export const HomePage = () => {
                     Spencer Imbleau
                 </Typography>
 
-                <Box sx={{ mt: 2 }}>
+                <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1.5, width: 280 }}>
                     <RevealEmailButton />
+                    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                        <LightButton variant="secondary" fullWidth>
+                            schedule a meeting
+                            <OpenInNew sx={{ fontSize: "1rem", ml: 0.5 }} />
+                        </LightButton>
+                    </a>
                 </Box>
 
                 <Box sx={{ mt: 3 }}>

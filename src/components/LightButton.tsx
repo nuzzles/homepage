@@ -37,11 +37,11 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                         color: theme.palette.text.button,
                         border: `1px solid ${theme.palette.border.main}`,
                         "&:hover": {
-                            backgroundColor: theme.palette.background.elevated,
-                            border: `1px solid ${theme.palette.common.white}`,
+                            backgroundColor: theme.palette.background.sidebar,
+                            border: `1px solid ${theme.palette.border.hover}`,
                         },
                         "&:active": {
-                            backgroundColor: theme.palette.background.sidebar,
+                            backgroundColor: alpha(theme.palette.text.primary, 0.08),
                         },
                     }
                 case "tertiary":
@@ -50,23 +50,23 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                         color: theme.palette.text.button,
                         border: "none",
                         "&:hover": {
-                            backgroundColor: alpha(theme.palette.text.button, 0.08),
+                            backgroundColor: alpha(theme.palette.text.primary, 0.06),
                         },
                         "&:active": {
-                            backgroundColor: alpha(theme.palette.text.button, 0.12),
+                            backgroundColor: alpha(theme.palette.text.primary, 0.1),
                         },
                     }
                 case "primary":
                 default:
                     return {
-                        backgroundColor: theme.palette.common.white,
+                        backgroundColor: theme.palette.text.primary,
                         color: theme.palette.background.default,
                         border: "none",
                         "&:hover": {
-                            backgroundColor: theme.palette.text.selected,
+                            backgroundColor: theme.palette.text.secondary,
                         },
                         "&:active": {
-                            backgroundColor: alpha(theme.palette.common.white, 0.88),
+                            backgroundColor: alpha(theme.palette.text.primary, 0.75),
                         },
                     }
             }
@@ -127,25 +127,21 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
     }
 })
 
-export const LightButton = ({
-    variant = "primary",
-    disabled = false,
-    fullWidth = false,
-    size = "medium",
-    children,
-    ...props
-}: LightButtonProps) => {
-    return (
-        <StyledButton
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            variant={variant as any}
-            disabled={disabled}
-            fullWidth={fullWidth}
-            size={size}
-            disableRipple
-            {...props}
-        >
-            {children}
-        </StyledButton>
-    )
-}
+export const LightButton = React.forwardRef<HTMLButtonElement, LightButtonProps>(
+    ({ variant = "primary", disabled = false, fullWidth = false, size = "medium", children, ...props }, ref) => {
+        return (
+            <StyledButton
+                ref={ref}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                variant={variant as any}
+                disabled={disabled}
+                fullWidth={fullWidth}
+                size={size}
+                disableRipple
+                {...props}
+            >
+                {children}
+            </StyledButton>
+        )
+    }
+)

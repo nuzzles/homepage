@@ -90,7 +90,7 @@ export const lightText = {
     primary: lightColor.grey[900], // #212529
     secondary: lightColor.grey[700], // #495057
     selected: lightColor.grey[800], // #32383E
-    button: lightColor.grey[200], // #e9ecef
+    button: lightColor.grey[900], // #212529
     input: lightColor.grey[900],
     helper: lightColor.grey[600],
     inactive: lightColor.grey[500],
