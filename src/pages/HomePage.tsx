@@ -207,10 +207,10 @@ export const HomePage = () => {
                 <Box sx={{ mt: 2, width: 280, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1 }}>
                     {socials.map(({ label, href, icon }) => (
                         <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-                            <LightButton variant="tertiary" size="small" fullWidth>
+                            <LightButton variant="tertiary" size="small" fullWidth sx={{ px: 1, letterSpacing: "0.05em", fontSize: "0.75rem" }}>
                                 {icon}
                                 {label}
-                                <OpenInNew sx={{ fontSize: "0.75rem", ml: 0.25 }} />
+                                <OpenInNew sx={{ fontSize: "0.65rem", ml: 0.25 }} />
                             </LightButton>
                         </a>
                     ))}
