@@ -21,6 +21,7 @@
             name="description"
             content="This is the web page of Spencer Imbleau. I am an American research software engineer."
         />
+        <meta name="title" content="Spencer Imbleau | Homepage" />
         <meta name="keywords" content="imbleau, contact, resume, cv, blog, research, projects" />
 
         <!-- Copyright -->
@@ -38,6 +39,9 @@
         <meta property="og:type" content="profile" />
         <meta property="og:url" content="https://spencer.imbleau.com" />
         <meta property="og:image" content="https://spencer.imbleau.com/og-banner.png" />
+        <meta property="og:image:width" content="1280" />
+        <meta property="og:image:height" content="640" />
+        <meta property="og:image:alt" content="Spencer Imbleau - Research Software Engineer" />
 
         <!-- Twitter -->
         <meta name="twitter:title" content="Spencer Imbleau" />
@@ -87,11 +91,18 @@
                 "name": "Spencer Imbleau",
                 "url": "https://spencer.imbleau.com",
                 "jobTitle": "Research Software Engineer",
+                "description": "American research software engineer.",
+                "image": "https://spencer.imbleau.com/og-banner.png",
+                "nationality": "American",
                 "sameAs": ["https://mastodon.online/@scim", "https://github.com/simbleau"]
             }
         </script>
     </head>
     <body>
+        <noscript>
+            <h1>Spencer Imbleau</h1>
+            <p>Research Software Engineer. Enable JavaScript to view this site.</p>
+        </noscript>
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
     </body>
