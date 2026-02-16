@@ -15,7 +15,7 @@ function App() {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
-                        minHeight: "100vh",
+                        minHeight: "100dvh",
                         px: 1.25,
                         py: 2.5,
                     }}
