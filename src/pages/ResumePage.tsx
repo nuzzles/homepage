@@ -1,6 +1,8 @@
-import { Box, Link as MuiLink } from "@mui/material"
+import { Box } from "@mui/material"
 import { Helmet } from "react-helmet-async"
-import { Download } from "@mui/icons-material"
+import { ArrowBack, Download } from "@mui/icons-material"
+import { Link } from "react-router-dom"
+import { LightButton } from "@/components/LightButton"
 
 const RESUME_PDF_URL = "https://github.com/nuzzles/resume/releases/download/latest/resume.pdf"
 const RESUME_EMBED_URL = "https://nuzzles.github.io/resume/embed.html"
@@ -62,15 +64,20 @@ export const ResumePage = () => {
                     />
                 </Box>
 
-                <MuiLink
-                    href={RESUME_PDF_URL}
-                    download="Spencer_Imbleau_Resume.pdf"
-                    underline="hover"
-                    sx={{ mt: 2, display: "inline-flex", alignItems: "center", gap: 0.5 }}
-                >
-                    click to download résumé
-                    <Download sx={{ fontSize: "1rem" }} />
-                </MuiLink>
+                <Box sx={{ mt: 2, display: "flex", alignItems: "center", gap: 2 }}>
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                        <LightButton variant="tertiary" size="small">
+                            <ArrowBack sx={{ fontSize: "1rem", mr: 0.5 }} />
+                            go back
+                        </LightButton>
+                    </Link>
+                    <a href={RESUME_PDF_URL} download="Spencer_Imbleau_Resume.pdf" style={{ textDecoration: "none" }}>
+                        <LightButton variant="primary" size="small">
+                            <Download sx={{ fontSize: "1rem", mr: 0.5 }} />
+                            download résumé
+                        </LightButton>
+                    </a>
+                </Box>
             </Box>
         </>
     )
