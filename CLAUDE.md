@@ -48,6 +48,22 @@ pnpm preview  # Preview production build
 - Use the `@/` path alias for importing from src directory
 - Ensure ESLint passes before committing
 
+## SEO
+
+This site is SEO-optimized. When adding new pages or routes:
+
+- Add the new URL to `public/sitemap.xml`
+- Ensure `index.html` meta tags (Open Graph, Twitter Card, description) remain accurate and up to date
+- Use semantic HTML elements where possible
+
+## Theming
+
+When changing theme colors, update all locations where colors are defined:
+
+- `src/theme/` - MUI theme definitions
+- `index.html` - `theme-color` and `msapplication-TileColor` meta tags
+- `public/site.webmanifest` - `theme_color` and `background_color`
+
 ## Working with This Project
 
 ### When Making Changes
