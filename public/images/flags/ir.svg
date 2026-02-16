@@ -4,13 +4,13 @@
   <path fill="#DA0000" d="M0 228h513v114H0z"/>
   <circle cx="256.5" cy="171" r="36" fill="#EDAB00"/>
   <g fill="#EDAB00">
-    <polygon points="256.5,95 262,125 251,125"/>
-    <polygon points="256.5,247 262,217 251,217"/>
-    <polygon points="180,171 210,165.5 210,176.5"/>
-    <polygon points="333,171 303,165.5 303,176.5"/>
-    <polygon points="202.6,117.6 218,136.4 209.5,142.2"/>
-    <polygon points="310.4,117.6 295,136.4 303.5,142.2"/>
-    <polygon points="202.6,224.4 218,205.6 209.5,199.8"/>
-    <polygon points="310.4,224.4 295,205.6 303.5,199.8"/>
+    <rect x="251" y="95" width="11" height="30"/>
+    <rect x="251" y="217" width="11" height="30"/>
+    <rect x="180" y="165.5" width="30" height="11"/>
+    <rect x="303" y="165.5" width="30" height="11"/>
+    <rect x="205" y="119" width="11" height="30" transform="rotate(-45 210.5 134)"/>
+    <rect x="297" y="119" width="11" height="30" transform="rotate(45 302.5 134)"/>
+    <rect x="205" y="193" width="11" height="30" transform="rotate(45 210.5 208)"/>
+    <rect x="297" y="193" width="11" height="30" transform="rotate(-45 302.5 208)"/>
   </g>
 </svg>
