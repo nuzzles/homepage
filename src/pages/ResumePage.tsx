@@ -80,6 +80,8 @@ export const ResumePage = () => {
                             height: "calc(100vh - 120px)",
                             maxHeight: "11in",
                             maxWidth: "min(90vw, 8.5in)",
+                            width: "100%",
+                            minWidth: 300,
                             backgroundColor: `${theme.palette.text.primary}11`,
                             overflow: "hidden",
                             display: "flex",
