@@ -19,12 +19,10 @@ export const ResumePage = () => {
             </Helmet>
             <Box
                 sx={{
-                    alignSelf: "center",
-                    maxWidth: 1000,
+                    width: "100%",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    textAlign: "center",
                 }}
             >
                 <Box
@@ -78,11 +76,10 @@ export const ResumePage = () => {
                     />
                     <Box
                         sx={(theme) => ({
-                            width: "100vw",
-                            maxWidth: "8.5in",
-                            minHeight: 500,
-                            height: "calc(100vh - 230px)",
+                            aspectRatio: "8.5 / 11",
+                            height: "calc(100vh - 120px)",
                             maxHeight: "11in",
+                            maxWidth: "min(90vw, 8.5in)",
                             backgroundColor: `${theme.palette.text.primary}11`,
                             overflow: "hidden",
                             display: "flex",
@@ -95,6 +92,7 @@ export const ResumePage = () => {
                             component="iframe"
                             title="Résumé"
                             src={RESUME_EMBED_URL}
+                            scrolling="no"
                             sx={{
                                 border: 0,
                                 overflow: "hidden",
@@ -112,7 +110,7 @@ export const ResumePage = () => {
                             go back
                         </LightButton>
                     </Link>
-                    <a href={RESUME_PDF_URL} download="Spencer_Imbleau_Resume.pdf" style={{ textDecoration: "none" }}>
+                    <a href={RESUME_PDF_URL} download style={{ textDecoration: "none" }}>
                         <LightButton variant="primary" size="small">
                             <Download sx={{ fontSize: "1rem", mr: 0.5 }} />
                             download résumé

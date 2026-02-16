@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, Container, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
 import {
+    Article,
     CalendarMonth,
     Check,
     Coffee,
@@ -14,7 +15,7 @@ import {
 import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
+import { faSquareGithub, faSquareHackerNews } from "@fortawesome/free-brands-svg-icons"
 import { LightButton } from "@/components/LightButton"
 
 const CALENDLY_URL = "https://calendly.com/simbleau/meet"
@@ -28,6 +29,16 @@ const socials = [
         label: "@nuzzles",
         href: "https://www.github.com/nuzzles/",
         icon: <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />,
+    },
+    {
+        label: "simbleau",
+        href: "https://news.ycombinator.com/user?id=simbleau",
+        icon: <FontAwesomeIcon icon={faSquareHackerNews} style={{ fontSize: "1rem" }} />,
+    },
+    {
+        label: "blog",
+        href: "https://nuzzles.github.io/",
+        icon: <Article sx={{ fontSize: "1rem" }} />,
     },
 ] as const
 
@@ -199,6 +210,7 @@ export const HomePage = () => {
                             <LightButton variant="tertiary" size="small" fullWidth>
                                 {icon}
                                 {label}
+                                <OpenInNew sx={{ fontSize: "0.75rem", ml: 0.25 }} />
                             </LightButton>
                         </a>
                     ))}
