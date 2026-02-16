@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "title": "Spencer Imbleau | Homepage",
+        "description": "This is the web page of Spencer Imbleau. I am an American research software engineer.",
+        "ogDescription": "This is the web page of Spencer Imbleau. I am an American research software engineer.",
+        "twitterDescription": "This is the personal website of Spencer Imbleau.",
+        "ogImageAlt": "Spencer Imbleau - Research Software Engineer",
+        "ogLocale": "en_US",
+        "jobTitle": "Research Software Engineer",
+        "personDescription": "American research software engineer.",
+        "websiteDescription": "Personal website of Spencer Imbleau, an American research software engineer."
+    },
+    "home": {
+        "revealEmail": "reveal email",
+        "copied": "copied!",
+        "copy": "copy",
+        "resume": "resume",
+        "scheduleOneOnOne": "schedule a 1:1",
+        "madeWith": "made with",
+        "andA": "and a"
+    },
+    "resumePage": {
+        "title": "Spencer Imbleau | Resume",
+        "description": "View or download the resume of Spencer Imbleau",
+        "iframeTitle": "Resume",
+        "goBack": "go back",
+        "downloadResume": "download resume"
+    },
+    "languageSwitcher": {
+        "label": "Site Language:"
+    }
+}

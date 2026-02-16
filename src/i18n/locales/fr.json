@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "title": "Spencer Imbleau | Page d'accueil",
+        "description": "Ceci est la page Web de Spencer Imbleau. Je suis un ingénieur logiciel de recherche américain.",
+        "ogDescription": "Ceci est la page Web de Spencer Imbleau. Je suis un ingénieur logiciel de recherche américain.",
+        "twitterDescription": "Ceci est le site personnel de Spencer Imbleau.",
+        "ogImageAlt": "Spencer Imbleau - Ingénieur logiciel de recherche",
+        "ogLocale": "fr_FR",
+        "jobTitle": "Ingénieur logiciel de recherche",
+        "personDescription": "Ingénieur logiciel de recherche américain.",
+        "websiteDescription": "Site personnel de Spencer Imbleau, ingénieur logiciel de recherche américain."
+    },
+    "home": {
+        "revealEmail": "afficher le courriel",
+        "copied": "copié !",
+        "copy": "copier",
+        "resume": "curriculum vitæ",
+        "scheduleOneOnOne": "planifier un entretien",
+        "madeWith": "fait avec",
+        "andA": "et un"
+    },
+    "resumePage": {
+        "title": "Spencer Imbleau | Curriculum vitæ",
+        "description": "Consultez ou téléchargez le curriculum vitæ de Spencer Imbleau",
+        "iframeTitle": "Curriculum vitæ",
+        "goBack": "retour",
+        "downloadResume": "télécharger le CV"
+    },
+    "languageSwitcher": {
+        "label": "Langue du site :"
+    }
+}

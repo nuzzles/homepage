@@ -1,8 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
 import { Box } from "@mui/material"
 import { HomePage } from "@/pages/HomePage"
 import { ResumePage } from "@/pages/ResumePage"
+import { LanguageRedirect } from "@/components/LanguageRedirect"
+import { LocalizedLayout } from "@/components/LocalizedLayout"
 
 function App() {
     return (
@@ -21,8 +23,23 @@ function App() {
                     }}
                 >
                     <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/resume" element={<ResumePage />} />
+                        <Route path="/" element={<LanguageRedirect />} />
+
+                        <Route element={<LocalizedLayout lang="en" />}>
+                            <Route path="/resume" element={<ResumePage />} />
+                        </Route>
+
+                        <Route element={<LocalizedLayout lang="fr" />}>
+                            <Route path="/fr" element={<HomePage />} />
+                            <Route path="/fr/resume" element={<ResumePage />} />
+                        </Route>
+
+                        <Route element={<LocalizedLayout lang="fa" />}>
+                            <Route path="/fa" element={<HomePage />} />
+                            <Route path="/fa/resume" element={<ResumePage />} />
+                        </Route>
+
+                        <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </Box>
             </BrowserRouter>

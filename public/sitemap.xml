@@ -1,15 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>https://spencer.imbleau.com/</loc>
-        <lastmod>2026-02-15</lastmod>
+        <xhtml:link rel="alternate" hreflang="en-US" href="https://spencer.imbleau.com/" />
+        <xhtml:link rel="alternate" hreflang="fr" href="https://spencer.imbleau.com/fr/" />
+        <xhtml:link rel="alternate" hreflang="fa" href="https://spencer.imbleau.com/fa/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://spencer.imbleau.com/" />
+        <lastmod>2026-02-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://spencer.imbleau.com/resume</loc>
-        <lastmod>2026-02-15</lastmod>
+        <xhtml:link rel="alternate" hreflang="en-US" href="https://spencer.imbleau.com/resume" />
+        <xhtml:link rel="alternate" hreflang="fr" href="https://spencer.imbleau.com/fr/resume" />
+        <xhtml:link rel="alternate" hreflang="fa" href="https://spencer.imbleau.com/fa/resume" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://spencer.imbleau.com/resume" />
+        <lastmod>2026-02-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://spencer.imbleau.com/fr/</loc>
+        <xhtml:link rel="alternate" hreflang="en-US" href="https://spencer.imbleau.com/" />
+        <xhtml:link rel="alternate" hreflang="fr" href="https://spencer.imbleau.com/fr/" />
+        <xhtml:link rel="alternate" hreflang="fa" href="https://spencer.imbleau.com/fa/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://spencer.imbleau.com/" />
+        <lastmod>2026-02-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://spencer.imbleau.com/fr/resume</loc>
+        <xhtml:link rel="alternate" hreflang="en-US" href="https://spencer.imbleau.com/resume" />
+        <xhtml:link rel="alternate" hreflang="fr" href="https://spencer.imbleau.com/fr/resume" />
+        <xhtml:link rel="alternate" hreflang="fa" href="https://spencer.imbleau.com/fa/resume" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://spencer.imbleau.com/resume" />
+        <lastmod>2026-02-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://spencer.imbleau.com/fa/</loc>
+        <xhtml:link rel="alternate" hreflang="en-US" href="https://spencer.imbleau.com/" />
+        <xhtml:link rel="alternate" hreflang="fr" href="https://spencer.imbleau.com/fr/" />
+        <xhtml:link rel="alternate" hreflang="fa" href="https://spencer.imbleau.com/fa/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://spencer.imbleau.com/" />
+        <lastmod>2026-02-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://spencer.imbleau.com/fa/resume</loc>
+        <xhtml:link rel="alternate" hreflang="en-US" href="https://spencer.imbleau.com/resume" />
+        <xhtml:link rel="alternate" hreflang="fr" href="https://spencer.imbleau.com/fr/resume" />
+        <xhtml:link rel="alternate" hreflang="fa" href="https://spencer.imbleau.com/fa/resume" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://spencer.imbleau.com/resume" />
+        <lastmod>2026-02-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>

@@ -78,6 +78,12 @@
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
+        <!-- Language alternatives -->
+        <link rel="alternate" hreflang="en-US" href="https://spencer.imbleau.com/" />
+        <link rel="alternate" hreflang="x-default" href="https://spencer.imbleau.com/" />
+        <link rel="alternate" hreflang="fr" href="https://spencer.imbleau.com/fr/" />
+        <link rel="alternate" hreflang="fa" href="https://spencer.imbleau.com/fa/" />
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -86,40 +92,7 @@
             rel="stylesheet"
         />
 
-        <!-- Structured Data: Person -->
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "Person",
-                "name": "Spencer Imbleau",
-                "url": "https://spencer.imbleau.com",
-                "jobTitle": "Research Software Engineer",
-                "description": "American research software engineer.",
-                "image": "https://spencer.imbleau.com/og-banner.png",
-                "nationality": "American",
-                "sameAs": [
-                    "https://www.linkedin.com/in/simbleau/",
-                    "https://github.com/nuzzles/",
-                    "https://mastodon.online/@scim",
-                    "https://nuzzles.github.io/"
-                ]
-            }
-        </script>
-
-        <!-- Structured Data: WebSite -->
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "Spencer Imbleau",
-                "url": "https://spencer.imbleau.com",
-                "description": "Personal website of Spencer Imbleau, an American research software engineer.",
-                "author": {
-                    "@type": "Person",
-                    "name": "Spencer Imbleau"
-                }
-            }
-        </script>
+        <!-- Structured Data injected via React Helmet -->
     </head>
     <body>
         <noscript>

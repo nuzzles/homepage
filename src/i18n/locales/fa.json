@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "title": "Spencer Imbleau | صفحه اصلی",
+        "description": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار پژوهشی آمریکایی هستم.",
+        "ogDescription": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار پژوهشی آمریکایی هستم.",
+        "twitterDescription": "این وبسایت شخصی اسپنسر ایمبلو است.",
+        "ogImageAlt": "Spencer Imbleau - مهندس نرم‌افزار پژوهشی",
+        "ogLocale": "fa_IR",
+        "jobTitle": "مهندس نرم‌افزار پژوهشی",
+        "personDescription": "مهندس نرم‌افزار پژوهشی آمریکایی.",
+        "websiteDescription": "وبسایت شخصی اسپنسر ایمبلو، مهندس نرم‌افزار پژوهشی آمریکایی."
+    },
+    "home": {
+        "revealEmail": "نمایش ایمیل",
+        "copied": "کپی شد!",
+        "copy": "کپی",
+        "resume": "رزومه",
+        "scheduleOneOnOne": "رزرو جلسه",
+        "madeWith": "ساخته شده با",
+        "andA": "و یک"
+    },
+    "resumePage": {
+        "title": "Spencer Imbleau | رزومه",
+        "description": "مشاهده یا دانلود رزومه اسپنسر ایمبلو",
+        "iframeTitle": "رزومه",
+        "goBack": "بازگشت",
+        "downloadResume": "دانلود رزومه"
+    },
+    "languageSwitcher": {
+        "label": "زبان سایت:"
+    }
+}

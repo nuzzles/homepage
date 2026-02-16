@@ -14,9 +14,14 @@ import {
 } from "@mui/icons-material"
 import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareGithub, faSquareHackerNews } from "@fortawesome/free-brands-svg-icons"
 import { LightButton } from "@/components/LightButton"
+import { LanguageSwitcher } from "@/components/LanguageSwitcher"
+import { useLocalizedPath } from "@/hooks/useLocalizedPath"
+import { getUrlPrefix } from "@/i18n/i18n"
+import type { SupportedLanguage } from "@/i18n/i18n"
 
 const CALENDLY_URL = "https://calendly.com/simbleau/meet"
 
@@ -43,6 +48,7 @@ const socials = [
 ] as const
 
 const RevealEmailButton = () => {
+    const { t } = useTranslation()
     const [email, setEmail] = useState<string | null>(null)
     const [copied, setCopied] = useState(false)
 
@@ -85,8 +91,8 @@ const RevealEmailButton = () => {
                 >
                     {email}
                 </MuiLink>
-                <Tooltip title={copied ? "copied!" : "copy"}>
-                    <IconButton onClick={handleCopy} size="small" sx={{ mr: 0.5 }}>
+                <Tooltip title={copied ? t("home.copied") : t("home.copy")}>
+                    <IconButton onClick={handleCopy} size="small" sx={{ marginInlineEnd: 0.5 }}>
                         {copied ? <Check sx={{ fontSize: "1.1rem" }} /> : <ContentCopy sx={{ fontSize: "1.1rem" }} />}
                     </IconButton>
                 </Tooltip>
@@ -96,23 +102,64 @@ const RevealEmailButton = () => {
 
     return (
         <LightButton variant="secondary" fullWidth onClick={handleReveal}>
-            <Email sx={{ fontSize: "1rem", mr: 0.5 }} />
-            reveal email
+            <Email sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+            {t("home.revealEmail")}
         </LightButton>
     )
 }
 
 const W = { xs: 280, md: 360 }
 
+const BASE_URL = "https://spencer.imbleau.com"
+
 export const HomePage = () => {
+    const { t, i18n } = useTranslation()
+    const lp = useLocalizedPath()
+    const prefix = getUrlPrefix(i18n.language as SupportedLanguage)
+    const canonicalUrl = `${BASE_URL}${prefix}/`
+
     return (
         <>
             <Helmet>
-                <title>Spencer Imbleau | Homepage</title>
-                <meta
-                    name="description"
-                    content="This is the web page of Spencer Imbleau. I am an American research software engineer."
-                />
+                <title>{t("meta.title")}</title>
+                <meta name="description" content={t("meta.description")} />
+                <meta name="title" content={t("meta.title")} />
+                <meta property="og:description" content={t("meta.ogDescription")} />
+                <meta property="og:locale" content={t("meta.ogLocale")} />
+                <meta property="og:image:alt" content={t("meta.ogImageAlt")} />
+                <meta name="twitter:description" content={t("meta.twitterDescription")} />
+                <link rel="canonical" href={canonicalUrl} />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Person",
+                        name: "Spencer Imbleau",
+                        url: BASE_URL,
+                        jobTitle: t("meta.jobTitle"),
+                        description: t("meta.personDescription"),
+                        image: `${BASE_URL}/og-banner.png`,
+                        nationality: "American",
+                        sameAs: [
+                            "https://www.linkedin.com/in/simbleau/",
+                            "https://github.com/nuzzles/",
+                            "https://mastodon.online/@scim",
+                            "https://nuzzles.github.io/",
+                        ],
+                    })}
+                </script>
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        name: "Spencer Imbleau",
+                        url: BASE_URL,
+                        description: t("meta.websiteDescription"),
+                        author: {
+                            "@type": "Person",
+                            name: "Spencer Imbleau",
+                        },
+                    })}
+                </script>
             </Helmet>
             <Container
                 maxWidth="sm"
@@ -190,18 +237,18 @@ export const HomePage = () => {
                 </Typography>
 
                 <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1.5, width: W }}>
-                    <Link to="/resume" style={{ textDecoration: "none" }}>
+                    <Link to={lp("/resume")} style={{ textDecoration: "none" }}>
                         <LightButton variant="primary" fullWidth>
-                            <Description sx={{ fontSize: "1rem", mr: 0.5 }} />
-                            résumé
+                            <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                            {t("home.resume")}
                         </LightButton>
                     </Link>
                     <RevealEmailButton />
                     <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                         <LightButton variant="secondary" fullWidth>
-                            <CalendarMonth sx={{ fontSize: "1rem", mr: 0.5 }} />
-                            schedule a 1:1
-                            <OpenInNew sx={{ fontSize: "1rem", ml: 0.5 }} />
+                            <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                            {t("home.scheduleOneOnOne")}
+                            <OpenInNew sx={{ fontSize: "1rem", marginInlineStart: 0.5 }} />
                         </LightButton>
                     </a>
                 </Box>
@@ -212,14 +259,18 @@ export const HomePage = () => {
                             <LightButton variant="tertiary" size="small" fullWidth sx={{ px: 1, letterSpacing: "0.05em", fontSize: "0.75rem" }}>
                                 {icon}
                                 {label}
-                                <OpenInNew sx={{ fontSize: "0.65rem", ml: 0.25 }} />
+                                <OpenInNew sx={{ fontSize: "0.65rem", marginInlineStart: 0.25 }} />
                             </LightButton>
                         </a>
                     ))}
                 </Box>
 
-                <Typography variant="body2" sx={{ mt: 2.5 }}>
-                    made with <Coffee sx={{ fontSize: "0.9rem", verticalAlign: "middle" }} /> and a{" "}
+                <Box sx={{ mt: 2 }}>
+                    <LanguageSwitcher />
+                </Box>
+
+                <Typography variant="body2" sx={{ mt: 2 }}>
+                    {t("home.madeWith")} <Coffee sx={{ fontSize: "0.9rem", verticalAlign: "middle" }} /> {t("home.andA")}{" "}
                     <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
                 </Typography>
             </Container>
