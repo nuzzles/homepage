@@ -7,9 +7,9 @@ import { stripLanguagePrefix, getUrlPrefix } from "@/i18n/i18n"
 import type { SupportedLanguage } from "@/i18n/i18n"
 
 const languages = [
-    { code: "en", label: "ENGLISH", flag: "https://img.icons8.com/color/48/usa.png" },
-    { code: "fr", label: "FRANÇAIS", flag: "https://img.icons8.com/color/48/france.png" },
-    { code: "fa", label: "فارسی", flag: "https://img.icons8.com/color/48/iran.png" },
+    { code: "en", label: "ENGLISH", flag: "/images/flags/us.svg" },
+    { code: "fr", label: "FRANÇAIS", flag: "/images/flags/fr.svg" },
+    { code: "fa", label: "فارسی", flag: "/images/flags/ir.svg" },
 ] as const
 
 export const LanguageSwitcher = () => {
@@ -111,7 +111,7 @@ export const LanguageSwitcher = () => {
                             component="img"
                             src={flag}
                             alt=""
-                            sx={{ width: 16, height: 16, marginInlineEnd: 0.75, verticalAlign: "middle" }}
+                            sx={{ width: 20, height: 14, objectFit: "cover", marginInlineEnd: 0.75, verticalAlign: "middle" }}
                         />
                         {label}
                     </MenuItem>
