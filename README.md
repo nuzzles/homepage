@@ -1,9 +1,8 @@
 # Personal Website
 
-[![Last Release](https://img.shields.io/github/release-date/nuzzles/homepage?logo=github&label=Last%20Release)](https://github.com/nuzzles/homepage/releases)
+[![Uptime Status](https://img.shields.io/uptimerobot/status/m802358152-3a32dc04dddbd9789a469d21)](https://stats.uptimerobot.com/pTFWZdoTxa)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/nuzzles/homepage/ci.yml?logo=github&label=CI)](https://github.com/nuzzles/homepage/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0%2FMIT-blue.svg)](LICENSE-APACHE)
-[![Uptime Status](https://img.shields.io/uptimerobot/status/m802358152-3a32dc04dddbd9789a469d21)](https://stats.uptimerobot.com/pTFWZdoTxa)
 
 This is the source code for my personal website built with React, TypeScript, Vite, and Claude.
 
