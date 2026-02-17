@@ -12,6 +12,7 @@ This is the source code for my personal website built with React, TypeScript, Vi
 
 - [Node.js](https://nodejs.org/) v22+
 - [pnpm](https://pnpm.io/) v9+
+- [resvg](https://github.com/niclas-AKA-Ansen/resvg) (`cargo install resvg`) - for asset generation
 
 **Installation:**
 
@@ -34,6 +35,19 @@ pnpm dev      # Start development server
 pnpm build    # Build for production
 pnpm lint     # Run ESLint
 pnpm preview  # Preview production build locally
+```
+
+## Asset Generation
+
+Favicons, OG images, and other assets are generated from two SVG source files:
+
+- `public/logo.svg` - Logo used for favicons, app icons, and tiles
+- `public/og-banner.svg` - Open Graph banner image
+
+To regenerate all assets after editing the SVGs:
+
+```sh
+./generate-assets.sh
 ```
 
 ## License
