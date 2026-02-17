@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
 
-const RESUME_PDF_URL = "https://github.com/nuzzles/resume/releases/download/latest/resume.pdf"
+const RESUME_PDF_URL = "https://nuzzles.github.io/resume/resume.pdf"
 const RESUME_EMBED_URL = "https://nuzzles.github.io/resume/embed.html"
 
 const BASE_URL = "https://spencer.imbleau.com"
