@@ -1,8 +1,10 @@
 {
-    "name": "website",
-    "private": true,
+    "name": "homepage",
+    "description": "Personal website of Spencer Imbleau",
     "version": "0.1.0",
+    "private": true,
     "type": "module",
+    "author": "Spencer Imbleau",
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
