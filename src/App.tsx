@@ -26,6 +26,8 @@ function App() {
                         <Route path="/" element={<LanguageRedirect />} />
 
                         <Route element={<LocalizedLayout lang="en" />}>
+                            <Route path="/en" element={<HomePage />} />
+                            <Route path="/en/resume" element={<ResumePage />} />
                             <Route path="/resume" element={<ResumePage />} />
                         </Route>
 

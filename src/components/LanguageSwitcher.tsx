@@ -19,6 +19,8 @@ export const LanguageSwitcher = () => {
 
     const handleChange = (e: SelectChangeEvent) => {
         const newLang = e.target.value as SupportedLanguage
+        localStorage.setItem("preferredLanguage", newLang)
+        i18n.changeLanguage(newLang)
         const basePath = stripLanguagePrefix(location.pathname)
         const prefix = getUrlPrefix(newLang)
         const newPath = basePath === "/" ? prefix || "/" : `${prefix}${basePath}`

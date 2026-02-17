@@ -10,7 +10,7 @@ function detectBrowserLanguage(): SupportedLanguage {
     for (const browserLang of browserLangs) {
         const lower = browserLang.toLowerCase()
         for (const [lang, config] of Object.entries(languageConfig)) {
-            if (lang !== defaultLanguage && lower.startsWith(config.browserPrefix)) {
+            if (lower.startsWith(config.browserPrefix)) {
                 return lang as SupportedLanguage
             }
         }
@@ -18,17 +18,27 @@ function detectBrowserLanguage(): SupportedLanguage {
     return defaultLanguage
 }
 
+function getPreferredLanguage(): SupportedLanguage {
+    const stored = localStorage.getItem("preferredLanguage")
+    if (stored && stored in languageConfig) {
+        return stored as SupportedLanguage
+    }
+    return detectBrowserLanguage()
+}
+
 export const LanguageRedirect = () => {
     const { i18n } = useTranslation()
-    const detected = detectBrowserLanguage()
+    const detected = getPreferredLanguage()
+
+    // Change language synchronously so the first render uses correct translations
+    if (i18n.language !== detected) {
+        i18n.changeLanguage(detected)
+    }
 
     useEffect(() => {
-        if (detected === defaultLanguage) {
-            i18n.changeLanguage(defaultLanguage)
-            document.documentElement.setAttribute("lang", getHtmlLang(defaultLanguage))
-            document.documentElement.setAttribute("dir", getDir(defaultLanguage))
-        }
-    }, [detected, i18n])
+        document.documentElement.setAttribute("lang", getHtmlLang(detected))
+        document.documentElement.setAttribute("dir", getDir(detected))
+    }, [detected])
 
     if (detected !== defaultLanguage) {
         return <Navigate to={`${getUrlPrefix(detected)}/`} replace />

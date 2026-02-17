@@ -39,6 +39,9 @@ export function getDir(lang: SupportedLanguage): "ltr" | "rtl" {
 
 export function getLanguageFromPath(pathname: string): SupportedLanguage {
     const firstSegment = pathname.split("/").filter(Boolean)[0]?.toLowerCase()
+    if (firstSegment && firstSegment in languageConfig) {
+        return firstSegment as SupportedLanguage
+    }
     for (const [lang, config] of Object.entries(languageConfig)) {
         if (config.urlPrefix && config.urlPrefix === `/${firstSegment}`) {
             return lang as SupportedLanguage
@@ -48,6 +51,10 @@ export function getLanguageFromPath(pathname: string): SupportedLanguage {
 }
 
 export function stripLanguagePrefix(pathname: string): string {
+    const firstSegment = pathname.split("/").filter(Boolean)[0]?.toLowerCase()
+    if (firstSegment && firstSegment in languageConfig) {
+        return pathname.slice(firstSegment.length + 1) || "/"
+    }
     for (const config of Object.values(languageConfig)) {
         if (config.urlPrefix && pathname.startsWith(config.urlPrefix)) {
             return pathname.slice(config.urlPrefix.length) || "/"
