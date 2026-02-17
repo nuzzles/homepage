@@ -1,9 +1,7 @@
-import { useTranslation } from "react-i18next"
-import { useNavigate, useLocation } from "react-router-dom"
 import { Select, MenuItem, Box } from "@mui/material"
 import { alpha } from "@mui/material/styles"
 import type { SelectChangeEvent } from "@mui/material"
-import { stripLanguagePrefix, getUrlPrefix } from "@/i18n/i18n"
+import { useLanguage } from "@/hooks/useLanguage"
 import type { SupportedLanguage } from "@/i18n/i18n"
 
 const languages = [
@@ -13,18 +11,10 @@ const languages = [
 ] as const
 
 export const LanguageSwitcher = () => {
-    const { t, i18n } = useTranslation()
-    const navigate = useNavigate()
-    const location = useLocation()
+    const { t, language, switchLanguage } = useLanguage()
 
     const handleChange = (e: SelectChangeEvent) => {
-        const newLang = e.target.value as SupportedLanguage
-        localStorage.setItem("preferredLanguage", newLang)
-        i18n.changeLanguage(newLang)
-        const basePath = stripLanguagePrefix(location.pathname)
-        const prefix = getUrlPrefix(newLang)
-        const newPath = basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
-        navigate(newPath)
+        switchLanguage(e.target.value as SupportedLanguage)
     }
 
     return (
@@ -43,7 +33,7 @@ export const LanguageSwitcher = () => {
                 {t("languageSwitcher.label")}
             </Box>
             <Select
-                value={i18n.language}
+                value={language}
                 onChange={handleChange}
                 variant="outlined"
                 size="small"

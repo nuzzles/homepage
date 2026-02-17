@@ -19,9 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareGithub, faSquareHackerNews } from "@fortawesome/free-brands-svg-icons"
 import { LightButton } from "@/components/LightButton"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
-import { useLocalizedPath } from "@/hooks/useLocalizedPath"
-import { getUrlPrefix } from "@/i18n/i18n"
-import type { SupportedLanguage } from "@/i18n/i18n"
+import { useLanguage } from "@/hooks/useLanguage"
 
 const CALENDLY_URL = "https://calendly.com/simbleau/meet"
 
@@ -113,9 +111,7 @@ const W = { xs: 280, md: 360 }
 const BASE_URL = "https://spencer.imbleau.com"
 
 export const HomePage = () => {
-    const { t, i18n } = useTranslation()
-    const lp = useLocalizedPath()
-    const prefix = getUrlPrefix(i18n.language as SupportedLanguage)
+    const { t, prefix, localizedPath } = useLanguage()
     const canonicalUrl = `${BASE_URL}${prefix}/`
 
     return (
@@ -237,7 +233,7 @@ export const HomePage = () => {
                 </Typography>
 
                 <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1.5, width: W }}>
-                    <Link to={lp("/resume")} style={{ textDecoration: "none" }}>
+                    <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
                         <LightButton variant="primary" fullWidth>
                             <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                             {t("home.resume")}

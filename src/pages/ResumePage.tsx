@@ -2,11 +2,8 @@ import { Box } from "@mui/material"
 import { Helmet } from "react-helmet-async"
 import { ArrowBack, Download } from "@mui/icons-material"
 import { Link } from "react-router-dom"
-import { useTranslation } from "react-i18next"
 import { LightButton } from "@/components/LightButton"
-import { useLocalizedPath } from "@/hooks/useLocalizedPath"
-import { getUrlPrefix } from "@/i18n/i18n"
-import type { SupportedLanguage } from "@/i18n/i18n"
+import { useLanguage } from "@/hooks/useLanguage"
 
 const RESUME_PDF_URL = "https://github.com/nuzzles/resume/releases/download/latest/resume.pdf"
 const RESUME_EMBED_URL = "https://nuzzles.github.io/resume/embed.html"
@@ -14,9 +11,7 @@ const RESUME_EMBED_URL = "https://nuzzles.github.io/resume/embed.html"
 const BASE_URL = "https://spencer.imbleau.com"
 
 export const ResumePage = () => {
-    const { t, i18n } = useTranslation()
-    const lp = useLocalizedPath()
-    const prefix = getUrlPrefix(i18n.language as SupportedLanguage)
+    const { t, prefix, localizedPath } = useLanguage()
     const canonicalUrl = `${BASE_URL}${prefix}/resume`
 
     return (
@@ -114,7 +109,7 @@ export const ResumePage = () => {
                 </Box>
 
                 <Box sx={{ mt: 2, display: "flex", alignItems: "center", gap: 2 }}>
-                    <Link to={lp("/")} style={{ textDecoration: "none" }}>
+                    <Link to={localizedPath("/")} style={{ textDecoration: "none" }}>
                         <LightButton variant="tertiary" size="small" sx={{ px: 1.5 }}>
                             <ArrowBack sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                             {t("resumePage.goBack")}
