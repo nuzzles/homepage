@@ -22,7 +22,7 @@ export const LanguageSwitcher = () => {
             <Box
                 component="span"
                 sx={(theme) => ({
-                    fontSize: "0.75rem",
+                    fontSize: "0.875rem",
                     fontWeight: 600,
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
@@ -38,7 +38,7 @@ export const LanguageSwitcher = () => {
                 variant="outlined"
                 size="small"
                 sx={(theme) => ({
-                    fontSize: "0.75rem",
+                    fontSize: "0.875rem",
                     fontWeight: 600,
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
@@ -79,7 +79,7 @@ export const LanguageSwitcher = () => {
                             boxShadow: "none",
                             border: `1px solid ${theme.palette.border.main}`,
                             "& .MuiMenuItem-root": {
-                                fontSize: "0.75rem",
+                                fontSize: "0.875rem",
                                 fontWeight: 600,
                                 letterSpacing: "0.1em",
                                 textTransform: "uppercase",

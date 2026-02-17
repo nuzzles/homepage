@@ -80,7 +80,7 @@ const RevealEmailButton = () => {
                     sx={{
                         flex: 1,
                         px: 1.5,
-                        fontSize: "0.875rem",
+                        fontSize: "1rem",
                         fontWeight: 600,
                         letterSpacing: "0.05em",
                         whiteSpace: "nowrap",
@@ -266,11 +266,11 @@ export const HomePage = () => {
                                 variant="tertiary"
                                 size="small"
                                 fullWidth
-                                sx={{ px: 1, letterSpacing: "0.05em", fontSize: "0.75rem" }}
+                                sx={{ px: 1, letterSpacing: "0.05em", fontSize: "0.875rem" }}
                             >
                                 {icon}
                                 {label}
-                                <OpenInNew sx={{ fontSize: "0.65rem", marginInlineStart: 0.25 }} />
+                                <OpenInNew sx={{ fontSize: "1rem", marginInlineStart: 0.25 }} />
                             </LightButton>
                         </a>
                     ))}
@@ -281,7 +281,7 @@ export const HomePage = () => {
                 </Box>
 
                 <Typography variant="body2" sx={{ mt: 2 }}>
-                    {t("home.madeWith")} <Coffee sx={{ fontSize: "0.9rem", verticalAlign: "middle" }} />{" "}
+                    {t("home.madeWith")} <Coffee sx={{ fontSize: "1rem", verticalAlign: "middle" }} />{" "}
                     {t("home.andA")} <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
                 </Typography>
             </Container>

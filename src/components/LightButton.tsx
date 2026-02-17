@@ -81,20 +81,20 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                 case "small":
                     return {
                         padding: "6px 16px",
-                        fontSize: "0.8125rem",
+                        fontSize: "0.875rem",
                         minHeight: 36,
                     }
                 case "large":
                     return {
                         padding: "16px 32px",
-                        fontSize: "0.9375rem",
+                        fontSize: "1rem",
                         minHeight: 56,
                     }
                 case "medium":
                 default:
                     return {
                         padding: "12px 24px",
-                        fontSize: "0.875rem",
+                        fontSize: "1rem",
                         minHeight: 48,
                     }
             }
