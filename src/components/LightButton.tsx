@@ -35,10 +35,12 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                     return {
                         backgroundColor: theme.palette.background.paper,
                         color: theme.palette.text.button,
-                        border: `1px solid ${theme.palette.border.main}`,
+                        border: "none",
+                        outline: `1px solid ${theme.palette.border.main}`,
+                        outlineOffset: "-1px",
                         "&:hover": {
                             backgroundColor: theme.palette.background.sidebar,
-                            border: `1px solid ${theme.palette.border.hover}`,
+                            outline: `1px solid ${theme.palette.border.hover}`,
                             color: theme.palette.primary.main,
                         },
                         "&:active": {
@@ -117,7 +119,7 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
             "&.Mui-disabled": {
                 backgroundColor: disabled ? alpha(theme.palette.common.white, 0.3) : "transparent",
                 color: disabled ? alpha(theme.palette.background.default, 0.5) : alpha(theme.palette.text.button, 0.5),
-                border: variant === "secondary" ? `1px solid ${alpha(theme.palette.border.main, 0.5)}` : "none",
+                outline: variant === "secondary" ? `1px solid ${alpha(theme.palette.border.main, 0.5)}` : "none",
             },
 
             // Remove default MUI button styles

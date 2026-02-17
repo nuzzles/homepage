@@ -70,7 +70,7 @@ const RevealEmailButton = () => {
                     alignItems: "center",
                     border: `1px solid ${theme.palette.border.main}`,
                     backgroundColor: theme.palette.background.paper,
-                    height: 50,
+                    height: 52,
                     width: "100%",
                 })}
             >
