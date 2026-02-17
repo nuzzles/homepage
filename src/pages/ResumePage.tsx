@@ -1,4 +1,5 @@
-import { Box } from "@mui/material"
+import { useState } from "react"
+import { Box, CircularProgress } from "@mui/material"
 import { Helmet } from "react-helmet-async"
 import { ArrowBack, Download } from "@mui/icons-material"
 import { Link } from "react-router-dom"
@@ -13,6 +14,7 @@ const BASE_URL = "https://spencer.imbleau.com"
 export const ResumePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
     const canonicalUrl = `${BASE_URL}${prefix}/resume`
+    const [loading, setLoading] = useState(true)
 
     return (
         <>
@@ -80,6 +82,7 @@ export const ResumePage = () => {
                     />
                     <Box
                         sx={(theme) => ({
+                            position: "relative",
                             aspectRatio: "8.5 / 11",
                             height: "calc(100dvh - 120px)",
                             maxHeight: "11in",
@@ -93,11 +96,25 @@ export const ResumePage = () => {
                             flexDirection: "column",
                         })}
                     >
+                        {loading && (
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    inset: 0,
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    zIndex: 1,
+                                }}
+                            >
+                                <CircularProgress size={40} />
+                            </Box>
+                        )}
                         <Box
                             component="iframe"
                             title={t("resumePage.iframeTitle")}
                             src={RESUME_EMBED_URL}
-                            scrolling="no"
+                            onLoad={() => setLoading(false)}
                             sx={{
                                 border: 0,
                                 overflow: "hidden",
