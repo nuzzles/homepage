@@ -1,4 +1,5 @@
 import { useRef, useState } from "react"
+import { saveAs } from "file-saver"
 import { Box, CircularProgress, LinearProgress } from "@mui/material"
 import { Helmet } from "react-helmet-async"
 import { ArrowBack, Download } from "@mui/icons-material"
@@ -41,13 +42,8 @@ export const ResumePage = () => {
                 if (total > 0) setDownloadProgress(Math.round((received / total) * 100))
             }
 
-            const blob = new Blob(chunks, { type: "application/octet-stream" })
-            const url = URL.createObjectURL(blob)
-            const a = document.createElement("a")
-            a.href = url
-            a.download = t("resumePage.downloadFilename")
-            a.click()
-            URL.revokeObjectURL(url)
+            const blob = new Blob(chunks, { type: "application/pdf" })
+            saveAs(blob, t("resumePage.downloadFilename"))
         } finally {
             setDownloading(false)
             setDownloadProgress(0)
