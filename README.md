@@ -12,7 +12,7 @@ This is the source code for my personal website built with React, TypeScript, Vi
 
 - [Node.js](https://nodejs.org/) v22+
 - [pnpm](https://pnpm.io/) v9+
-- [resvg](https://github.com/niclas-AKA-Ansen/resvg) (`cargo install resvg`) - for asset generation
+- [resvg](https://github.com/niclas-AKA-Ansen/resvg) (`cargo install resvg`)
 
 **Installation:**
 
