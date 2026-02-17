@@ -41,7 +41,7 @@ export const ResumePage = () => {
                 if (total > 0) setDownloadProgress(Math.round((received / total) * 100))
             }
 
-            const blob = new Blob(chunks, { type: "application/pdf" })
+            const blob = new Blob(chunks, { type: "application/octet-stream" })
             const url = URL.createObjectURL(blob)
             const a = document.createElement("a")
             a.href = url
