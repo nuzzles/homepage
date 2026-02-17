@@ -1,5 +1,4 @@
 import { useRef, useState } from "react"
-import { saveAs } from "file-saver"
 import { Box, CircularProgress, LinearProgress } from "@mui/material"
 import { Helmet } from "react-helmet-async"
 import { ArrowBack, Download } from "@mui/icons-material"
@@ -30,20 +29,31 @@ export const ResumePage = () => {
             const contentLength = res.headers.get("content-length")
             const total = contentLength ? parseInt(contentLength, 10) : 0
             const reader = res.body?.getReader()
-            if (!reader) return
 
-            const chunks: BlobPart[] = []
-            let received = 0
-            while (true) {
-                const { done, value } = await reader.read()
-                if (done) break
-                chunks.push(value)
-                received += value.length
-                if (total > 0) setDownloadProgress(Math.round((received / total) * 100))
+            let blob: Blob
+            if (reader) {
+                const chunks: BlobPart[] = []
+                let received = 0
+                while (true) {
+                    const { done, value } = await reader.read()
+                    if (done) break
+                    chunks.push(value)
+                    received += value.length
+                    if (total > 0) setDownloadProgress(Math.round((received / total) * 100))
+                }
+                blob = new Blob(chunks, { type: "application/pdf" })
+            } else {
+                blob = await res.blob()
             }
 
-            const blob = new Blob(chunks, { type: "application/pdf" })
-            saveAs(blob, t("resumePage.downloadFilename"))
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement("a")
+            a.href = url
+            a.download = t("resumePage.downloadFilename")
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+            URL.revokeObjectURL(url)
         } finally {
             setDownloading(false)
             setDownloadProgress(0)
