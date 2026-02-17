@@ -228,7 +228,11 @@ export const HomePage = () => {
                     />
                 </Box>
 
-                <Typography variant="h5" component="h1" sx={{ mt: 1, fontWeight: 700, width: W, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                <Typography
+                    variant="h5"
+                    component="h1"
+                    sx={{ mt: 1, fontWeight: 700, width: W, textTransform: "uppercase", letterSpacing: "0.08em" }}
+                >
                     Spencer Imbleau
                 </Typography>
 
@@ -251,8 +255,19 @@ export const HomePage = () => {
 
                 <Box sx={{ mt: 2, width: W, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1 }}>
                     {socials.map(({ label, href, icon }) => (
-                        <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-                            <LightButton variant="tertiary" size="small" fullWidth sx={{ px: 1, letterSpacing: "0.05em", fontSize: "0.75rem" }}>
+                        <a
+                            key={label}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ textDecoration: "none" }}
+                        >
+                            <LightButton
+                                variant="tertiary"
+                                size="small"
+                                fullWidth
+                                sx={{ px: 1, letterSpacing: "0.05em", fontSize: "0.75rem" }}
+                            >
                                 {icon}
                                 {label}
                                 <OpenInNew sx={{ fontSize: "0.65rem", marginInlineStart: 0.25 }} />
@@ -266,8 +281,8 @@ export const HomePage = () => {
                 </Box>
 
                 <Typography variant="body2" sx={{ mt: 2 }}>
-                    {t("home.madeWith")} <Coffee sx={{ fontSize: "0.9rem", verticalAlign: "middle" }} /> {t("home.andA")}{" "}
-                    <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
+                    {t("home.madeWith")} <Coffee sx={{ fontSize: "0.9rem", verticalAlign: "middle" }} />{" "}
+                    {t("home.andA")} <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
                 </Typography>
             </Container>
         </>

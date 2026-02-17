@@ -89,6 +89,7 @@ export const ResumePage = () => {
                             maxWidth: "min(90vw, 8.5in)",
                             width: "100%",
                             backgroundColor: `${theme.palette.text.primary}11`,
+                            border: `1px solid ${theme.palette.divider}`,
                             overflow: "hidden",
                             display: "flex",
                             justifyContent: "center",
