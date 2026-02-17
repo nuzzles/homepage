@@ -24,7 +24,8 @@
         "description": "Consultez ou téléchargez le curriculum vitæ de Spencer Imbleau",
         "iframeTitle": "Curriculum vitæ",
         "goBack": "retour",
-        "downloadResume": "télécharger"
+        "downloadResume": "télécharger",
+        "downloadFilename": "CV_Spencer_Imbleau.pdf"
     },
     "languageSwitcher": {
         "label": "Langue du site :"

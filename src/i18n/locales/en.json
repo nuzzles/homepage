@@ -24,7 +24,8 @@
         "description": "View or download the resume of Spencer Imbleau",
         "iframeTitle": "Resume",
         "goBack": "go back",
-        "downloadResume": "download"
+        "downloadResume": "download",
+        "downloadFilename": "Resume_Spencer_Imbleau.pdf"
     },
     "languageSwitcher": {
         "label": "Site Language:"

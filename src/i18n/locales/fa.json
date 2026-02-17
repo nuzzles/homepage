@@ -24,7 +24,8 @@
         "description": "مشاهده یا دانلود رزومه اسپنسر ایمبلو",
         "iframeTitle": "رزومه",
         "goBack": "بازگشت",
-        "downloadResume": "دانلود"
+        "downloadResume": "دانلود",
+        "downloadFilename": "Imbleau_Spencer_رزومه.pdf"
     },
     "languageSwitcher": {
         "label": "زبان سایت:"

@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Box, CircularProgress } from "@mui/material"
+import { useRef, useState } from "react"
+import { Box, CircularProgress, LinearProgress } from "@mui/material"
 import { Helmet } from "react-helmet-async"
 import { ArrowBack, Download } from "@mui/icons-material"
 import { Link } from "react-router-dom"
@@ -15,6 +15,45 @@ export const ResumePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
     const canonicalUrl = `${BASE_URL}${prefix}/resume`
     const [loading, setLoading] = useState(true)
+    const [downloading, setDownloading] = useState(false)
+    const [downloadProgress, setDownloadProgress] = useState(0)
+    const [btnWidth, setBtnWidth] = useState<number | undefined>(undefined)
+    const btnRef = useRef<HTMLButtonElement>(null)
+
+    const handleDownload = async () => {
+        if (btnRef.current) setBtnWidth(btnRef.current.offsetWidth)
+        setDownloading(true)
+        setDownloadProgress(0)
+        try {
+            const res = await fetch(RESUME_PDF_URL)
+            const contentLength = res.headers.get("content-length")
+            const total = contentLength ? parseInt(contentLength, 10) : 0
+            const reader = res.body?.getReader()
+            if (!reader) return
+
+            const chunks: BlobPart[] = []
+            let received = 0
+            while (true) {
+                const { done, value } = await reader.read()
+                if (done) break
+                chunks.push(value)
+                received += value.length
+                if (total > 0) setDownloadProgress(Math.round((received / total) * 100))
+            }
+
+            const blob = new Blob(chunks, { type: "application/pdf" })
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement("a")
+            a.href = url
+            a.download = t("resumePage.downloadFilename")
+            a.click()
+            URL.revokeObjectURL(url)
+        } finally {
+            setDownloading(false)
+            setDownloadProgress(0)
+            setBtnWidth(undefined)
+        }
+    }
 
     return (
         <>
@@ -133,12 +172,37 @@ export const ResumePage = () => {
                             {t("resumePage.goBack")}
                         </LightButton>
                     </Link>
-                    <a href={RESUME_PDF_URL} download style={{ textDecoration: "none" }}>
-                        <LightButton variant="primary" size="small" sx={{ px: 1.5 }}>
-                            <Download sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                            {t("resumePage.downloadResume")}
-                        </LightButton>
-                    </a>
+                    <LightButton
+                        ref={btnRef}
+                        variant="primary"
+                        size="small"
+                        sx={{ px: 1.5, overflow: "hidden", position: "relative", minWidth: btnWidth }}
+                        onClick={downloading ? undefined : handleDownload}
+                    >
+                        <Download sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                        {downloading
+                            ? downloadProgress > 0
+                                ? `${downloadProgress}%`
+                                : "..."
+                            : t("resumePage.downloadResume")}
+                        {downloading && (
+                            <LinearProgress
+                                variant={downloadProgress > 0 ? "determinate" : "indeterminate"}
+                                value={downloadProgress}
+                                sx={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: 3,
+                                    backgroundColor: "rgba(255,255,255,0.2)",
+                                    "& .MuiLinearProgress-bar": {
+                                        backgroundColor: "rgba(255,255,255,0.7)",
+                                    },
+                                }}
+                            />
+                        )}
+                    </LightButton>
                 </Box>
             </Box>
         </>
