@@ -1,7 +1,8 @@
 import { useRef, useState } from "react"
 import { Box, CircularProgress, LinearProgress } from "@mui/material"
 import { Helmet } from "react-helmet-async"
-import { ArrowBack, Download } from "@mui/icons-material"
+import ArrowBack from "@mui/icons-material/ArrowBack"
+import Download from "@mui/icons-material/Download"
 import { Link } from "react-router-dom"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
@@ -26,6 +27,9 @@ export const ResumePage = () => {
         setDownloadProgress(0)
         try {
             const res = await fetch(RESUME_PDF_URL)
+            if (!res.ok) {
+                throw new Error(`Resume download failed with status ${res.status}`)
+            }
             const contentLength = res.headers.get("content-length")
             const total = contentLength ? parseInt(contentLength, 10) : 0
             const reader = res.body?.getReader()
@@ -54,6 +58,15 @@ export const ResumePage = () => {
             a.click()
             document.body.removeChild(a)
             URL.revokeObjectURL(url)
+        } catch (error) {
+            console.error("Unable to download the resume directly", error)
+            const fallback = document.createElement("a")
+            fallback.href = RESUME_PDF_URL
+            fallback.target = "_blank"
+            fallback.rel = "noopener noreferrer"
+            document.body.appendChild(fallback)
+            fallback.click()
+            document.body.removeChild(fallback)
         } finally {
             setDownloading(false)
             setDownloadProgress(0)

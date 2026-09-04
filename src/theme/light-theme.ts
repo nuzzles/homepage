@@ -1,12 +1,5 @@
 import { createTheme } from "@mui/material/styles"
-import {
-    lightFontFamily,
-    lightFontWeight,
-    lightBackground,
-    lightText,
-    lightBorder,
-    lightColor,
-} from "./light-tokens"
+import { lightFontFamily, lightFontWeight, lightBackground, lightText, lightBorder, lightColor } from "./light-tokens"
 
 // MUI module augmentation for custom palette keys
 declare module "@mui/material/styles" {

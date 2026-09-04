@@ -6,12 +6,13 @@ This is a personal website built with React 19, TypeScript, and Vite. The projec
 
 ## Tech Stack
 
-- **Framework**: React 19.1.1
-- **Build Tool**: Vite 7.1.2
-- **Language**: TypeScript 5.9.3
-- **UI Library**: Material-UI (MUI) 7.3.1
+- **Framework**: React 19
+- **Build Tool**: Vite
+- **Language**: TypeScript 6
+- **UI Library**: Material-UI (MUI)
 - **Styling**: Emotion (CSS-in-JS)
-- **Package Manager**: pnpm
+- **Runtime**: Node.js 24 LTS
+- **Package Manager**: pnpm 11
 - **Linting**: ESLint with TypeScript support
 - **Formatting**: Prettier
 
@@ -21,6 +22,8 @@ This is a personal website built with React 19, TypeScript, and Vite. The projec
 pnpm dev      # Start development server
 pnpm build    # Build for production (TypeScript check + Vite build)
 pnpm lint     # Run ESLint
+pnpm format   # Format project files
+pnpm check    # Run all project checks
 pnpm preview  # Preview production build
 ```
 
@@ -76,4 +79,4 @@ When changing theme colors, update all locations where colors are defined:
 ### Package Management
 
 - Use `pnpm` for installing dependencies (NOT npm or yarn)
-- Only built dependencies: esbuild (as specified in pnpm config)
+- Only allowed build scripts: esbuild (as specified in `pnpm-workspace.yaml`)

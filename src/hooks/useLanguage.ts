@@ -25,7 +25,7 @@ export function useLanguage() {
                 i18n.changeLanguage(lang)
             }
         },
-        [i18n],
+        [i18n]
     )
 
     // User explicitly switches language (persists choice + navigates)
@@ -38,7 +38,7 @@ export function useLanguage() {
             const newPath = basePath === "/" ? newPrefix || "/" : `${newPrefix}${basePath}`
             navigate(newPath)
         },
-        [i18n, location.pathname, navigate],
+        [i18n, location.pathname, navigate]
     )
 
     // Build a localized path for the current language
@@ -47,7 +47,7 @@ export function useLanguage() {
             if (path === "/") return prefix || "/"
             return `${prefix}${path}`
         },
-        [prefix],
+        [prefix]
     )
 
     return { language, prefix, t, setLanguage, switchLanguage, localizedPath }

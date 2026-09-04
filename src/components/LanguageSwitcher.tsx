@@ -73,27 +73,29 @@ export const LanguageSwitcher = () => {
                     },
                 })}
                 MenuProps={{
-                    PaperProps: {
-                        sx: (theme) => ({
-                            borderRadius: 0,
-                            boxShadow: "none",
-                            border: `1px solid ${theme.palette.border.main}`,
-                            "& .MuiMenuItem-root": {
-                                fontSize: "0.875rem",
-                                fontWeight: 600,
-                                letterSpacing: "0.1em",
-                                textTransform: "uppercase",
-                                "&:hover": {
-                                    backgroundColor: alpha(theme.palette.text.primary, 0.06),
-                                },
-                                "&.Mui-selected": {
-                                    backgroundColor: alpha(theme.palette.text.primary, 0.08),
+                    slotProps: {
+                        paper: {
+                            sx: (theme) => ({
+                                borderRadius: 0,
+                                boxShadow: "none",
+                                border: `1px solid ${theme.palette.border.main}`,
+                                "& .MuiMenuItem-root": {
+                                    fontSize: "0.875rem",
+                                    fontWeight: 600,
+                                    letterSpacing: "0.1em",
+                                    textTransform: "uppercase",
                                     "&:hover": {
-                                        backgroundColor: alpha(theme.palette.text.primary, 0.1),
+                                        backgroundColor: alpha(theme.palette.text.primary, 0.06),
+                                    },
+                                    "&.Mui-selected": {
+                                        backgroundColor: alpha(theme.palette.text.primary, 0.08),
+                                        "&:hover": {
+                                            backgroundColor: alpha(theme.palette.text.primary, 0.1),
+                                        },
                                     },
                                 },
-                            },
-                        }),
+                            }),
+                        },
                     },
                 }}
             >
@@ -103,7 +105,13 @@ export const LanguageSwitcher = () => {
                             component="img"
                             src={flag}
                             alt=""
-                            sx={{ width: 20, height: 14, objectFit: "cover", marginInlineEnd: 0.75, verticalAlign: "middle" }}
+                            sx={{
+                                width: 20,
+                                height: 14,
+                                objectFit: "cover",
+                                marginInlineEnd: 0.75,
+                                verticalAlign: "middle",
+                            }}
                         />
                         {label}
                     </MenuItem>

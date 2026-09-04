@@ -1,17 +1,15 @@
 import { useState } from "react"
 import { Box, Container, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
-import {
-    Article,
-    CalendarMonth,
-    Check,
-    Coffee,
-    ContentCopy,
-    Description,
-    Email,
-    Keyboard,
-    LinkedIn,
-    OpenInNew,
-} from "@mui/icons-material"
+import Article from "@mui/icons-material/Article"
+import CalendarMonth from "@mui/icons-material/CalendarMonth"
+import Check from "@mui/icons-material/Check"
+import Coffee from "@mui/icons-material/Coffee"
+import ContentCopy from "@mui/icons-material/ContentCopy"
+import Description from "@mui/icons-material/Description"
+import Email from "@mui/icons-material/Email"
+import Keyboard from "@mui/icons-material/Keyboard"
+import LinkedIn from "@mui/icons-material/LinkedIn"
+import OpenInNew from "@mui/icons-material/OpenInNew"
 import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -27,7 +25,11 @@ const CALENDLY_URL = "https://calendly.com/simbleau/meet"
 const OBF = "c3BlbmNlckBpbWJsZWF1LmNvbQ=="
 
 const socials = [
-    { label: "in/simbleau", href: "https://www.linkedin.com/in/simbleau/", icon: <LinkedIn sx={{ fontSize: "1rem" }} /> },
+    {
+        label: "in/simbleau",
+        href: "https://www.linkedin.com/in/simbleau/",
+        icon: <LinkedIn sx={{ fontSize: "1rem" }} />,
+    },
     {
         label: "@nuzzles",
         href: "https://www.github.com/nuzzles/",
@@ -54,11 +56,15 @@ const RevealEmailButton = () => {
         setEmail(atob(OBF))
     }
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         if (email) {
-            navigator.clipboard.writeText(email)
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
+            try {
+                await navigator.clipboard.writeText(email)
+                setCopied(true)
+                setTimeout(() => setCopied(false), 2000)
+            } catch {
+                setCopied(false)
+            }
         }
     }
 
@@ -281,8 +287,8 @@ export const HomePage = () => {
                 </Box>
 
                 <Typography variant="body2" sx={{ mt: 2 }}>
-                    {t("home.madeWith")} <Coffee sx={{ fontSize: "1rem", verticalAlign: "middle" }} />{" "}
-                    {t("home.andA")} <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
+                    {t("home.madeWith")} <Coffee sx={{ fontSize: "1rem", verticalAlign: "middle" }} /> {t("home.andA")}{" "}
+                    <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
                 </Typography>
             </Container>
         </>

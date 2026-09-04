@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Navigate } from "react-router-dom"
 import { HomePage } from "@/pages/HomePage"
 import { useLanguage } from "@/hooks/useLanguage"
@@ -29,9 +30,12 @@ export const LanguageRedirect = () => {
     const { language, setLanguage } = useLanguage()
     const detected = getPreferredLanguage()
 
-    // Set language synchronously so the first render uses correct translations
-    if (language !== detected) {
+    useEffect(() => {
         setLanguage(detected)
+    }, [detected, setLanguage])
+
+    if (language !== detected) {
+        return null
     }
 
     if (detected !== defaultLanguage) {

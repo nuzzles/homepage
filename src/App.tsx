@@ -1,10 +1,18 @@
+import { lazy, Suspense } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
-import { Box } from "@mui/material"
+import { Box, CircularProgress } from "@mui/material"
 import { HomePage } from "@/pages/HomePage"
-import { ResumePage } from "@/pages/ResumePage"
 import { LanguageRedirect } from "@/components/LanguageRedirect"
 import { LocalizedLayout } from "@/components/LocalizedLayout"
+
+const ResumePage = lazy(() => import("@/pages/ResumePage").then((module) => ({ default: module.ResumePage })))
+
+const ResumeRoute = () => (
+    <Suspense fallback={<CircularProgress aria-label="Loading résumé" />}>
+        <ResumePage />
+    </Suspense>
+)
 
 function App() {
     return (
@@ -27,18 +35,18 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="en" />}>
                             <Route path="/en" element={<HomePage />} />
-                            <Route path="/en/resume" element={<ResumePage />} />
-                            <Route path="/resume" element={<ResumePage />} />
+                            <Route path="/en/resume" element={<ResumeRoute />} />
+                            <Route path="/resume" element={<ResumeRoute />} />
                         </Route>
 
                         <Route element={<LocalizedLayout lang="fr" />}>
                             <Route path="/fr" element={<HomePage />} />
-                            <Route path="/fr/resume" element={<ResumePage />} />
+                            <Route path="/fr/resume" element={<ResumeRoute />} />
                         </Route>
 
                         <Route element={<LocalizedLayout lang="fa" />}>
                             <Route path="/fa" element={<HomePage />} />
-                            <Route path="/fa/resume" element={<ResumePage />} />
+                            <Route path="/fa/resume" element={<ResumeRoute />} />
                         </Route>
 
                         <Route path="*" element={<Navigate to="/" replace />} />

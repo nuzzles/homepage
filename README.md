@@ -10,8 +10,8 @@ This is the source code for my personal website built with React, TypeScript, Vi
 
 **Required Tools:**
 
-- [Node.js](https://nodejs.org/) v22+
-- [pnpm](https://pnpm.io/) v9+
+- [Node.js](https://nodejs.org/) v24.20.0 (latest LTS)
+- [pnpm](https://pnpm.io/) v11.25.0+
 - [resvg](https://github.com/niclas-AKA-Ansen/resvg) (`cargo install resvg`)
 
 **Installation:**
@@ -34,6 +34,8 @@ This will start the development server with hot module replacement enabled.
 pnpm dev      # Start development server
 pnpm build    # Build for production
 pnpm lint     # Run ESLint
+pnpm format   # Format project files
+pnpm check    # Run formatting, lint, type, and build checks
 pnpm preview  # Preview production build locally
 ```
 
@@ -55,9 +57,9 @@ To regenerate all assets after editing the SVGs:
 Licensed under either of
 
 - Apache License, Version 2.0
-   ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
+  ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
 - MIT license
-   ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
+  ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
 
 at your option
 
