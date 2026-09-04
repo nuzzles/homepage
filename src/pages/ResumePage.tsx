@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import { Box, CircularProgress, LinearProgress } from "@mui/material"
+import { alpha } from "@mui/material/styles"
 import { Helmet } from "react-helmet-async"
 import ArrowBack from "@mui/icons-material/ArrowBack"
 import Download from "@mui/icons-material/Download"
@@ -208,17 +209,17 @@ export const ResumePage = () => {
                             <LinearProgress
                                 variant={downloadProgress > 0 ? "determinate" : "indeterminate"}
                                 value={downloadProgress}
-                                sx={{
+                                sx={(theme) => ({
                                     position: "absolute",
                                     bottom: 0,
                                     left: 0,
                                     right: 0,
                                     height: 3,
-                                    backgroundColor: "rgba(255,255,255,0.2)",
+                                    backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
                                     "& .MuiLinearProgress-bar": {
-                                        backgroundColor: "rgba(255,255,255,0.7)",
+                                        backgroundColor: alpha(theme.palette.primary.contrastText, 0.7),
                                     },
-                                }}
+                                })}
                             />
                         )}
                     </LightButton>

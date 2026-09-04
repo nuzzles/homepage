@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Box, Container, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
-import Article from "@mui/icons-material/Article"
 import CalendarMonth from "@mui/icons-material/CalendarMonth"
 import Check from "@mui/icons-material/Check"
 import Coffee from "@mui/icons-material/Coffee"
@@ -14,7 +13,7 @@ import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSquareGithub, faSquareHackerNews } from "@fortawesome/free-brands-svg-icons"
+import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
 import { LightButton } from "@/components/LightButton"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
@@ -34,16 +33,6 @@ const socials = [
         label: "@nuzzles",
         href: "https://www.github.com/nuzzles/",
         icon: <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />,
-    },
-    {
-        label: "simbleau",
-        href: "https://news.ycombinator.com/user?id=simbleau",
-        icon: <FontAwesomeIcon icon={faSquareHackerNews} style={{ fontSize: "1rem" }} />,
-    },
-    {
-        label: "blog",
-        href: "https://nuzzles.github.io/",
-        icon: <Article sx={{ fontSize: "1rem" }} />,
     },
 ] as const
 
@@ -145,7 +134,6 @@ export const HomePage = () => {
                             "https://www.linkedin.com/in/simbleau/",
                             "https://github.com/nuzzles/",
                             "https://mastodon.online/@scim",
-                            "https://nuzzles.github.io/",
                         ],
                     })}
                 </script>
@@ -177,7 +165,7 @@ export const HomePage = () => {
                         const corner = 20
                         const gap = 6
                         const borderW = 2
-                        const c = theme.palette.divider
+                        const c = theme.palette.border.light
                         return {
                             position: "relative",
                             padding: `${gap + borderW}px`,
@@ -208,8 +196,8 @@ export const HomePage = () => {
                         sx={(theme) => ({
                             bottom: 0,
                             left: 0,
-                            borderBottom: `2px solid ${theme.palette.divider}`,
-                            borderLeft: `2px solid ${theme.palette.divider}`,
+                            borderBottom: `2px solid ${theme.palette.border.light}`,
+                            borderLeft: `2px solid ${theme.palette.border.light}`,
                         })}
                     />
                     <Box
@@ -217,8 +205,8 @@ export const HomePage = () => {
                         sx={(theme) => ({
                             bottom: 0,
                             right: 0,
-                            borderBottom: `2px solid ${theme.palette.divider}`,
-                            borderRight: `2px solid ${theme.palette.divider}`,
+                            borderBottom: `2px solid ${theme.palette.border.light}`,
+                            borderRight: `2px solid ${theme.palette.border.light}`,
                         })}
                     />
                     <Box
@@ -286,7 +274,7 @@ export const HomePage = () => {
                     <LanguageSwitcher />
                 </Box>
 
-                <Typography variant="body2" sx={{ mt: 2 }}>
+                <Typography variant="body2" sx={{ mt: 2, color: "text.secondary" }}>
                     {t("home.madeWith")} <Coffee sx={{ fontSize: "1rem", verticalAlign: "middle" }} /> {t("home.andA")}{" "}
                     <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
                 </Typography>

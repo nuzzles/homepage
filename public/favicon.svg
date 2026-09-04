@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
-    <rect x="0" y="0" width="200" height="200" fill="#212529"/>
+    <rect x="0" y="0" width="200" height="200" fill="#2047D6"/>
     <text
         x="100"
         y="100"
         font-family="Roboto, sans-serif"
         font-size="130"
         font-weight="600"
-        fill="#F8F9FA"
+        fill="#F2EEDF"
         text-anchor="middle"
         dominant-baseline="central"
         letter-spacing="0.1em"

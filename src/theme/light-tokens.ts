@@ -33,9 +33,9 @@ export const lightFontWeight = {
 // ---------------------------------------------------------------------------
 export const lightColor = {
     blue: {
-        700: "#0033DD",
-        600: "#0066ff",
-        500: "#4C7FFF",
+        700: "#2047D6",
+        600: "#1838AE",
+        500: "#395BD2",
     },
     pink: {
         500: "#ff4081",
@@ -57,19 +57,19 @@ export const lightColor = {
         300: "#fde047",
     },
     grey: {
-        900: "#212529",
-        800: "#32383E",
-        700: "#495057",
-        600: "#6c757d",
-        500: "#adb5bd",
-        400: "#ced4da",
-        300: "#dee2e6",
-        200: "#e9ecef",
-        100: "#f1f3f5",
-        50: "#F8F9FA",
+        900: "#171813",
+        800: "#292A23",
+        700: "#48483D",
+        600: "#68675A",
+        500: "#8F8B7A",
+        400: "#AAA694",
+        300: "#C6C1AE",
+        200: "#DAD5C2",
+        100: "#E8E3D1",
+        50: "#F2EEDF",
     },
-    white: "#ffffff",
-    black: "#000000",
+    white: "#FCFAF3",
+    black: "#10110D",
 } as const
 
 // ---------------------------------------------------------------------------
@@ -77,20 +77,20 @@ export const lightColor = {
 // ---------------------------------------------------------------------------
 export const lightBackground = {
     base: {
-        default: lightColor.grey[50], // #F8F9FA
+        default: lightColor.grey[50],
     },
     surface: {
-        default: lightColor.white,
+        default: lightColor.grey[50],
         sidebar: lightColor.grey[100],
         elevated: lightColor.white,
     },
 } as const
 
 export const lightText = {
-    primary: lightColor.grey[900], // #212529
-    secondary: lightColor.grey[700], // #495057
-    selected: lightColor.grey[800], // #32383E
-    button: lightColor.grey[900], // #212529
+    primary: lightColor.grey[900],
+    secondary: lightColor.grey[700],
+    selected: lightColor.grey[800],
+    button: lightColor.grey[900],
     input: lightColor.grey[900],
     helper: lightColor.grey[600],
     inactive: lightColor.grey[500],
@@ -98,9 +98,9 @@ export const lightText = {
 } as const
 
 export const lightBorder = {
-    main: lightColor.grey[400], // #ced4da
-    light: lightColor.grey[300], // #dee2e6
-    hover: lightColor.grey[500], // #adb5bd
+    main: lightColor.grey[500],
+    light: lightColor.grey[300],
+    hover: lightColor.grey[700],
 } as const
 
 // ---------------------------------------------------------------------------
@@ -124,7 +124,7 @@ export const lightButtonTokens = {
 } as const
 
 export const lightFocus = {
-    color: lightColor.green[500], // #00C802 (accent green)
+    color: lightColor.blue[700],
     width: "2px",
     offset: "2px",
 } as const

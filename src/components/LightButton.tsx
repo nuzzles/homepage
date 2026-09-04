@@ -65,14 +65,14 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                 case "primary":
                 default:
                     return {
-                        backgroundColor: theme.palette.text.primary,
-                        color: theme.palette.background.default,
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.primary.contrastText,
                         border: "none",
                         "&:hover": {
-                            backgroundColor: theme.palette.primary.main,
+                            backgroundColor: theme.palette.primary.dark,
                         },
                         "&:active": {
-                            backgroundColor: theme.palette.primary.light,
+                            backgroundColor: theme.palette.text.primary,
                         },
                     }
             }
@@ -117,8 +117,8 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
             },
 
             "&.Mui-disabled": {
-                backgroundColor: disabled ? alpha(theme.palette.common.white, 0.3) : "transparent",
-                color: disabled ? alpha(theme.palette.background.default, 0.5) : alpha(theme.palette.text.button, 0.5),
+                backgroundColor: disabled ? alpha(theme.palette.text.primary, 0.12) : "transparent",
+                color: alpha(theme.palette.text.primary, 0.45),
                 outline: variant === "secondary" ? `1px solid ${alpha(theme.palette.border.main, 0.5)}` : "none",
             },
 

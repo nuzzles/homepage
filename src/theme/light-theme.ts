@@ -32,12 +32,13 @@ export const lightTheme = createTheme({
             main: lightColor.blue[700],
             dark: lightColor.blue[600],
             light: lightColor.blue[500],
+            contrastText: lightColor.grey[50],
         },
         secondary: {
-            main: lightColor.pink[500],
+            main: lightColor.grey[900],
         },
         accent: {
-            main: lightColor.green[500],
+            main: lightColor.blue[700],
         },
         background: {
             default: lightBackground.base.default,
@@ -157,6 +158,10 @@ export const lightTheme = createTheme({
         },
         MuiCssBaseline: {
             styleOverrides: {
+                "::selection": {
+                    backgroundColor: lightColor.blue[700],
+                    color: lightColor.grey[50],
+                },
                 a: {
                     color: lightColor.blue[700],
                     textDecoration: "none",
