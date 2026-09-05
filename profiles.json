@@ -13,7 +13,6 @@
         "roleKey": "home.role",
         "stickerKey": "home.sticker",
         "metaKey": "meta",
-        "resumeTextKey": "resumePage",
         "nationality": "American",
         "calendlyUrl": "https://calendly.com/simbleau/meet",
         "staticMeta": {
@@ -28,6 +27,7 @@
         "resume": {
             "pdfUrl": "https://nuzzles.github.io/resume/resume.pdf",
             "embedUrl": "https://nuzzles.github.io/resume/embed.html",
+            "downloadFilename": "Resume_Spencer_Imbleau.pdf",
             "lastModified": "2026-09-05"
         },
         "socials": [
@@ -56,7 +56,6 @@
         "roleKey": "home.saraRole",
         "stickerKey": "home.saraSticker",
         "metaKey": "saraMeta",
-        "resumeTextKey": "resumePage",
         "staticMeta": {
             "description": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
             "twitterDescription": "This is the personal profile of Sara Aslani.",

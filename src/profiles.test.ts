@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest"
-import { getActiveProfile, getProfileSwitchUrl, profileHasResume, type ProfileId } from "@/profiles"
+import { getActiveProfile, getProfileHomePath, getProfileSwitchUrl, profileHasResume, type ProfileId } from "@/profiles"
+import en from "@/i18n/locales/en.json"
+import fa from "@/i18n/locales/fa.json"
+import fr from "@/i18n/locales/fr.json"
 
 describe("profile switch URLs", () => {
     it.each([
@@ -45,5 +48,26 @@ describe("resume availability", () => {
         expect(getActiveProfile("imbleau.com")).toBeNull()
         expect(getActiveProfile("localhost")).toBeNull()
         expect(getActiveProfile("example.com")).toBeNull()
+    })
+})
+
+describe("profile home paths", () => {
+    it.each([
+        ["localhost", "spencer", "/spencer"],
+        ["127.0.0.1", "sara", "/sara"],
+        ["spencer.imbleau.com", "spencer", "/"],
+        ["sara-dev.imbleau.com", "sara", "/"],
+    ] satisfies [string, ProfileId, string][])('uses "%s" for %s', (hostname, profile, expected) => {
+        expect(getProfileHomePath(hostname, profile)).toBe(expected)
+    })
+})
+
+describe("profile-neutral résumé copy", () => {
+    it.each([en, fr, fa])("interpolates profile names instead of hardcoding one profile", ({ resumePage }) => {
+        const copy = JSON.stringify(resumePage)
+
+        expect(copy).toContain("{{profile}}")
+        expect(copy).not.toContain("Spencer Imbleau")
+        expect(copy).not.toContain("Sara Aslani")
     })
 })

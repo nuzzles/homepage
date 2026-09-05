@@ -8,14 +8,15 @@ import Download from "@mui/icons-material/Download"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
-import { getCanonicalProfileUrl, getProfile, type ProfileId } from "@/profiles"
+import { getCanonicalProfileUrl, getProfile, getProfileHomePath, type ProfileId } from "@/profiles"
 
 export const ResumePage = ({ profile: profileId }: { profile: ProfileId }) => {
     const { t, prefix, localizedPath } = useLanguage()
     const profile = getProfile(profileId)
     const resume = profile.resume
-    const text = (key: string) => t(`${profile.resumeTextKey}.${key}`)
+    const text = (key: string) => t(`resumePage.${key}`, { profile: profile.fullName })
     const canonicalUrl = `${getCanonicalProfileUrl(profileId)}${prefix}/resume`
+    const profileHomePath = localizedPath(getProfileHomePath(window.location.hostname, profileId))
     const [loading, setLoading] = useState(true)
     const [showLoadingHelp, setShowLoadingHelp] = useState(false)
     const [downloading, setDownloading] = useState(false)
@@ -64,7 +65,7 @@ export const ResumePage = ({ profile: profileId }: { profile: ProfileId }) => {
             const url = URL.createObjectURL(blob)
             const anchor = document.createElement("a")
             anchor.href = url
-            anchor.download = text("downloadFilename")
+            anchor.download = resume.downloadFilename
             document.body.appendChild(anchor)
             anchor.click()
             document.body.removeChild(anchor)
@@ -226,7 +227,7 @@ export const ResumePage = ({ profile: profileId }: { profile: ProfileId }) => {
                 </CornerFrame>
 
                 <Box sx={{ mt: 2, display: "flex", alignItems: "center", gap: 2 }}>
-                    <LightButton href={localizedPath("/")} variant="tertiary" size="small" sx={{ px: 1.5 }}>
+                    <LightButton href={profileHomePath} variant="tertiary" size="small" sx={{ px: 1.5 }}>
                         <ArrowBack sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                         {text("goBack")}
                     </LightButton>

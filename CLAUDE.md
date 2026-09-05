@@ -32,8 +32,7 @@ pnpm preview  # Preview production build
 - `/src` - Source code directory
 - `@/` - Path alias that resolves to `./src`
 - `profiles.json` - Authoritative profile, hostname, route, contact, and SEO configuration
-- `index.html` - Joint homepage entry
-- `index-<profile>.html` - Generated profile entries
+- `index.html` - Shared Vite entry; local development serves the joint homepage
 - `vite.config.ts` - Vite configuration
 - `tsconfig.json` - TypeScript configuration (references app and node configs)
 
@@ -58,7 +57,7 @@ pnpm preview  # Preview production build
 This site is SEO-optimized. When adding new pages or routes:
 
 - Define profile data, routes, and SEO metadata in `profiles.json`
-- Run `pnpm generate:profiles` to regenerate profile HTML, robots files, and sitemaps
+- Vite emits the selected site's static metadata, robots file, and sitemap during each build
 - Use semantic HTML elements where possible
 
 ## Theming

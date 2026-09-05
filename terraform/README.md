@@ -47,7 +47,9 @@ the `imbleau.com` zone.
 
 Every successful `main` CI run deploys the exact tested commit to `dev`. The
 **Promote Website** workflow deploys the current `main` commit to `stg` or
-`prod`, with GitHub Environment protection acting as the approval gate.
+`prod`, with GitHub Environment protection acting as the approval gate. After
+Terraform provisions the environment, its targets fan out through a deployment
+matrix so each site builds, uploads, invalidates, and verifies independently.
 
 ## Local validation
 

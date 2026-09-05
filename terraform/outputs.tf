@@ -1,19 +1,17 @@
-output "bucket_names" {
-  description = "Private S3 bucket for each independently deployed site."
-  value       = { for site, bucket in aws_s3_bucket.site_bucket : site => bucket.bucket }
-}
-
-output "cloudfront_distribution_ids" {
-  description = "CloudFront distribution ID for each independently deployed site."
-  value = merge(
-    { (local.primary_profile_id) = aws_cloudfront_distribution.web_distribution.id },
-    { for site, distribution in aws_cloudfront_distribution.additional : site => distribution.id }
-  )
-}
-
-output "website_urls" {
-  description = "Canonical site URLs for this environment."
-  value       = { for site, config in local.sites : site => "https://${config.domain_name}" }
+output "deployment_targets" {
+  description = "Deployment details consumed directly by the website matrix."
+  value = {
+    for site, config in local.sites : site => {
+      bucket_name = aws_s3_bucket.site_bucket[site].bucket
+      distribution_id = site == local.primary_profile_id ? (
+        aws_cloudfront_distribution.web_distribution.id
+      ) : aws_cloudfront_distribution.additional[site].id
+      distribution_domain_name = site == local.primary_profile_id ? (
+        aws_cloudfront_distribution.web_distribution.domain_name
+      ) : aws_cloudfront_distribution.additional[site].domain_name
+      website_url = "https://${config.domain_name}"
+    }
+  }
 }
 
 output "website_url" {

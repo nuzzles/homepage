@@ -12,6 +12,7 @@ export interface SocialLink {
 export interface ResumeConfig {
     pdfUrl: string
     embedUrl: string
+    downloadFilename: string
     lastModified: string
 }
 
@@ -34,7 +35,6 @@ export interface ProfileConfig {
     roleKey: string
     stickerKey: string
     metaKey: string
-    resumeTextKey: string
     nationality?: string
     calendlyUrl?: string
     staticMeta: StaticProfileMeta
@@ -90,6 +90,10 @@ export function getActiveProfile(hostname: string): ProfileId | null {
 
 export function profileHasResume(profile: ProfileId): boolean {
     return PROFILE_CONFIG[profile].resume !== null
+}
+
+export function getProfileHomePath(hostname: string, profile: ProfileId): string {
+    return isLocalProfileHostname(hostname) ? `/${profile}` : "/"
 }
 
 export function getProfileHostname(hostname: string, profile: ProfileId): string | null {

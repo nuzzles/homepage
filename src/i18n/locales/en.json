@@ -33,17 +33,16 @@
         "andA": "and a"
     },
     "resumePage": {
-        "title": "Spencer Imbleau | Resume",
-        "description": "View or download the resume of Spencer Imbleau",
+        "title": "{{profile}} | Resume",
+        "description": "View or download the resume of {{profile}}",
         "iframeTitle": "Resume",
         "loading": "Loading résumé…",
         "loadingHelp": "Taking a while? Open the PDF directly.",
         "openPdf": "Open PDF",
         "goBack": "go back",
         "downloadResume": "download",
-        "downloadFilename": "Resume_Spencer_Imbleau.pdf",
-        "unavailablePageTitle": "Sara Aslani | Resume",
-        "unavailableDescription": "Sara Aslani's resume is coming soon.",
+        "unavailablePageTitle": "{{profile}} | Resume",
+        "unavailableDescription": "{{profile}}'s resume is coming soon.",
         "unavailable": "No résumé available",
         "comingSoon": "Coming soon."
     },

@@ -5,13 +5,14 @@ import { Helmet } from "react-helmet-async"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
-import { getCanonicalProfileUrl, getProfile, type ProfileId } from "@/profiles"
+import { getCanonicalProfileUrl, getProfile, getProfileHomePath, type ProfileId } from "@/profiles"
 
 export const ResumeUnavailablePage = ({ profile }: { profile: ProfileId }) => {
     const { t, prefix, localizedPath } = useLanguage()
     const profileConfig = getProfile(profile)
-    const text = (key: string) => t(`${profileConfig.resumeTextKey}.${key}`)
+    const text = (key: string) => t(`resumePage.${key}`, { profile: profileConfig.fullName })
     const canonicalUrl = `${getCanonicalProfileUrl(profile)}${prefix}/resume`
+    const profileHomePath = localizedPath(getProfileHomePath(window.location.hostname, profile))
 
     return (
         <>
@@ -73,7 +74,7 @@ export const ResumeUnavailablePage = ({ profile }: { profile: ProfileId }) => {
                     </Box>
                 </CornerFrame>
 
-                <LightButton href={localizedPath("/")} variant="tertiary" size="small" sx={{ mt: 2, px: 1.5 }}>
+                <LightButton href={profileHomePath} variant="tertiary" size="small" sx={{ mt: 2, px: 1.5 }}>
                     <ArrowBack sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                     {text("goBack")}
                 </LightButton>

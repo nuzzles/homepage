@@ -32,8 +32,8 @@ locally at `/spencer` and `/sara`; language-prefixed routes such as `/fr/spencer
 and `/fa/sara` work as well.
 
 Profile identity, hostnames, images, contact links, résumé settings, SEO, and translation
-keys are defined once in `profiles.json`. The UI, local routes, generated profile pages,
-sitemaps, Vite entries, deployment loops, and Terraform all derive from that registry.
+keys are defined once in `profiles.json`. The UI, local routes, site builds, deployment
+matrix, sitemaps, and Terraform all derive from that registry.
 
 ## Available Commands
 
@@ -46,11 +46,20 @@ pnpm check    # Run formatting, lint, type, and build checks
 pnpm preview  # Preview production build locally
 ```
 
+Production builds default to the selector. To build and preview a profile site:
+
+```sh
+HOMEPAGE_SITE=spencer pnpm build
+pnpm preview
+```
+
+Valid site values come from `profiles.json`, plus `selector` for the joint homepage.
+
 ## Asset Generation
 
 All three sites share the favicons, app icons, and Open Graph image generated
-from `public/logo.svg` and `public/og-banner.svg`. The profile directories only
-contain their site-specific `robots.txt` and `sitemap.xml` files.
+from `public/logo.svg` and `public/og-banner.svg`. Vite emits the appropriate
+static metadata, `robots.txt`, and `sitemap.xml` for each independent site build.
 
 To regenerate the shared assets after editing the SVGs:
 

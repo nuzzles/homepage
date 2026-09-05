@@ -33,17 +33,16 @@
         "andA": "و یک"
     },
     "resumePage": {
-        "title": "Spencer Imbleau | رزومه",
-        "description": "مشاهده یا دانلود رزومه اسپنسر ایمبلو",
+        "title": "{{profile}} | رزومه",
+        "description": "مشاهده یا دانلود رزومه {{profile}}",
         "iframeTitle": "رزومه",
         "loading": "در حال بارگیری رزومه…",
         "loadingHelp": "بارگیری طول کشیده است؟ فایل PDF را مستقیماً باز کنید.",
         "openPdf": "باز کردن PDF",
         "goBack": "بازگشت",
         "downloadResume": "دانلود",
-        "downloadFilename": "Imbleau_Spencer_رزومه.pdf",
-        "unavailablePageTitle": "سارا اصلانی | رزومه",
-        "unavailableDescription": "رزومه سارا اصلانی به‌زودی در دسترس خواهد بود.",
+        "unavailablePageTitle": "{{profile}} | رزومه",
+        "unavailableDescription": "رزومه {{profile}} به‌زودی در دسترس خواهد بود.",
         "unavailable": "رزومه‌ای موجود نیست",
         "comingSoon": "به‌زودی در دسترس خواهد بود."
     },

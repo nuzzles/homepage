@@ -11,16 +11,15 @@
     },
     "author": "Spencer Imbleau",
     "scripts": {
-        "generate:profiles": "node scripts/generate-profile-files.mjs",
-        "dev": "pnpm generate:profiles && vite",
-        "build": "pnpm generate:profiles && tsc -b && vite build",
+        "dev": "vite",
+        "build": "tsc -b && vite build",
         "lint": "eslint .",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "typecheck": "tsc -b",
         "test": "vitest run --environment jsdom",
         "test:watch": "vitest --environment jsdom",
-        "check": "pnpm generate:profiles && prettier --check . && eslint . && tsc -b && vitest run --environment jsdom && vite build",
+        "check": "prettier --check . && eslint . && tsc -b && vitest run --environment jsdom && vite build",
         "preview": "vite preview"
     },
     "dependencies": {
