@@ -19,14 +19,10 @@ terraform {
 }
 
 provider "aws" {
-  region     = var.aws_region
-  access_key = var.aws_access_key_id
-  secret_key = var.aws_secret_access_key
+  region = "us-east-1"
 }
 
-provider "cloudflare" {
-  api_token = var.cloudflare_api_token
-}
+provider "cloudflare" {}
 
 ## Config
 
@@ -150,15 +146,15 @@ data "aws_iam_policy_document" "view_objects_policy" {
 resource "cloudflare_record" "tls_dns_validation" {
   zone_id = local.zone
   comment = "ACM Verification for ${aws_acm_certificate.tls_cert.domain_name}"
-  name    = tolist(aws_acm_certificate.tls_cert.domain_validation_options)[0].resource_record_name
-  value   = tolist(aws_acm_certificate.tls_cert.domain_validation_options)[0].resource_record_value
+  name    = trimsuffix(tolist(aws_acm_certificate.tls_cert.domain_validation_options)[0].resource_record_name, ".")
+  value   = trimsuffix(tolist(aws_acm_certificate.tls_cert.domain_validation_options)[0].resource_record_value, ".")
   type    = tolist(aws_acm_certificate.tls_cert.domain_validation_options)[0].resource_record_type
   proxied = "false"
 }
 
 resource "cloudflare_record" "web_distribution_naked" {
   zone_id = local.zone
-  name    = "@"
+  name    = "imbleau.com"
   value   = "192.0.2.1"
   type    = "A"
   proxied = "true"
@@ -166,7 +162,7 @@ resource "cloudflare_record" "web_distribution_naked" {
 
 resource "cloudflare_record" "web_distribution_www" {
   zone_id = local.zone
-  name    = "www"
+  name    = "www.imbleau.com"
   value   = "192.0.2.1"
   type    = "A"
   proxied = "true"
@@ -174,7 +170,7 @@ resource "cloudflare_record" "web_distribution_www" {
 
 resource "cloudflare_record" "web_distribution_naked_spencer" {
   zone_id = local.zone
-  name    = "spencer"
+  name    = "spencer.imbleau.com"
   value   = "192.0.2.1"
   type    = "A"
   proxied = "true"
@@ -182,63 +178,8 @@ resource "cloudflare_record" "web_distribution_naked_spencer" {
 
 resource "cloudflare_record" "web_distribution_cn" {
   zone_id = local.zone
-  name    = "www.spencer"
+  name    = "www.spencer.imbleau.com"
   value   = aws_cloudfront_distribution.web_distribution.domain_name
   type    = "CNAME"
   proxied = "false"
-}
-
-resource "cloudflare_record" "web_distribution_naked_aws" {
-  zone_id = local.zone
-  name    = "aws"
-  value   = "192.0.2.1"
-  type    = "A"
-  proxied = "true"
-}
-
-resource "cloudflare_record" "web_distribution_aws" {
-  zone_id = local.zone
-  name    = "www.aws"
-  value   = "192.0.2.1"
-  type    = "A"
-  proxied = "true"
-}
-
-resource "cloudflare_ruleset" "redirect_rules" {
-  zone_id = local.zone
-  kind    = "zone"
-  phase   = "http_request_dynamic_redirect"
-  name    = "Redirect rules"
-
-  rules {
-    description = "Redirect Non-CNAME"
-    action      = "redirect"
-    expression  = "(http.host eq \"imbleau.com\") or (http.host eq \"spencer.imbleau.com\") or (http.host eq \"www.imbleau.com\")"
-    action_parameters {
-      from_value {
-        status_code = 301
-        target_url {
-          expression = "concat(\"https://www.spencer.imbleau.com\", http.request.uri.path)"
-        }
-        preserve_query_string = true
-      }
-    }
-    enabled = true
-  }
-
-  rules {
-    description = "Redirect AWS"
-    action      = "redirect"
-    expression  = "(http.host eq \"aws.imbleau.com\") or (http.host eq \"www.aws.imbleau.com\")"
-    action_parameters {
-      from_value {
-        status_code = 301
-        target_url {
-          value = "https://804184581672.signin.aws.amazon.com/console"
-        }
-        preserve_query_string = false
-      }
-    }
-    enabled = true
-  }
 }

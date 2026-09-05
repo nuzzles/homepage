@@ -13,6 +13,14 @@ dist
 dist-ssr
 *.local
 
+# Terraform runtime and local state
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
