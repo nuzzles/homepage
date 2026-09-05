@@ -4,7 +4,7 @@ resource "cloudflare_record" "web_distribution_naked_spencer" {
   name    = local.spencer_domain_name
   value   = aws_cloudfront_distribution.web_distribution.domain_name
   type    = "CNAME"
-  proxied = false
+  proxied = var.environment != "prod"
 }
 
 resource "cloudflare_record" "web_distribution_naked_sara" {
@@ -12,5 +12,5 @@ resource "cloudflare_record" "web_distribution_naked_sara" {
   name    = local.sara_domain_name
   value   = aws_cloudfront_distribution.web_distribution.domain_name
   type    = "CNAME"
-  proxied = false
+  proxied = var.environment != "prod"
 }

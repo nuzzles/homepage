@@ -8,9 +8,20 @@ CloudFront distribution while retaining distinct canonical hostnames.
 
 | Environment | Variables                  | State key               | Spencer URL                       | Sara URL                       |
 | ----------- | -------------------------- | ----------------------- | --------------------------------- | ------------------------------ |
-| `dev`       | `environments/dev.tfvars`  | `homepage-tfstate-dev`  | `https://dev.spencer.imbleau.com` | `https://dev.sara.imbleau.com` |
-| `stg`       | `environments/stg.tfvars`  | `homepage-tfstate-stg`  | `https://stg.spencer.imbleau.com` | `https://stg.sara.imbleau.com` |
+| `dev`       | `environments/dev.tfvars`  | `homepage-tfstate-dev`  | `https://spencer-dev.imbleau.com` | `https://sara-dev.imbleau.com` |
+| `stg`       | `environments/stg.tfvars`  | `homepage-tfstate-stg`  | `https://spencer-stg.imbleau.com` | `https://sara-stg.imbleau.com` |
 | `prod`      | `environments/prod.tfvars` | `homepage-tfstate-prod` | `https://spencer.imbleau.com`     | `https://sara.imbleau.com`     |
+
+The dev and staging website records are proxied through Cloudflare so Access
+policies can protect them. Production website records remain DNS-only.
+
+## Redirects
+
+| Environment | Source                    | Destination                       |
+| ----------- | ------------------------- | --------------------------------- |
+| `dev`       | `https://dev.imbleau.com` | `https://spencer-dev.imbleau.com` |
+| `stg`       | `https://stg.imbleau.com` | `https://spencer-stg.imbleau.com` |
+| `prod`      | `https://www.imbleau.com` | `https://imbleau.com`             |
 
 All three keys live in the existing `imbleau-terraform-state` bucket. The
 production state was migrated from its original `terraform.tfstate` key.
@@ -25,6 +36,9 @@ following secrets can be scoped independently to each environment:
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 - `CLOUDFLARE_API_TOKEN`
+
+The Cloudflare token needs `DNS: Edit` and `Page Rules: Edit` permissions for
+the `imbleau.com` zone.
 
 Every successful `main` CI run deploys the exact tested commit to `dev`. The
 **Promote Website** workflow deploys the current `main` commit to `stg` or

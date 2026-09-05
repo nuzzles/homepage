@@ -4,16 +4,31 @@ locals {
 
   domains = {
     dev = {
-      spencer = "dev.spencer.imbleau.com"
-      sara    = "dev.sara.imbleau.com"
+      spencer = "spencer-dev.imbleau.com"
+      sara    = "sara-dev.imbleau.com"
     }
     stg = {
-      spencer = "stg.spencer.imbleau.com"
-      sara    = "stg.sara.imbleau.com"
+      spencer = "spencer-stg.imbleau.com"
+      sara    = "sara-stg.imbleau.com"
     }
     prod = {
       spencer = "spencer.imbleau.com"
       sara    = "sara.imbleau.com"
+    }
+  }
+
+  redirects = {
+    dev = {
+      source = "dev.imbleau.com"
+      target = local.domains.dev.spencer
+    }
+    stg = {
+      source = "stg.imbleau.com"
+      target = local.domains.stg.spencer
+    }
+    prod = {
+      source = "www.imbleau.com"
+      target = "imbleau.com"
     }
   }
 
@@ -28,6 +43,7 @@ locals {
   spencer_domain_name = local.domains[var.environment].spencer
   sara_domain_name    = local.domains[var.environment].sara
   domain_names        = [local.spencer_domain_name, local.sara_domain_name]
+  redirect            = local.redirects[var.environment]
 
   # Spencer remains the primary environment URL for deployment status links.
   domain_name = local.spencer_domain_name

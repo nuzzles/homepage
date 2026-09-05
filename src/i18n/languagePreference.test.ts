@@ -38,8 +38,8 @@ describe("browser language detection", () => {
     it.each([
         ["spencer.imbleau.com", "fr-FR", "fr"],
         ["sara.imbleau.com", "fa-IR", "fa"],
-        ["dev.spencer.imbleau.com", "en-US", "en"],
-        ["dev.sara.imbleau.com", "fr-CA", "fr"],
+        ["spencer-dev.imbleau.com", "en-US", "en"],
+        ["sara-dev.imbleau.com", "fr-CA", "fr"],
     ] satisfies [string, string, SupportedLanguage][])(
         "uses the detected browser language on a fresh %s root",
         (hostname, browserLanguage, expected) => {
@@ -82,8 +82,8 @@ describe("profile switching", () => {
     it.each([
         ["https://spencer.imbleau.com/", "sara", "en"],
         ["https://sara.imbleau.com/", "spencer", "fr"],
-        ["https://dev.spencer.imbleau.com/", "sara", "fa"],
-        ["https://stg.sara.imbleau.com/", "spencer", "en"],
+        ["https://spencer-dev.imbleau.com/", "sara", "fa"],
+        ["https://sara-stg.imbleau.com/", "spencer", "en"],
     ] satisfies [string, ProfileId, SupportedLanguage][])(
         "keeps the saved language when switching from %s to %s at root",
         (sourceUrl, nextProfile, language) => {
@@ -107,7 +107,7 @@ describe("profile switching", () => {
     ] satisfies [string, SupportedLanguage][])(
         "keeps the %s route and preference when switching profiles",
         (pathname, language) => {
-            const sourceUrl = `https://dev.spencer.imbleau.com${pathname}`
+            const sourceUrl = `https://spencer-dev.imbleau.com${pathname}`
             const cookies = usePage(sourceUrl)
             savePreferredLanguage(language)
             const destination = getProfileSwitchUrl(sourceUrl, "sara")

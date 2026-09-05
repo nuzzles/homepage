@@ -17,3 +17,13 @@ output "sara_website_url" {
   description = "Canonical Sara URL for this environment."
   value       = "https://${local.sara_domain_name}"
 }
+
+output "redirect_source_url" {
+  description = "Legacy URL redirected by this environment."
+  value       = "https://${local.redirect.source}"
+}
+
+output "redirect_target_url" {
+  description = "Canonical destination for this environment's redirect."
+  value       = "https://${local.redirect.target}"
+}
