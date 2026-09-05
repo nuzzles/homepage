@@ -4,6 +4,7 @@ import { HomePage } from "@/pages/HomePage"
 import { useLanguage } from "@/hooks/useLanguage"
 import { languageConfig, defaultLanguage, getUrlPrefix } from "@/i18n/i18n"
 import type { SupportedLanguage } from "@/i18n/i18n"
+import { readPreferredLanguage, savePreferredLanguage } from "@/i18n/languagePreference"
 
 function detectBrowserLanguage(): SupportedLanguage {
     const browserLangs = navigator.languages ?? [navigator.language]
@@ -19,13 +20,13 @@ function detectBrowserLanguage(): SupportedLanguage {
 }
 
 function getPreferredLanguage(): SupportedLanguage {
-    const stored = localStorage.getItem("preferredLanguage")
-    if (stored && stored in languageConfig) {
-        return stored as SupportedLanguage
+    const stored = readPreferredLanguage()
+    if (stored) {
+        return stored
     }
 
     const detected = detectBrowserLanguage()
-    localStorage.setItem("preferredLanguage", detected)
+    savePreferredLanguage(detected)
     return detected
 }
 

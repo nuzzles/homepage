@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import { getUrlPrefix, getHtmlLang, getDir, stripLanguagePrefix } from "@/i18n/i18n"
 import type { SupportedLanguage } from "@/i18n/i18n"
+import { savePreferredLanguage } from "@/i18n/languagePreference"
 
 export function useLanguage() {
     const { t, i18n } = useTranslation()
@@ -31,7 +32,7 @@ export function useLanguage() {
     // User explicitly switches language (persists choice + navigates)
     const switchLanguage = useCallback(
         (lang: SupportedLanguage) => {
-            localStorage.setItem("preferredLanguage", lang)
+            savePreferredLanguage(lang)
             const basePath = stripLanguagePrefix(location.pathname)
             const newPrefix = getUrlPrefix(lang)
             const newPath = basePath === "/" ? newPrefix || "/" : `${newPrefix}${basePath}`
