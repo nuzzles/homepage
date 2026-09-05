@@ -25,13 +25,23 @@ const ResumeRoute = ({ profile }: { profile: ProfileId }) => {
     )
 }
 
-const getLocalProfileRoutes = (prefix: "" | "/fr" | "/fa") =>
+const getLocalProfileRoutes = (prefix: "/en" | "/fr" | "/fa") =>
     PROFILE_IDS.map((profile) => (
         <Fragment key={`${prefix}-${profile}`}>
             <Route path={`${prefix}/${profile}`} element={<HomePage fixedProfile={profile} />} />
             <Route path={`${prefix}/${profile}/resume`} element={<ResumeRoute profile={profile} />} />
         </Fragment>
     ))
+
+const getLocalProfileRedirects = () =>
+    PROFILE_IDS.flatMap((profile) => [
+        <Route key={profile} path={`/${profile}`} element={<LanguageRedirect path={`/${profile}`} />} />,
+        <Route
+            key={`${profile}-resume`}
+            path={`/${profile}/resume`}
+            element={<LanguageRedirect path={`/${profile}/resume`} />}
+        />,
+    ])
 
 function App() {
     const site = getConfiguredSite()
@@ -55,17 +65,14 @@ function App() {
                     }}
                 >
                     <Routes>
-                        <Route path="/" element={<LanguageRedirect>{homeElement}</LanguageRedirect>} />
+                        <Route path="/" element={<LanguageRedirect />} />
+                        {profileSite && <Route path="/resume" element={<LanguageRedirect path="/resume" />} />}
+                        {isLocal && getLocalProfileRedirects()}
 
                         <Route element={<LocalizedLayout lang="en" />}>
                             <Route path="/en" element={homeElement} />
-                            {profileSite && (
-                                <>
-                                    <Route path="/en/resume" element={<ResumeRoute profile={profileSite} />} />
-                                    <Route path="/resume" element={<ResumeRoute profile={profileSite} />} />
-                                </>
-                            )}
-                            {isLocal && getLocalProfileRoutes("")}
+                            {profileSite && <Route path="/en/resume" element={<ResumeRoute profile={profileSite} />} />}
+                            {isLocal && getLocalProfileRoutes("/en")}
                         </Route>
 
                         <Route element={<LocalizedLayout lang="fr" />}>

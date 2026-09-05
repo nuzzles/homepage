@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import { describe, expect, it } from "vitest"
 import { PROFILE_ENTRIES } from "@/profiles"
-import { BUILD_SITES, getRobotsTxt, getSitemapXml, getStaticSiteMetadata } from "@/siteMetadata"
+import { BUILD_SITES, getAlternateUrls, getRobotsTxt, getSitemapXml, getStaticSiteMetadata } from "@/siteMetadata"
 
 const readEntry = (filename: string) => readFileSync(resolve(import.meta.dirname, "..", filename), "utf8")
 
@@ -25,7 +25,7 @@ describe("static Open Graph metadata", () => {
         expect(metadata.baseUrl).toBe(`https://${hostnames.prod}`)
         expect(metadata.type).toBe("profile")
         expect(getRobotsTxt(id)).toContain(`${metadata.baseUrl}/sitemap.xml`)
-        expect(getSitemapXml(id)).toContain(`<loc>${metadata.baseUrl}/</loc>`)
+        expect(getSitemapXml(id)).toContain(`<loc>${metadata.baseUrl}/en/</loc>`)
     })
 
     it("builds joint metadata for the selector", () => {
@@ -47,5 +47,15 @@ describe("static Open Graph metadata", () => {
         }
         expect(getSitemapXml("sara")).not.toContain("/resume")
         expect(getSitemapXml("spencer")).toContain("/resume")
+    })
+
+    it("reserves the bare URL for language negotiation", () => {
+        const alternates = getAlternateUrls("selector")
+        const sitemap = getSitemapXml("selector")
+
+        expect(alternates).toContainEqual({ hreflang: "en-US", href: "https://imbleau.com/en/" })
+        expect(alternates).toContainEqual({ hreflang: "x-default", href: "https://imbleau.com/" })
+        expect(sitemap).toContain("<loc>https://imbleau.com/en/</loc>")
+        expect(sitemap).not.toContain("<loc>https://imbleau.com/</loc>")
     })
 })

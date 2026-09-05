@@ -46,7 +46,7 @@ export const ProfileSelectorPage = () => {
                 <meta name="twitter:description" content={meta("metaDescription")} />
                 <meta name="twitter:image" content="https://imbleau.com/og-banner.png" />
                 <link rel="canonical" href={canonicalUrl} />
-                <link rel="alternate" hrefLang="en-US" href="https://imbleau.com/" />
+                <link rel="alternate" hrefLang="en-US" href="https://imbleau.com/en/" />
                 <link rel="alternate" hrefLang="x-default" href="https://imbleau.com/" />
                 <link rel="alternate" hrefLang="fr" href="https://imbleau.com/fr/" />
                 <link rel="alternate" hrefLang="fa" href="https://imbleau.com/fa/" />

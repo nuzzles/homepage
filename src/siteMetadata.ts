@@ -6,16 +6,17 @@ import {
     PROFILE_IDS,
     type ProfileId,
 } from "./profiles.ts"
+import { defaultLanguage, languageConfig } from "./i18n/languages.ts"
 
 export type BuildSite = "selector" | ProfileId
 
 export const BUILD_SITES: BuildSite[] = ["selector", ...PROFILE_IDS]
 
-const languages = [
-    { prefix: "", hreflang: "en-US" },
-    { prefix: "/fr", hreflang: "fr" },
-    { prefix: "/fa", hreflang: "fa" },
-] as const
+const languages = Object.entries(languageConfig).map(([language, { urlPrefix: prefix, hreflang }]) => ({
+    prefix,
+    hreflang,
+    isDefault: language === defaultLanguage,
+}))
 
 export interface StaticSiteMetadata {
     id: BuildSite
@@ -109,7 +110,7 @@ export function getSitemapXml(site: BuildSite): string {
                         `        <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${localizedUrl(metadata.baseUrl, alternate.prefix, page.route)}" />`
                 )
                 .join("\n")
-            const priority = language.prefix ? (Number(page.priority) - 0.2).toFixed(1) : page.priority
+            const priority = language.isDefault ? page.priority : (Number(page.priority) - 0.2).toFixed(1)
 
             return `    <url>
         <loc>${localizedUrl(metadata.baseUrl, language.prefix, page.route)}</loc>

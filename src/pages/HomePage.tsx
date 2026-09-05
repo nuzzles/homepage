@@ -114,7 +114,7 @@ export const HomePage = ({ fixedProfile }: { fixedProfile: ProfileId }) => {
                 <meta name="twitter:description" content={meta("twitterDescription")} />
                 <meta name="twitter:image" content={`${profileBaseUrl}/og-banner.png`} />
                 <link rel="canonical" href={canonicalUrl} />
-                <link rel="alternate" hrefLang="en-US" href={`${profileBaseUrl}/`} />
+                <link rel="alternate" hrefLang="en-US" href={`${profileBaseUrl}/en/`} />
                 <link rel="alternate" hrefLang="x-default" href={`${profileBaseUrl}/`} />
                 <link rel="alternate" hrefLang="fr" href={`${profileBaseUrl}/fr/`} />
                 <link rel="alternate" hrefLang="fa" href={`${profileBaseUrl}/fa/`} />
