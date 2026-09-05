@@ -5,25 +5,17 @@ locals {
 }
 
 resource "aws_cloudfront_origin_access_control" "web_oac" {
-  for_each = local.sites
+  name = var.environment == "prod" ? "WebsiteAccessControl" : "WebsiteAccessControl-${var.environment}"
 
-  name = each.key == local.primary_profile_id ? (
-    var.environment == "prod" ? "WebsiteAccessControl" : "WebsiteAccessControl-${var.environment}"
-  ) : "homepage-${var.environment}-${each.key}-access-control"
-
-  description                       = "${title(each.key)} website OAC"
+  description                       = "Web OAC Policy"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
 }
 
 resource "aws_cloudfront_cache_policy" "web" {
-  for_each = local.sites
-
-  name = each.key == local.primary_profile_id ? (
-    "homepage-${var.environment}-site"
-  ) : "homepage-${var.environment}-${each.key}-site"
-  comment     = "Honor cache headers emitted by the ${each.key} website deployment."
+  name        = "homepage-${var.environment}-site"
+  comment     = "Honor cache headers emitted by website deployments."
   default_ttl = 86400
   max_ttl     = 31536000
   min_ttl     = 0
@@ -42,12 +34,8 @@ resource "aws_cloudfront_cache_policy" "web" {
 }
 
 resource "aws_cloudfront_response_headers_policy" "web" {
-  for_each = local.sites
-
-  name = each.key == local.primary_profile_id ? (
-    "homepage-${var.environment}-security"
-  ) : "homepage-${var.environment}-${each.key}-security"
-  comment = "Browser security headers for ${each.value.domain_name}."
+  name    = "homepage-${var.environment}-security"
+  comment = "Browser security headers for website deployments."
 
   security_headers_config {
     content_security_policy {
@@ -100,16 +88,17 @@ resource "aws_cloudfront_distribution" "web_distribution" {
   wait_for_deployment = true
 
   origin {
-    domain_name              = aws_s3_bucket.site_bucket[local.primary_profile_id].bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.web_oac[local.primary_profile_id].id
+    domain_name              = aws_s3_bucket.site_bucket.bucket_regional_domain_name
+    origin_path              = "/${local.sites[local.primary_profile_id].key_prefix}"
+    origin_access_control_id = aws_cloudfront_origin_access_control.web_oac.id
     origin_id                = local.s3_origin_id
   }
 
   default_cache_behavior {
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
     cached_methods             = ["GET", "HEAD", "OPTIONS"]
-    cache_policy_id            = aws_cloudfront_cache_policy.web[local.primary_profile_id].id
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.web[local.primary_profile_id].id
+    cache_policy_id            = aws_cloudfront_cache_policy.web.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.web.id
     target_origin_id           = local.s3_origin_id
     viewer_protocol_policy     = "redirect-to-https"
     compress                   = true
@@ -151,16 +140,17 @@ resource "aws_cloudfront_distribution" "additional" {
   wait_for_deployment = true
 
   origin {
-    domain_name              = aws_s3_bucket.site_bucket[each.key].bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.web_oac[each.key].id
+    domain_name              = aws_s3_bucket.site_bucket.bucket_regional_domain_name
+    origin_path              = "/${each.value.key_prefix}"
+    origin_access_control_id = aws_cloudfront_origin_access_control.web_oac.id
     origin_id                = local.s3_origin_id
   }
 
   default_cache_behavior {
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
     cached_methods             = ["GET", "HEAD", "OPTIONS"]
-    cache_policy_id            = aws_cloudfront_cache_policy.web[each.key].id
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.web[each.key].id
+    cache_policy_id            = aws_cloudfront_cache_policy.web.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.web.id
     target_origin_id           = local.s3_origin_id
     viewer_protocol_policy     = "redirect-to-https"
     compress                   = true

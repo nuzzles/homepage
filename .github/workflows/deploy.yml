@@ -101,12 +101,13 @@ jobs:
 
       - name: Upload | Website
         run: |
-          aws s3 sync dist "s3://${{ matrix.bucket_name }}" \
+          aws s3 sync dist "s3://${{ matrix.bucket_name }}/${{ matrix.key_prefix }}" \
             --delete \
             --exclude index.html \
             --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
             --only-show-errors
-          aws s3 cp dist/index.html "s3://${{ matrix.bucket_name }}/index.html" \
+          aws s3 cp dist/index.html \
+            "s3://${{ matrix.bucket_name }}/${{ matrix.key_prefix }}/index.html" \
             --cache-control 'no-cache, no-store, must-revalidate' \
             --content-type 'text/html; charset=utf-8' \
             --only-show-errors

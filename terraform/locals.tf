@@ -18,27 +18,20 @@ locals {
     )
   }
 
-  bucket_names = merge(
-    { selector = "homepage-root-${data.aws_caller_identity.current.account_id}-${var.environment}" },
-    {
-      for profile in keys(local.profile_config) :
-      profile => "homepage-${profile}-${data.aws_caller_identity.current.account_id}-${var.environment}"
-    }
-  )
-
   selector_domain_name = local.domains[var.environment].selector
   primary_domain_name  = local.domains[var.environment][local.primary_profile_id]
+  bucket_name          = "homepage-${data.aws_caller_identity.current.account_id}-${var.environment}"
   profile_sites = {
     for profile, config in local.profile_config : profile => {
       domain_name = config.hostnames[var.environment]
-      bucket_name = local.bucket_names[profile]
+      key_prefix  = profile
     }
   }
   sites = merge(
     {
       selector = {
         domain_name = local.selector_domain_name
-        bucket_name = local.bucket_names.selector
+        key_prefix  = "selector"
       }
     },
     local.profile_sites

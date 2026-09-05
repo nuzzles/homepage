@@ -1,18 +1,3 @@
-moved {
-  from = aws_cloudfront_origin_access_control.web_oac
-  to   = aws_cloudfront_origin_access_control.web_oac["spencer"]
-}
-
-moved {
-  from = aws_cloudfront_cache_policy.web
-  to   = aws_cloudfront_cache_policy.web["spencer"]
-}
-
-moved {
-  from = aws_cloudfront_response_headers_policy.web
-  to   = aws_cloudfront_response_headers_policy.web["spencer"]
-}
-
 removed {
   from = aws_s3_bucket.web_bucket
 

@@ -1,14 +1,10 @@
 resource "aws_s3_bucket" "site_bucket" {
-  for_each = local.sites
-
-  bucket        = each.value.bucket_name
+  bucket        = local.bucket_name
   force_destroy = false
 }
 
 resource "aws_s3_bucket_ownership_controls" "site_bucket" {
-  for_each = local.sites
-
-  bucket = aws_s3_bucket.site_bucket[each.key].id
+  bucket = aws_s3_bucket.site_bucket.id
 
   rule {
     object_ownership = "BucketOwnerEnforced"
@@ -16,9 +12,7 @@ resource "aws_s3_bucket_ownership_controls" "site_bucket" {
 }
 
 resource "aws_s3_bucket_public_access_block" "site_bucket" {
-  for_each = local.sites
-
-  bucket                  = aws_s3_bucket.site_bucket[each.key].id
+  bucket                  = aws_s3_bucket.site_bucket.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -26,9 +20,7 @@ resource "aws_s3_bucket_public_access_block" "site_bucket" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "site_bucket" {
-  for_each = local.sites
-
-  bucket = aws_s3_bucket.site_bucket[each.key].id
+  bucket = aws_s3_bucket.site_bucket.id
 
   rule {
     apply_server_side_encryption_by_default {
@@ -38,9 +30,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "site_bucket" {
 }
 
 resource "aws_s3_bucket_versioning" "site_bucket" {
-  for_each = local.sites
-
-  bucket = aws_s3_bucket.site_bucket[each.key].id
+  bucket = aws_s3_bucket.site_bucket.id
 
   versioning_configuration {
     status = "Enabled"
@@ -48,9 +38,7 @@ resource "aws_s3_bucket_versioning" "site_bucket" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "site_bucket" {
-  for_each = local.sites
-
-  bucket = aws_s3_bucket.site_bucket[each.key].id
+  bucket = aws_s3_bucket.site_bucket.id
 
   rule {
     id     = "expire-noncurrent-content"
@@ -69,8 +57,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "site_bucket" {
 }
 
 data "aws_iam_policy_document" "view_objects_policy" {
-  for_each = local.sites
-
   statement {
     sid = "AllowCloudFrontServiceReadOnly"
 
@@ -80,14 +66,15 @@ data "aws_iam_policy_document" "view_objects_policy" {
     }
 
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.site_bucket[each.key].arn}/*"]
+    resources = ["${aws_s3_bucket.site_bucket.arn}/*"]
 
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values = [
-        each.key == local.primary_profile_id ? aws_cloudfront_distribution.web_distribution.arn : aws_cloudfront_distribution.additional[each.key].arn
-      ]
+      values = concat(
+        [aws_cloudfront_distribution.web_distribution.arn],
+        [for distribution in aws_cloudfront_distribution.additional : distribution.arn],
+      )
     }
   }
 
@@ -102,8 +89,8 @@ data "aws_iam_policy_document" "view_objects_policy" {
 
     actions = ["s3:*"]
     resources = [
-      aws_s3_bucket.site_bucket[each.key].arn,
-      "${aws_s3_bucket.site_bucket[each.key].arn}/*",
+      aws_s3_bucket.site_bucket.arn,
+      "${aws_s3_bucket.site_bucket.arn}/*",
     ]
 
     condition {
@@ -115,8 +102,6 @@ data "aws_iam_policy_document" "view_objects_policy" {
 }
 
 resource "aws_s3_bucket_policy" "site_access_policy" {
-  for_each = local.sites
-
-  bucket = aws_s3_bucket.site_bucket[each.key].id
-  policy = data.aws_iam_policy_document.view_objects_policy[each.key].json
+  bucket = aws_s3_bucket.site_bucket.id
+  policy = data.aws_iam_policy_document.view_objects_policy.json
 }

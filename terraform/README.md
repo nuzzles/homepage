@@ -3,15 +3,18 @@
 The website is served from a private S3 origin through CloudFront. Cloudflare
 provides authoritative DNS and ACM certificates are validated with Cloudflare
 DNS records. Each deployment environment has isolated Terraform state and
-infrastructure. The selector, Spencer, and Sara sites each have an independent
-S3 bucket and CloudFront distribution.
+infrastructure. Each environment has one S3 bucket and three independent
+CloudFront distributions: one each for the selector, Spencer, and Sara sites.
 
 Profile hostnames and the primary infrastructure profile come from the shared
 [`profiles.json`](../profiles.json) registry.
 
-Buckets are account-scoped and named `homepage-<root|profile-id>-<account-id>-<environment>`.
-The former shared bucket is retained during migration but removed from Terraform
-state so its versioned contents are not destroyed automatically.
+Buckets are account-scoped and named `homepage-<account-id>-<environment>`.
+Site objects are isolated under the `selector/`, `spencer/`, and `sara/`
+prefixes. Each CloudFront distribution uses its site's prefix as its origin
+path, and each matrix job deploys only to that prefix. The former shared bucket
+is retained during migration but removed from Terraform state so its versioned
+contents are not destroyed automatically.
 
 | Environment | Variables                  | State key               | Selector URL              | Spencer URL                       | Sara URL                       |
 | ----------- | -------------------------- | ----------------------- | ------------------------- | --------------------------------- | ------------------------------ |
