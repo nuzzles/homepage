@@ -233,19 +233,22 @@ export const HomePage = () => {
                         onChange={handleProfileChange}
                     />
                     <Typography
+                        title={t(profile.roleKey)}
                         sx={{
                             display: { xs: "none", sm: "block" },
+                            minWidth: 0,
+                            flex: 1,
+                            overflow: "hidden",
                             fontFamily: "Courier New, monospace",
                             fontSize: "0.75rem",
                             fontWeight: 700,
+                            textOverflow: "ellipsis",
                             textTransform: "uppercase",
                             whiteSpace: "nowrap",
-                            flexShrink: 0,
                         }}
                     >
                         {t(profile.roleKey)}
                     </Typography>
-                    <Box sx={{ flex: 1 }} />
                     <LanguageSwitcher />
                 </Box>
 
