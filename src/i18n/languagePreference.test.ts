@@ -76,6 +76,17 @@ describe("shared profile language preference", () => {
         usePage("https://sara.imbleau.com/", cookies)
         expect(readPreferredLanguage()).toBe("fr")
     })
+
+    it("shares the preference through the selector site", () => {
+        const cookies = usePage("https://imbleau.com/")
+        savePreferredLanguage("fa")
+
+        usePage("https://sara.imbleau.com/", cookies)
+        expect(readPreferredLanguage()).toBe("fa")
+
+        usePage("https://spencer.imbleau.com/", cookies)
+        expect(readPreferredLanguage()).toBe("fa")
+    })
 })
 
 describe("profile switching", () => {
@@ -96,6 +107,23 @@ describe("profile switching", () => {
 
             usePage(destination!, cookies)
             expect(resolvePreferredLanguage([language === "fa" ? "en-US" : "fa-IR"])).toBe(language)
+        }
+    )
+
+    it.each([
+        ["https://imbleau.com/", "spencer", "fr"],
+        ["https://dev.imbleau.com/fa", "sara", "fa"],
+        ["https://stg.imbleau.com/fr", "spencer", "fr"],
+    ] satisfies [string, ProfileId, SupportedLanguage][])(
+        "keeps language %s when selecting %s",
+        (sourceUrl, nextProfile, language) => {
+            const cookies = usePage(sourceUrl)
+            savePreferredLanguage(language)
+            const destination = getProfileSwitchUrl(sourceUrl, nextProfile)
+
+            expect(destination).not.toBeNull()
+            usePage(destination!, cookies)
+            expect(readPreferredLanguage()).toBe(language)
         }
     )
 

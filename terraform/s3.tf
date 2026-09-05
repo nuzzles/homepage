@@ -1,26 +1,34 @@
-resource "aws_s3_bucket" "web_bucket" {
-  bucket        = local.bucket_name
+resource "aws_s3_bucket" "site_bucket" {
+  for_each = local.sites
+
+  bucket        = each.value.bucket_name
   force_destroy = false
 }
 
-resource "aws_s3_bucket_ownership_controls" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_ownership_controls" "site_bucket" {
+  for_each = local.sites
+
+  bucket = aws_s3_bucket.site_bucket[each.key].id
 
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "web_bucket" {
-  bucket                  = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_public_access_block" "site_bucket" {
+  for_each = local.sites
+
+  bucket                  = aws_s3_bucket.site_bucket[each.key].id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "site_bucket" {
+  for_each = local.sites
+
+  bucket = aws_s3_bucket.site_bucket[each.key].id
 
   rule {
     apply_server_side_encryption_by_default {
@@ -29,16 +37,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "web_bucket" {
   }
 }
 
-resource "aws_s3_bucket_versioning" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_versioning" "site_bucket" {
+  for_each = local.sites
+
+  bucket = aws_s3_bucket.site_bucket[each.key].id
 
   versioning_configuration {
     status = "Enabled"
   }
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_lifecycle_configuration" "site_bucket" {
+  for_each = local.sites
+
+  bucket = aws_s3_bucket.site_bucket[each.key].id
 
   rule {
     id     = "expire-noncurrent-content"
@@ -57,6 +69,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "web_bucket" {
 }
 
 data "aws_iam_policy_document" "view_objects_policy" {
+  for_each = local.sites
+
   statement {
     sid = "AllowCloudFrontServiceReadOnly"
 
@@ -66,12 +80,14 @@ data "aws_iam_policy_document" "view_objects_policy" {
     }
 
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.web_bucket.arn}/*"]
+    resources = ["${aws_s3_bucket.site_bucket[each.key].arn}/*"]
 
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.web_distribution.arn]
+      values = [
+        each.key == local.primary_profile_id ? aws_cloudfront_distribution.web_distribution.arn : aws_cloudfront_distribution.additional[each.key].arn
+      ]
     }
   }
 
@@ -86,8 +102,8 @@ data "aws_iam_policy_document" "view_objects_policy" {
 
     actions = ["s3:*"]
     resources = [
-      aws_s3_bucket.web_bucket.arn,
-      "${aws_s3_bucket.web_bucket.arn}/*",
+      aws_s3_bucket.site_bucket[each.key].arn,
+      "${aws_s3_bucket.site_bucket[each.key].arn}/*",
     ]
 
     condition {
@@ -98,7 +114,9 @@ data "aws_iam_policy_document" "view_objects_policy" {
   }
 }
 
-resource "aws_s3_bucket_policy" "web_access_policy" {
-  bucket = aws_s3_bucket.web_bucket.id
-  policy = data.aws_iam_policy_document.view_objects_policy.json
+resource "aws_s3_bucket_policy" "site_access_policy" {
+  for_each = local.sites
+
+  bucket = aws_s3_bucket.site_bucket[each.key].id
+  policy = data.aws_iam_policy_document.view_objects_policy[each.key].json
 }

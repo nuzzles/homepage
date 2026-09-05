@@ -5,6 +5,9 @@ describe("profile switch URLs", () => {
     it.each([
         ["https://spencer.imbleau.com/", "sara", "https://sara.imbleau.com/"],
         ["https://sara.imbleau.com/", "spencer", "https://spencer.imbleau.com/"],
+        ["https://imbleau.com/", "sara", "https://sara.imbleau.com/"],
+        ["https://dev.imbleau.com/fa", "spencer", "https://spencer-dev.imbleau.com/fa"],
+        ["https://stg.imbleau.com/fr", "sara", "https://sara-stg.imbleau.com/fr"],
         ["https://spencer-dev.imbleau.com/fa", "sara", "https://sara-dev.imbleau.com/fa"],
         ["https://sara-stg.imbleau.com/fr", "spencer", "https://spencer-stg.imbleau.com/fr"],
         [
@@ -25,19 +28,22 @@ describe("resume availability", () => {
     it.each(["sara.imbleau.com", "sara-dev.imbleau.com", "sara-stg.imbleau.com"])(
         "does not expose a résumé for %s",
         (hostname) => {
-            expect(profileHasResume(getActiveProfile(hostname))).toBe(false)
+            expect(getActiveProfile(hostname)).toBe("sara")
+            expect(profileHasResume("sara")).toBe(false)
         }
     )
 
     it.each(["spencer.imbleau.com", "spencer-dev.imbleau.com", "spencer-stg.imbleau.com"])(
         "keeps the résumé for %s",
         (hostname) => {
-            expect(profileHasResume(getActiveProfile(hostname))).toBe(true)
+            expect(getActiveProfile(hostname)).toBe("spencer")
+            expect(profileHasResume("spencer")).toBe(true)
         }
     )
 
-    it("respects the selected localhost profile", () => {
-        expect(profileHasResume(getActiveProfile("localhost", "sara"))).toBe(false)
-        expect(profileHasResume(getActiveProfile("localhost", "spencer"))).toBe(true)
+    it("does not assume a profile for the root or an unknown hostname", () => {
+        expect(getActiveProfile("imbleau.com")).toBeNull()
+        expect(getActiveProfile("localhost")).toBeNull()
+        expect(getActiveProfile("example.com")).toBeNull()
     })
 })

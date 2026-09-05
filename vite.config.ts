@@ -1,10 +1,18 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
+import { resolve } from "node:path"
+import { PROFILE_IDS } from "./src/profiles.ts"
 
 export default defineConfig({
     plugins: [react()],
     build: {
         rolldownOptions: {
+            input: {
+                root: resolve(import.meta.dirname, "index.html"),
+                ...Object.fromEntries(
+                    PROFILE_IDS.map((profile) => [profile, resolve(import.meta.dirname, `index-${profile}.html`)])
+                ),
+            },
             output: {
                 codeSplitting: {
                     groups: [

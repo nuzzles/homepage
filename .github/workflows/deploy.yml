@@ -63,49 +63,106 @@ jobs:
             -backend-config="backend-configs/${{ inputs.environment }}.hcl"
           terraform apply -input=false -auto-approve \
             -var-file="environments/${{ inputs.environment }}.tfvars"
-          echo "bucket_name=$(terraform output -raw bucket_name)" >> "$GITHUB_OUTPUT"
-          echo "distribution_id=$(terraform output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+          echo "bucket_names=$(terraform output -json bucket_names)" >> "$GITHUB_OUTPUT"
+          echo "distribution_ids=$(terraform output -json cloudfront_distribution_ids)" >> "$GITHUB_OUTPUT"
+          echo "website_urls=$(terraform output -json website_urls)" >> "$GITHUB_OUTPUT"
           echo "website_url=$(terraform output -raw website_url)" >> "$GITHUB_OUTPUT"
-          echo "sara_website_url=$(terraform output -raw sara_website_url)" >> "$GITHUB_OUTPUT"
 
       - name: Build | Website
         run: pnpm build
 
       - name: Upload | Immutable Vite assets
-        run: >-
-          aws s3 sync dist/assets "s3://${{ steps.terraform.outputs.bucket_name }}/assets"
-          --delete
-          --cache-control 'public, max-age=31536000, immutable'
-          --only-show-errors
+        run: |
+          for site in $(jq -r 'keys[]' <<< '${{ steps.terraform.outputs.bucket_names }}'); do
+            bucket=$(jq -r --arg site "$site" '.[$site]' <<< '${{ steps.terraform.outputs.bucket_names }}')
+            aws s3 sync dist/assets "s3://$bucket/assets" \
+              --delete \
+              --cache-control 'public, max-age=31536000, immutable' \
+              --only-show-errors
+          done
 
       - name: Upload | Revalidating public files
-        run: >-
-          aws s3 sync dist "s3://${{ steps.terraform.outputs.bucket_name }}"
-          --delete
-          --exclude index.html
-          --exclude 'assets/*'
-          --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400'
-          --only-show-errors
+        run: |
+          shared_assets=(
+            android-chrome-192x192.png
+            android-chrome-192x192m.png
+            android-chrome-512x512.png
+            apple-touch-icon.png
+            browserconfig.xml
+            favicon-16x16.png
+            favicon-32x32.png
+            favicon.ico
+            favicon.svg
+            logo.png
+            logo.svg
+            mstile-150x150.png
+            og-banner.png
+            og-banner.svg
+            safari-pinned-tab.svg
+            site.webmanifest
+          )
+          for site in $(jq -r 'keys[]' <<< '${{ steps.terraform.outputs.bucket_names }}'); do
+            asset_dir="$site"
+            if [[ "$site" == "selector" ]]; then
+              asset_dir="root"
+            fi
+            bucket=$(jq -r --arg site "$site" '.[$site]' <<< '${{ steps.terraform.outputs.bucket_names }}')
+            aws s3 sync dist/images "s3://$bucket/images" \
+              --delete \
+              --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
+              --only-show-errors
+            for asset in "${shared_assets[@]}"; do
+              aws s3 cp "dist/$asset" "s3://$bucket/$asset" \
+                --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
+                --only-show-errors
+            done
+            aws s3 sync "dist/$asset_dir" "s3://$bucket/$asset_dir" \
+              --delete \
+              --exclude 'robots.txt' \
+              --exclude 'sitemap.xml' \
+              --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
+              --only-show-errors
+          done
 
       - name: Upload | HTML last
-        run: >-
-          aws s3 cp dist/index.html "s3://${{ steps.terraform.outputs.bucket_name }}/index.html"
-          --cache-control 'no-cache, no-store, must-revalidate'
-          --content-type 'text/html; charset=utf-8'
-          --only-show-errors
+        run: |
+          for site in $(jq -r 'keys[]' <<< '${{ steps.terraform.outputs.bucket_names }}'); do
+            asset_dir="$site"
+            entry="index-$site.html"
+            if [[ "$site" == "selector" ]]; then
+              asset_dir="root"
+              entry="index.html"
+            fi
+            bucket=$(jq -r --arg site "$site" '.[$site]' <<< '${{ steps.terraform.outputs.bucket_names }}')
+            aws s3 cp "dist/$asset_dir/robots.txt" "s3://$bucket/robots.txt" \
+              --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
+              --content-type 'text/plain; charset=utf-8' \
+              --only-show-errors
+            aws s3 cp "dist/$asset_dir/sitemap.xml" "s3://$bucket/sitemap.xml" \
+              --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
+              --content-type 'application/xml; charset=utf-8' \
+              --only-show-errors
+            aws s3 cp "dist/$entry" "s3://$bucket/index.html" \
+              --cache-control 'no-cache, no-store, must-revalidate' \
+              --content-type 'text/html; charset=utf-8' \
+              --only-show-errors
+          done
 
       - name: Invalidate | CloudFront cache
-        run: >-
-          aws cloudfront create-invalidation
-          --distribution-id '${{ steps.terraform.outputs.distribution_id }}'
-          --paths '/*'
-          --no-cli-pager
+        run: |
+          for site in $(jq -r 'keys[]' <<< '${{ steps.terraform.outputs.distribution_ids }}'); do
+            distribution_id=$(jq -r --arg site "$site" '.[$site]' <<< '${{ steps.terraform.outputs.distribution_ids }}')
+            aws cloudfront create-invalidation \
+              --distribution-id "$distribution_id" \
+              --paths '/*' \
+              --no-cli-pager
+          done
 
       - name: Verify | Public deployment
         run: |
-          curl --fail --silent --show-error --location \
-            --retry 12 --retry-delay 5 --retry-connrefused \
-            '${{ steps.terraform.outputs.website_url }}'
-          curl --fail --silent --show-error --location \
-            --retry 12 --retry-delay 5 --retry-connrefused \
-            '${{ steps.terraform.outputs.sara_website_url }}'
+          for site in $(jq -r 'keys[]' <<< '${{ steps.terraform.outputs.website_urls }}'); do
+            website_url=$(jq -r --arg site "$site" '.[$site]' <<< '${{ steps.terraform.outputs.website_urls }}')
+            curl --fail --silent --show-error --location \
+              --retry 12 --retry-delay 5 --retry-connrefused \
+              "$website_url"
+          done

@@ -4,7 +4,6 @@
         "description": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار آمریکایی هستم.",
         "ogDescription": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار آمریکایی هستم.",
         "twitterDescription": "این وبسایت شخصی اسپنسر ایمبلو است.",
-        "ogImageAlt": "Spencer Imbleau - مهندس نرم‌افزار",
         "ogLocale": "fa_IR",
         "jobTitle": "مهندس نرم‌افزار",
         "personDescription": "مهندس نرم‌افزار آمریکایی.",
@@ -15,7 +14,6 @@
         "description": "این صفحه وب سارا اصلانی، پژوهشگر دکتری علوم اعصاب است.",
         "ogDescription": "این صفحه وب سارا اصلانی، پژوهشگر دکتری علوم اعصاب است.",
         "twitterDescription": "این پروفایل شخصی سارا اصلانی است.",
-        "ogImageAlt": "سارا اصلانی - پژوهشگر دکتری علوم اعصاب",
         "jobTitle": "پژوهشگر دکتری علوم اعصاب",
         "personDescription": "پژوهشگر دکتری علوم اعصاب."
     },
@@ -54,5 +52,10 @@
     },
     "profileSwitcher": {
         "label": "انتخاب پروفایل"
+    },
+    "profileSelector": {
+        "headerLabel": "با ما آشنا شوید",
+        "metaTitle": "{{profiles}} | صفحه اصلی",
+        "metaDescription": "این صفحه اصلی مشترک {{profiles}} است."
     }
 }

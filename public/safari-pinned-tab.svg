@@ -1,14 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
-    <rect x="0" y="0" width="200" height="200" fill="#2047D6"/>
-    <text
-        x="100"
-        y="100"
-        font-family="Roboto, sans-serif"
-        font-size="130"
-        font-weight="600"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Imbleau monogram">
+    <rect width="200" height="200" fill="#2047D6" />
+    <path
+        aria-label="IM"
+        d="M39 15V685Q39 692 43 696Q47 700 54 700H212Q219 700 223 696Q227 692 227 685V15Q227 8 223 4Q219 0 212 0H54Q47 0 43 4Q39 8 39 15ZM770 700H926Q933 700 937 696Q941 692 941 685V15Q941 8 937 4Q933 0 926 0H768Q761 0 757 4Q753 8 753 15V378Q753 382 751 382.5Q749 383 747 380L679 269Q673 259 661 259H585Q573 259 567 269L499 380Q497 383 495 382.5Q493 382 493 378V15Q493 8 489 4Q485 0 478 0H320Q313 0 309 4Q305 8 305 15V685Q305 692 309 696Q313 700 320 700H476Q488 700 494 690L620 487Q623 481 626 487L752 690Q758 700 770 700Z"
         fill="#F3EEDF"
-        text-anchor="middle"
-        dominant-baseline="central"
-        letter-spacing="0.1em"
-    >SI</text>
+        transform="translate(34.81153 146.563193) scale(.133038 -.133038)"
+    />
 </svg>

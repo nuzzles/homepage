@@ -4,7 +4,6 @@
         "description": "This is the web page of Spencer Imbleau. I am an American software engineer.",
         "ogDescription": "This is the web page of Spencer Imbleau. I am an American software engineer.",
         "twitterDescription": "This is the personal website of Spencer Imbleau.",
-        "ogImageAlt": "Spencer Imbleau - Software Engineer",
         "ogLocale": "en_US",
         "jobTitle": "Software Engineer",
         "personDescription": "American software engineer.",
@@ -15,7 +14,6 @@
         "description": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
         "ogDescription": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
         "twitterDescription": "This is the personal profile of Sara Aslani.",
-        "ogImageAlt": "Sara Aslani - Phd Neuroscience",
         "jobTitle": "Phd Neuroscience",
         "personDescription": "PhD neuroscience researcher."
     },
@@ -54,5 +52,10 @@
     },
     "profileSwitcher": {
         "label": "Choose profile"
+    },
+    "profileSelector": {
+        "headerLabel": "Meet us",
+        "metaTitle": "{{profiles}} | Homepage",
+        "metaDescription": "This is the joint homepage of {{profiles}}."
     }
 }

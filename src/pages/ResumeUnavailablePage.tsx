@@ -2,21 +2,22 @@ import { Box, Typography } from "@mui/material"
 import ArrowBack from "@mui/icons-material/ArrowBack"
 import Description from "@mui/icons-material/Description"
 import { Helmet } from "react-helmet-async"
-import { Link } from "react-router-dom"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
-import { getCanonicalProfileUrl, type ProfileId } from "@/profiles"
+import { getCanonicalProfileUrl, getProfile, type ProfileId } from "@/profiles"
 
 export const ResumeUnavailablePage = ({ profile }: { profile: ProfileId }) => {
     const { t, prefix, localizedPath } = useLanguage()
+    const profileConfig = getProfile(profile)
+    const text = (key: string) => t(`${profileConfig.resumeTextKey}.${key}`)
     const canonicalUrl = `${getCanonicalProfileUrl(profile)}${prefix}/resume`
 
     return (
         <>
             <Helmet>
-                <title>{t("resumePage.unavailablePageTitle")}</title>
-                <meta name="description" content={t("resumePage.unavailableDescription")} />
+                <title>{text("unavailablePageTitle")}</title>
+                <meta name="description" content={text("unavailableDescription")} />
                 <link rel="canonical" href={canonicalUrl} />
             </Helmet>
 
@@ -64,20 +65,18 @@ export const ResumeUnavailablePage = ({ profile }: { profile: ProfileId }) => {
                                 textTransform: "uppercase",
                             }}
                         >
-                            {t("resumePage.unavailable")}
+                            {text("unavailable")}
                         </Typography>
                         <Typography sx={{ mt: 1.25, color: "text.helper", fontSize: "1rem", fontWeight: 500 }}>
-                            {t("resumePage.comingSoon")}
+                            {text("comingSoon")}
                         </Typography>
                     </Box>
                 </CornerFrame>
 
-                <Link to={localizedPath("/")} style={{ marginTop: 16, textDecoration: "none" }}>
-                    <LightButton variant="tertiary" size="small" sx={{ px: 1.5 }}>
-                        <ArrowBack sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                        {t("resumePage.goBack")}
-                    </LightButton>
-                </Link>
+                <LightButton href={localizedPath("/")} variant="tertiary" size="small" sx={{ mt: 2, px: 1.5 }}>
+                    <ArrowBack sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                    {text("goBack")}
+                </LightButton>
             </Box>
         </>
     )

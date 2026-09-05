@@ -2,33 +2,22 @@ import { useState, type MouseEvent } from "react"
 import { Button, Menu, MenuItem } from "@mui/material"
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown"
 import { alpha } from "@mui/material/styles"
-import type { ProfileId } from "@/profiles"
+import { PROFILE_OPTIONS, type ProfileId } from "@/profiles"
 import { SELECTOR_CARET_SIZE } from "@/components/selectorStyles"
-
-interface ProfileOption {
-    id: ProfileId
-    name: string
-}
 
 interface ProfileSwitcherProps {
     value: ProfileId
-    options: readonly ProfileOption[]
     label: string
-    onChange: (profile: ProfileId) => void
+    hrefForProfile: (profile: ProfileId) => string
 }
 
-export const ProfileSwitcher = ({ value, options, label, onChange }: ProfileSwitcherProps) => {
+export const ProfileSwitcher = ({ value, label, hrefForProfile }: ProfileSwitcherProps) => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-    const selected = options.find(({ id }) => id === value) ?? options[0]
+    const selected = PROFILE_OPTIONS.find(({ id }) => id === value) ?? PROFILE_OPTIONS[0]
     const open = Boolean(anchorEl)
 
     const handleOpen = (event: MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)
     const handleClose = () => setAnchorEl(null)
-
-    const handleChange = (profile: ProfileId) => {
-        onChange(profile)
-        handleClose()
-    }
 
     return (
         <>
@@ -90,28 +79,27 @@ export const ProfileSwitcher = ({ value, options, label, onChange }: ProfileSwit
                     },
                 }}
             >
-                {options
-                    .filter(({ id }) => id !== value)
-                    .map(({ id, name }) => (
-                        <MenuItem
-                            key={id}
-                            onClick={() => handleChange(id)}
-                            sx={(theme) => ({
-                                px: 1.5,
-                                py: 0.75,
-                                fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
-                                fontSize: "1.2rem",
-                                fontWeight: 800,
-                                textTransform: "uppercase",
-                                "&:hover, &.Mui-focusVisible": {
-                                    color: theme.palette.primary.main,
-                                    backgroundColor: alpha(theme.palette.primary.main, 0.08),
-                                },
-                            })}
-                        >
-                            {name}
-                        </MenuItem>
-                    ))}
+                {PROFILE_OPTIONS.filter(({ id }) => id !== value).map(({ id, name }) => (
+                    <MenuItem
+                        key={id}
+                        component="a"
+                        href={hrefForProfile(id)}
+                        sx={(theme) => ({
+                            px: 1.5,
+                            py: 0.75,
+                            fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
+                            fontSize: "1.2rem",
+                            fontWeight: 800,
+                            textTransform: "uppercase",
+                            "&:hover, &.Mui-focusVisible": {
+                                color: theme.palette.primary.main,
+                                backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                            },
+                        })}
+                    >
+                        {name}
+                    </MenuItem>
+                ))}
             </Menu>
         </>
     )

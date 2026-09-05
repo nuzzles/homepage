@@ -1,30 +1,44 @@
-import { lazy, Suspense } from "react"
+import { Fragment, lazy, Suspense } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
 import { Box, CircularProgress } from "@mui/material"
 import { HomePage } from "@/pages/HomePage"
+import { ProfileSelectorPage } from "@/pages/ProfileSelectorPage"
 import { ResumeUnavailablePage } from "@/pages/ResumeUnavailablePage"
 import { LanguageRedirect } from "@/components/LanguageRedirect"
 import { LocalizedLayout } from "@/components/LocalizedLayout"
-import { getActiveProfile, profileHasResume } from "@/profiles"
+import { getProfile, isLocalProfileHostname, isProfileId, PROFILE_IDS } from "@/profiles"
+import { getConfiguredSite } from "@/site"
+import type { ProfileId } from "@/profiles"
 
 const ResumePage = lazy(() => import("@/pages/ResumePage").then((module) => ({ default: module.ResumePage })))
 
-const ResumeRoute = () => {
-    const profile = getActiveProfile(window.location.hostname, sessionStorage.getItem("selectedProfile"))
-
-    if (!profileHasResume(profile)) {
+const ResumeRoute = ({ profile }: { profile: ProfileId }) => {
+    if (!getProfile(profile).resume) {
         return <ResumeUnavailablePage profile={profile} />
     }
 
     return (
         <Suspense fallback={<CircularProgress aria-label="Loading résumé" />}>
-            <ResumePage />
+            <ResumePage profile={profile} />
         </Suspense>
     )
 }
 
+const getLocalProfileRoutes = (prefix: "" | "/fr" | "/fa") =>
+    PROFILE_IDS.map((profile) => (
+        <Fragment key={`${prefix}-${profile}`}>
+            <Route path={`${prefix}/${profile}`} element={<HomePage fixedProfile={profile} />} />
+            <Route path={`${prefix}/${profile}/resume`} element={<ResumeRoute profile={profile} />} />
+        </Fragment>
+    ))
+
 function App() {
+    const site = getConfiguredSite()
+    const isLocal = isLocalProfileHostname(window.location.hostname)
+    const profileSite = isProfileId(site) ? site : null
+    const homeElement = profileSite ? <HomePage fixedProfile={profileSite} /> : <ProfileSelectorPage />
+
     return (
         <HelmetProvider>
             <BrowserRouter>
@@ -41,22 +55,29 @@ function App() {
                     }}
                 >
                     <Routes>
-                        <Route path="/" element={<LanguageRedirect />} />
+                        <Route path="/" element={<LanguageRedirect>{homeElement}</LanguageRedirect>} />
 
                         <Route element={<LocalizedLayout lang="en" />}>
-                            <Route path="/en" element={<HomePage />} />
-                            <Route path="/en/resume" element={<ResumeRoute />} />
-                            <Route path="/resume" element={<ResumeRoute />} />
+                            <Route path="/en" element={homeElement} />
+                            {profileSite && (
+                                <>
+                                    <Route path="/en/resume" element={<ResumeRoute profile={profileSite} />} />
+                                    <Route path="/resume" element={<ResumeRoute profile={profileSite} />} />
+                                </>
+                            )}
+                            {isLocal && getLocalProfileRoutes("")}
                         </Route>
 
                         <Route element={<LocalizedLayout lang="fr" />}>
-                            <Route path="/fr" element={<HomePage />} />
-                            <Route path="/fr/resume" element={<ResumeRoute />} />
+                            <Route path="/fr" element={homeElement} />
+                            {profileSite && <Route path="/fr/resume" element={<ResumeRoute profile={profileSite} />} />}
+                            {isLocal && getLocalProfileRoutes("/fr")}
                         </Route>
 
                         <Route element={<LocalizedLayout lang="fa" />}>
-                            <Route path="/fa" element={<HomePage />} />
-                            <Route path="/fa/resume" element={<ResumeRoute />} />
+                            <Route path="/fa" element={homeElement} />
+                            {profileSite && <Route path="/fa/resume" element={<ResumeRoute profile={profileSite} />} />}
+                            {isLocal && getLocalProfileRoutes("/fa")}
                         </Route>
 
                         <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,6 +1,6 @@
 {
     "name": "homepage",
-    "description": "Personal website of Spencer Imbleau",
+    "description": "Joint homepage of Spencer Imbleau and Sara Aslani",
     "version": "0.1.0",
     "private": true,
     "type": "module",
@@ -11,15 +11,16 @@
     },
     "author": "Spencer Imbleau",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc -b && vite build",
+        "generate:profiles": "node scripts/generate-profile-files.mjs",
+        "dev": "pnpm generate:profiles && vite",
+        "build": "pnpm generate:profiles && tsc -b && vite build",
         "lint": "eslint .",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "typecheck": "tsc -b",
         "test": "vitest run --environment jsdom",
         "test:watch": "vitest --environment jsdom",
-        "check": "prettier --check . && eslint . && tsc -b && vitest run --environment jsdom && vite build",
+        "check": "pnpm generate:profiles && prettier --check . && eslint . && tsc -b && vitest run --environment jsdom && vite build",
         "preview": "vite preview"
     },
     "dependencies": {

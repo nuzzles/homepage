@@ -1,23 +1,29 @@
-resource "cloudflare_record" "environment_redirect" {
+resource "cloudflare_record" "www_redirect" {
+  count = var.environment == "prod" ? 1 : 0
+
   zone_id = local.cloudflare_zone_id
-  comment = "Redirect ${local.redirect.source} to ${local.redirect.target}"
-  name    = local.redirect.source
+  comment = "Redirect www.imbleau.com to imbleau.com"
+  name    = "www.imbleau.com"
   value   = "192.0.2.1"
   type    = "A"
   proxied = true
+
+  depends_on = [cloudflare_record.selector]
 }
 
-resource "cloudflare_page_rule" "environment_redirect" {
+resource "cloudflare_page_rule" "www_redirect" {
+  count = var.environment == "prod" ? 1 : 0
+
   zone_id = local.cloudflare_zone_id
-  target  = "${local.redirect.source}/*"
+  target  = "www.imbleau.com/*"
   status  = "active"
 
   actions {
     forwarding_url {
-      url         = "https://${local.redirect.target}/$1"
+      url         = "https://imbleau.com/$1"
       status_code = 301
     }
   }
 
-  depends_on = [cloudflare_record.environment_redirect]
+  depends_on = [cloudflare_record.www_redirect]
 }

@@ -23,3 +23,5 @@ provider "aws" {
 }
 
 provider "cloudflare" {}
+
+data "aws_caller_identity" "current" {}

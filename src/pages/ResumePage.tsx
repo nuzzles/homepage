@@ -5,18 +5,17 @@ import { Helmet } from "react-helmet-async"
 import ArrowBack from "@mui/icons-material/ArrowBack"
 import Description from "@mui/icons-material/Description"
 import Download from "@mui/icons-material/Download"
-import { Link } from "react-router-dom"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
+import { getCanonicalProfileUrl, getProfile, type ProfileId } from "@/profiles"
 
-const RESUME_PDF_URL = "https://nuzzles.github.io/resume/resume.pdf"
-const RESUME_EMBED_URL = "https://nuzzles.github.io/resume/embed.html"
-const BASE_URL = "https://spencer.imbleau.com"
-
-export const ResumePage = () => {
+export const ResumePage = ({ profile: profileId }: { profile: ProfileId }) => {
     const { t, prefix, localizedPath } = useLanguage()
-    const canonicalUrl = `${BASE_URL}${prefix}/resume`
+    const profile = getProfile(profileId)
+    const resume = profile.resume
+    const text = (key: string) => t(`${profile.resumeTextKey}.${key}`)
+    const canonicalUrl = `${getCanonicalProfileUrl(profileId)}${prefix}/resume`
     const [loading, setLoading] = useState(true)
     const [showLoadingHelp, setShowLoadingHelp] = useState(false)
     const [downloading, setDownloading] = useState(false)
@@ -37,7 +36,8 @@ export const ResumePage = () => {
         setDownloadProgress(0)
 
         try {
-            const res = await fetch(RESUME_PDF_URL)
+            if (!resume) throw new Error(`No resume configured for ${profileId}`)
+            const res = await fetch(resume.pdfUrl)
             if (!res.ok) throw new Error(`Resume download failed with status ${res.status}`)
 
             const contentLength = res.headers.get("content-length")
@@ -64,7 +64,7 @@ export const ResumePage = () => {
             const url = URL.createObjectURL(blob)
             const anchor = document.createElement("a")
             anchor.href = url
-            anchor.download = t("resumePage.downloadFilename")
+            anchor.download = text("downloadFilename")
             document.body.appendChild(anchor)
             anchor.click()
             document.body.removeChild(anchor)
@@ -72,7 +72,8 @@ export const ResumePage = () => {
         } catch (error) {
             console.error("Unable to download the resume directly", error)
             const fallback = document.createElement("a")
-            fallback.href = RESUME_PDF_URL
+            if (!resume) return
+            fallback.href = resume.pdfUrl
             fallback.target = "_blank"
             fallback.rel = "noopener noreferrer"
             document.body.appendChild(fallback)
@@ -88,8 +89,8 @@ export const ResumePage = () => {
     return (
         <>
             <Helmet>
-                <title>{t("resumePage.title")}</title>
-                <meta name="description" content={t("resumePage.description")} />
+                <title>{text("title")}</title>
+                <meta name="description" content={text("description")} />
                 <link rel="canonical" href={canonicalUrl} />
             </Helmet>
 
@@ -169,11 +170,11 @@ export const ResumePage = () => {
                                         textTransform: "uppercase",
                                     }}
                                 >
-                                    {t("resumePage.loading")}
+                                    {text("loading")}
                                 </Typography>
 
                                 <LinearProgress
-                                    aria-label={t("resumePage.loading")}
+                                    aria-label={text("loading")}
                                     sx={(theme) => ({
                                         width: "min(180px, 65%)",
                                         height: 4,
@@ -186,10 +187,10 @@ export const ResumePage = () => {
                                 {showLoadingHelp && (
                                     <Box sx={{ mt: 2.5, textAlign: "center" }}>
                                         <Typography sx={{ color: "text.helper", fontSize: "0.8rem" }}>
-                                            {t("resumePage.loadingHelp")}
+                                            {text("loadingHelp")}
                                         </Typography>
                                         <MuiLink
-                                            href={RESUME_PDF_URL}
+                                            href={resume?.pdfUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             underline="always"
@@ -201,7 +202,7 @@ export const ResumePage = () => {
                                                 textTransform: "uppercase",
                                             })}
                                         >
-                                            {t("resumePage.openPdf")}
+                                            {text("openPdf")}
                                         </MuiLink>
                                     </Box>
                                 )}
@@ -210,8 +211,8 @@ export const ResumePage = () => {
 
                         <Box
                             component="iframe"
-                            title={t("resumePage.iframeTitle")}
-                            src={RESUME_EMBED_URL}
+                            title={text("iframeTitle")}
+                            src={resume?.embedUrl}
                             onLoad={() => setLoading(false)}
                             sx={{
                                 border: 0,
@@ -225,12 +226,10 @@ export const ResumePage = () => {
                 </CornerFrame>
 
                 <Box sx={{ mt: 2, display: "flex", alignItems: "center", gap: 2 }}>
-                    <Link to={localizedPath("/")} style={{ textDecoration: "none" }}>
-                        <LightButton variant="tertiary" size="small" sx={{ px: 1.5 }}>
-                            <ArrowBack sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                            {t("resumePage.goBack")}
-                        </LightButton>
-                    </Link>
+                    <LightButton href={localizedPath("/")} variant="tertiary" size="small" sx={{ px: 1.5 }}>
+                        <ArrowBack sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                        {text("goBack")}
+                    </LightButton>
                     <LightButton
                         ref={btnRef}
                         variant="primary"
@@ -239,11 +238,7 @@ export const ResumePage = () => {
                         onClick={downloading ? undefined : handleDownload}
                     >
                         <Download sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                        {downloading
-                            ? downloadProgress > 0
-                                ? `${downloadProgress}%`
-                                : "..."
-                            : t("resumePage.downloadResume")}
+                        {downloading ? (downloadProgress > 0 ? `${downloadProgress}%` : "...") : text("downloadResume")}
                         {downloading && (
                             <LinearProgress
                                 variant={downloadProgress > 0 ? "determinate" : "indeterminate"}

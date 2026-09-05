@@ -9,7 +9,6 @@ import Email from "@mui/icons-material/Email"
 import Keyboard from "@mui/icons-material/Keyboard"
 import LinkedIn from "@mui/icons-material/LinkedIn"
 import { Helmet } from "react-helmet-async"
-import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
@@ -19,78 +18,12 @@ import { LightButton } from "@/components/LightButton"
 import { ProfileSwitcher } from "@/components/ProfileSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 import {
-    getActiveProfile,
     getCanonicalProfileUrl,
+    getProfile,
     getProfileSwitchUrl,
     isLocalProfileHostname,
     type ProfileId,
 } from "@/profiles"
-
-interface SocialLink {
-    kind: "linkedin" | "github"
-    label: string
-    href: string
-}
-
-interface Profile {
-    name: string
-    image: string
-    encodedEmail: string
-    roleKey: string
-    stickerKey: string
-    metaKey: "meta" | "saraMeta"
-    schemaImage: string
-    nationality?: string
-    calendlyUrl?: string
-    socials: readonly SocialLink[]
-}
-
-const PROFILE_OPTIONS = [
-    { id: "spencer", name: "Spencer Imbleau" },
-    { id: "sara", name: "Sara Aslani" },
-] as const
-
-const PROFILES: Record<ProfileId, Profile> = {
-    spencer: {
-        name: "Spencer Imbleau",
-        image: "/images/me.webp",
-        encodedEmail: "c3BlbmNlckBpbWJsZWF1LmNvbQ==",
-        roleKey: "home.role",
-        stickerKey: "home.sticker",
-        metaKey: "meta",
-        schemaImage: "/og-banner.png",
-        nationality: "American",
-        calendlyUrl: "https://calendly.com/simbleau/meet",
-        socials: [
-            {
-                kind: "linkedin",
-                label: "LINKEDIN / SIMBLEAU",
-                href: "https://www.linkedin.com/in/simbleau/",
-            },
-            {
-                kind: "github",
-                label: "GITHUB / NUZZLES",
-                href: "https://www.github.com/nuzzles/",
-            },
-        ],
-    },
-    sara: {
-        name: "Sara Aslani",
-        image: "/images/sara.webp",
-        encodedEmail: "c2EuYXNsYW5pQHVmbC5lZHU=",
-        roleKey: "home.saraRole",
-        stickerKey: "home.saraSticker",
-        metaKey: "saraMeta",
-        schemaImage: "/images/sara.webp",
-        socials: [
-            {
-                kind: "linkedin",
-                label: "LINKEDIN / SARA ASLANI",
-                href: "https://www.linkedin.com/in/sarah-aslani-76f9/",
-            },
-        ],
-    },
-}
 
 const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     const { t } = useTranslation()
@@ -151,30 +84,20 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     )
 }
 
-export const HomePage = () => {
+export const HomePage = ({ fixedProfile }: { fixedProfile: ProfileId }) => {
     const { t, prefix, localizedPath } = useLanguage()
-    const [profileId, setProfileId] = useState<ProfileId>(() =>
-        getActiveProfile(window.location.hostname, sessionStorage.getItem("selectedProfile"))
-    )
-    const profile = PROFILES[profileId]
+    const profileId = fixedProfile
+    const profile = getProfile(profileId)
     const actionCount = 2 + Number(Boolean(profile.calendlyUrl))
+    const isLocalProfile = isLocalProfileHostname(window.location.hostname) && Boolean(fixedProfile)
+    const resumePath = localizedPath(isLocalProfile ? `/${profileId}/resume` : "/resume")
     const profileBaseUrl = getCanonicalProfileUrl(profileId)
     const canonicalUrl = `${profileBaseUrl}${prefix}/`
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
 
-    const handleProfileChange = (nextProfile: ProfileId) => {
+    const hrefForProfile = (nextProfile: ProfileId) => {
         const nextUrl = getProfileSwitchUrl(window.location.href, nextProfile)
-
-        if (nextUrl) {
-            window.location.assign(nextUrl)
-            return
-        }
-
-        if (isLocalProfileHostname(window.location.hostname)) {
-            sessionStorage.setItem("selectedProfile", nextProfile)
-        }
-
-        setProfileId(nextProfile)
+        return nextUrl ?? localizedPath(`/${nextProfile}`)
     }
 
     return (
@@ -186,29 +109,25 @@ export const HomePage = () => {
                 <meta property="og:description" content={meta("ogDescription")} />
                 <meta property="og:locale" content={t("meta.ogLocale")} />
                 <meta property="og:url" content={canonicalUrl} />
-                <meta property="og:image" content={`${profileBaseUrl}${profile.schemaImage}`} />
-                <meta property="og:image:alt" content={meta("ogImageAlt")} />
+                <meta property="og:image" content={`${profileBaseUrl}/og-banner.png`} />
+                <meta property="og:image:alt" content="Imbleau" />
                 <meta name="twitter:description" content={meta("twitterDescription")} />
-                <meta name="twitter:image" content={`${profileBaseUrl}${profile.schemaImage}`} />
+                <meta name="twitter:image" content={`${profileBaseUrl}/og-banner.png`} />
                 <link rel="canonical" href={canonicalUrl} />
                 <link rel="alternate" hrefLang="en-US" href={`${profileBaseUrl}/`} />
                 <link rel="alternate" hrefLang="x-default" href={`${profileBaseUrl}/`} />
                 <link rel="alternate" hrefLang="fr" href={`${profileBaseUrl}/fr/`} />
                 <link rel="alternate" hrefLang="fa" href={`${profileBaseUrl}/fa/`} />
-                <link
-                    rel="sitemap"
-                    type="application/xml"
-                    href={profileId === "sara" ? "/sitemap-sara.xml" : "/sitemap.xml"}
-                />
+                <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "Person",
-                        name: profile.name,
+                        name: profile.fullName,
                         url: canonicalUrl,
                         jobTitle: meta("jobTitle"),
                         description: meta("personDescription"),
-                        image: `${profileBaseUrl}${profile.schemaImage}`,
+                        image: `${profileBaseUrl}/og-banner.png`,
                         ...(profile.nationality ? { nationality: profile.nationality } : {}),
                         sameAs: profile.socials.map(({ href }) => href),
                     })}
@@ -228,9 +147,8 @@ export const HomePage = () => {
                 >
                     <ProfileSwitcher
                         value={profileId}
-                        options={PROFILE_OPTIONS}
                         label={t("profileSwitcher.label")}
-                        onChange={handleProfileChange}
+                        hrefForProfile={hrefForProfile}
                     />
                     <Typography
                         title={t(profile.roleKey)}
@@ -303,7 +221,7 @@ export const HomePage = () => {
                         <CornerFrame>
                             <Box
                                 component="img"
-                                alt={profile.name}
+                                alt={profile.fullName}
                                 src={profile.image}
                                 sx={{
                                     position: "relative",
@@ -369,25 +287,22 @@ export const HomePage = () => {
                             gap: 1,
                         }}
                     >
-                        <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
-                            <LightButton variant="primary" fullWidth>
-                                <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                                {t("home.resume")}
-                            </LightButton>
-                        </Link>
+                        <LightButton href={resumePath} variant="primary" fullWidth>
+                            <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                            {t("home.resume")}
+                        </LightButton>
                         <RevealEmailButton key={profileId} encodedEmail={profile.encodedEmail} />
                         {profile.calendlyUrl && (
-                            <a
+                            <LightButton
                                 href={profile.calendlyUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                style={{ textDecoration: "none" }}
+                                variant="secondary"
+                                fullWidth
                             >
-                                <LightButton variant="secondary" fullWidth>
-                                    <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                                    {t("home.scheduleOneOnOne")}
-                                </LightButton>
-                            </a>
+                                <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                {t("home.scheduleOneOnOne")}
+                            </LightButton>
                         )}
                     </Box>
                 </Box>
@@ -423,33 +338,29 @@ export const HomePage = () => {
                         }}
                     >
                         {profile.socials.map(({ kind, label, href }) => (
-                            <a
+                            <LightButton
                                 key={label}
                                 href={href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                style={{ textDecoration: "none" }}
+                                variant="tertiary"
+                                size="small"
+                                fullWidth
+                                sx={{
+                                    px: 1,
+                                    gap: 0.6,
+                                    fontFamily: "Courier New, monospace",
+                                    fontSize: "0.72rem",
+                                    letterSpacing: "0.01em",
+                                }}
                             >
-                                <LightButton
-                                    variant="tertiary"
-                                    size="small"
-                                    fullWidth
-                                    sx={{
-                                        px: 1,
-                                        gap: 0.6,
-                                        fontFamily: "Courier New, monospace",
-                                        fontSize: "0.72rem",
-                                        letterSpacing: "0.01em",
-                                    }}
-                                >
-                                    {kind === "linkedin" ? (
-                                        <LinkedIn sx={{ fontSize: "1rem" }} />
-                                    ) : (
-                                        <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />
-                                    )}
-                                    {label}
-                                </LightButton>
-                            </a>
+                                {kind === "linkedin" ? (
+                                    <LinkedIn sx={{ fontSize: "1rem" }} />
+                                ) : (
+                                    <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />
+                                )}
+                                {label}
+                            </LightButton>
                         ))}
                     </Box>
                     <Typography

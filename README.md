@@ -1,10 +1,11 @@
-# Personal Website
+# Homepage
 
 [![Uptime Status](https://img.shields.io/uptimerobot/status/m802358152-3a32dc04dddbd9789a469d21)](https://stats.uptimerobot.com/pTFWZdoTxa)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/nuzzles/homepage/ci.yml?logo=github&label=CI)](https://github.com/nuzzles/homepage/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0%2FMIT-blue.svg)](LICENSE-APACHE)
 
-This is the source code for my personal website built with React, TypeScript, Vite, and Claude.
+This is the source code for the joint homepage of Spencer Imbleau and Sara Aslani, built with React,
+TypeScript, and Vite.
 
 ## Development Setup
 
@@ -26,7 +27,13 @@ pnpm install
 pnpm dev
 ```
 
-This will start the development server with hot module replacement enabled.
+This starts the joint homepage at `/`. The Spencer and Sara sites are available
+locally at `/spencer` and `/sara`; language-prefixed routes such as `/fr/spencer`
+and `/fa/sara` work as well.
+
+Profile identity, hostnames, images, contact links, résumé settings, SEO, and translation
+keys are defined once in `profiles.json`. The UI, local routes, generated profile pages,
+sitemaps, Vite entries, deployment loops, and Terraform all derive from that registry.
 
 ## Available Commands
 
@@ -41,12 +48,11 @@ pnpm preview  # Preview production build locally
 
 ## Asset Generation
 
-Favicons, OG images, and other assets are generated from two SVG source files:
+All three sites share the favicons, app icons, and Open Graph image generated
+from `public/logo.svg` and `public/og-banner.svg`. The profile directories only
+contain their site-specific `robots.txt` and `sitemap.xml` files.
 
-- `public/logo.svg` - Logo used for favicons, app icons, and tiles
-- `public/og-banner.svg` - Open Graph banner image
-
-To regenerate all assets after editing the SVGs:
+To regenerate the shared assets after editing the SVGs:
 
 ```sh
 ./generate-assets.sh

@@ -1,34 +1,104 @@
-export type ProfileId = "spencer" | "sara"
+import rawConfig from "../profiles.json" with { type: "json" }
 
-const PROFILE_HOSTNAME = /^(spencer|sara)(?:-(dev|stg))?\.imbleau\.com$/i
+export type SocialKind = "linkedin" | "github"
+export type DeploymentEnvironment = "dev" | "stg" | "prod"
+
+export interface SocialLink {
+    kind: SocialKind
+    label: string
+    href: string
+}
+
+export interface ResumeConfig {
+    pdfUrl: string
+    embedUrl: string
+    lastModified: string
+}
+
+export interface StaticProfileMeta {
+    description: string
+    twitterDescription: string
+    keywords: string
+    noscriptRole: string
+    twitterHandle?: string
+    mastodonUrl?: string
+}
+
+export interface ProfileConfig {
+    firstName: string
+    fullName: string
+    primaryInfrastructure?: boolean
+    hostnames: Record<DeploymentEnvironment, string>
+    image: string
+    encodedEmail: string
+    roleKey: string
+    stickerKey: string
+    metaKey: string
+    resumeTextKey: string
+    nationality?: string
+    calendlyUrl?: string
+    staticMeta: StaticProfileMeta
+    lastModified: string
+    resume: ResumeConfig | null
+    socials: readonly SocialLink[]
+}
+
+const config = rawConfig as Record<keyof typeof rawConfig, ProfileConfig>
+
+export type ProfileId = keyof typeof config
+
+export const PROFILE_CONFIG: Readonly<Record<ProfileId, ProfileConfig>> = config
+export const PROFILE_IDS = Object.keys(config) as ProfileId[]
+export const PROFILE_ENTRIES = PROFILE_IDS.map((id) => ({ id, ...PROFILE_CONFIG[id] }))
+export const PROFILE_OPTIONS = PROFILE_ENTRIES.map(({ id, fullName }) => ({ id, name: fullName }))
+
+const SELECTOR_HOSTNAME = /^(?:(dev|stg)\.)?imbleau\.com$/i
+
+export function isProfileId(value: unknown): value is ProfileId {
+    return typeof value === "string" && Object.hasOwn(config, value)
+}
+
+export function getProfile(profile: ProfileId): ProfileConfig {
+    return PROFILE_CONFIG[profile]
+}
 
 export function isLocalProfileHostname(hostname: string): boolean {
     return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1"
 }
 
-export function getProfileFromHostname(hostname: string): ProfileId | null {
-    const profile = PROFILE_HOSTNAME.exec(hostname)?.[1]?.toLowerCase()
-    if (profile === "spencer" || profile === "sara") return profile
+function getProfileHostMatch(hostname: string): { profile: ProfileId; environment: DeploymentEnvironment } | null {
+    const normalizedHostname = hostname.toLowerCase()
+
+    for (const profile of PROFILE_IDS) {
+        for (const environment of ["dev", "stg", "prod"] as const) {
+            if (normalizedHostname === PROFILE_CONFIG[profile].hostnames[environment].toLowerCase()) {
+                return { profile, environment }
+            }
+        }
+    }
+
     return null
 }
 
-export function getActiveProfile(hostname: string, selectedLocalProfile: string | null = null): ProfileId {
-    const hostnameProfile = getProfileFromHostname(hostname)
-    if (hostnameProfile) return hostnameProfile
-    if (isLocalProfileHostname(hostname) && selectedLocalProfile === "sara") return "sara"
-    return "spencer"
+export function getProfileFromHostname(hostname: string): ProfileId | null {
+    return getProfileHostMatch(hostname)?.profile ?? null
+}
+
+export function getActiveProfile(hostname: string): ProfileId | null {
+    return getProfileFromHostname(hostname)
 }
 
 export function profileHasResume(profile: ProfileId): boolean {
-    return profile === "spencer"
+    return PROFILE_CONFIG[profile].resume !== null
 }
 
 export function getProfileHostname(hostname: string, profile: ProfileId): string | null {
-    const match = PROFILE_HOSTNAME.exec(hostname)
-    if (!match) return null
+    const profileMatch = getProfileHostMatch(hostname)
+    const selectorMatch = SELECTOR_HOSTNAME.exec(hostname)
+    if (!profileMatch && !selectorMatch) return null
 
-    const environment = match[2]?.toLowerCase()
-    return `${profile}${environment ? `-${environment}` : ""}.imbleau.com`
+    const environment = profileMatch?.environment ?? selectorMatch?.[1]?.toLowerCase() ?? "prod"
+    return PROFILE_CONFIG[profile].hostnames[environment as DeploymentEnvironment]
 }
 
 export function getProfileSwitchUrl(currentHref: string, profile: ProfileId): string | null {
@@ -41,5 +111,5 @@ export function getProfileSwitchUrl(currentHref: string, profile: ProfileId): st
 }
 
 export function getCanonicalProfileUrl(profile: ProfileId): string {
-    return `https://${profile}.imbleau.com`
+    return `https://${PROFILE_CONFIG[profile].hostnames.prod}`
 }
