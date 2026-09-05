@@ -5,9 +5,17 @@ locals {
   domains = {
     dev  = "dev.spencer.imbleau.com"
     stg  = "stg.spencer.imbleau.com"
+    prod = "spencer.imbleau.com"
+  }
+
+  # Keep the existing production bucket name. It is an internal origin name,
+  # not the website's canonical URL, and changing it would replace the bucket.
+  bucket_names = {
+    dev  = "dev.spencer.imbleau.com"
+    stg  = "stg.spencer.imbleau.com"
     prod = "www.spencer.imbleau.com"
   }
 
   domain_name = local.domains[var.environment]
-  bucket_name = local.domain_name
+  bucket_name = local.bucket_names[var.environment]
 }

@@ -5,15 +5,14 @@ provides authoritative DNS and ACM certificates are validated with Cloudflare
 DNS records. Each deployment environment has isolated Terraform state and
 infrastructure.
 
-| Environment | Variables                  | State key              | URL                               |
-| ----------- | -------------------------- | ---------------------- | --------------------------------- |
-| `dev`       | `environments/dev.tfvars`  | `homepage/dev.tfstate` | `https://dev.spencer.imbleau.com` |
-| `stg`       | `environments/stg.tfvars`  | `homepage/stg.tfstate` | `https://stg.spencer.imbleau.com` |
-| `prod`      | `environments/prod.tfvars` | `terraform.tfstate`    | `https://www.spencer.imbleau.com` |
+| Environment | Variables                  | State key               | URL                               |
+| ----------- | -------------------------- | ----------------------- | --------------------------------- |
+| `dev`       | `environments/dev.tfvars`  | `homepage-tfstate-dev`  | `https://dev.spencer.imbleau.com` |
+| `stg`       | `environments/stg.tfvars`  | `homepage-tfstate-stg`  | `https://stg.spencer.imbleau.com` |
+| `prod`      | `environments/prod.tfvars` | `homepage-tfstate-prod` | `https://spencer.imbleau.com`     |
 
 All three keys live in the existing `imbleau-terraform-state` bucket. The
-production key deliberately remains `terraform.tfstate` so the existing
-infrastructure stays attached to its current state.
+production state was migrated from its original `terraform.tfstate` key.
 
 ## GitHub configuration
 
