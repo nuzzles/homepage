@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://spencer.imbleau.com/sitemap.xml
+Sitemap: https://sara.imbleau.com/sitemap-sara.xml

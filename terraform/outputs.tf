@@ -9,6 +9,11 @@ output "cloudfront_distribution_id" {
 }
 
 output "website_url" {
-  description = "Canonical public URL for this environment."
-  value       = "https://${local.domain_name}"
+  description = "Canonical Spencer URL for this environment."
+  value       = "https://${local.spencer_domain_name}"
+}
+
+output "sara_website_url" {
+  description = "Canonical Sara URL for this environment."
+  value       = "https://${local.sara_domain_name}"
 }

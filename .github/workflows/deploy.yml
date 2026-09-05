@@ -66,6 +66,7 @@ jobs:
           echo "bucket_name=$(terraform output -raw bucket_name)" >> "$GITHUB_OUTPUT"
           echo "distribution_id=$(terraform output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
           echo "website_url=$(terraform output -raw website_url)" >> "$GITHUB_OUTPUT"
+          echo "sara_website_url=$(terraform output -raw sara_website_url)" >> "$GITHUB_OUTPUT"
 
       - name: Build | Website
         run: pnpm build
@@ -101,7 +102,10 @@ jobs:
           --no-cli-pager
 
       - name: Verify | Public deployment
-        run: >-
-          curl --fail --silent --show-error --location
-          --retry 12 --retry-delay 5 --retry-connrefused
-          '${{ steps.terraform.outputs.website_url }}'
+        run: |
+          curl --fail --silent --show-error --location \
+            --retry 12 --retry-delay 5 --retry-connrefused \
+            '${{ steps.terraform.outputs.website_url }}'
+          curl --fail --silent --show-error --location \
+            --retry 12 --retry-delay 5 --retry-connrefused \
+            '${{ steps.terraform.outputs.sara_website_url }}'

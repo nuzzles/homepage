@@ -2,8 +2,7 @@ import { useState, type MouseEvent } from "react"
 import { Button, Menu, MenuItem } from "@mui/material"
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown"
 import { alpha } from "@mui/material/styles"
-
-export type ProfileId = "spencer" | "sara"
+import type { ProfileId } from "@/profiles"
 
 interface ProfileOption {
     id: ProfileId

@@ -3,13 +3,14 @@
 The website is served from a private S3 origin through CloudFront. Cloudflare
 provides authoritative DNS and ACM certificates are validated with Cloudflare
 DNS records. Each deployment environment has isolated Terraform state and
-infrastructure.
+infrastructure. Spencer and Sara share each environment's S3 bucket and
+CloudFront distribution while retaining distinct canonical hostnames.
 
-| Environment | Variables                  | State key               | URL                               |
-| ----------- | -------------------------- | ----------------------- | --------------------------------- |
-| `dev`       | `environments/dev.tfvars`  | `homepage-tfstate-dev`  | `https://dev.spencer.imbleau.com` |
-| `stg`       | `environments/stg.tfvars`  | `homepage-tfstate-stg`  | `https://stg.spencer.imbleau.com` |
-| `prod`      | `environments/prod.tfvars` | `homepage-tfstate-prod` | `https://spencer.imbleau.com`     |
+| Environment | Variables                  | State key               | Spencer URL                       | Sara URL                       |
+| ----------- | -------------------------- | ----------------------- | --------------------------------- | ------------------------------ |
+| `dev`       | `environments/dev.tfvars`  | `homepage-tfstate-dev`  | `https://dev.spencer.imbleau.com` | `https://dev.sara.imbleau.com` |
+| `stg`       | `environments/stg.tfvars`  | `homepage-tfstate-stg`  | `https://stg.spencer.imbleau.com` | `https://stg.sara.imbleau.com` |
+| `prod`      | `environments/prod.tfvars` | `homepage-tfstate-prod` | `https://spencer.imbleau.com`     | `https://sara.imbleau.com`     |
 
 All three keys live in the existing `imbleau-terraform-state` bucket. The
 production state was migrated from its original `terraform.tfstate` key.

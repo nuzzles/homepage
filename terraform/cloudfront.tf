@@ -84,7 +84,7 @@ resource "aws_cloudfront_distribution" "web_distribution" {
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "${upper(var.environment)} - Website Distribution"
-  aliases             = [local.domain_name]
+  aliases             = local.domain_names
   default_root_object = "index.html"
   price_class         = "PriceClass_All"
   wait_for_deployment = true

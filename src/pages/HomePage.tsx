@@ -16,10 +16,15 @@ import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { LightButton } from "@/components/LightButton"
-import { ProfileSwitcher, type ProfileId } from "@/components/ProfileSwitcher"
+import { ProfileSwitcher } from "@/components/ProfileSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
-
-const BASE_URL = "https://spencer.imbleau.com"
+import {
+    getCanonicalProfileUrl,
+    getProfileFromHostname,
+    getProfileHostname,
+    isLocalProfileHostname,
+    type ProfileId,
+} from "@/profiles"
 
 interface SocialLink {
     kind: "linkedin" | "github"
@@ -151,11 +156,39 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
 
 export const HomePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
-    const [profileId, setProfileId] = useState<ProfileId>("spencer")
+    const [profileId, setProfileId] = useState<ProfileId>(() => {
+        const hostname = window.location.hostname
+        const hostnameProfile = getProfileFromHostname(hostname)
+        if (hostnameProfile) return hostnameProfile
+
+        if (isLocalProfileHostname(hostname) && sessionStorage.getItem("selectedProfile") === "sara") {
+            return "sara"
+        }
+
+        return "spencer"
+    })
     const profile = PROFILES[profileId]
     const actionCount = 1 + Number(profile.resume) + Number(Boolean(profile.calendlyUrl))
-    const canonicalUrl = `${BASE_URL}${prefix}/`
+    const profileBaseUrl = getCanonicalProfileUrl(profileId)
+    const canonicalUrl = `${profileBaseUrl}${prefix}/`
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
+
+    const handleProfileChange = (nextProfile: ProfileId) => {
+        const nextHostname = getProfileHostname(window.location.hostname, nextProfile)
+
+        if (nextHostname) {
+            const nextUrl = new URL(window.location.href)
+            nextUrl.hostname = nextHostname
+            window.location.assign(nextUrl.toString())
+            return
+        }
+
+        if (isLocalProfileHostname(window.location.hostname)) {
+            sessionStorage.setItem("selectedProfile", nextProfile)
+        }
+
+        setProfileId(nextProfile)
+    }
 
     return (
         <>
@@ -165,18 +198,30 @@ export const HomePage = () => {
                 <meta name="title" content={meta("title")} />
                 <meta property="og:description" content={meta("ogDescription")} />
                 <meta property="og:locale" content={t("meta.ogLocale")} />
+                <meta property="og:url" content={canonicalUrl} />
+                <meta property="og:image" content={`${profileBaseUrl}${profile.schemaImage}`} />
                 <meta property="og:image:alt" content={meta("ogImageAlt")} />
                 <meta name="twitter:description" content={meta("twitterDescription")} />
+                <meta name="twitter:image" content={`${profileBaseUrl}${profile.schemaImage}`} />
                 <link rel="canonical" href={canonicalUrl} />
+                <link rel="alternate" hrefLang="en-US" href={`${profileBaseUrl}/`} />
+                <link rel="alternate" hrefLang="x-default" href={`${profileBaseUrl}/`} />
+                <link rel="alternate" hrefLang="fr" href={`${profileBaseUrl}/fr/`} />
+                <link rel="alternate" hrefLang="fa" href={`${profileBaseUrl}/fa/`} />
+                <link
+                    rel="sitemap"
+                    type="application/xml"
+                    href={profileId === "sara" ? "/sitemap-sara.xml" : "/sitemap.xml"}
+                />
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "Person",
                         name: profile.name,
-                        url: BASE_URL,
+                        url: canonicalUrl,
                         jobTitle: meta("jobTitle"),
                         description: meta("personDescription"),
-                        image: `${BASE_URL}${profile.schemaImage}`,
+                        image: `${profileBaseUrl}${profile.schemaImage}`,
                         ...(profile.nationality ? { nationality: profile.nationality } : {}),
                         sameAs: profile.socials.map(({ href }) => href),
                     })}
@@ -198,7 +243,7 @@ export const HomePage = () => {
                         value={profileId}
                         options={PROFILE_OPTIONS}
                         label={t("profileSwitcher.label")}
-                        onChange={setProfileId}
+                        onChange={handleProfileChange}
                     />
                     <Typography
                         sx={{
