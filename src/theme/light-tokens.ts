@@ -68,7 +68,7 @@ export const lightColor = {
         300: "#C6C1AE",
         200: "#DAD5C2",
         100: "#E8E3D1",
-        50: "#F2EEDF",
+        50: "#F3EEDF",
     },
     white: "#FCFAF3",
     black: "#10110D",
