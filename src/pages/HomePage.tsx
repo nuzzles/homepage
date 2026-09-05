@@ -17,13 +17,8 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { LightButton } from "@/components/LightButton"
 import { ProfileSwitcher } from "@/components/ProfileSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
-import {
-    getCanonicalProfileUrl,
-    getProfile,
-    getProfileSwitchUrl,
-    isLocalProfileHostname,
-    type ProfileId,
-} from "@/profiles"
+import { useProfile } from "@/hooks/useProfile"
+import { getProfileSwitchUrl, isLocalProfileHostname, type ProfileId } from "@/profiles"
 
 const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     const { t } = useTranslation()
@@ -84,14 +79,14 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     )
 }
 
-export const HomePage = ({ fixedProfile }: { fixedProfile: ProfileId }) => {
+export const HomePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
-    const profileId = fixedProfile
-    const profile = getProfile(profileId)
+    const profile = useProfile()
+    const profileId = profile.id
     const actionCount = 2 + Number(Boolean(profile.calendlyUrl))
-    const isLocalProfile = isLocalProfileHostname(window.location.hostname) && Boolean(fixedProfile)
+    const isLocalProfile = isLocalProfileHostname(window.location.hostname)
     const resumePath = localizedPath(isLocalProfile ? `/${profileId}/resume` : "/resume")
-    const profileBaseUrl = getCanonicalProfileUrl(profileId)
+    const profileBaseUrl = profile.canonicalUrl
     const canonicalUrl = `${profileBaseUrl}${prefix}/`
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
 

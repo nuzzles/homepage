@@ -8,14 +8,16 @@ import Download from "@mui/icons-material/Download"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
-import { getCanonicalProfileUrl, getProfile, getProfileHomePath, type ProfileId } from "@/profiles"
+import { useProfile } from "@/hooks/useProfile"
+import { getProfileHomePath } from "@/profiles"
 
-export const ResumePage = ({ profile: profileId }: { profile: ProfileId }) => {
+export const ResumePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
-    const profile = getProfile(profileId)
+    const profile = useProfile()
+    const profileId = profile.id
     const resume = profile.resume
     const text = (key: string) => t(`resumePage.${key}`, { profile: profile.fullName })
-    const canonicalUrl = `${getCanonicalProfileUrl(profileId)}${prefix}/resume`
+    const canonicalUrl = `${profile.canonicalUrl}${prefix}/resume`
     const profileHomePath = localizedPath(getProfileHomePath(window.location.hostname, profileId))
     const [loading, setLoading] = useState(true)
     const [showLoadingHelp, setShowLoadingHelp] = useState(false)

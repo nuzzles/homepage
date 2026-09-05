@@ -5,14 +5,15 @@ import { Helmet } from "react-helmet-async"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
-import { getCanonicalProfileUrl, getProfile, getProfileHomePath, type ProfileId } from "@/profiles"
+import { useProfile } from "@/hooks/useProfile"
+import { getProfileHomePath } from "@/profiles"
 
-export const ResumeUnavailablePage = ({ profile }: { profile: ProfileId }) => {
+export const ResumeUnavailablePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
-    const profileConfig = getProfile(profile)
-    const text = (key: string) => t(`resumePage.${key}`, { profile: profileConfig.fullName })
-    const canonicalUrl = `${getCanonicalProfileUrl(profile)}${prefix}/resume`
-    const profileHomePath = localizedPath(getProfileHomePath(window.location.hostname, profile))
+    const profile = useProfile()
+    const text = (key: string) => t(`resumePage.${key}`, { profile: profile.fullName })
+    const canonicalUrl = `${profile.canonicalUrl}${prefix}/resume`
+    const profileHomePath = localizedPath(getProfileHomePath(window.location.hostname, profile.id))
 
     return (
         <>
