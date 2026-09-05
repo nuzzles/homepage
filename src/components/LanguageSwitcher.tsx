@@ -11,6 +11,13 @@ const languages = [
     { code: "fa", label: "فارسی", flag: "/images/flags/ir.svg" },
 ] as const
 
+const languageTypography = {
+    fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
+    fontSize: "0.875rem",
+    fontWeight: 700,
+    letterSpacing: "0.1em",
+} as const
+
 export const LanguageSwitcher = () => {
     const { t, language, switchLanguage } = useLanguage()
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -45,10 +52,7 @@ export const LanguageSwitcher = () => {
                     gap: 0.75,
                     color: theme.palette.text.primary,
                     backgroundColor: "transparent",
-                    fontFamily: theme.typography.button.fontFamily,
-                    fontSize: "0.875rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
+                    ...languageTypography,
                     textTransform: "uppercase",
                     whiteSpace: "nowrap",
                     "& .MuiButton-endIcon": {
@@ -112,10 +116,7 @@ export const LanguageSwitcher = () => {
                                 px: 1.5,
                                 py: 0.75,
                                 gap: 0.75,
-                                fontFamily: theme.typography.button.fontFamily,
-                                fontSize: "0.875rem",
-                                fontWeight: 700,
-                                letterSpacing: "0.1em",
+                                ...languageTypography,
                                 textTransform: "uppercase",
                                 "&:hover, &.Mui-focusVisible": {
                                     color: theme.palette.primary.main,
