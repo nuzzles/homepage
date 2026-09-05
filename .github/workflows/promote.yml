@@ -1,0 +1,24 @@
+name: Promote Website
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Deploy the current main commit to this protected environment.
+        required: true
+        type: choice
+        options:
+          - stg
+          - prod
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: ${{ inputs.environment }}
+      ref: ${{ github.sha }}
+    secrets: inherit

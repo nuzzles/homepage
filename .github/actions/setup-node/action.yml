@@ -1,0 +1,14 @@
+name: Setup Node and pnpm
+description: Installs the Node.js and pnpm versions used by the workspace
+
+runs:
+  using: composite
+  steps:
+    - name: Setup | pnpm
+      uses: pnpm/action-setup@v6
+
+    - name: Setup | Node
+      uses: actions/setup-node@v5
+      with:
+        node-version-file: .nvmrc
+        cache: pnpm

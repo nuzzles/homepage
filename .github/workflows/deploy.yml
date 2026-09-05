@@ -1,0 +1,107 @@
+name: Deploy Website
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: Deployment target (dev, stg, or prod).
+        required: true
+        type: string
+      ref:
+        description: Immutable git reference to build and deploy.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-website-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ steps.terraform.outputs.website_url }}
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Setup | Node and pnpm
+        uses: ./.github/actions/setup-node
+
+      - name: Install | Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure | AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          mask-aws-account-id: true
+
+      - name: Setup | Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.15.8
+          terraform_wrapper: false
+
+      - name: Provision | Infrastructure
+        id: terraform
+        working-directory: terraform
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          terraform init -input=false -lockfile=readonly \
+            -reconfigure \
+            -backend-config="backend-configs/${{ inputs.environment }}.hcl"
+          terraform apply -input=false -auto-approve \
+            -var-file="environments/${{ inputs.environment }}.tfvars"
+          echo "bucket_name=$(terraform output -raw bucket_name)" >> "$GITHUB_OUTPUT"
+          echo "distribution_id=$(terraform output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+          echo "website_url=$(terraform output -raw website_url)" >> "$GITHUB_OUTPUT"
+
+      - name: Build | Website
+        run: pnpm build
+
+      - name: Upload | Immutable Vite assets
+        run: >-
+          aws s3 sync dist/assets "s3://${{ steps.terraform.outputs.bucket_name }}/assets"
+          --delete
+          --cache-control 'public, max-age=31536000, immutable'
+          --only-show-errors
+
+      - name: Upload | Revalidating public files
+        run: >-
+          aws s3 sync dist "s3://${{ steps.terraform.outputs.bucket_name }}"
+          --delete
+          --exclude index.html
+          --exclude 'assets/*'
+          --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400'
+          --only-show-errors
+
+      - name: Upload | HTML last
+        run: >-
+          aws s3 cp dist/index.html "s3://${{ steps.terraform.outputs.bucket_name }}/index.html"
+          --cache-control 'no-cache, no-store, must-revalidate'
+          --content-type 'text/html; charset=utf-8'
+          --only-show-errors
+
+      - name: Invalidate | CloudFront cache
+        run: >-
+          aws cloudfront create-invalidation
+          --distribution-id '${{ steps.terraform.outputs.distribution_id }}'
+          --paths '/*'
+          --no-cli-pager
+
+      - name: Verify | Public deployment
+        run: >-
+          curl --fail --silent --show-error --location
+          --retry 12 --retry-delay 5 --retry-connrefused
+          '${{ steps.terraform.outputs.website_url }}'
