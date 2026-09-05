@@ -23,7 +23,10 @@ function getPreferredLanguage(): SupportedLanguage {
     if (stored && stored in languageConfig) {
         return stored as SupportedLanguage
     }
-    return detectBrowserLanguage()
+
+    const detected = detectBrowserLanguage()
+    localStorage.setItem("preferredLanguage", detected)
+    return detected
 }
 
 export const LanguageRedirect = () => {

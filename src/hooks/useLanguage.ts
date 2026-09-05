@@ -32,13 +32,12 @@ export function useLanguage() {
     const switchLanguage = useCallback(
         (lang: SupportedLanguage) => {
             localStorage.setItem("preferredLanguage", lang)
-            i18n.changeLanguage(lang)
             const basePath = stripLanguagePrefix(location.pathname)
             const newPrefix = getUrlPrefix(lang)
             const newPath = basePath === "/" ? newPrefix || "/" : `${newPrefix}${basePath}`
             navigate(newPath)
         },
-        [i18n, location.pathname, navigate]
+        [location.pathname, navigate]
     )
 
     // Build a localized path for the current language

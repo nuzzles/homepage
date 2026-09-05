@@ -7,6 +7,7 @@ export const LocalizedLayout = ({ lang }: { lang: SupportedLanguage }) => {
     const { setLanguage } = useLanguage()
 
     useEffect(() => {
+        localStorage.setItem("preferredLanguage", lang)
         setLanguage(lang)
     }, [lang, setLanguage])
 
