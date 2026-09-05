@@ -1,16 +1,20 @@
 {
     "meta": {
         "title": "Spencer Imbleau | صفحه اصلی",
-        "description": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار پژوهشی آمریکایی هستم.",
-        "ogDescription": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار پژوهشی آمریکایی هستم.",
+        "description": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار آمریکایی هستم.",
+        "ogDescription": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار آمریکایی هستم.",
         "twitterDescription": "این وبسایت شخصی اسپنسر ایمبلو است.",
-        "ogImageAlt": "Spencer Imbleau - مهندس نرم‌افزار پژوهشی",
+        "ogImageAlt": "Spencer Imbleau - مهندس نرم‌افزار",
         "ogLocale": "fa_IR",
-        "jobTitle": "مهندس نرم‌افزار پژوهشی",
-        "personDescription": "مهندس نرم‌افزار پژوهشی آمریکایی.",
-        "websiteDescription": "وبسایت شخصی اسپنسر ایمبلو، مهندس نرم‌افزار پژوهشی آمریکایی."
+        "jobTitle": "مهندس نرم‌افزار",
+        "personDescription": "مهندس نرم‌افزار آمریکایی.",
+        "websiteDescription": "وبسایت شخصی اسپنسر ایمبلو، مهندس نرم‌افزار آمریکایی."
     },
     "home": {
+        "headline": "سلام.",
+        "sticker": "من اسپنسر هستم.",
+        "role": "مهندس نرم‌افزار",
+        "startHere": "از اینجا شروع کنید.",
         "revealEmail": "نمایش ایمیل",
         "copied": "کپی شد!",
         "copy": "کپی",
@@ -23,6 +27,9 @@
         "title": "Spencer Imbleau | رزومه",
         "description": "مشاهده یا دانلود رزومه اسپنسر ایمبلو",
         "iframeTitle": "رزومه",
+        "loading": "در حال بارگیری رزومه…",
+        "loadingHelp": "بارگیری طول کشیده است؟ فایل PDF را مستقیماً باز کنید.",
+        "openPdf": "باز کردن PDF",
         "goBack": "بازگشت",
         "downloadResume": "دانلود",
         "downloadFilename": "Imbleau_Spencer_رزومه.pdf"

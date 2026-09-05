@@ -36,11 +36,11 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                         backgroundColor: theme.palette.background.paper,
                         color: theme.palette.text.button,
                         border: "none",
-                        outline: `1px solid ${theme.palette.border.main}`,
+                        outline: `1px solid ${theme.palette.text.primary}`,
                         outlineOffset: "-1px",
                         "&:hover": {
                             backgroundColor: theme.palette.background.sidebar,
-                            outline: `1px solid ${theme.palette.border.hover}`,
+                            outline: `1px solid ${theme.palette.text.primary}`,
                             color: theme.palette.primary.main,
                         },
                         "&:active": {
@@ -106,10 +106,13 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
             ...getVariantStyles(),
             ...getSizeStyles(),
             borderRadius: 0,
-            fontWeight: 600,
+            fontWeight: 700,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
             whiteSpace: "nowrap",
+            transition: theme.transitions.create(["background-color", "color", "transform"], {
+                duration: theme.transitions.duration.shortest,
+            }),
 
             "&:focus": {
                 outline: `2px solid ${theme.palette.primary.main}`,
@@ -127,6 +130,10 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                 boxShadow: "none",
                 "&:hover": {
                     boxShadow: "none",
+                    transform: "translateY(-1px)",
+                },
+                "&:active": {
+                    transform: "translateY(0)",
                 },
             },
         }

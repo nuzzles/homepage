@@ -1,5 +1,13 @@
 import { createTheme } from "@mui/material/styles"
-import { lightFontFamily, lightFontWeight, lightBackground, lightText, lightBorder, lightColor } from "./light-tokens"
+import {
+    lightFontFamily,
+    lightDisplayFontFamily,
+    lightFontWeight,
+    lightBackground,
+    lightText,
+    lightBorder,
+    lightColor,
+} from "./light-tokens"
 
 // MUI module augmentation for custom palette keys
 declare module "@mui/material/styles" {
@@ -71,17 +79,17 @@ export const lightTheme = createTheme({
         fontFamily: lightFontFamily,
 
         h1: {
-            fontFamily: lightFontFamily,
+            fontFamily: lightDisplayFontFamily,
             fontWeight: lightFontWeight.extraBold,
             letterSpacing: "0.02em",
         },
         h2: {
-            fontFamily: lightFontFamily,
+            fontFamily: lightDisplayFontFamily,
             fontWeight: lightFontWeight.bold,
             letterSpacing: "0.02em",
         },
         h3: {
-            fontFamily: lightFontFamily,
+            fontFamily: lightDisplayFontFamily,
             fontWeight: lightFontWeight.semiBold,
             letterSpacing: "0.02em",
         },
@@ -117,7 +125,7 @@ export const lightTheme = createTheme({
 
         button: {
             fontFamily: lightFontFamily,
-            fontWeight: lightFontWeight.semiBold,
+            fontWeight: lightFontWeight.bold,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
         },
@@ -158,6 +166,19 @@ export const lightTheme = createTheme({
         },
         MuiCssBaseline: {
             styleOverrides: {
+                body: {
+                    backgroundColor: lightBackground.base.default,
+                    backgroundImage: `radial-gradient(${lightColor.grey[300]}55 0.55px, transparent 0.55px)`,
+                    backgroundSize: "5px 5px",
+                },
+                "#root::before": {
+                    content: '""',
+                    position: "fixed",
+                    inset: 0,
+                    zIndex: 9999,
+                    border: `2px solid ${lightColor.grey[900]}`,
+                    pointerEvents: "none",
+                },
                 "::selection": {
                     backgroundColor: lightColor.blue[700],
                     color: lightColor.grey[50],

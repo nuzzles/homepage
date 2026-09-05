@@ -16,6 +16,8 @@ export const lightFontFamily = [
     "sans-serif",
 ].join(",")
 
+export const lightDisplayFontFamily = ["Barlow Condensed", "Arial Narrow", "Barlow", "sans-serif"].join(",")
+
 export const lightFontWeight = {
     thin: 100,
     extraLight: 200,

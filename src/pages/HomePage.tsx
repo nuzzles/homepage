@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Box, Container, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
+import { Box, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
 import CalendarMonth from "@mui/icons-material/CalendarMonth"
 import Check from "@mui/icons-material/Check"
 import Coffee from "@mui/icons-material/Coffee"
@@ -8,29 +8,28 @@ import Description from "@mui/icons-material/Description"
 import Email from "@mui/icons-material/Email"
 import Keyboard from "@mui/icons-material/Keyboard"
 import LinkedIn from "@mui/icons-material/LinkedIn"
-import OpenInNew from "@mui/icons-material/OpenInNew"
 import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
-import { LightButton } from "@/components/LightButton"
+import { CornerFrame } from "@/components/CornerFrame"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
+import { LightButton } from "@/components/LightButton"
 import { useLanguage } from "@/hooks/useLanguage"
 
 const CALENDLY_URL = "https://calendly.com/simbleau/meet"
-
-// Obfuscated email — never appears in plaintext in source
 const OBF = "c3BlbmNlckBpbWJsZWF1LmNvbQ=="
+const BASE_URL = "https://spencer.imbleau.com"
 
 const socials = [
     {
-        label: "in/simbleau",
+        label: "LINKEDIN / SIMBLEAU",
         href: "https://www.linkedin.com/in/simbleau/",
         icon: <LinkedIn sx={{ fontSize: "1rem" }} />,
     },
     {
-        label: "@nuzzles",
+        label: "GITHUB / NUZZLES",
         href: "https://www.github.com/nuzzles/",
         icon: <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />,
     },
@@ -41,19 +40,14 @@ const RevealEmailButton = () => {
     const [email, setEmail] = useState<string | null>(null)
     const [copied, setCopied] = useState(false)
 
-    const handleReveal = () => {
-        setEmail(atob(OBF))
-    }
-
     const handleCopy = async () => {
-        if (email) {
-            try {
-                await navigator.clipboard.writeText(email)
-                setCopied(true)
-                setTimeout(() => setCopied(false), 2000)
-            } catch {
-                setCopied(false)
-            }
+        if (!email) return
+        try {
+            await navigator.clipboard.writeText(email)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+        } catch {
+            setCopied(false)
         }
     }
 
@@ -63,10 +57,10 @@ const RevealEmailButton = () => {
                 sx={(theme) => ({
                     display: "flex",
                     alignItems: "center",
-                    border: `1px solid ${theme.palette.border.main}`,
-                    backgroundColor: theme.palette.background.paper,
-                    height: 52,
+                    minHeight: 52,
                     width: "100%",
+                    border: `1px solid ${theme.palette.text.primary}`,
+                    backgroundColor: theme.palette.background.paper,
                 })}
             >
                 <MuiLink
@@ -75,9 +69,8 @@ const RevealEmailButton = () => {
                     sx={{
                         flex: 1,
                         px: 1.5,
-                        fontSize: "1rem",
-                        fontWeight: 600,
-                        letterSpacing: "0.05em",
+                        fontSize: "0.95rem",
+                        fontWeight: 700,
                         whiteSpace: "nowrap",
                         textTransform: "uppercase",
                     }}
@@ -94,16 +87,12 @@ const RevealEmailButton = () => {
     }
 
     return (
-        <LightButton variant="secondary" fullWidth onClick={handleReveal}>
+        <LightButton variant="secondary" fullWidth onClick={() => setEmail(atob(OBF))}>
             <Email sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
             {t("home.revealEmail")}
         </LightButton>
     )
 }
-
-const W = { xs: 280, md: 360 }
-
-const BASE_URL = "https://spencer.imbleau.com"
 
 export const HomePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
@@ -137,148 +126,262 @@ export const HomePage = () => {
                         ],
                     })}
                 </script>
-                <script type="application/ld+json">
-                    {JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "WebSite",
-                        name: "Spencer Imbleau",
-                        url: BASE_URL,
-                        description: t("meta.websiteDescription"),
-                        author: {
-                            "@type": "Person",
-                            name: "Spencer Imbleau",
-                        },
-                    })}
-                </script>
             </Helmet>
-            <Container
-                maxWidth="sm"
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    textAlign: "center",
-                }}
-            >
+
+            <Box component="article" sx={{ width: "100%", maxWidth: 1120, mx: "auto", px: { xs: 1, sm: 2.5 } }}>
                 <Box
-                    sx={(theme) => {
-                        const corner = 20
-                        const gap = 6
-                        const borderW = 2
-                        const c = theme.palette.border.light
-                        return {
-                            position: "relative",
-                            padding: `${gap + borderW}px`,
-                            "&::before, &::after, & > .corner-bl, & > .corner-br": {
-                                content: '""',
-                                position: "absolute",
-                                width: corner,
-                                height: corner,
-                                pointerEvents: "none",
-                            },
-                            "&::before": {
-                                top: 0,
-                                left: 0,
-                                borderTop: `${borderW}px solid ${c}`,
-                                borderLeft: `${borderW}px solid ${c}`,
-                            },
-                            "&::after": {
-                                top: 0,
-                                right: 0,
-                                borderTop: `${borderW}px solid ${c}`,
-                                borderRight: `${borderW}px solid ${c}`,
-                            },
-                        }
+                    component="header"
+                    sx={(theme) => ({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 2,
+                        pb: 1,
+                        borderBottom: `1px solid ${theme.palette.text.primary}`,
+                    })}
+                >
+                    <Typography
+                        sx={{
+                            fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
+                            fontSize: { xs: "1.75rem", sm: "2.25rem" },
+                            fontWeight: 900,
+                            lineHeight: 0.9,
+                            textTransform: "uppercase",
+                            whiteSpace: "nowrap",
+                            flexShrink: 0,
+                        }}
+                    >
+                        Spencer Imbleau
+                    </Typography>
+                    <Typography
+                        sx={{
+                            display: { xs: "none", sm: "block" },
+                            fontFamily: "Courier New, monospace",
+                            fontSize: "0.75rem",
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                            whiteSpace: "nowrap",
+                            flexShrink: 0,
+                        }}
+                    >
+                        {t("home.role")}
+                    </Typography>
+                    <Box sx={{ flex: 1 }} />
+                    <LanguageSwitcher />
+                </Box>
+
+                <Box
+                    component="section"
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.35fr) minmax(320px, 0.8fr)" },
+                        alignItems: "center",
+                        gap: { xs: 3, md: 6 },
+                        pt: { xs: 2.5, md: 4 },
                     }}
                 >
-                    <Box
-                        className="corner-bl"
-                        sx={(theme) => ({
-                            bottom: 0,
-                            left: 0,
-                            borderBottom: `2px solid ${theme.palette.border.light}`,
-                            borderLeft: `2px solid ${theme.palette.border.light}`,
-                        })}
-                    />
-                    <Box
-                        className="corner-br"
-                        sx={(theme) => ({
-                            bottom: 0,
-                            right: 0,
-                            borderBottom: `2px solid ${theme.palette.border.light}`,
-                            borderRight: `2px solid ${theme.palette.border.light}`,
-                        })}
-                    />
-                    <Box
-                        component="img"
-                        alt="Spencer Imbleau"
-                        src="/images/me.webp"
+                    <Typography
+                        component="h1"
+                        variant="h1"
                         sx={{
-                            display: "block",
-                            width: W,
-                            height: W,
-                            objectFit: "cover",
+                            m: 0,
+                            fontSize: { xs: "clamp(5rem, 25vw, 7rem)", md: "9.5rem" },
+                            fontWeight: 900,
+                            lineHeight: 0.75,
+                            letterSpacing: "-0.025em",
+                            textTransform: "uppercase",
+                            "@media (min-width: 420px) and (max-width: 899.95px)": {
+                                fontSize: "clamp(7rem, 18vw, 8.5rem)",
+                            },
                         }}
-                    />
+                    >
+                        {t("home.headline")}
+                    </Typography>
+
+                    <Box
+                        sx={{
+                            position: "relative",
+                            width: "100%",
+                            maxWidth: 390,
+                            justifySelf: { md: "end" },
+                            "@media (min-width: 420px) and (max-width: 899.95px)": {
+                                maxWidth: 620,
+                                justifySelf: "center",
+                            },
+                        }}
+                    >
+                        <Box
+                            aria-hidden="true"
+                            sx={(theme) => ({
+                                position: "absolute",
+                                inset: "16px -14px -14px 16px",
+                                backgroundColor: theme.palette.primary.main,
+                            })}
+                        />
+                        <CornerFrame>
+                            <Box
+                                component="img"
+                                alt="Spencer Imbleau"
+                                src="/images/me.webp"
+                                sx={{
+                                    position: "relative",
+                                    display: "block",
+                                    width: "100%",
+                                    aspectRatio: "1 / 1",
+                                    objectFit: "cover",
+                                    clipPath: "polygon(0.4% 0, 99.5% 0.7%, 100% 98.8%, 98.6% 100%, 0.5% 99.4%, 0 1.2%)",
+                                }}
+                            />
+                        </CornerFrame>
+                        <Typography
+                            sx={{
+                                position: "absolute",
+                                right: { xs: -6, sm: -20 },
+                                bottom: { xs: -14, sm: -18 },
+                                px: 1.5,
+                                py: 0.45,
+                                color: "#FCFAF3",
+                                backgroundColor: "#D84C2F",
+                                fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
+                                fontSize: { xs: "1.1rem", sm: "1.35rem" },
+                                fontWeight: 800,
+                                letterSpacing: "0.025em",
+                                textTransform: "uppercase",
+                                transform: "rotate(2deg)",
+                            }}
+                        >
+                            {t("home.sticker")}
+                        </Typography>
+                    </Box>
                 </Box>
 
-                <Typography
-                    variant="h5"
-                    component="h1"
-                    sx={{ mt: 1, fontWeight: 700, width: W, textTransform: "uppercase", letterSpacing: "0.08em" }}
+                <Box
+                    component="section"
+                    sx={(theme) => ({
+                        mt: { xs: 5, md: 4.5 },
+                        pt: 1.5,
+                        borderTop: `1px solid ${theme.palette.text.primary}`,
+                    })}
                 >
-                    Spencer Imbleau
-                </Typography>
-
-                <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1.5, width: W }}>
-                    <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
-                        <LightButton variant="primary" fullWidth>
-                            <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                            {t("home.resume")}
-                        </LightButton>
-                    </Link>
-                    <RevealEmailButton />
-                    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-                        <LightButton variant="secondary" fullWidth>
-                            <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                            {t("home.scheduleOneOnOne")}
-                            <OpenInNew sx={{ fontSize: "1rem", marginInlineStart: 0.5 }} />
-                        </LightButton>
-                    </a>
-                </Box>
-
-                <Box sx={{ mt: 2, width: W, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1 }}>
-                    {socials.map(({ label, href, icon }) => (
+                    <Typography
+                        component="h2"
+                        variant="h3"
+                        sx={(theme) => ({
+                            mb: 1.25,
+                            color: theme.palette.primary.main,
+                            fontSize: { xs: "2.25rem", sm: "2.8rem" },
+                            fontWeight: 900,
+                            lineHeight: 1,
+                            textTransform: "uppercase",
+                        })}
+                    >
+                        {t("home.startHere")}
+                    </Typography>
+                    <Box
+                        sx={{
+                            display: "grid",
+                            gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+                            gap: 1,
+                        }}
+                    >
+                        <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
+                            <LightButton variant="primary" fullWidth>
+                                <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                {t("home.resume")}
+                            </LightButton>
+                        </Link>
+                        <RevealEmailButton />
                         <a
-                            key={label}
-                            href={href}
+                            href={CALENDLY_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{ textDecoration: "none" }}
                         >
-                            <LightButton
-                                variant="tertiary"
-                                size="small"
-                                fullWidth
-                                sx={{ px: 1, letterSpacing: "0.05em", fontSize: "0.875rem" }}
-                            >
-                                {icon}
-                                {label}
-                                <OpenInNew sx={{ fontSize: "1rem", marginInlineStart: 0.25 }} />
+                            <LightButton variant="secondary" fullWidth>
+                                <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                {t("home.scheduleOneOnOne")}
                             </LightButton>
                         </a>
-                    ))}
+                    </Box>
                 </Box>
 
-                <Box sx={{ mt: 2 }}>
-                    <LanguageSwitcher />
+                <Box
+                    component="footer"
+                    sx={(theme) => ({
+                        mt: 2.5,
+                        pt: 1.25,
+                        display: "flex",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        containerType: "inline-size",
+                        columnGap: 1,
+                        rowGap: 0.75,
+                        borderTop: `1px solid ${theme.palette.border.main}`,
+                    })}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            flexShrink: 0,
+                            gap: 0.25,
+                            width: "100%",
+                            "& > a": { width: "100%" },
+                            "@media (min-width: 380px)": {
+                                flexDirection: "row",
+                                width: "auto",
+                                "& > a": { width: "auto" },
+                            },
+                        }}
+                    >
+                        {socials.map(({ label, href, icon }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ textDecoration: "none" }}
+                            >
+                                <LightButton
+                                    variant="tertiary"
+                                    size="small"
+                                    fullWidth
+                                    sx={{
+                                        px: 1,
+                                        gap: 0.6,
+                                        fontFamily: "Courier New, monospace",
+                                        fontSize: "0.72rem",
+                                        letterSpacing: "0.01em",
+                                    }}
+                                >
+                                    {icon}
+                                    {label}
+                                </LightButton>
+                            </a>
+                        ))}
+                    </Box>
+                    <Typography
+                        sx={{
+                            marginInlineStart: "auto",
+                            whiteSpace: "nowrap",
+                            color: "text.inactive",
+                            opacity: 0.55,
+                            fontFamily: "Courier New, monospace",
+                            fontSize: "0.68rem",
+                            fontWeight: 600,
+                            textTransform: "uppercase",
+                            "@container (max-width: 480px)": {
+                                flexBasis: "100%",
+                                marginInlineStart: 0,
+                                textAlign: "center",
+                            },
+                        }}
+                    >
+                        {t("home.madeWith")} <Coffee sx={{ fontSize: "0.8rem", verticalAlign: "-0.15em" }} />{" "}
+                        {t("home.andA")} <Keyboard sx={{ fontSize: "0.8rem", verticalAlign: "-0.15em" }} />
+                    </Typography>
                 </Box>
-
-                <Typography variant="body2" sx={{ mt: 2, color: "text.secondary" }}>
-                    {t("home.madeWith")} <Coffee sx={{ fontSize: "1rem", verticalAlign: "middle" }} /> {t("home.andA")}{" "}
-                    <Keyboard sx={{ fontSize: "1rem", verticalAlign: "middle" }} />
-                </Typography>
-            </Container>
+            </Box>
         </>
     )
 }
