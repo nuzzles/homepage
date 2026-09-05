@@ -3,6 +3,7 @@ import { Button, Menu, MenuItem } from "@mui/material"
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown"
 import { alpha } from "@mui/material/styles"
 import type { ProfileId } from "@/profiles"
+import { SELECTOR_CARET_SIZE } from "@/components/selectorStyles"
 
 interface ProfileOption {
     id: ProfileId
@@ -55,7 +56,7 @@ export const ProfileSwitcher = ({ value, options, label, onChange }: ProfileSwit
                     "& .MuiButton-endIcon": {
                         marginInlineStart: 0.25,
                         marginInlineEnd: -0.25,
-                        "& svg": { fontSize: "1.15rem" },
+                        "& svg": { fontSize: SELECTOR_CARET_SIZE },
                     },
                     "&:hover": {
                         color: theme.palette.primary.main,

@@ -4,6 +4,7 @@ import ArrowDropDown from "@mui/icons-material/ArrowDropDown"
 import { alpha } from "@mui/material/styles"
 import { useLanguage } from "@/hooks/useLanguage"
 import type { SupportedLanguage } from "@/i18n/i18n"
+import { SELECTOR_CARET_SIZE } from "@/components/selectorStyles"
 
 const languages = [
     { code: "en", label: "ENGLISH", flag: "/images/flags/us.svg" },
@@ -48,6 +49,7 @@ export const LanguageSwitcher = () => {
                     minHeight: 36,
                     px: 0.75,
                     py: 0,
+                    marginInlineStart: { xs: "auto", sm: 0 },
                     flexShrink: 0,
                     gap: 0.75,
                     color: theme.palette.text.primary,
@@ -58,7 +60,7 @@ export const LanguageSwitcher = () => {
                     "& .MuiButton-endIcon": {
                         marginInlineStart: 0,
                         marginInlineEnd: -0.5,
-                        "& svg": { fontSize: "1.1rem" },
+                        "& svg": { fontSize: SELECTOR_CARET_SIZE },
                     },
                     "&:hover": {
                         color: theme.palette.primary.main,
