@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
-import { getUrlPrefix, getHtmlLang, getDir, stripLanguagePrefix } from "@/i18n/i18n"
+import { getUrlPrefix, getHtmlLang, getDir, getLanguageSwitchPath } from "@/i18n/i18n"
 import type { SupportedLanguage } from "@/i18n/i18n"
 import { savePreferredLanguage } from "@/i18n/languagePreference"
 
@@ -33,10 +33,7 @@ export function useLanguage() {
     const switchLanguage = useCallback(
         (lang: SupportedLanguage) => {
             savePreferredLanguage(lang)
-            const basePath = stripLanguagePrefix(location.pathname)
-            const newPrefix = getUrlPrefix(lang)
-            const newPath = basePath === "/" ? newPrefix || "/" : `${newPrefix}${basePath}`
-            navigate(newPath)
+            navigate(getLanguageSwitchPath(location.pathname, lang))
         },
         [location.pathname, navigate]
     )

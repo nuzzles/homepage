@@ -21,7 +21,7 @@ import { useLanguage } from "@/hooks/useLanguage"
 import {
     getCanonicalProfileUrl,
     getProfileFromHostname,
-    getProfileHostname,
+    getProfileSwitchUrl,
     isLocalProfileHostname,
     type ProfileId,
 } from "@/profiles"
@@ -174,12 +174,10 @@ export const HomePage = () => {
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
 
     const handleProfileChange = (nextProfile: ProfileId) => {
-        const nextHostname = getProfileHostname(window.location.hostname, nextProfile)
+        const nextUrl = getProfileSwitchUrl(window.location.href, nextProfile)
 
-        if (nextHostname) {
-            const nextUrl = new URL(window.location.href)
-            nextUrl.hostname = nextHostname
-            window.location.assign(nextUrl.toString())
+        if (nextUrl) {
+            window.location.assign(nextUrl)
             return
         }
 

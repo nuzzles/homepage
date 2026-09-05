@@ -49,3 +49,27 @@ export function readPreferredLanguage(): SupportedLanguage | null {
 
     return null
 }
+
+export function detectBrowserLanguage(browserLanguages: readonly string[]): SupportedLanguage {
+    for (const browserLanguage of browserLanguages) {
+        const lower = browserLanguage.toLowerCase()
+        for (const [language, config] of Object.entries(languageConfig)) {
+            if (lower.startsWith(config.browserPrefix)) {
+                return language as SupportedLanguage
+            }
+        }
+    }
+
+    return "en"
+}
+
+export function resolvePreferredLanguage(
+    browserLanguages: readonly string[] = navigator.languages ?? [navigator.language]
+): SupportedLanguage {
+    const stored = readPreferredLanguage()
+    if (stored) return stored
+
+    const detected = detectBrowserLanguage(browserLanguages)
+    savePreferredLanguage(detected)
+    return detected
+}

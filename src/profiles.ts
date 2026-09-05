@@ -20,6 +20,15 @@ export function getProfileHostname(hostname: string, profile: ProfileId): string
     return `${environment ? `${environment}.` : ""}${profile}.imbleau.com`
 }
 
+export function getProfileSwitchUrl(currentHref: string, profile: ProfileId): string | null {
+    const nextUrl = new URL(currentHref)
+    const nextHostname = getProfileHostname(nextUrl.hostname, profile)
+    if (!nextHostname) return null
+
+    nextUrl.hostname = nextHostname
+    return nextUrl.toString()
+}
+
 export function getCanonicalProfileUrl(profile: ProfileId): string {
     return `https://${profile}.imbleau.com`
 }

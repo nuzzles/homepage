@@ -63,6 +63,12 @@ export function stripLanguagePrefix(pathname: string): string {
     return pathname
 }
 
+export function getLanguageSwitchPath(pathname: string, language: SupportedLanguage): string {
+    const basePath = stripLanguagePrefix(pathname)
+    const prefix = getUrlPrefix(language)
+    return basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
+}
+
 // ─── i18next Initialization ──────────────────────────────────────────────────
 
 i18n.use(initReactI18next).init({
