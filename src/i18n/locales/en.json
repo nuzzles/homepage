@@ -15,8 +15,8 @@
         "description": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
         "ogDescription": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
         "twitterDescription": "This is the personal profile of Sara Aslani.",
-        "ogImageAlt": "Sara Aslani - PhD Neuroscience Researcher",
-        "jobTitle": "PhD Neuroscience Researcher",
+        "ogImageAlt": "Sara Aslani - Phd Neuroscience",
+        "jobTitle": "Phd Neuroscience",
         "personDescription": "PhD neuroscience researcher."
     },
     "home": {
@@ -24,7 +24,7 @@
         "sticker": "I'm Spencer.",
         "role": "Software Engineer",
         "saraSticker": "I'm Sara.",
-        "saraRole": "PhD Neuroscience Researcher",
+        "saraRole": "Phd Neuroscience",
         "startHere": "Start here.",
         "revealEmail": "reveal email",
         "copied": "copied!",
@@ -43,7 +43,11 @@
         "openPdf": "Open PDF",
         "goBack": "go back",
         "downloadResume": "download",
-        "downloadFilename": "Resume_Spencer_Imbleau.pdf"
+        "downloadFilename": "Resume_Spencer_Imbleau.pdf",
+        "unavailablePageTitle": "Sara Aslani | Resume",
+        "unavailableDescription": "Sara Aslani's resume is coming soon.",
+        "unavailable": "No résumé available",
+        "comingSoon": "Coming soon."
     },
     "languageSwitcher": {
         "label": "Site Language:"

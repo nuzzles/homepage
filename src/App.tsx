@@ -3,16 +3,26 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
 import { Box, CircularProgress } from "@mui/material"
 import { HomePage } from "@/pages/HomePage"
+import { ResumeUnavailablePage } from "@/pages/ResumeUnavailablePage"
 import { LanguageRedirect } from "@/components/LanguageRedirect"
 import { LocalizedLayout } from "@/components/LocalizedLayout"
+import { getActiveProfile, profileHasResume } from "@/profiles"
 
 const ResumePage = lazy(() => import("@/pages/ResumePage").then((module) => ({ default: module.ResumePage })))
 
-const ResumeRoute = () => (
-    <Suspense fallback={<CircularProgress aria-label="Loading résumé" />}>
-        <ResumePage />
-    </Suspense>
-)
+const ResumeRoute = () => {
+    const profile = getActiveProfile(window.location.hostname, sessionStorage.getItem("selectedProfile"))
+
+    if (!profileHasResume(profile)) {
+        return <ResumeUnavailablePage profile={profile} />
+    }
+
+    return (
+        <Suspense fallback={<CircularProgress aria-label="Loading résumé" />}>
+            <ResumePage />
+        </Suspense>
+    )
+}
 
 function App() {
     return (

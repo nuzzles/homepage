@@ -19,8 +19,8 @@ import { LightButton } from "@/components/LightButton"
 import { ProfileSwitcher } from "@/components/ProfileSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 import {
+    getActiveProfile,
     getCanonicalProfileUrl,
-    getProfileFromHostname,
     getProfileSwitchUrl,
     isLocalProfileHostname,
     type ProfileId,
@@ -41,7 +41,6 @@ interface Profile {
     metaKey: "meta" | "saraMeta"
     schemaImage: string
     nationality?: string
-    resume: boolean
     calendlyUrl?: string
     socials: readonly SocialLink[]
 }
@@ -61,7 +60,6 @@ const PROFILES: Record<ProfileId, Profile> = {
         metaKey: "meta",
         schemaImage: "/og-banner.png",
         nationality: "American",
-        resume: true,
         calendlyUrl: "https://calendly.com/simbleau/meet",
         socials: [
             {
@@ -84,7 +82,6 @@ const PROFILES: Record<ProfileId, Profile> = {
         stickerKey: "home.saraSticker",
         metaKey: "saraMeta",
         schemaImage: "/images/sara.webp",
-        resume: false,
         socials: [
             {
                 kind: "linkedin",
@@ -156,19 +153,11 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
 
 export const HomePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
-    const [profileId, setProfileId] = useState<ProfileId>(() => {
-        const hostname = window.location.hostname
-        const hostnameProfile = getProfileFromHostname(hostname)
-        if (hostnameProfile) return hostnameProfile
-
-        if (isLocalProfileHostname(hostname) && sessionStorage.getItem("selectedProfile") === "sara") {
-            return "sara"
-        }
-
-        return "spencer"
-    })
+    const [profileId, setProfileId] = useState<ProfileId>(() =>
+        getActiveProfile(window.location.hostname, sessionStorage.getItem("selectedProfile"))
+    )
     const profile = PROFILES[profileId]
-    const actionCount = 1 + Number(profile.resume) + Number(Boolean(profile.calendlyUrl))
+    const actionCount = 2 + Number(Boolean(profile.calendlyUrl))
     const profileBaseUrl = getCanonicalProfileUrl(profileId)
     const canonicalUrl = `${profileBaseUrl}${prefix}/`
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
@@ -377,14 +366,12 @@ export const HomePage = () => {
                             gap: 1,
                         }}
                     >
-                        {profile.resume && (
-                            <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
-                                <LightButton variant="primary" fullWidth>
-                                    <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                                    {t("home.resume")}
-                                </LightButton>
-                            </Link>
-                        )}
+                        <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
+                            <LightButton variant="primary" fullWidth>
+                                <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                {t("home.resume")}
+                            </LightButton>
+                        </Link>
                         <RevealEmailButton key={profileId} encodedEmail={profile.encodedEmail} />
                         {profile.calendlyUrl && (
                             <a

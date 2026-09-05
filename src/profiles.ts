@@ -12,6 +12,17 @@ export function getProfileFromHostname(hostname: string): ProfileId | null {
     return null
 }
 
+export function getActiveProfile(hostname: string, selectedLocalProfile: string | null = null): ProfileId {
+    const hostnameProfile = getProfileFromHostname(hostname)
+    if (hostnameProfile) return hostnameProfile
+    if (isLocalProfileHostname(hostname) && selectedLocalProfile === "sara") return "sara"
+    return "spencer"
+}
+
+export function profileHasResume(profile: ProfileId): boolean {
+    return profile === "spencer"
+}
+
 export function getProfileHostname(hostname: string, profile: ProfileId): string | null {
     const match = PROFILE_HOSTNAME.exec(hostname)
     if (!match) return null

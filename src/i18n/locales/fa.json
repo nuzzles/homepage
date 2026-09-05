@@ -43,7 +43,11 @@
         "openPdf": "باز کردن PDF",
         "goBack": "بازگشت",
         "downloadResume": "دانلود",
-        "downloadFilename": "Imbleau_Spencer_رزومه.pdf"
+        "downloadFilename": "Imbleau_Spencer_رزومه.pdf",
+        "unavailablePageTitle": "سارا اصلانی | رزومه",
+        "unavailableDescription": "رزومه سارا اصلانی به‌زودی در دسترس خواهد بود.",
+        "unavailable": "رزومه‌ای موجود نیست",
+        "comingSoon": "به‌زودی در دسترس خواهد بود."
     },
     "languageSwitcher": {
         "label": "زبان سایت:"

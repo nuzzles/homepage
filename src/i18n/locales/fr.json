@@ -43,7 +43,11 @@
         "openPdf": "Ouvrir le PDF",
         "goBack": "retour",
         "downloadResume": "télécharger",
-        "downloadFilename": "CV_Spencer_Imbleau.pdf"
+        "downloadFilename": "CV_Spencer_Imbleau.pdf",
+        "unavailablePageTitle": "Sara Aslani | Curriculum vitæ",
+        "unavailableDescription": "Le curriculum vitæ de Sara Aslani sera bientôt disponible.",
+        "unavailable": "Curriculum vitæ indisponible",
+        "comingSoon": "Bientôt disponible."
     },
     "languageSwitcher": {
         "label": "Langue du site :"
