@@ -10,10 +10,21 @@
         "personDescription": "Ingénieur logiciel américain.",
         "websiteDescription": "Site personnel de Spencer Imbleau, ingénieur logiciel américain."
     },
+    "saraMeta": {
+        "title": "Sara Aslani | Page d'accueil",
+        "description": "Ceci est la page Web de Sara Aslani, chercheuse en neurosciences titulaire d'un doctorat.",
+        "ogDescription": "Ceci est la page Web de Sara Aslani, chercheuse en neurosciences titulaire d'un doctorat.",
+        "twitterDescription": "Ceci est le profil personnel de Sara Aslani.",
+        "ogImageAlt": "Sara Aslani - Chercheuse en neurosciences",
+        "jobTitle": "Chercheuse en neurosciences (Ph. D.)",
+        "personDescription": "Chercheuse en neurosciences titulaire d'un doctorat."
+    },
     "home": {
         "headline": "Bonjour.",
         "sticker": "Je suis Spencer.",
         "role": "Ingénieur logiciel",
+        "saraSticker": "Je suis Sara.",
+        "saraRole": "Chercheuse en neurosciences (Ph. D.)",
         "startHere": "Commencez ici.",
         "revealEmail": "afficher le courriel",
         "copied": "copié !",
@@ -36,5 +47,8 @@
     },
     "languageSwitcher": {
         "label": "Langue du site :"
+    },
+    "profileSwitcher": {
+        "label": "Choisir un profil"
     }
 }

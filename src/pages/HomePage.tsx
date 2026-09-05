@@ -16,26 +16,81 @@ import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { LightButton } from "@/components/LightButton"
+import { ProfileSwitcher, type ProfileId } from "@/components/ProfileSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 
-const CALENDLY_URL = "https://calendly.com/simbleau/meet"
-const OBF = "c3BlbmNlckBpbWJsZWF1LmNvbQ=="
 const BASE_URL = "https://spencer.imbleau.com"
 
-const socials = [
-    {
-        label: "LINKEDIN / SIMBLEAU",
-        href: "https://www.linkedin.com/in/simbleau/",
-        icon: <LinkedIn sx={{ fontSize: "1rem" }} />,
-    },
-    {
-        label: "GITHUB / NUZZLES",
-        href: "https://www.github.com/nuzzles/",
-        icon: <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />,
-    },
+interface SocialLink {
+    kind: "linkedin" | "github"
+    label: string
+    href: string
+}
+
+interface Profile {
+    name: string
+    image: string
+    encodedEmail: string
+    roleKey: string
+    stickerKey: string
+    metaKey: "meta" | "saraMeta"
+    schemaImage: string
+    nationality?: string
+    resume: boolean
+    calendlyUrl?: string
+    socials: readonly SocialLink[]
+}
+
+const PROFILE_OPTIONS = [
+    { id: "spencer", name: "Spencer Imbleau" },
+    { id: "sara", name: "Sara Aslani" },
 ] as const
 
-const RevealEmailButton = () => {
+const PROFILES: Record<ProfileId, Profile> = {
+    spencer: {
+        name: "Spencer Imbleau",
+        image: "/images/me.webp",
+        encodedEmail: "c3BlbmNlckBpbWJsZWF1LmNvbQ==",
+        roleKey: "home.role",
+        stickerKey: "home.sticker",
+        metaKey: "meta",
+        schemaImage: "/og-banner.png",
+        nationality: "American",
+        resume: true,
+        calendlyUrl: "https://calendly.com/simbleau/meet",
+        socials: [
+            {
+                kind: "linkedin",
+                label: "LINKEDIN / SIMBLEAU",
+                href: "https://www.linkedin.com/in/simbleau/",
+            },
+            {
+                kind: "github",
+                label: "GITHUB / NUZZLES",
+                href: "https://www.github.com/nuzzles/",
+            },
+        ],
+    },
+    sara: {
+        name: "Sara Aslani",
+        image: "/images/sara.webp",
+        encodedEmail: "c2FyYWhhc2w5MDdAZ21haWwuY29t",
+        roleKey: "home.saraRole",
+        stickerKey: "home.saraSticker",
+        metaKey: "saraMeta",
+        schemaImage: "/images/sara.webp",
+        resume: false,
+        socials: [
+            {
+                kind: "linkedin",
+                label: "LINKEDIN / SARA ASLANI",
+                href: "https://www.linkedin.com/in/sarah-aslani-76f9/",
+            },
+        ],
+    },
+}
+
+const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     const { t } = useTranslation()
     const [email, setEmail] = useState<string | null>(null)
     const [copied, setCopied] = useState(false)
@@ -87,7 +142,7 @@ const RevealEmailButton = () => {
     }
 
     return (
-        <LightButton variant="secondary" fullWidth onClick={() => setEmail(atob(OBF))}>
+        <LightButton variant="secondary" fullWidth onClick={() => setEmail(atob(encodedEmail))}>
             <Email sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
             {t("home.revealEmail")}
         </LightButton>
@@ -96,34 +151,34 @@ const RevealEmailButton = () => {
 
 export const HomePage = () => {
     const { t, prefix, localizedPath } = useLanguage()
+    const [profileId, setProfileId] = useState<ProfileId>("spencer")
+    const profile = PROFILES[profileId]
+    const actionCount = 1 + Number(profile.resume) + Number(Boolean(profile.calendlyUrl))
     const canonicalUrl = `${BASE_URL}${prefix}/`
+    const meta = (key: string) => t(`${profile.metaKey}.${key}`)
 
     return (
         <>
             <Helmet>
-                <title>{t("meta.title")}</title>
-                <meta name="description" content={t("meta.description")} />
-                <meta name="title" content={t("meta.title")} />
-                <meta property="og:description" content={t("meta.ogDescription")} />
+                <title>{meta("title")}</title>
+                <meta name="description" content={meta("description")} />
+                <meta name="title" content={meta("title")} />
+                <meta property="og:description" content={meta("ogDescription")} />
                 <meta property="og:locale" content={t("meta.ogLocale")} />
-                <meta property="og:image:alt" content={t("meta.ogImageAlt")} />
-                <meta name="twitter:description" content={t("meta.twitterDescription")} />
+                <meta property="og:image:alt" content={meta("ogImageAlt")} />
+                <meta name="twitter:description" content={meta("twitterDescription")} />
                 <link rel="canonical" href={canonicalUrl} />
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "Person",
-                        name: "Spencer Imbleau",
+                        name: profile.name,
                         url: BASE_URL,
-                        jobTitle: t("meta.jobTitle"),
-                        description: t("meta.personDescription"),
-                        image: `${BASE_URL}/og-banner.png`,
-                        nationality: "American",
-                        sameAs: [
-                            "https://www.linkedin.com/in/simbleau/",
-                            "https://github.com/nuzzles/",
-                            "https://mastodon.online/@scim",
-                        ],
+                        jobTitle: meta("jobTitle"),
+                        description: meta("personDescription"),
+                        image: `${BASE_URL}${profile.schemaImage}`,
+                        ...(profile.nationality ? { nationality: profile.nationality } : {}),
+                        sameAs: profile.socials.map(({ href }) => href),
                     })}
                 </script>
             </Helmet>
@@ -134,24 +189,17 @@ export const HomePage = () => {
                     sx={(theme) => ({
                         display: "flex",
                         alignItems: "center",
-                        gap: 2,
+                        gap: { xs: 0.5, sm: 2 },
                         pb: 1,
                         borderBottom: `1px solid ${theme.palette.text.primary}`,
                     })}
                 >
-                    <Typography
-                        sx={{
-                            fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
-                            fontSize: { xs: "1.75rem", sm: "2.25rem" },
-                            fontWeight: 900,
-                            lineHeight: 0.9,
-                            textTransform: "uppercase",
-                            whiteSpace: "nowrap",
-                            flexShrink: 0,
-                        }}
-                    >
-                        Spencer Imbleau
-                    </Typography>
+                    <ProfileSwitcher
+                        value={profileId}
+                        options={PROFILE_OPTIONS}
+                        label={t("profileSwitcher.label")}
+                        onChange={setProfileId}
+                    />
                     <Typography
                         sx={{
                             display: { xs: "none", sm: "block" },
@@ -163,7 +211,7 @@ export const HomePage = () => {
                             flexShrink: 0,
                         }}
                     >
-                        {t("home.role")}
+                        {t(profile.roleKey)}
                     </Typography>
                     <Box sx={{ flex: 1 }} />
                     <LanguageSwitcher />
@@ -220,8 +268,8 @@ export const HomePage = () => {
                         <CornerFrame>
                             <Box
                                 component="img"
-                                alt="Spencer Imbleau"
-                                src="/images/me.webp"
+                                alt={profile.name}
+                                src={profile.image}
                                 sx={{
                                     position: "relative",
                                     display: "block",
@@ -249,7 +297,7 @@ export const HomePage = () => {
                                 transform: "rotate(2deg)",
                             }}
                         >
-                            {t("home.sticker")}
+                            {t(profile.stickerKey)}
                         </Typography>
                     </Box>
                 </Box>
@@ -279,28 +327,35 @@ export const HomePage = () => {
                     <Box
                         sx={{
                             display: "grid",
-                            gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+                            gridTemplateColumns: {
+                                xs: "1fr",
+                                md: `repeat(${actionCount}, minmax(0, 1fr))`,
+                            },
                             gap: 1,
                         }}
                     >
-                        <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
-                            <LightButton variant="primary" fullWidth>
-                                <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                                {t("home.resume")}
-                            </LightButton>
-                        </Link>
-                        <RevealEmailButton />
-                        <a
-                            href={CALENDLY_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ textDecoration: "none" }}
-                        >
-                            <LightButton variant="secondary" fullWidth>
-                                <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                                {t("home.scheduleOneOnOne")}
-                            </LightButton>
-                        </a>
+                        {profile.resume && (
+                            <Link to={localizedPath("/resume")} style={{ textDecoration: "none" }}>
+                                <LightButton variant="primary" fullWidth>
+                                    <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                    {t("home.resume")}
+                                </LightButton>
+                            </Link>
+                        )}
+                        <RevealEmailButton key={profileId} encodedEmail={profile.encodedEmail} />
+                        {profile.calendlyUrl && (
+                            <a
+                                href={profile.calendlyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ textDecoration: "none" }}
+                            >
+                                <LightButton variant="secondary" fullWidth>
+                                    <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                    {t("home.scheduleOneOnOne")}
+                                </LightButton>
+                            </a>
+                        )}
                     </Box>
                 </Box>
 
@@ -334,7 +389,7 @@ export const HomePage = () => {
                             },
                         }}
                     >
-                        {socials.map(({ label, href, icon }) => (
+                        {profile.socials.map(({ kind, label, href }) => (
                             <a
                                 key={label}
                                 href={href}
@@ -354,7 +409,11 @@ export const HomePage = () => {
                                         letterSpacing: "0.01em",
                                     }}
                                 >
-                                    {icon}
+                                    {kind === "linkedin" ? (
+                                        <LinkedIn sx={{ fontSize: "1rem" }} />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />
+                                    )}
                                     {label}
                                 </LightButton>
                             </a>

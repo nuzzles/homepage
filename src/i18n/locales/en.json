@@ -10,10 +10,21 @@
         "personDescription": "American software engineer.",
         "websiteDescription": "Personal website of Spencer Imbleau, an American software engineer."
     },
+    "saraMeta": {
+        "title": "Sara Aslani | Homepage",
+        "description": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
+        "ogDescription": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
+        "twitterDescription": "This is the personal profile of Sara Aslani.",
+        "ogImageAlt": "Sara Aslani - PhD Neuroscience Researcher",
+        "jobTitle": "PhD Neuroscience Researcher",
+        "personDescription": "PhD neuroscience researcher."
+    },
     "home": {
         "headline": "Hello.",
         "sticker": "I'm Spencer.",
         "role": "Software Engineer",
+        "saraSticker": "I'm Sara.",
+        "saraRole": "PhD Neuroscience Researcher",
         "startHere": "Start here.",
         "revealEmail": "reveal email",
         "copied": "copied!",
@@ -36,5 +47,8 @@
     },
     "languageSwitcher": {
         "label": "Site Language:"
+    },
+    "profileSwitcher": {
+        "label": "Choose profile"
     }
 }
