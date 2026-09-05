@@ -77,7 +77,7 @@ const PROFILES: Record<ProfileId, Profile> = {
     sara: {
         name: "Sara Aslani",
         image: "/images/sara.webp",
-        encodedEmail: "c2FyYWhhc2w5MDdAZ21haWwuY29t",
+        encodedEmail: "c2EuYXNsYW5pQHVmbC5lZHU=",
         roleKey: "home.saraRole",
         stickerKey: "home.saraSticker",
         metaKey: "saraMeta",
