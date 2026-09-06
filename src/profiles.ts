@@ -31,6 +31,7 @@ export interface ProfileConfig {
     primaryInfrastructure?: boolean
     hostnames: Record<DeploymentEnvironment, string>
     image: string
+    imageSrcSet: string
     encodedEmail: string
     roleKey: string
     stickerKey: string

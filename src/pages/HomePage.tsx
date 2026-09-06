@@ -218,6 +218,10 @@ export const HomePage = () => {
                                 component="img"
                                 alt={profile.fullName}
                                 src={profile.image}
+                                srcSet={profile.imageSrcSet}
+                                sizes="(max-width: 419px) calc(100vw - 20px), (max-width: 659px) calc(100vw - 40px), (max-width: 899px) 620px, 390px"
+                                fetchPriority="high"
+                                loading="eager"
                                 sx={{
                                     position: "relative",
                                     display: "block",

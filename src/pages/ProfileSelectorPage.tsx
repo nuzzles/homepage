@@ -87,7 +87,7 @@ export const ProfileSelectorPage = () => {
                             gap: { xs: 1, sm: 2.5 },
                         }}
                     >
-                        {PROFILE_ENTRIES.map(({ id, firstName, fullName, image }) => (
+                        {PROFILE_ENTRIES.map(({ id, firstName, fullName, image, imageSrcSet }) => (
                             <Box key={id} sx={{ position: "relative", minWidth: 0 }}>
                                 <Box
                                     aria-hidden="true"
@@ -126,6 +126,10 @@ export const ProfileSelectorPage = () => {
                                                 className="profile-photo"
                                                 component="img"
                                                 src={image}
+                                                srcSet={imageSrcSet}
+                                                sizes="(max-width: 599px) calc((100vw - 28px) / 2), 350px"
+                                                fetchPriority="high"
+                                                loading="eager"
                                                 alt={fullName}
                                                 sx={{
                                                     display: "block",
