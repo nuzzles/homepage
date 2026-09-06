@@ -6,9 +6,9 @@ import { useLanguage } from "@/hooks/useLanguage"
 import { SELECTOR_CARET_SIZE } from "@/components/selectorStyles"
 
 const languages = [
-    { code: "en", label: "ENGLISH", flag: "/images/flags/us.svg" },
+    { code: "en", label: "ENGLISH", flag: "/images/flags/en.svg" },
     { code: "fr", label: "FRANÇAIS", flag: "/images/flags/fr.svg" },
-    { code: "fa", label: "فارسی", flag: "/images/flags/ir.svg" },
+    { code: "fa", label: "فارسی", flag: "/images/flags/fa.svg" },
 ] as const
 
 const languageTypography = {
