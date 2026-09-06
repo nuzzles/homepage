@@ -4,7 +4,7 @@
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/nuzzles/homepage/ci.yml?logo=github&label=CI)](https://github.com/nuzzles/homepage/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0%2FMIT-blue.svg)](LICENSE-APACHE)
 
-This is the source code for the joint homepage of Spencer Imbleau and Sara Aslani, built with React,
+This is the source code for the joint homepage of Spencer and Sara Imbleau, built with React,
 TypeScript, and Vite.
 
 ## Development Setup

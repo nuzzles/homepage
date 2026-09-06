@@ -1,11 +1,11 @@
 # Imbleau
 
-> Personal websites for Spencer Imbleau and Sara Aslani.
+> Personal websites for Spencer and Sara Imbleau.
 
 ## Profiles
 
 - [Spencer Imbleau](https://spencer.imbleau.com/)
-- [Sara Aslani](https://sara.imbleau.com/)
+- [Sara Imbleau](https://sara.imbleau.com/)
 
 ## Homepage
 
