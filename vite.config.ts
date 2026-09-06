@@ -8,6 +8,7 @@ import {
     isBuildSite,
     type BuildSite,
 } from "./src/siteMetadata.ts"
+import { getProfile, PROFILE_CARD_IMAGE_SIZES, PROFILE_ENTRIES, PROFILE_HERO_IMAGE_SIZES } from "./src/profiles.ts"
 
 const meta = (name: string, content: string): HtmlTagDescriptor => ({
     tag: "meta",
@@ -24,6 +25,8 @@ const property = (name: string, content: string): HtmlTagDescriptor => ({
 const sitePlugin = (site: BuildSite, documentSite: BuildSite | "local"): Plugin => {
     const metadata = getStaticSiteMetadata(site)
     const image = `${metadata.baseUrl}/og-banner.png`
+    const profileImages = site === "selector" ? PROFILE_ENTRIES : [getProfile(site)]
+    const profileImageSizes = site === "selector" ? PROFILE_CARD_IMAGE_SIZES : PROFILE_HERO_IMAGE_SIZES
 
     return {
         name: "homepage-site",
@@ -31,6 +34,18 @@ const sitePlugin = (site: BuildSite, documentSite: BuildSite | "local"): Plugin 
             order: "pre",
             handler(html) {
                 const tags: HtmlTagDescriptor[] = [
+                    ...profileImages.map<HtmlTagDescriptor>((profile) => ({
+                        tag: "link",
+                        attrs: {
+                            rel: "preload",
+                            as: "image",
+                            href: profile.image,
+                            imagesrcset: profile.imageSrcSet,
+                            imagesizes: profileImageSizes,
+                            fetchpriority: "high",
+                        },
+                        injectTo: "head",
+                    })),
                     meta("robots", "index, follow"),
                     meta("description", metadata.description),
                     meta("title", metadata.title),

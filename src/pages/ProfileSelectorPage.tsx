@@ -8,6 +8,7 @@ import {
     getCanonicalProfileUrl,
     getProfileSwitchUrl,
     isLocalProfileHostname,
+    PROFILE_CARD_IMAGE_SIZES,
     PROFILE_ENTRIES,
     type ProfileId,
 } from "@/profiles"
@@ -127,7 +128,7 @@ export const ProfileSelectorPage = () => {
                                                 component="img"
                                                 src={image}
                                                 srcSet={imageSrcSet}
-                                                sizes="(max-width: 599px) calc((100vw - 28px) / 2), 350px"
+                                                sizes={PROFILE_CARD_IMAGE_SIZES}
                                                 fetchPriority="high"
                                                 loading="eager"
                                                 alt={fullName}

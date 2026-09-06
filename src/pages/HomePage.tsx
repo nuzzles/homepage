@@ -18,7 +18,7 @@ import { LightButton } from "@/components/LightButton"
 import { ProfileSwitcher } from "@/components/ProfileSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
-import { getProfileSwitchUrl, isLocalProfileHostname, type ProfileId } from "@/profiles"
+import { getProfileSwitchUrl, isLocalProfileHostname, PROFILE_HERO_IMAGE_SIZES, type ProfileId } from "@/profiles"
 
 const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     const { t } = useTranslation()
@@ -219,7 +219,7 @@ export const HomePage = () => {
                                 alt={profile.fullName}
                                 src={profile.image}
                                 srcSet={profile.imageSrcSet}
-                                sizes="(max-width: 419px) calc(100vw - 20px), (max-width: 659px) calc(100vw - 40px), (max-width: 899px) 620px, 390px"
+                                sizes={PROFILE_HERO_IMAGE_SIZES}
                                 fetchPriority="high"
                                 loading="eager"
                                 sx={{
