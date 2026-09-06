@@ -9,7 +9,7 @@
             "prod": "spencer.imbleau.com"
         },
         "image": "/images/me.webp",
-        "imageSrcSet": "/images/me-384.webp 384w, /images/me-640.webp 640w, /images/me-768.webp 768w, /images/me.webp 1024w",
+        "imageSrcSet": "/images/me-384.webp 384w, /images/me-640.webp 640w, /images/me-768.webp 768w, /images/me-800.webp 800w, /images/me.webp 1024w",
         "encodedEmail": "c3BlbmNlckBpbWJsZWF1LmNvbQ==",
         "roleKey": "home.role",
         "stickerKey": "home.sticker",
@@ -53,7 +53,7 @@
             "prod": "sara.imbleau.com"
         },
         "image": "/images/sara.webp",
-        "imageSrcSet": "/images/sara-384.webp 384w, /images/sara-640.webp 640w, /images/sara-768.webp 768w, /images/sara.webp 1024w",
+        "imageSrcSet": "/images/sara-384.webp 384w, /images/sara-640.webp 640w, /images/sara-768.webp 768w, /images/sara-800.webp 800w, /images/sara.webp 1024w",
         "encodedEmail": "c2EuYXNsYW5pQHVmbC5lZHU=",
         "roleKey": "home.saraRole",
         "stickerKey": "home.saraSticker",
