@@ -50,3 +50,9 @@ jobs:
 
       - name: Check | Web
         run: pnpm check
+
+      - name: Build | Profile sites
+        run: |
+          for site in $(jq -r 'keys[]' profiles.json); do
+            HOMEPAGE_SITE="$site" pnpm build
+          done
