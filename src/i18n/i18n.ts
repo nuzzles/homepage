@@ -55,9 +55,13 @@ export function stripLanguagePrefix(pathname: string): string {
     return pathname
 }
 
-export function getLanguageSwitchPath(pathname: string, language: SupportedLanguage): string {
+export function getLanguageSwitchPath(
+    pathname: string,
+    language: SupportedLanguage,
+    browserLanguage: SupportedLanguage
+): string {
     const basePath = stripLanguagePrefix(pathname)
-    const prefix = getUrlPrefix(language)
+    const prefix = language === browserLanguage ? "" : getUrlPrefix(language)
     return basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
 }
 
