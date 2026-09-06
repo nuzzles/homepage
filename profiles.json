@@ -46,7 +46,7 @@
     },
     "sara": {
         "firstName": "Sara",
-        "fullName": "Sara Aslani",
+        "fullName": "Sara Imbleau",
         "hostnames": {
             "dev": "sara-dev.imbleau.com",
             "stg": "sara-stg.imbleau.com",
@@ -59,9 +59,9 @@
         "stickerKey": "home.saraSticker",
         "metaKey": "saraMeta",
         "staticMeta": {
-            "description": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
-            "twitterDescription": "This is the personal profile of Sara Aslani.",
-            "keywords": "Sara Aslani, neuroscience, PhD researcher, research, homepage",
+            "description": "This is the web page of Sara Imbleau. She is a PhD neuroscience researcher.",
+            "twitterDescription": "This is the personal profile of Sara Imbleau.",
+            "keywords": "Sara Imbleau, neuroscience, PhD researcher, research, homepage",
             "noscriptRole": "Phd Neuroscience"
         },
         "lastModified": "2026-09-05",
@@ -69,7 +69,7 @@
         "socials": [
             {
                 "kind": "linkedin",
-                "label": "LINKEDIN / SARA ASLANI",
+                "label": "LINKEDIN / SARA IMBLEAU",
                 "href": "https://www.linkedin.com/in/sarah-aslani-76f9/"
             }
         ]

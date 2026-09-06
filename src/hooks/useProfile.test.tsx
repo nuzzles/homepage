@@ -12,7 +12,7 @@ const ProfileSummary = () => {
 describe("useProfile", () => {
     it.each([
         ["spencer", "Spencer Imbleau", "https://spencer.imbleau.com"],
-        ["sara", "Sara Aslani", "https://sara.imbleau.com"],
+        ["sara", "Sara Imbleau", "https://sara.imbleau.com"],
     ] satisfies [ProfileId, string, string][])(
         "provides the configured %s profile",
         (profileId, fullName, canonicalUrl) => {

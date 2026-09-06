@@ -68,6 +68,6 @@ describe("profile-neutral résumé copy", () => {
 
         expect(copy).toContain("{{profile}}")
         expect(copy).not.toContain("Spencer Imbleau")
-        expect(copy).not.toContain("Sara Aslani")
+        expect(copy).not.toContain("Sara Imbleau")
     })
 })
