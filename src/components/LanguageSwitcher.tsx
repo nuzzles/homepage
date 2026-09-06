@@ -66,12 +66,7 @@ export const LanguageSwitcher = () => {
                     },
                 })}
             >
-                <Box
-                    component="img"
-                    src={selected.flag}
-                    alt=""
-                    sx={{ width: 18, height: 12, objectFit: "cover", flexShrink: 0 }}
-                />
+                <Box component="img" src={selected.flag} alt="" sx={{ width: 18, height: 18, flexShrink: 0 }} />
                 <Box
                     component="span"
                     sx={{
@@ -123,12 +118,7 @@ export const LanguageSwitcher = () => {
                                 },
                             })}
                         >
-                            <Box
-                                component="img"
-                                src={flag}
-                                alt=""
-                                sx={{ width: 20, height: 14, objectFit: "cover", flexShrink: 0 }}
-                            />
+                            <Box component="img" src={flag} alt="" sx={{ width: 20, height: 20, flexShrink: 0 }} />
                             {label}
                         </MenuItem>
                     ))}
