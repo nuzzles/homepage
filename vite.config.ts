@@ -51,11 +51,6 @@ const sitePlugin = (site: BuildSite, documentSite: BuildSite | "local"): Plugin 
                     meta("twitter:image", image),
                     {
                         tag: "link",
-                        attrs: { rel: "canonical", href: metadata.baseUrl },
-                        injectTo: "head",
-                    },
-                    {
-                        tag: "link",
                         attrs: { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
                         injectTo: "head",
                     },
