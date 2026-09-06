@@ -80,14 +80,14 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
 }
 
 export const HomePage = () => {
-    const { t, prefix, localizedPath } = useLanguage()
+    const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const profileId = profile.id
     const actionCount = 2 + Number(Boolean(profile.calendlyUrl))
     const isLocalProfile = isLocalProfileHostname(window.location.hostname)
     const resumePath = localizedPath(isLocalProfile ? `/${profileId}/resume` : "/resume")
     const profileBaseUrl = profile.canonicalUrl
-    const canonicalUrl = `${profileBaseUrl}${prefix}/`
+    const canonicalUrl = `${profileBaseUrl}${routePrefix}/`
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
 
     const hrefForProfile = (nextProfile: ProfileId) => {

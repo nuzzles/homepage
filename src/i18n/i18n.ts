@@ -42,6 +42,11 @@ export function getLanguageFromPath(pathname: string): SupportedLanguage {
     return defaultLanguage
 }
 
+export function getExplicitLanguagePrefix(pathname: string): string {
+    const firstSegment = pathname.split("/").filter(Boolean)[0]?.toLowerCase()
+    return firstSegment && firstSegment in languageConfig ? getUrlPrefix(firstSegment as SupportedLanguage) : ""
+}
+
 export function stripLanguagePrefix(pathname: string): string {
     const firstSegment = pathname.split("/").filter(Boolean)[0]?.toLowerCase()
     if (firstSegment && firstSegment in languageConfig) {

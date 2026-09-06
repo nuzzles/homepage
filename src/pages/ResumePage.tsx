@@ -12,12 +12,12 @@ import { useProfile } from "@/hooks/useProfile"
 import { getProfileHomePath } from "@/profiles"
 
 export const ResumePage = () => {
-    const { t, prefix, localizedPath } = useLanguage()
+    const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const profileId = profile.id
     const resume = profile.resume
     const text = (key: string) => t(`resumePage.${key}`, { profile: profile.fullName })
-    const canonicalUrl = `${profile.canonicalUrl}${prefix}/resume`
+    const canonicalUrl = `${profile.canonicalUrl}${routePrefix}/resume`
     const profileHomePath = localizedPath(getProfileHomePath(window.location.hostname, profileId))
     const [loading, setLoading] = useState(true)
     const [showLoadingHelp, setShowLoadingHelp] = useState(false)

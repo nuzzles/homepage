@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
-import { getUrlPrefix, getHtmlLang, getDir, getLanguageSwitchPath, getLocalizedPath } from "@/i18n/i18n"
+import { getDir, getExplicitLanguagePrefix, getHtmlLang, getLanguageSwitchPath, getLocalizedPath } from "@/i18n/i18n"
 import type { SupportedLanguage } from "@/i18n/i18n"
 import { detectBrowserLanguage, savePreferredLanguage } from "@/i18n/languagePreference"
 
@@ -10,7 +10,7 @@ export function useLanguage() {
     const location = useLocation()
 
     const language = i18n.language as SupportedLanguage
-    const prefix = getUrlPrefix(language)
+    const routePrefix = getExplicitLanguagePrefix(location.pathname)
     const browserLanguage = detectBrowserLanguage(navigator.languages ?? [navigator.language])
 
     // Sync document attributes whenever language changes
@@ -41,5 +41,5 @@ export function useLanguage() {
     // Preserve a language prefix only when the current route has one explicitly.
     const localizedPath = useCallback((path: string) => getLocalizedPath(location.pathname, path), [location.pathname])
 
-    return { language, prefix, t, setLanguage, languageHref, rememberLanguage, localizedPath }
+    return { language, routePrefix, t, setLanguage, languageHref, rememberLanguage, localizedPath }
 }

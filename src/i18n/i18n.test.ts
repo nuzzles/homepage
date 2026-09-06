@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { getLanguageSwitchPath, getLocalizedPath } from "@/i18n/i18n"
+import { getExplicitLanguagePrefix, getLanguageSwitchPath, getLocalizedPath } from "@/i18n/i18n"
 import type { SupportedLanguage } from "@/i18n/i18n"
 
 describe("language switching paths", () => {
@@ -38,6 +38,22 @@ describe("language prefix parsing", () => {
     it.each(["/enough", "/france", "/family"])("does not treat %s as language-prefixed", (pathname) => {
         expect(getLocalizedPath(pathname, "/spencer")).toBe("/spencer")
         expect(getLanguageSwitchPath(pathname, "fr", "en")).toBe(`/fr${pathname}`)
+    })
+
+    it.each([
+        ["/", ""],
+        ["/resume", ""],
+        ["/en", "/en"],
+        ["/en/resume", "/en"],
+        ["/fr/", "/fr"],
+        ["/fr/resume", "/fr"],
+        ["/fa", "/fa"],
+        ["/fa/resume", "/fa"],
+        ["/enough", ""],
+        ["/france", ""],
+        ["/family", ""],
+    ])("returns the explicit prefix for %s as %s", (pathname, expected) => {
+        expect(getExplicitLanguagePrefix(pathname)).toBe(expected)
     })
 })
 

@@ -9,10 +9,10 @@ import { useProfile } from "@/hooks/useProfile"
 import { getProfileHomePath } from "@/profiles"
 
 export const ResumeUnavailablePage = () => {
-    const { t, prefix, localizedPath } = useLanguage()
+    const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const text = (key: string) => t(`resumePage.${key}`, { profile: profile.fullName })
-    const canonicalUrl = `${profile.canonicalUrl}${prefix}/resume`
+    const canonicalUrl = `${profile.canonicalUrl}${routePrefix}/resume`
     const profileHomePath = localizedPath(getProfileHomePath(window.location.hostname, profile.id))
 
     return (

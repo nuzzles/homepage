@@ -14,8 +14,8 @@ import {
 } from "@/profiles"
 
 export const ProfileSelectorPage = () => {
-    const { t, language, prefix, localizedPath } = useLanguage()
-    const canonicalUrl = `https://imbleau.com${prefix}/`
+    const { t, language, routePrefix, localizedPath } = useLanguage()
+    const canonicalUrl = `https://imbleau.com${routePrefix}/`
     const profileNames = new Intl.ListFormat(language, { style: "long", type: "conjunction" }).format(
         PROFILE_ENTRIES.map(({ firstName }) => firstName)
     )
