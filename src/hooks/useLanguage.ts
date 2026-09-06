@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
-import { getUrlPrefix, getHtmlLang, getDir, getLanguageSwitchPath } from "@/i18n/i18n"
+import { getUrlPrefix, getHtmlLang, getDir, getLanguageSwitchPath, getLocalizedPath } from "@/i18n/i18n"
 import type { SupportedLanguage } from "@/i18n/i18n"
 import { savePreferredLanguage } from "@/i18n/languagePreference"
 
@@ -36,14 +36,8 @@ export function useLanguage() {
     // The anchor handles navigation; this only persists the explicit choice.
     const rememberLanguage = useCallback((lang: SupportedLanguage) => savePreferredLanguage(lang), [])
 
-    // Build a localized path for the current language
-    const localizedPath = useCallback(
-        (path: string) => {
-            if (path === "/") return prefix || "/"
-            return `${prefix}${path}`
-        },
-        [prefix]
-    )
+    // Preserve a language prefix only when the current route has one explicitly.
+    const localizedPath = useCallback((path: string) => getLocalizedPath(location.pathname, path), [location.pathname])
 
     return { language, prefix, t, setLanguage, languageHref, rememberLanguage, localizedPath }
 }

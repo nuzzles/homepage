@@ -61,6 +61,12 @@ export function getLanguageSwitchPath(pathname: string, language: SupportedLangu
     return basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
 }
 
+export function getLocalizedPath(pathname: string, path: string): string {
+    const hasExplicitLanguage = stripLanguagePrefix(pathname) !== pathname
+    const prefix = hasExplicitLanguage ? getUrlPrefix(getLanguageFromPath(pathname)) : ""
+    return path === "/" ? prefix || "/" : `${prefix}${path}`
+}
+
 // ─── i18next Initialization ──────────────────────────────────────────────────
 
 i18n.use(initReactI18next).init({
