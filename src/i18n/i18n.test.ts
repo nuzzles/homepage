@@ -23,6 +23,22 @@ describe("language switching paths", () => {
             expect(getLanguageSwitchPath(pathname, language, browserLanguage)).toBe(expected)
         }
     )
+
+    it("preserves the query string and fragment", () => {
+        expect(getLanguageSwitchPath("/fr/resume", "en", "en", "?download=true", "#experience")).toBe(
+            "/resume?download=true#experience"
+        )
+        expect(getLanguageSwitchPath("/fr/resume", "fa", "en", "?download=true", "#experience")).toBe(
+            "/fa/resume?download=true#experience"
+        )
+    })
+})
+
+describe("language prefix parsing", () => {
+    it.each(["/enough", "/france", "/family"])("does not treat %s as language-prefixed", (pathname) => {
+        expect(getLocalizedPath(pathname, "/spencer")).toBe("/spencer")
+        expect(getLanguageSwitchPath(pathname, "fr", "en")).toBe(`/fr${pathname}`)
+    })
 })
 
 describe("localized paths", () => {

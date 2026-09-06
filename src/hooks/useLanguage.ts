@@ -30,8 +30,9 @@ export function useLanguage() {
     )
 
     const languageHref = useCallback(
-        (lang: SupportedLanguage) => getLanguageSwitchPath(location.pathname, lang, browserLanguage),
-        [browserLanguage, location.pathname]
+        (lang: SupportedLanguage) =>
+            getLanguageSwitchPath(location.pathname, lang, browserLanguage, location.search, location.hash),
+        [browserLanguage, location.hash, location.pathname, location.search]
     )
 
     // The anchor handles navigation; this only persists the explicit choice.

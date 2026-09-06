@@ -47,22 +47,20 @@ export function stripLanguagePrefix(pathname: string): string {
     if (firstSegment && firstSegment in languageConfig) {
         return pathname.slice(firstSegment.length + 1) || "/"
     }
-    for (const config of Object.values(languageConfig)) {
-        if (config.urlPrefix && pathname.startsWith(config.urlPrefix)) {
-            return pathname.slice(config.urlPrefix.length) || "/"
-        }
-    }
     return pathname
 }
 
 export function getLanguageSwitchPath(
     pathname: string,
     language: SupportedLanguage,
-    browserLanguage: SupportedLanguage
+    browserLanguage: SupportedLanguage,
+    search = "",
+    hash = ""
 ): string {
     const basePath = stripLanguagePrefix(pathname)
     const prefix = language === browserLanguage ? "" : getUrlPrefix(language)
-    return basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
+    const localizedPath = basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
+    return `${localizedPath}${search}${hash}`
 }
 
 export function getLocalizedPath(pathname: string, path: string): string {
