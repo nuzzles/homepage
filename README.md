@@ -27,9 +27,10 @@ pnpm install
 pnpm dev
 ```
 
-This starts the language-negotiating joint homepage at `/`. The explicit English,
-French, and Farsi selector routes are `/en`, `/fr`, and `/fa`. Profile routes use
-the same prefixes, such as `/en/spencer`, `/fr/spencer`, and `/fa/sara`.
+This starts the joint homepage at `/`, using the saved or browser-preferred language
+without changing the URL. The explicit English, French, and Farsi selector routes are
+`/en`, `/fr`, and `/fa`. Profile routes use the same prefixes, such as `/en/spencer`,
+`/fr/spencer`, and `/fa/sara`.
 
 Profile identity, hostnames, images, contact links, résumé settings, SEO, and translation
 keys are defined once in `profiles.json`. The UI, local routes, site builds, deployment

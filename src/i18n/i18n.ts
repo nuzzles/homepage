@@ -61,11 +61,6 @@ export function getLanguageSwitchPath(pathname: string, language: SupportedLangu
     return basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
 }
 
-export function getLanguageRedirectPath(pathname: string, language: SupportedLanguage): string {
-    const prefix = getUrlPrefix(language)
-    return pathname === "/" ? `${prefix}/` : `${prefix}${pathname}`
-}
-
 // ─── i18next Initialization ──────────────────────────────────────────────────
 
 i18n.use(initReactI18next).init({
