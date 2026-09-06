@@ -1,10 +1,11 @@
-# Personal Website
+# Homepage
 
 [![Uptime Status](https://img.shields.io/uptimerobot/status/m802358152-3a32dc04dddbd9789a469d21)](https://stats.uptimerobot.com/pTFWZdoTxa)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/nuzzles/homepage/ci.yml?logo=github&label=CI)](https://github.com/nuzzles/homepage/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0%2FMIT-blue.svg)](LICENSE-APACHE)
 
-This is the source code for my personal website built with React, TypeScript, Vite, and Claude.
+This is the source code for the joint homepage of Spencer Imbleau and Sara Aslani, built with React,
+TypeScript, and Vite.
 
 ## Development Setup
 
@@ -26,7 +27,14 @@ pnpm install
 pnpm dev
 ```
 
-This will start the development server with hot module replacement enabled.
+This starts the joint homepage at `/`, using the saved or browser-preferred language
+without changing the URL. The explicit English, French, and Farsi selector routes are
+`/en`, `/fr`, and `/fa`. Profile routes use the same prefixes, such as `/en/spencer`,
+`/fr/spencer`, and `/fa/sara`.
+
+Profile identity, hostnames, images, contact links, résumé settings, SEO, and translation
+keys are defined once in `profiles.json`. The UI, local routes, site builds, deployment
+matrix, sitemaps, and Terraform all derive from that registry.
 
 ## Available Commands
 
@@ -39,14 +47,22 @@ pnpm check    # Run formatting, lint, type, and build checks
 pnpm preview  # Preview production build locally
 ```
 
+Production builds default to the selector. To build and preview a profile site:
+
+```sh
+HOMEPAGE_SITE=spencer pnpm build
+pnpm preview
+```
+
+Valid site values come from `profiles.json`, plus `selector` for the joint homepage.
+
 ## Asset Generation
 
-Favicons, OG images, and other assets are generated from two SVG source files:
+All three sites share the favicons, app icons, and Open Graph image generated
+from `public/logo.svg` and `public/og-banner.svg`. Vite emits the appropriate
+static metadata, `robots.txt`, and `sitemap.xml` for each independent site build.
 
-- `public/logo.svg` - Logo used for favicons, app icons, and tiles
-- `public/og-banner.svg` - Open Graph banner image
-
-To regenerate all assets after editing the SVGs:
+To regenerate the shared assets after editing the SVGs:
 
 ```sh
 ./generate-assets.sh

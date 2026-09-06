@@ -3,25 +3,33 @@
 The website is served from a private S3 origin through CloudFront. Cloudflare
 provides authoritative DNS and ACM certificates are validated with Cloudflare
 DNS records. Each deployment environment has isolated Terraform state and
-infrastructure. Spencer and Sara share each environment's S3 bucket and
-CloudFront distribution while retaining distinct canonical hostnames.
+infrastructure. Each environment has one S3 bucket and three independent
+CloudFront distributions: one each for the selector, Spencer, and Sara sites.
 
-| Environment | Variables                  | State key               | Spencer URL                       | Sara URL                       |
-| ----------- | -------------------------- | ----------------------- | --------------------------------- | ------------------------------ |
-| `dev`       | `environments/dev.tfvars`  | `homepage-tfstate-dev`  | `https://spencer-dev.imbleau.com` | `https://sara-dev.imbleau.com` |
-| `stg`       | `environments/stg.tfvars`  | `homepage-tfstate-stg`  | `https://spencer-stg.imbleau.com` | `https://sara-stg.imbleau.com` |
-| `prod`      | `environments/prod.tfvars` | `homepage-tfstate-prod` | `https://spencer.imbleau.com`     | `https://sara.imbleau.com`     |
+Profile hostnames and the primary infrastructure profile come from the shared
+[`profiles.json`](../profiles.json) registry.
+
+Buckets are account-scoped and named `homepage-<account-id>-<environment>`.
+Site objects are isolated under the `selector/`, `spencer/`, and `sara/`
+prefixes. Each CloudFront distribution uses its site's prefix as its origin
+path, and each matrix job deploys only to that prefix. The former shared bucket
+is retained during migration but removed from Terraform state so its versioned
+contents are not destroyed automatically.
+
+| Environment | Variables                  | State key               | Selector URL              | Spencer URL                       | Sara URL                       |
+| ----------- | -------------------------- | ----------------------- | ------------------------- | --------------------------------- | ------------------------------ |
+| `dev`       | `environments/dev.tfvars`  | `homepage-tfstate-dev`  | `https://dev.imbleau.com` | `https://spencer-dev.imbleau.com` | `https://sara-dev.imbleau.com` |
+| `stg`       | `environments/stg.tfvars`  | `homepage-tfstate-stg`  | `https://stg.imbleau.com` | `https://spencer-stg.imbleau.com` | `https://sara-stg.imbleau.com` |
+| `prod`      | `environments/prod.tfvars` | `homepage-tfstate-prod` | `https://imbleau.com`     | `https://spencer.imbleau.com`     | `https://sara.imbleau.com`     |
 
 The dev and staging website records are proxied through Cloudflare so Access
 policies can protect them. Production website records remain DNS-only.
 
 ## Redirects
 
-| Environment | Source                    | Destination                       |
-| ----------- | ------------------------- | --------------------------------- |
-| `dev`       | `https://dev.imbleau.com` | `https://spencer-dev.imbleau.com` |
-| `stg`       | `https://stg.imbleau.com` | `https://spencer-stg.imbleau.com` |
-| `prod`      | `https://www.imbleau.com` | `https://imbleau.com`             |
+| Environment | Source                    | Destination           |
+| ----------- | ------------------------- | --------------------- |
+| `prod`      | `https://www.imbleau.com` | `https://imbleau.com` |
 
 All three keys live in the existing `imbleau-terraform-state` bucket. The
 production state was migrated from its original `terraform.tfstate` key.
@@ -42,7 +50,9 @@ the `imbleau.com` zone.
 
 Every successful `main` CI run deploys the exact tested commit to `dev`. The
 **Promote Website** workflow deploys the current `main` commit to `stg` or
-`prod`, with GitHub Environment protection acting as the approval gate.
+`prod`, with GitHub Environment protection acting as the approval gate. After
+Terraform provisions the environment, its targets fan out through a deployment
+matrix so each site builds, uploads, invalidates, and verifies independently.
 
 ## Local validation
 

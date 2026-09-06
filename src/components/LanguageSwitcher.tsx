@@ -3,13 +3,12 @@ import { Box, Button, Menu, MenuItem } from "@mui/material"
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown"
 import { alpha } from "@mui/material/styles"
 import { useLanguage } from "@/hooks/useLanguage"
-import type { SupportedLanguage } from "@/i18n/i18n"
 import { SELECTOR_CARET_SIZE } from "@/components/selectorStyles"
 
 const languages = [
-    { code: "en", label: "ENGLISH", flag: "/images/flags/us.svg" },
+    { code: "en", label: "ENGLISH", flag: "/images/flags/en.svg" },
     { code: "fr", label: "FRANÇAIS", flag: "/images/flags/fr.svg" },
-    { code: "fa", label: "فارسی", flag: "/images/flags/ir.svg" },
+    { code: "fa", label: "فارسی", flag: "/images/flags/fa.svg" },
 ] as const
 
 const languageTypography = {
@@ -20,18 +19,13 @@ const languageTypography = {
 } as const
 
 export const LanguageSwitcher = () => {
-    const { t, language, switchLanguage } = useLanguage()
+    const { t, language, languageHref, rememberLanguage } = useLanguage()
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     const selected = languages.find(({ code }) => code === language) ?? languages[0]
     const open = Boolean(anchorEl)
 
     const handleOpen = (event: MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)
     const handleClose = () => setAnchorEl(null)
-
-    const handleChange = (nextLanguage: SupportedLanguage) => {
-        handleClose()
-        switchLanguage(nextLanguage)
-    }
 
     return (
         <>
@@ -72,12 +66,7 @@ export const LanguageSwitcher = () => {
                     },
                 })}
             >
-                <Box
-                    component="img"
-                    src={selected.flag}
-                    alt=""
-                    sx={{ width: 18, height: 12, objectFit: "cover", flexShrink: 0 }}
-                />
+                <Box component="img" src={selected.flag} alt="" sx={{ width: 18, height: 18, flexShrink: 0 }} />
                 <Box
                     component="span"
                     sx={{
@@ -113,7 +102,10 @@ export const LanguageSwitcher = () => {
                     .map(({ code, label, flag }) => (
                         <MenuItem
                             key={code}
-                            onClick={() => handleChange(code)}
+                            component="a"
+                            href={languageHref(code)}
+                            hrefLang={code}
+                            onClick={() => rememberLanguage(code)}
                             sx={(theme) => ({
                                 px: 1.5,
                                 py: 0.75,
@@ -126,12 +118,7 @@ export const LanguageSwitcher = () => {
                                 },
                             })}
                         >
-                            <Box
-                                component="img"
-                                src={flag}
-                                alt=""
-                                sx={{ width: 20, height: 14, objectFit: "cover", flexShrink: 0 }}
-                            />
+                            <Box component="img" src={flag} alt="" sx={{ width: 20, height: 20, flexShrink: 0 }} />
                             {label}
                         </MenuItem>
                     ))}

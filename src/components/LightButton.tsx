@@ -4,6 +4,9 @@ import type { ButtonProps as MuiButtonProps } from "@mui/material/Button"
 import { styled, alpha } from "@mui/material/styles"
 
 export interface LightButtonProps extends Omit<MuiButtonProps, "variant"> {
+    /** Anchor attributes used when href is provided. */
+    target?: React.HTMLAttributeAnchorTarget
+    rel?: string
     /**
      * The variant to use
      */
@@ -70,9 +73,11 @@ const StyledButton = styled(MuiButton)(({ theme }) => {
                         border: "none",
                         "&:hover": {
                             backgroundColor: theme.palette.primary.dark,
+                            color: theme.palette.primary.contrastText,
                         },
                         "&:active": {
                             backgroundColor: theme.palette.text.primary,
+                            color: theme.palette.primary.contrastText,
                         },
                     }
             }

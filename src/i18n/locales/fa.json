@@ -4,7 +4,6 @@
         "description": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار آمریکایی هستم.",
         "ogDescription": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار آمریکایی هستم.",
         "twitterDescription": "این وبسایت شخصی اسپنسر ایمبلو است.",
-        "ogImageAlt": "Spencer Imbleau - مهندس نرم‌افزار",
         "ogLocale": "fa_IR",
         "jobTitle": "مهندس نرم‌افزار",
         "personDescription": "مهندس نرم‌افزار آمریکایی.",
@@ -15,7 +14,6 @@
         "description": "این صفحه وب سارا اصلانی، پژوهشگر دکتری علوم اعصاب است.",
         "ogDescription": "این صفحه وب سارا اصلانی، پژوهشگر دکتری علوم اعصاب است.",
         "twitterDescription": "این پروفایل شخصی سارا اصلانی است.",
-        "ogImageAlt": "سارا اصلانی - پژوهشگر دکتری علوم اعصاب",
         "jobTitle": "پژوهشگر دکتری علوم اعصاب",
         "personDescription": "پژوهشگر دکتری علوم اعصاب."
     },
@@ -35,17 +33,16 @@
         "andA": "و یک"
     },
     "resumePage": {
-        "title": "Spencer Imbleau | رزومه",
-        "description": "مشاهده یا دانلود رزومه اسپنسر ایمبلو",
+        "title": "{{profile}} | رزومه",
+        "description": "مشاهده یا دانلود رزومه {{profile}}",
         "iframeTitle": "رزومه",
         "loading": "در حال بارگیری رزومه…",
         "loadingHelp": "بارگیری طول کشیده است؟ فایل PDF را مستقیماً باز کنید.",
         "openPdf": "باز کردن PDF",
         "goBack": "بازگشت",
         "downloadResume": "دانلود",
-        "downloadFilename": "Imbleau_Spencer_رزومه.pdf",
-        "unavailablePageTitle": "سارا اصلانی | رزومه",
-        "unavailableDescription": "رزومه سارا اصلانی به‌زودی در دسترس خواهد بود.",
+        "unavailablePageTitle": "{{profile}} | رزومه",
+        "unavailableDescription": "رزومه {{profile}} به‌زودی در دسترس خواهد بود.",
         "unavailable": "رزومه‌ای موجود نیست",
         "comingSoon": "به‌زودی در دسترس خواهد بود."
     },
@@ -54,5 +51,10 @@
     },
     "profileSwitcher": {
         "label": "انتخاب پروفایل"
+    },
+    "profileSelector": {
+        "headerLabel": "با ما آشنا شوید",
+        "metaTitle": "{{profiles}} | صفحه اصلی",
+        "metaDescription": "این صفحه اصلی مشترک {{profiles}} است."
     }
 }

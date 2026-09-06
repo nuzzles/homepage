@@ -3,25 +3,17 @@ import { initReactI18next } from "react-i18next"
 import en from "./locales/en.json"
 import fr from "./locales/fr.json"
 import fa from "./locales/fa.json"
+import { defaultLanguage, languageConfig, type SupportedLanguage } from "./languages"
+
+export {
+    defaultLanguage,
+    languageConfig,
+    supportedLanguages,
+    type LanguageConfig,
+    type SupportedLanguage,
+} from "./languages"
 
 // ─── Language Configuration ──────────────────────────────────────────────────
-
-export interface LanguageConfig {
-    urlPrefix: string
-    htmlLang: string
-    browserPrefix: string
-    dir: "ltr" | "rtl"
-}
-
-export const languageConfig: Record<string, LanguageConfig> = {
-    en: { urlPrefix: "", htmlLang: "en-US", browserPrefix: "en", dir: "ltr" },
-    fr: { urlPrefix: "/fr", htmlLang: "fr-FR", browserPrefix: "fr", dir: "ltr" },
-    fa: { urlPrefix: "/fa", htmlLang: "fa-IR", browserPrefix: "fa", dir: "rtl" },
-}
-
-export type SupportedLanguage = keyof typeof languageConfig
-export const supportedLanguages = Object.keys(languageConfig) as SupportedLanguage[]
-export const defaultLanguage: SupportedLanguage = "en"
 
 // ─── Utility Functions ───────────────────────────────────────────────────────
 
@@ -55,18 +47,26 @@ export function stripLanguagePrefix(pathname: string): string {
     if (firstSegment && firstSegment in languageConfig) {
         return pathname.slice(firstSegment.length + 1) || "/"
     }
-    for (const config of Object.values(languageConfig)) {
-        if (config.urlPrefix && pathname.startsWith(config.urlPrefix)) {
-            return pathname.slice(config.urlPrefix.length) || "/"
-        }
-    }
     return pathname
 }
 
-export function getLanguageSwitchPath(pathname: string, language: SupportedLanguage): string {
+export function getLanguageSwitchPath(
+    pathname: string,
+    language: SupportedLanguage,
+    browserLanguage: SupportedLanguage,
+    search = "",
+    hash = ""
+): string {
     const basePath = stripLanguagePrefix(pathname)
-    const prefix = getUrlPrefix(language)
-    return basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
+    const prefix = language === browserLanguage ? "" : getUrlPrefix(language)
+    const localizedPath = basePath === "/" ? prefix || "/" : `${prefix}${basePath}`
+    return `${localizedPath}${search}${hash}`
+}
+
+export function getLocalizedPath(pathname: string, path: string): string {
+    const hasExplicitLanguage = stripLanguagePrefix(pathname) !== pathname
+    const prefix = hasExplicitLanguage ? getUrlPrefix(getLanguageFromPath(pathname)) : ""
+    return path === "/" ? prefix || "/" : `${prefix}${path}`
 }
 
 // ─── i18next Initialization ──────────────────────────────────────────────────

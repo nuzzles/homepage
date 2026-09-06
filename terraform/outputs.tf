@@ -1,29 +1,21 @@
-output "bucket_name" {
-  description = "Private S3 bucket receiving the built website."
-  value       = aws_s3_bucket.web_bucket.bucket
-}
-
-output "cloudfront_distribution_id" {
-  description = "CloudFront distribution to invalidate after publishing."
-  value       = aws_cloudfront_distribution.web_distribution.id
+output "deployment_targets" {
+  description = "Deployment details consumed directly by the website matrix."
+  value = {
+    for site, config in local.sites : site => {
+      bucket_name = aws_s3_bucket.site_bucket.bucket
+      key_prefix  = config.key_prefix
+      distribution_id = site == local.primary_profile_id ? (
+        aws_cloudfront_distribution.web_distribution.id
+      ) : aws_cloudfront_distribution.additional[site].id
+      distribution_domain_name = site == local.primary_profile_id ? (
+        aws_cloudfront_distribution.web_distribution.domain_name
+      ) : aws_cloudfront_distribution.additional[site].domain_name
+      website_url = "https://${config.domain_name}"
+    }
+  }
 }
 
 output "website_url" {
-  description = "Canonical Spencer URL for this environment."
-  value       = "https://${local.spencer_domain_name}"
-}
-
-output "sara_website_url" {
-  description = "Canonical Sara URL for this environment."
-  value       = "https://${local.sara_domain_name}"
-}
-
-output "redirect_source_url" {
-  description = "Legacy URL redirected by this environment."
-  value       = "https://${local.redirect.source}"
-}
-
-output "redirect_target_url" {
-  description = "Canonical destination for this environment's redirect."
-  value       = "https://${local.redirect.target}"
+  description = "Profile selector URL for this environment."
+  value       = "https://${local.selector_domain_name}"
 }

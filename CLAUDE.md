@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a personal website built with React 19, TypeScript, and Vite. The project uses Material-UI for component styling and Emotion for CSS-in-JS.
+This is a joint homepage with separate root, Spencer, and Sara sites, built with React 19, TypeScript, and Vite. The project uses Material-UI for component styling and Emotion for CSS-in-JS.
 
 ## Tech Stack
 
@@ -31,7 +31,8 @@ pnpm preview  # Preview production build
 
 - `/src` - Source code directory
 - `@/` - Path alias that resolves to `./src`
-- `index.html` - Entry HTML file
+- `profiles.json` - Authoritative profile, hostname, route, contact, and SEO configuration
+- `index.html` - Shared Vite entry; local development serves the joint homepage
 - `vite.config.ts` - Vite configuration
 - `tsconfig.json` - TypeScript configuration (references app and node configs)
 
@@ -55,8 +56,8 @@ pnpm preview  # Preview production build
 
 This site is SEO-optimized. When adding new pages or routes:
 
-- Add the new URL to `public/sitemap.xml`
-- Ensure `index.html` meta tags (Open Graph, Twitter Card, description) remain accurate and up to date
+- Define profile data, routes, and SEO metadata in `profiles.json`
+- Vite emits the selected site's static metadata, robots file, and sitemap during each build
 - Use semantic HTML elements where possible
 
 ## Theming

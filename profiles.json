@@ -1,0 +1,75 @@
+{
+    "spencer": {
+        "firstName": "Spencer",
+        "fullName": "Spencer Imbleau",
+        "primaryInfrastructure": true,
+        "hostnames": {
+            "dev": "spencer-dev.imbleau.com",
+            "stg": "spencer-stg.imbleau.com",
+            "prod": "spencer.imbleau.com"
+        },
+        "image": "/images/me.webp",
+        "encodedEmail": "c3BlbmNlckBpbWJsZWF1LmNvbQ==",
+        "roleKey": "home.role",
+        "stickerKey": "home.sticker",
+        "metaKey": "meta",
+        "nationality": "American",
+        "calendlyUrl": "https://calendly.com/simbleau/meet",
+        "staticMeta": {
+            "description": "This is the web page of Spencer Imbleau. I am an American software engineer.",
+            "twitterDescription": "This is the personal website of Spencer Imbleau.",
+            "keywords": "Spencer Imbleau, software engineer, research engineer, resume, CV, portfolio, projects",
+            "noscriptRole": "Software Engineer",
+            "twitterHandle": "@spencerimbleau",
+            "mastodonUrl": "https://mastodon.online/@scim"
+        },
+        "lastModified": "2026-09-05",
+        "resume": {
+            "pdfUrl": "https://nuzzles.github.io/resume/resume.pdf",
+            "embedUrl": "https://nuzzles.github.io/resume/embed.html",
+            "downloadFilename": "Resume_Spencer_Imbleau.pdf",
+            "lastModified": "2026-09-05"
+        },
+        "socials": [
+            {
+                "kind": "linkedin",
+                "label": "LINKEDIN / SIMBLEAU",
+                "href": "https://www.linkedin.com/in/simbleau/"
+            },
+            {
+                "kind": "github",
+                "label": "GITHUB / NUZZLES",
+                "href": "https://www.github.com/nuzzles/"
+            }
+        ]
+    },
+    "sara": {
+        "firstName": "Sara",
+        "fullName": "Sara Aslani",
+        "hostnames": {
+            "dev": "sara-dev.imbleau.com",
+            "stg": "sara-stg.imbleau.com",
+            "prod": "sara.imbleau.com"
+        },
+        "image": "/images/sara.webp",
+        "encodedEmail": "c2EuYXNsYW5pQHVmbC5lZHU=",
+        "roleKey": "home.saraRole",
+        "stickerKey": "home.saraSticker",
+        "metaKey": "saraMeta",
+        "staticMeta": {
+            "description": "This is the web page of Sara Aslani. She is a PhD neuroscience researcher.",
+            "twitterDescription": "This is the personal profile of Sara Aslani.",
+            "keywords": "Sara Aslani, neuroscience, PhD researcher, research, homepage",
+            "noscriptRole": "Phd Neuroscience"
+        },
+        "lastModified": "2026-09-05",
+        "resume": null,
+        "socials": [
+            {
+                "kind": "linkedin",
+                "label": "LINKEDIN / SARA ASLANI",
+                "href": "https://www.linkedin.com/in/sarah-aslani-76f9/"
+            }
+        ]
+    }
+}

@@ -1,51 +1,39 @@
 locals {
   cloudflare_zone_id = "9aad55f2e0a8d9373badd4361227cabe"
   s3_origin_id       = "WebS3Origin"
+  profile_config     = jsondecode(file("${path.module}/../profiles.json"))
+  primary_profile_id = one([
+    for profile, config in local.profile_config : profile if try(config.primaryInfrastructure, false)
+  ])
 
+  selector_domains = {
+    dev  = "dev.imbleau.com"
+    stg  = "stg.imbleau.com"
+    prod = "imbleau.com"
+  }
   domains = {
-    dev = {
-      spencer = "spencer-dev.imbleau.com"
-      sara    = "sara-dev.imbleau.com"
-    }
-    stg = {
-      spencer = "spencer-stg.imbleau.com"
-      sara    = "sara-stg.imbleau.com"
-    }
-    prod = {
-      spencer = "spencer.imbleau.com"
-      sara    = "sara.imbleau.com"
-    }
+    for environment in ["dev", "stg", "prod"] : environment => merge(
+      { selector = local.selector_domains[environment] },
+      { for profile, config in local.profile_config : profile => config.hostnames[environment] }
+    )
   }
 
-  redirects = {
-    dev = {
-      source = "dev.imbleau.com"
-      target = local.domains.dev.spencer
-    }
-    stg = {
-      source = "stg.imbleau.com"
-      target = local.domains.stg.spencer
-    }
-    prod = {
-      source = "www.imbleau.com"
-      target = "imbleau.com"
+  selector_domain_name = local.domains[var.environment].selector
+  primary_domain_name  = local.domains[var.environment][local.primary_profile_id]
+  bucket_name          = "homepage-${data.aws_caller_identity.current.account_id}-${var.environment}"
+  profile_sites = {
+    for profile, config in local.profile_config : profile => {
+      domain_name = config.hostnames[var.environment]
+      key_prefix  = profile
     }
   }
-
-  # Keep the existing production bucket name. It is an internal origin name,
-  # not the website's canonical URL, and changing it would replace the bucket.
-  bucket_names = {
-    dev  = "dev.spencer.imbleau.com"
-    stg  = "stg.spencer.imbleau.com"
-    prod = "www.spencer.imbleau.com"
-  }
-
-  spencer_domain_name = local.domains[var.environment].spencer
-  sara_domain_name    = local.domains[var.environment].sara
-  domain_names        = [local.spencer_domain_name, local.sara_domain_name]
-  redirect            = local.redirects[var.environment]
-
-  # Spencer remains the primary environment URL for deployment status links.
-  domain_name = local.spencer_domain_name
-  bucket_name = local.bucket_names[var.environment]
+  sites = merge(
+    {
+      selector = {
+        domain_name = local.selector_domain_name
+        key_prefix  = "selector"
+      }
+    },
+    local.profile_sites
+  )
 }

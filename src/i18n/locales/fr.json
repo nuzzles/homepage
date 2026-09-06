@@ -4,7 +4,6 @@
         "description": "Ceci est la page Web de Spencer Imbleau. Je suis un ingénieur logiciel américain.",
         "ogDescription": "Ceci est la page Web de Spencer Imbleau. Je suis un ingénieur logiciel américain.",
         "twitterDescription": "Ceci est le site personnel de Spencer Imbleau.",
-        "ogImageAlt": "Spencer Imbleau - Ingénieur logiciel",
         "ogLocale": "fr_FR",
         "jobTitle": "Ingénieur logiciel",
         "personDescription": "Ingénieur logiciel américain.",
@@ -15,7 +14,6 @@
         "description": "Ceci est la page Web de Sara Aslani, chercheuse en neurosciences titulaire d'un doctorat.",
         "ogDescription": "Ceci est la page Web de Sara Aslani, chercheuse en neurosciences titulaire d'un doctorat.",
         "twitterDescription": "Ceci est le profil personnel de Sara Aslani.",
-        "ogImageAlt": "Sara Aslani - Chercheuse en neurosciences",
         "jobTitle": "Chercheuse en neurosciences (Ph. D.)",
         "personDescription": "Chercheuse en neurosciences titulaire d'un doctorat."
     },
@@ -35,17 +33,16 @@
         "andA": "et un"
     },
     "resumePage": {
-        "title": "Spencer Imbleau | Curriculum vitæ",
-        "description": "Consultez ou téléchargez le curriculum vitæ de Spencer Imbleau",
+        "title": "{{profile}} | Curriculum vitæ",
+        "description": "Consultez ou téléchargez le curriculum vitæ de {{profile}}",
         "iframeTitle": "Curriculum vitæ",
         "loading": "Chargement du curriculum vitæ…",
         "loadingHelp": "Le chargement est long ? Ouvrez directement le PDF.",
         "openPdf": "Ouvrir le PDF",
         "goBack": "retour",
         "downloadResume": "télécharger",
-        "downloadFilename": "CV_Spencer_Imbleau.pdf",
-        "unavailablePageTitle": "Sara Aslani | Curriculum vitæ",
-        "unavailableDescription": "Le curriculum vitæ de Sara Aslani sera bientôt disponible.",
+        "unavailablePageTitle": "{{profile}} | Curriculum vitæ",
+        "unavailableDescription": "Le curriculum vitæ de {{profile}} sera bientôt disponible.",
         "unavailable": "Curriculum vitæ indisponible",
         "comingSoon": "Bientôt disponible."
     },
@@ -54,5 +51,10 @@
     },
     "profileSwitcher": {
         "label": "Choisir un profil"
+    },
+    "profileSelector": {
+        "headerLabel": "Découvrez-nous",
+        "metaTitle": "{{profiles}} | Page d'accueil",
+        "metaDescription": "Ceci est la page d'accueil commune de {{profiles}}."
     }
 }

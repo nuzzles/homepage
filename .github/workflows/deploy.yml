@@ -20,23 +20,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Deploy ${{ inputs.environment }}
+  provision:
+    name: Provision ${{ inputs.environment }}
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
       url: ${{ steps.terraform.outputs.website_url }}
+    outputs:
+      targets: ${{ steps.terraform.outputs.targets }}
     steps:
       - name: Setup | Checkout
         uses: actions/checkout@v5
         with:
           ref: ${{ inputs.ref }}
-
-      - name: Setup | Node and pnpm
-        uses: ./.github/actions/setup-node
-
-      - name: Install | Dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Configure | AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
@@ -63,49 +59,74 @@ jobs:
             -backend-config="backend-configs/${{ inputs.environment }}.hcl"
           terraform apply -input=false -auto-approve \
             -var-file="environments/${{ inputs.environment }}.tfvars"
-          echo "bucket_name=$(terraform output -raw bucket_name)" >> "$GITHUB_OUTPUT"
-          echo "distribution_id=$(terraform output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+          targets=$(terraform output -json deployment_targets | jq -c '[to_entries[] | {site: .key} + .value]')
+          echo "targets=$targets" >> "$GITHUB_OUTPUT"
           echo "website_url=$(terraform output -raw website_url)" >> "$GITHUB_OUTPUT"
-          echo "sara_website_url=$(terraform output -raw sara_website_url)" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    name: Deploy ${{ matrix.site }}
+    needs: provision
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ matrix.website_url }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.provision.outputs.targets) }}
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Setup | Node and pnpm
+        uses: ./.github/actions/setup-node
+
+      - name: Install | Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure | AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          mask-aws-account-id: true
 
       - name: Build | Website
+        env:
+          HOMEPAGE_SITE: ${{ matrix.site }}
         run: pnpm build
 
-      - name: Upload | Immutable Vite assets
-        run: >-
-          aws s3 sync dist/assets "s3://${{ steps.terraform.outputs.bucket_name }}/assets"
-          --delete
-          --cache-control 'public, max-age=31536000, immutable'
-          --only-show-errors
-
-      - name: Upload | Revalidating public files
-        run: >-
-          aws s3 sync dist "s3://${{ steps.terraform.outputs.bucket_name }}"
-          --delete
-          --exclude index.html
-          --exclude 'assets/*'
-          --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400'
-          --only-show-errors
-
-      - name: Upload | HTML last
-        run: >-
-          aws s3 cp dist/index.html "s3://${{ steps.terraform.outputs.bucket_name }}/index.html"
-          --cache-control 'no-cache, no-store, must-revalidate'
-          --content-type 'text/html; charset=utf-8'
-          --only-show-errors
+      - name: Upload | Website
+        run: |
+          aws s3 sync dist "s3://${{ matrix.bucket_name }}/${{ matrix.key_prefix }}" \
+            --delete \
+            --exclude index.html \
+            --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
+            --only-show-errors
+          aws s3 cp dist/index.html \
+            "s3://${{ matrix.bucket_name }}/${{ matrix.key_prefix }}/index.html" \
+            --cache-control 'no-cache, no-store, must-revalidate' \
+            --content-type 'text/html; charset=utf-8' \
+            --only-show-errors
 
       - name: Invalidate | CloudFront cache
-        run: >-
-          aws cloudfront create-invalidation
-          --distribution-id '${{ steps.terraform.outputs.distribution_id }}'
-          --paths '/*'
-          --no-cli-pager
-
-      - name: Verify | Public deployment
         run: |
-          curl --fail --silent --show-error --location \
+          invalidation_id=$(aws cloudfront create-invalidation \
+            --distribution-id '${{ matrix.distribution_id }}' \
+            --paths '/*' \
+            --query 'Invalidation.Id' \
+            --output text \
+            --no-cli-pager)
+          aws cloudfront wait invalidation-completed \
+            --distribution-id '${{ matrix.distribution_id }}' \
+            --id "$invalidation_id"
+
+      - name: Verify | CloudFront origin
+        run: |
+          curl --fail --silent --show-error \
             --retry 12 --retry-delay 5 --retry-connrefused \
-            '${{ steps.terraform.outputs.website_url }}'
-          curl --fail --silent --show-error --location \
-            --retry 12 --retry-delay 5 --retry-connrefused \
-            '${{ steps.terraform.outputs.sara_website_url }}'
+            "https://${{ matrix.distribution_domain_name }}/" \
+            | grep -F 'data-site="${{ matrix.site }}"'

@@ -1,26 +1,26 @@
-resource "aws_s3_bucket" "web_bucket" {
+resource "aws_s3_bucket" "site_bucket" {
   bucket        = local.bucket_name
   force_destroy = false
 }
 
-resource "aws_s3_bucket_ownership_controls" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_ownership_controls" "site_bucket" {
+  bucket = aws_s3_bucket.site_bucket.id
 
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "web_bucket" {
-  bucket                  = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_public_access_block" "site_bucket" {
+  bucket                  = aws_s3_bucket.site_bucket.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "site_bucket" {
+  bucket = aws_s3_bucket.site_bucket.id
 
   rule {
     apply_server_side_encryption_by_default {
@@ -29,16 +29,16 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "web_bucket" {
   }
 }
 
-resource "aws_s3_bucket_versioning" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_versioning" "site_bucket" {
+  bucket = aws_s3_bucket.site_bucket.id
 
   versioning_configuration {
     status = "Enabled"
   }
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "web_bucket" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_lifecycle_configuration" "site_bucket" {
+  bucket = aws_s3_bucket.site_bucket.id
 
   rule {
     id     = "expire-noncurrent-content"
@@ -66,12 +66,15 @@ data "aws_iam_policy_document" "view_objects_policy" {
     }
 
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.web_bucket.arn}/*"]
+    resources = ["${aws_s3_bucket.site_bucket.arn}/*"]
 
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.web_distribution.arn]
+      values = concat(
+        [aws_cloudfront_distribution.web_distribution.arn],
+        [for distribution in aws_cloudfront_distribution.additional : distribution.arn],
+      )
     }
   }
 
@@ -86,8 +89,8 @@ data "aws_iam_policy_document" "view_objects_policy" {
 
     actions = ["s3:*"]
     resources = [
-      aws_s3_bucket.web_bucket.arn,
-      "${aws_s3_bucket.web_bucket.arn}/*",
+      aws_s3_bucket.site_bucket.arn,
+      "${aws_s3_bucket.site_bucket.arn}/*",
     ]
 
     condition {
@@ -98,7 +101,7 @@ data "aws_iam_policy_document" "view_objects_policy" {
   }
 }
 
-resource "aws_s3_bucket_policy" "web_access_policy" {
-  bucket = aws_s3_bucket.web_bucket.id
+resource "aws_s3_bucket_policy" "site_access_policy" {
+  bucket = aws_s3_bucket.site_bucket.id
   policy = data.aws_iam_policy_document.view_objects_policy.json
 }
