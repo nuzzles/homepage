@@ -2,8 +2,7 @@ output "deployment_targets" {
   description = "Deployment details consumed directly by the website matrix."
   value = {
     for site, config in local.sites : site => {
-      bucket_name = aws_s3_bucket.site_bucket.bucket
-      key_prefix  = config.key_prefix
+      key_prefix = config.key_prefix
       distribution_id = site == local.primary_profile_id ? (
         aws_cloudfront_distribution.web_distribution.id
       ) : aws_cloudfront_distribution.additional[site].id

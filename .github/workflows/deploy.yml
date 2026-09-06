@@ -23,11 +23,9 @@ jobs:
   provision:
     name: Provision ${{ inputs.environment }}
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ inputs.environment }}
-      url: ${{ steps.terraform.outputs.website_url }}
     outputs:
       targets: ${{ steps.terraform.outputs.targets }}
+      website_url: ${{ steps.terraform.outputs.website_url }}
     steps:
       - name: Setup | Checkout
         uses: actions/checkout@v5
@@ -67,9 +65,6 @@ jobs:
     name: Deploy ${{ matrix.site }}
     needs: provision
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ inputs.environment }}
-      url: ${{ matrix.website_url }}
     strategy:
       fail-fast: false
       matrix:
@@ -94,6 +89,13 @@ jobs:
           aws-region: us-east-1
           mask-aws-account-id: true
 
+      - name: Configure | Deployment bucket
+        env:
+          DEPLOYMENT_ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          account_id=$(aws sts get-caller-identity --query Account --output text)
+          echo "BUCKET_NAME=homepage-${account_id}-${DEPLOYMENT_ENVIRONMENT}" >> "$GITHUB_ENV"
+
       - name: Build | Website
         env:
           HOMEPAGE_SITE: ${{ matrix.site }}
@@ -101,13 +103,13 @@ jobs:
 
       - name: Upload | Website
         run: |
-          aws s3 sync dist "s3://${{ matrix.bucket_name }}/${{ matrix.key_prefix }}" \
+          aws s3 sync dist "s3://${BUCKET_NAME}/${{ matrix.key_prefix }}" \
             --delete \
             --exclude index.html \
             --cache-control 'public, max-age=0, must-revalidate, s-maxage=86400' \
             --only-show-errors
           aws s3 cp dist/index.html \
-            "s3://${{ matrix.bucket_name }}/${{ matrix.key_prefix }}/index.html" \
+            "s3://${BUCKET_NAME}/${{ matrix.key_prefix }}/index.html" \
             --cache-control 'no-cache, no-store, must-revalidate' \
             --content-type 'text/html; charset=utf-8' \
             --only-show-errors
@@ -130,3 +132,22 @@ jobs:
             --retry 12 --retry-delay 5 --retry-connrefused \
             "https://${{ matrix.distribution_domain_name }}/" \
             | grep -F 'data-site="${{ matrix.site }}"'
+
+  deployment:
+    name: Complete ${{ inputs.environment }} deployment
+    needs: [provision, deploy]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ needs.provision.outputs.website_url }}
+    steps:
+      - name: Verify | Deployment matrix
+        env:
+          PROVISION_RESULT: ${{ needs.provision.result }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+        run: |
+          if [[ "$PROVISION_RESULT" != "success" || "$DEPLOY_RESULT" != "success" ]]; then
+            echo "::error::Deployment failed (provision: $PROVISION_RESULT, matrix: $DEPLOY_RESULT)."
+            exit 1
+          fi
