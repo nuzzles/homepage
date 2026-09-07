@@ -1,10 +1,33 @@
 title: Sara Aslani's blog
+tagline: Neuroscience research and academic life
 profile_name: Sara Aslani
 email: sara@imbleau.com
-description: Blog of Sara Aslani
+description: Writing by Sara Aslani about neuroscience, research, and academic life.
+keywords:
+  - Sara Aslani
+  - neuroscience
+  - neuroscience research
+  - academic research
+  - PhD researcher
 baseurl: "/blog"
 url: "https://sara.imbleau.com"
 homepage_url: "https://sara.imbleau.com"
+author:
+  name: Sara Aslani
+  url: https://sara.imbleau.com
+social:
+  name: Sara Aslani
+  links:
+    - https://www.linkedin.com/in/sarah-aslani-76f9/
+defaults:
+  - scope:
+      path: ""
+    values:
+      image:
+        path: https://sara.imbleau.com/og-banner.png
+        width: 1280
+        height: 640
+        alt: Imbleau
 header_pages:
   - about.md
 
@@ -12,6 +35,7 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 sass:
   quiet_deps: true

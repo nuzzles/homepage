@@ -19,15 +19,42 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Spencer Imbleau's blog
+tagline: Software engineering, graphics, and AI
 profile_name: Spencer Imbleau
 email: spencer@imbleau.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Blog of Spencer Imbleau
+description: Writing by Spencer Imbleau about Rust, computer graphics, open-source software, game development, AI, and engineering.
+keywords:
+  - Spencer Imbleau
+  - software engineering
+  - Rust
+  - computer graphics
+  - vector graphics
+  - open-source software
+  - game development
+  - AI
+  - artificial intelligence
 baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://spencer.imbleau.com" # the base hostname & protocol for your site, e.g. http://example.com
 homepage_url: "https://spencer.imbleau.com"
 github_username: nuzzles
 linkedin_username: simbleau
+author:
+  name: Spencer Imbleau
+  url: https://spencer.imbleau.com
+social:
+  name: Spencer Imbleau
+  links:
+    - https://www.linkedin.com/in/simbleau/
+    - https://github.com/nuzzles/
+defaults:
+  - scope:
+      path: ""
+    values:
+      image:
+        path: https://spencer.imbleau.com/og-banner.png
+        width: 1280
+        height: 640
+        alt: Imbleau
 header_pages:
   - about.md
   - categories.html
@@ -37,6 +64,7 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 # FIX: See https://github.com/jekyll/minima/issues/709
 sass:

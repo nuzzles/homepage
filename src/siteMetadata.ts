@@ -85,7 +85,12 @@ const localizedUrl = (baseUrl: string, prefix: string, route: string) =>
     `${baseUrl}${prefix}${route === "/" ? "/" : route}`
 
 export function getRobotsTxt(site: BuildSite): string {
-    return `User-agent: *\nAllow: /\n\nSitemap: ${getStaticSiteMetadata(site).baseUrl}/sitemap.xml\n`
+    const metadata = getStaticSiteMetadata(site)
+    const profile = site === "selector" ? null : getProfile(site)
+    const sitemaps = [`${metadata.baseUrl}/sitemap.xml`]
+    if (profile?.blog) sitemaps.push(`${metadata.baseUrl}${profile.blog.basePath}/sitemap.xml`)
+
+    return `User-agent: *\nAllow: /\n\n${sitemaps.map((sitemap) => `Sitemap: ${sitemap}`).join("\n")}\n`
 }
 
 export function getSitemapXml(site: BuildSite): string {

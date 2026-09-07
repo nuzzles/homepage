@@ -47,6 +47,9 @@ describe("static Open Graph metadata", () => {
         }
         expect(getSitemapXml("sara")).not.toContain("/resume")
         expect(getSitemapXml("spencer")).toContain("/resume")
+        expect(getRobotsTxt("spencer")).toContain("https://spencer.imbleau.com/blog/sitemap.xml")
+        expect(getRobotsTxt("sara")).toContain("https://sara.imbleau.com/blog/sitemap.xml")
+        expect(getRobotsTxt("selector")).not.toContain("/blog/sitemap.xml")
     })
 
     it("reserves the bare URL for language negotiation", () => {
