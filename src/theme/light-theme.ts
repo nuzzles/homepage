@@ -186,14 +186,6 @@ export const lightTheme = createTheme({
                     backgroundImage: `radial-gradient(${lightColor.grey[300]}55 0.55px, transparent 0.55px)`,
                     backgroundSize: "5px 5px",
                 },
-                "#root::before": {
-                    content: '""',
-                    position: "fixed",
-                    inset: 0,
-                    zIndex: 9999,
-                    border: `2px solid ${lightColor.grey[900]}`,
-                    pointerEvents: "none",
-                },
                 "::selection": {
                     backgroundColor: lightColor.blue[700],
                     color: lightColor.grey[50],

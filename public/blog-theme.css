@@ -79,15 +79,6 @@ body {
     line-height: 1.65;
 }
 
-body::before {
-    position: fixed;
-    z-index: 9999;
-    inset: 0;
-    border: 2px solid var(--blog-ink);
-    content: "";
-    pointer-events: none;
-}
-
 ::selection {
     color: var(--blog-paper);
     background: var(--blog-blue);
