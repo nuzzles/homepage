@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url"
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const profiles = JSON.parse(readFileSync(join(root, "profiles.json"), "utf8"))
 const command = process.argv[2]
+const deploymentEnvironment = process.env.HOMEPAGE_ENVIRONMENT
 
 const fail = (message) => {
     console.error(message)
@@ -48,6 +49,8 @@ const bundleEnvironment = {
     BUNDLE_PATH: process.env.BUNDLE_PATH ?? join(root, "blogs", "vendor", "bundle"),
 }
 
+const includeDrafts = command === "dev" || deploymentEnvironment === "dev" || deploymentEnvironment === "stg"
+
 const getJekyllConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode) => {
     const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
     writeFileSync(
@@ -66,11 +69,9 @@ if (command === "build") {
     const { source, output } = getBlogPaths(blog)
     const websiteUrl = process.env.HOMEPAGE_URL ?? `https://${profile.hostnames.prod}`
     const config = getJekyllConfig(profileId, blog, websiteUrl, websiteUrl, blog.basePath, "build")
-    const child = run(
-        "bundle",
-        ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config],
-        { env: bundleEnvironment }
-    )
+    const args = ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config]
+    if (includeDrafts) args.push("--drafts")
+    const child = run("bundle", args, { env: bundleEnvironment })
     child.on("error", (error) => fail(`Unable to start Jekyll: ${error.message}`))
     child.on("exit", (code, signal) => (process.exitCode = signal ? 1 : (code ?? 1)))
 } else {
@@ -111,29 +112,27 @@ if (command === "build") {
         const publicUrl = "http://localhost:5173"
         const homepageUrl = `${publicUrl}${isJointSite ? `/${id}` : ""}`
         const config = getJekyllConfig(id, devBlog, publicUrl, homepageUrl, publicBasePath, command)
-        const jekyll = run(
-            "bundle",
-            [
-                "exec",
-                "jekyll",
-                "serve",
-                "--source",
-                source,
-                "--destination",
-                destination,
-                "--config",
-                config,
-                "--host",
-                "127.0.0.1",
-                "--port",
-                String(port),
-                "--livereload",
-                "--livereload-port",
-                String(liveReloadPort),
-                "--quiet",
-            ],
-            { env: bundleEnvironment, stdio: ["inherit", "ignore", "inherit"] }
-        )
+        const args = [
+            "exec",
+            "jekyll",
+            "serve",
+            "--source",
+            source,
+            "--destination",
+            destination,
+            "--config",
+            config,
+            "--host",
+            "127.0.0.1",
+            "--port",
+            String(port),
+            "--livereload",
+            "--livereload-port",
+            String(liveReloadPort),
+            "--quiet",
+        ]
+        if (includeDrafts) args.push("--drafts")
+        const jekyll = run("bundle", args, { env: bundleEnvironment, stdio: ["inherit", "ignore", "inherit"] })
         children.push(jekyll)
     }
 

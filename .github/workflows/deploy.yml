@@ -108,6 +108,7 @@ jobs:
         env:
           HOMEPAGE_SITE: ${{ matrix.site }}
           HOMEPAGE_URL: ${{ matrix.website_url }}
+          HOMEPAGE_ENVIRONMENT: ${{ inputs.environment }}
         run: pnpm build
 
       - name: Upload | Website

@@ -29,7 +29,7 @@ BUNDLE_PATH=blogs/vendor/bundle bundle install --gemfile blogs/Gemfile
 pnpm dev
 ```
 
-This starts the joint homepage at `/`, using the saved or browser-preferred language
+This starts the joint homepage at `/` and includes Jekyll blog drafts, using the saved or browser-preferred language
 without changing the URL. The explicit English, French, and Farsi selector routes are
 `/en`, `/fr`, and `/fa`. Profile routes use the same prefixes, such as `/en/spencer`,
 `/fr/spencer`, and `/fa/sara`. It also starts each configured Jekyll blog at its local profile path,
@@ -66,6 +66,7 @@ pnpm preview
 ```
 
 Valid site values come from `profiles.json`, plus `selector` for the joint homepage.
+Deployed `dev` and `stg` builds also include blog drafts; `prod` excludes them.
 
 ## Asset Generation
 
