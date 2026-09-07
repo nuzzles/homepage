@@ -48,6 +48,7 @@ jobs:
       - name: Setup | Ruby and blog dependencies
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: "4.0.6"
           bundler-cache: true
           working-directory: blogs
 
