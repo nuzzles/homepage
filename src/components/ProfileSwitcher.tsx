@@ -1,5 +1,5 @@
 import { useState, type MouseEvent } from "react"
-import { Button, Menu, MenuItem } from "@mui/material"
+import { Box, Button, Menu, MenuItem } from "@mui/material"
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown"
 import { alpha } from "@mui/material/styles"
 import { PROFILE_OPTIONS, type ProfileId } from "@/profiles"
@@ -33,7 +33,8 @@ export const ProfileSwitcher = ({ value, label, hrefForProfile }: ProfileSwitche
                 sx={(theme) => ({
                     minWidth: 0,
                     p: 0,
-                    flexShrink: 0,
+                    flexShrink: { xs: 1, sm: 0 },
+                    overflow: "hidden",
                     color: theme.palette.text.primary,
                     backgroundColor: "transparent",
                     fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
@@ -43,6 +44,7 @@ export const ProfileSwitcher = ({ value, label, hrefForProfile }: ProfileSwitche
                     textTransform: "uppercase",
                     whiteSpace: "nowrap",
                     "& .MuiButton-endIcon": {
+                        flexShrink: 0,
                         marginInlineStart: 0.25,
                         marginInlineEnd: -0.25,
                         "& svg": { fontSize: SELECTOR_CARET_SIZE },
@@ -57,7 +59,12 @@ export const ProfileSwitcher = ({ value, label, hrefForProfile }: ProfileSwitche
                     },
                 })}
             >
-                {selected.name}
+                <Box
+                    component="span"
+                    sx={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                >
+                    {selected.name}
+                </Box>
             </Button>
             <Menu
                 id="profile-switcher-menu"
