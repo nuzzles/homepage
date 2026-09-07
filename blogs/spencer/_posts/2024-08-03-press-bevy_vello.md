@@ -55,6 +55,6 @@ Please use the following attribution, if needed:
 
 - **APA** (_7th Edition_)
 
-    ```text
-    Imbleau, Spencer & Rustunit. (2024, August 1). Compute-centric vector graphics using bevy_vello [Video]. YouTube. https://www.youtube.com/watch?v=VQGQhotekvY
-    ```
+```text
+Imbleau, Spencer & Rustunit. (2024, August 1). Compute-centric vector graphics using bevy_vello [Video]. YouTube. https://www.youtube.com/watch?v=VQGQhotekvY
+```
