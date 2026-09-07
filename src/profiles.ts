@@ -102,6 +102,18 @@ export function profileHasResume(profile: ProfileId): boolean {
     return PROFILE_CONFIG[profile].resume !== null
 }
 
+export function getProfileBlogPath(
+    hostname: string,
+    profile: ProfileId,
+    configuredProfile: ProfileId | null
+): string | null {
+    const blog = PROFILE_CONFIG[profile].blog
+    if (!blog) return null
+
+    const profilePrefix = isLocalProfileHostname(hostname) && configuredProfile === null ? `/${profile}` : ""
+    return `${profilePrefix}${blog.basePath}/`
+}
+
 export function getProfileHomePath(hostname: string, profile: ProfileId): string {
     return isLocalProfileHostname(hostname) ? `/${profile}` : "/"
 }

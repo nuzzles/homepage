@@ -1,6 +1,5 @@
 import { spawn } from "node:child_process"
 import { readFileSync, writeFileSync } from "node:fs"
-import { createConnection } from "node:net"
 import { tmpdir } from "node:os"
 import { dirname, isAbsolute, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -18,24 +17,21 @@ if (command !== "build" && command !== "dev") {
     fail("Usage: node scripts/blog.mjs <build|dev>")
 }
 
-const primaryProfile = Object.entries(profiles).find(([, profile]) => profile.primaryInfrastructure)?.[0]
-if (!primaryProfile) fail("profiles.json must define one primaryInfrastructure profile")
-
 const requestedSite = process.env.HOMEPAGE_SITE
-const profileId = command === "dev" && (!requestedSite || requestedSite === "selector") ? primaryProfile : requestedSite
+const profileId = requestedSite
 const profile = profileId ? profiles[profileId] : undefined
 const blog = profile?.blog
 
-const getBlogPaths = () => {
-    const source = resolve(root, blog.source)
+const getBlogPaths = (blogConfig) => {
+    const source = resolve(root, blogConfig.source)
     const sourceRelative = relative(root, source)
     if (isAbsolute(sourceRelative) || sourceRelative.startsWith("..")) {
-        fail(`Blog source must be inside the repository: ${blog.source}`)
+        fail(`Blog source must be inside the repository: ${blogConfig.source}`)
     }
-    if (!/^\/[a-z0-9][a-z0-9/_-]*$/i.test(blog.basePath) || blog.basePath.endsWith("/")) {
-        fail(`Blog basePath must start with one slash and omit the trailing slash: ${blog.basePath}`)
+    if (!/^\/[a-z0-9][a-z0-9/_-]*$/i.test(blogConfig.basePath) || blogConfig.basePath.endsWith("/")) {
+        fail(`Blog basePath must start with one slash and omit the trailing slash: ${blogConfig.basePath}`)
     }
-    return { source, output: resolve(root, `dist${blog.basePath}`) }
+    return { source, output: resolve(root, `dist${blogConfig.basePath}`) }
 }
 
 const run = (executable, args, options = {}) =>
@@ -52,10 +48,10 @@ const bundleEnvironment = {
     BUNDLE_PATH: process.env.BUNDLE_PATH ?? join(root, "blogs", "vendor", "bundle"),
 }
 
-const getJekyllConfig = (websiteUrl, mode) => {
-    const override = join(tmpdir(), `homepage-jekyll-${profileId}-${mode}.yml`)
-    writeFileSync(override, `url: ${JSON.stringify(websiteUrl)}\nbaseurl: ${JSON.stringify(blog.basePath)}\n`)
-    return `${join(resolve(root, blog.source), "_config.yml")},${override}`
+const getJekyllConfig = (id, blogConfig, websiteUrl, basePath, mode) => {
+    const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
+    writeFileSync(override, `url: ${JSON.stringify(websiteUrl)}\nbaseurl: ${JSON.stringify(basePath)}\n`)
+    return `${join(resolve(root, blogConfig.source), "_config.yml")},${override}`
 }
 
 if (command === "build") {
@@ -64,9 +60,9 @@ if (command === "build") {
         process.exit(0)
     }
 
-    const { source, output } = getBlogPaths()
+    const { source, output } = getBlogPaths(blog)
     const websiteUrl = process.env.HOMEPAGE_URL ?? `https://${profile.hostnames.prod}`
-    const config = getJekyllConfig(websiteUrl, "build")
+    const config = getJekyllConfig(profileId, blog, websiteUrl, blog.basePath, "build")
     const child = run(
         "bundle",
         ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config],
@@ -75,6 +71,17 @@ if (command === "build") {
     child.on("error", (error) => fail(`Unable to start Jekyll: ${error.message}`))
     child.on("exit", (code, signal) => (process.exitCode = signal ? 1 : (code ?? 1)))
 } else {
+    const isJointSite = !requestedSite || requestedSite === "selector"
+    const devProfiles = isJointSite ? Object.entries(profiles) : [[requestedSite, profile]]
+    const devBlogs = devProfiles
+        .filter(([, devProfile]) => Boolean(devProfile?.blog))
+        .map(([id, devProfile], index) => ({
+            id,
+            blog: devProfile.blog,
+            port: 4001 + index,
+            liveReloadPort: 35729 + index,
+            publicBasePath: isJointSite ? `/${id}${devProfile.blog.basePath}` : devProfile.blog.basePath,
+        }))
     const children = []
     let stopping = false
 
@@ -86,32 +93,19 @@ if (command === "build") {
         }
     }
 
-    const announceWhenReady = (port, url) => {
-        const attempt = () => {
-            if (stopping) return
-            const socket = createConnection({ host: "127.0.0.1", port })
-            socket.once("connect", () => {
-                socket.destroy()
-                if (!stopping) console.log(`  ➜  Blog:   ${url}`)
-            })
-            socket.once("error", () => {
-                socket.destroy()
-                setTimeout(attempt, 100)
-            })
-        }
-        attempt()
+    const viteEnvironment = {
+        ...process.env,
+        HOMEPAGE_BLOG_PROXIES: JSON.stringify(
+            Object.fromEntries(devBlogs.map(({ publicBasePath, port }) => [publicBasePath, `http://127.0.0.1:${port}`]))
+        ),
     }
-
-    const viteEnvironment = { ...process.env }
-    if (blog) viteEnvironment.HOMEPAGE_BLOG_PROXY_PATH = blog.basePath
     const vite = run("pnpm", ["exec", "vite"], { env: viteEnvironment })
     children.push(vite)
 
-    if (blog) {
-        const { source } = getBlogPaths()
-        const port = "4001"
-        const destination = join(tmpdir(), `homepage-jekyll-${profileId}-${command}`)
-        const config = getJekyllConfig(`http://localhost:${port}`, command)
+    for (const { id, blog: devBlog, port, liveReloadPort, publicBasePath } of devBlogs) {
+        const { source } = getBlogPaths(devBlog)
+        const destination = join(tmpdir(), `homepage-jekyll-${id}-${command}`)
+        const config = getJekyllConfig(id, devBlog, `http://localhost:${port}`, publicBasePath, command)
         const jekyll = run(
             "bundle",
             [
@@ -127,14 +121,15 @@ if (command === "build") {
                 "--host",
                 "127.0.0.1",
                 "--port",
-                port,
+                String(port),
                 "--livereload",
+                "--livereload-port",
+                String(liveReloadPort),
                 "--quiet",
             ],
             { env: bundleEnvironment, stdio: ["inherit", "ignore", "inherit"] }
         )
         children.push(jekyll)
-        announceWhenReady(Number(port), `http://localhost:5173${blog.basePath}/`)
     }
 
     for (const child of children) {

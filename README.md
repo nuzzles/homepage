@@ -32,8 +32,8 @@ pnpm dev
 This starts the joint homepage at `/`, using the saved or browser-preferred language
 without changing the URL. The explicit English, French, and Farsi selector routes are
 `/en`, `/fr`, and `/fa`. Profile routes use the same prefixes, such as `/en/spencer`,
-`/fr/spencer`, and `/fa/sara`. It also starts Jekyll for the primary profile's configured
-blog at `/blog/`; currently that is Spencer's blog.
+`/fr/spencer`, and `/fa/sara`. It also starts each configured Jekyll blog at its local profile path,
+such as `/spencer/blog/` and `/sara/blog/`.
 
 To run the production-shaped Spencer site and its blog locally:
 

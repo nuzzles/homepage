@@ -11,5 +11,6 @@ BUNDLE_PATH=vendor/bundle bundle install
 ```
 
 The normal workspace commands build and serve the configured blogs. `pnpm dev` serves the complete
-local site, including Spencer's blog at <http://localhost:5173/blog/>. Set `HOMEPAGE_SITE` to preview
-a specific deployed profile configuration.
+local site with profile-specific paths such as <http://localhost:5173/spencer/blog/> and
+<http://localhost:5173/sara/blog/>. Set `HOMEPAGE_SITE` to preview a specific deployed profile at
+<http://localhost:5173/blog/>.

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
     getActiveProfile,
     getProfile,
+    getProfileBlogPath,
     getProfileHomePath,
     getProfileSwitchUrl,
     profileHasResume,
@@ -63,6 +64,18 @@ describe("blog availability", () => {
         expect(getProfile("spencer").blog).toEqual({ source: "blogs/spencer", basePath: "/blog" })
         expect(getProfile("sara").blog).toEqual({ source: "blogs/sara", basePath: "/blog" })
     })
+
+    it.each([
+        ["localhost", "spencer", null, "/spencer/blog/"],
+        ["localhost", "sara", null, "/sara/blog/"],
+        ["localhost", "sara", "sara", "/blog/"],
+        ["sara.imbleau.com", "sara", "sara", "/blog/"],
+    ] satisfies [string, ProfileId, ProfileId | null, string][])(
+        "uses the correct blog path for %s and %s",
+        (hostname, profile, configuredProfile, expected) => {
+            expect(getProfileBlogPath(hostname, profile, configuredProfile)).toBe(expected)
+        }
+    )
 })
 
 describe("profile home paths", () => {

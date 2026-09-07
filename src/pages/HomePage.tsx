@@ -19,7 +19,15 @@ import { LightButton } from "@/components/LightButton"
 import { ProfileSwitcher } from "@/components/ProfileSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
-import { getProfileSwitchUrl, isLocalProfileHostname, PROFILE_HERO_IMAGE_SIZES, type ProfileId } from "@/profiles"
+import {
+    getProfileBlogPath,
+    getProfileSwitchUrl,
+    isLocalProfileHostname,
+    isProfileId,
+    PROFILE_HERO_IMAGE_SIZES,
+    type ProfileId,
+} from "@/profiles"
+import { getConfiguredSite } from "@/site"
 
 const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     const { t } = useTranslation()
@@ -86,7 +94,13 @@ export const HomePage = () => {
     const profileId = profile.id
     const actionCount = 2 + Number(Boolean(profile.blog)) + Number(Boolean(profile.calendlyUrl))
     const isLocalProfile = isLocalProfileHostname(window.location.hostname)
+    const configuredSite = getConfiguredSite()
     const resumePath = localizedPath(isLocalProfile ? `/${profileId}/resume` : "/resume")
+    const blogPath = getProfileBlogPath(
+        window.location.hostname,
+        profileId,
+        isProfileId(configuredSite) ? configuredSite : null
+    )
     const profileBaseUrl = profile.canonicalUrl
     const canonicalUrl = `${profileBaseUrl}${routePrefix}/`
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
@@ -291,8 +305,8 @@ export const HomePage = () => {
                             <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                             {t("home.resume")}
                         </LightButton>
-                        {profile.blog && (
-                            <LightButton href={`${profile.blog.basePath}/`} variant="secondary" fullWidth>
+                        {blogPath && (
+                            <LightButton href={blogPath} variant="secondary" fullWidth>
                                 <Article sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                                 {t("home.blog")}
                             </LightButton>
