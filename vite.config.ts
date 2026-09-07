@@ -113,9 +113,17 @@ export default defineConfig(({ command }) => {
     }
     const site: BuildSite = isBuildSite(requestedSite) ? requestedSite : "selector"
     const documentSite = command === "serve" && !requestedSite ? "local" : site
+    const blogProxyTargets = JSON.parse(process.env.HOMEPAGE_BLOG_PROXIES ?? "{}") as Record<string, string>
+    const blogProxy = Object.fromEntries(Object.entries(blogProxyTargets).map(([path, target]) => [path, { target }]))
 
     return {
+        clearScreen: false,
         plugins: [react(), sitePlugin(site, documentSite)],
+        server: Object.keys(blogProxy).length
+            ? {
+                  proxy: blogProxy,
+              }
+            : undefined,
         build: {
             rolldownOptions: {
                 output: {

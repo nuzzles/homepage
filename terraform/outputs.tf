@@ -9,7 +9,9 @@ output "deployment_targets" {
       distribution_domain_name = site == local.primary_profile_id ? (
         aws_cloudfront_distribution.web_distribution.domain_name
       ) : aws_cloudfront_distribution.additional[site].domain_name
-      website_url = "https://${config.domain_name}"
+      website_url    = "https://${config.domain_name}"
+      has_blog       = config.blog_base_path != null
+      blog_base_path = config.blog_base_path
     }
   }
 }

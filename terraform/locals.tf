@@ -23,15 +23,17 @@ locals {
   bucket_name          = "homepage-${data.aws_caller_identity.current.account_id}-${var.environment}"
   profile_sites = {
     for profile, config in local.profile_config : profile => {
-      domain_name = config.hostnames[var.environment]
-      key_prefix  = profile
+      domain_name    = config.hostnames[var.environment]
+      key_prefix     = profile
+      blog_base_path = try(config.blog.basePath, null)
     }
   }
   sites = merge(
     {
       selector = {
-        domain_name = local.selector_domain_name
-        key_prefix  = "selector"
+        domain_name    = local.selector_domain_name
+        key_prefix     = "selector"
+        blog_base_path = null
       }
     },
     local.profile_sites

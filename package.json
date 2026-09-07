@@ -11,8 +11,8 @@
     },
     "author": "Spencer Imbleau",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc -b && vite build",
+        "dev": "node scripts/blog.mjs dev",
+        "build": "tsc -b && vite build && node scripts/blog.mjs build",
         "lint": "eslint .",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
@@ -31,6 +31,7 @@
         "@mui/icons-material": "^9.4.0",
         "@mui/material": "^9.4.0",
         "i18next": "^26.4.2",
+        "lucide-react": "^1.41.0",
         "react": "^19.2.8",
         "react-dom": "^19.2.8",
         "react-helmet-async": "^3.0.0",

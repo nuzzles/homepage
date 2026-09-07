@@ -13,6 +13,13 @@ dist
 dist-ssr
 *.local
 
+# Jekyll runtime and build output
+blogs/.bundle/
+blogs/vendor/
+blogs/**/_site/
+blogs/**/.jekyll-cache/
+blogs/**/.jekyll-metadata
+
 # Terraform runtime and local state
 .terraform/
 *.tfstate

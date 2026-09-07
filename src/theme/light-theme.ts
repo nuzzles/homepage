@@ -158,9 +158,24 @@ export const lightTheme = createTheme({
             },
         },
         MuiTooltip: {
+            defaultProps: {
+                enterDelay: 450,
+            },
             styleOverrides: {
                 tooltip: {
-                    fontFamily: lightFontFamily,
+                    padding: "7px 10px",
+                    maxWidth: 220,
+                    color: lightText.primary,
+                    backgroundColor: lightBackground.surface.elevated,
+                    border: `1px solid ${lightColor.grey[900]}`,
+                    borderRadius: 0,
+                    boxShadow: `3px 3px 0 ${lightColor.blue[700]}`,
+                    fontFamily: lightDisplayFontFamily,
+                    fontSize: "0.72rem",
+                    fontWeight: lightFontWeight.extraBold,
+                    lineHeight: 1.2,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
                 },
             },
         },

@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest"
-import { getActiveProfile, getProfileHomePath, getProfileSwitchUrl, profileHasResume, type ProfileId } from "@/profiles"
+import {
+    getActiveProfile,
+    getProfile,
+    getProfileBlogPath,
+    getProfileHomePath,
+    getProfileSwitchUrl,
+    getSelectorUrl,
+    profileHasResume,
+    type ProfileId,
+} from "@/profiles"
 import en from "@/i18n/locales/en.json"
 import fa from "@/i18n/locales/fa.json"
 import fr from "@/i18n/locales/fr.json"
@@ -27,6 +36,20 @@ describe("profile switch URLs", () => {
     })
 })
 
+describe("selector URLs", () => {
+    it.each([
+        ["https://spencer.imbleau.com/", "/", "https://imbleau.com/"],
+        ["https://sara-dev.imbleau.com/fr", "/fr/", "https://dev.imbleau.com/fr/"],
+        ["https://spencer-stg.imbleau.com/fa?from=profile#top", "/fa/", "https://stg.imbleau.com/fa/"],
+    ])("returns from %s to the environment's selector", (currentUrl, pathname, expected) => {
+        expect(getSelectorUrl(currentUrl, pathname)).toBe(expected)
+    })
+
+    it("leaves local selector navigation to the client router", () => {
+        expect(getSelectorUrl("http://localhost:5173/spencer", "/")).toBeNull()
+    })
+})
+
 describe("resume availability", () => {
     it.each(["sara.imbleau.com", "sara-dev.imbleau.com", "sara-stg.imbleau.com"])(
         "does not expose a résumé for %s",
@@ -49,6 +72,33 @@ describe("resume availability", () => {
         expect(getActiveProfile("localhost")).toBeNull()
         expect(getActiveProfile("example.com")).toBeNull()
     })
+})
+
+describe("blog availability", () => {
+    it("configures an independent blog for each profile", () => {
+        expect(getProfile("spencer").blog).toEqual({
+            source: "blogs/spencer",
+            basePath: "/blog",
+            showOnHomepage: true,
+        })
+        expect(getProfile("sara").blog).toEqual({
+            source: "blogs/sara",
+            basePath: "/blog",
+            showOnHomepage: false,
+        })
+    })
+
+    it.each([
+        ["localhost", "spencer", null, "/spencer/blog/"],
+        ["localhost", "sara", null, "/sara/blog/"],
+        ["localhost", "sara", "sara", "/blog/"],
+        ["sara.imbleau.com", "sara", "sara", "/blog/"],
+    ] satisfies [string, ProfileId, ProfileId | null, string][])(
+        "uses the correct blog path for %s and %s",
+        (hostname, profile, configuredProfile, expected) => {
+            expect(getProfileBlogPath(hostname, profile, configuredProfile)).toBe(expected)
+        }
+    )
 })
 
 describe("profile home paths", () => {

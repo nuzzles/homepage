@@ -78,6 +78,14 @@ jobs:
       - name: Setup | Node and pnpm
         uses: ./.github/actions/setup-node
 
+      - name: Setup | Ruby and blog dependencies
+        if: matrix.has_blog
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0.6"
+          bundler-cache: true
+          working-directory: blogs
+
       - name: Install | Dependencies
         run: pnpm install --frozen-lockfile
 
@@ -99,6 +107,7 @@ jobs:
       - name: Build | Website
         env:
           HOMEPAGE_SITE: ${{ matrix.site }}
+          HOMEPAGE_URL: ${{ matrix.website_url }}
         run: pnpm build
 
       - name: Upload | Website
@@ -131,7 +140,15 @@ jobs:
           curl --fail --silent --show-error \
             --retry 12 --retry-delay 5 --retry-connrefused \
             "https://${{ matrix.distribution_domain_name }}/" \
-            | grep -F 'data-site="${{ matrix.site }}"'
+              | grep -F 'data-site="${{ matrix.site }}"'
+
+      - name: Verify | Blog
+        if: matrix.has_blog
+        run: |
+          curl --fail --silent --show-error --location \
+            --retry 12 --retry-delay 5 --retry-connrefused \
+            "https://${{ matrix.distribution_domain_name }}${{ matrix.blog_base_path }}/" \
+            | grep -F 'href="${{ matrix.blog_base_path }}/assets/main.css"'
 
   deployment:
     name: Complete ${{ inputs.environment }} deployment
