@@ -3,13 +3,11 @@ import { Box, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/mate
 import CalendarMonth from "@mui/icons-material/CalendarMonth"
 import Article from "@mui/icons-material/Article"
 import Check from "@mui/icons-material/Check"
-import Coffee from "@mui/icons-material/Coffee"
 import ContentCopy from "@mui/icons-material/ContentCopy"
 import Description from "@mui/icons-material/Description"
 import Email from "@mui/icons-material/Email"
-import Keyboard from "@mui/icons-material/Keyboard"
 import LinkedIn from "@mui/icons-material/LinkedIn"
-import { Undo2 } from "lucide-react"
+import { Coffee, Keyboard, Undo2 } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -445,8 +443,10 @@ export const HomePage = () => {
                             },
                         }}
                     >
-                        {t("home.madeWith")} <Coffee sx={{ fontSize: "0.8rem", verticalAlign: "-0.15em" }} />{" "}
-                        {t("home.andA")} <Keyboard sx={{ fontSize: "0.8rem", verticalAlign: "-0.15em" }} />
+                        {t("home.madeWith")}{" "}
+                        <Coffee style={{ width: "0.8rem", height: "0.8rem", verticalAlign: "-0.15em" }} />{" "}
+                        {t("home.andA")}{" "}
+                        <Keyboard style={{ width: "0.8rem", height: "0.8rem", verticalAlign: "-0.15em" }} />
                     </Typography>
                 </Box>
             </Box>

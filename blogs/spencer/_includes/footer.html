@@ -1,0 +1,63 @@
+<div class="back-to-top wrapper">
+    <a href="#top">
+        <svg aria-hidden="true" class="footer-icon footer-icon--lucide" viewBox="0 0 24 24">
+            <path d="M12 19V5" />
+            <path d="m5 12 7-7 7 7" />
+        </svg>
+        Back to top
+    </a>
+</div>
+
+<footer class="site-footer h-card">
+    <data class="u-url" href="{{ '/' | relative_url }}"></data>
+
+    <div class="wrapper">
+        <nav class="footer-socials" aria-label="Social links">
+            <a
+                href="https://www.linkedin.com/in/{{ site.linkedin_username | cgi_escape | escape }}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <svg aria-hidden="true" class="footer-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                    />
+                </svg>
+                LinkedIn / {{ site.linkedin_username | escape }}
+            </a>
+            <a
+                href="https://github.com/{{ site.github_username | cgi_escape | escape }}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <svg aria-hidden="true" class="footer-icon footer-icon--github" viewBox="0 0 448 512">
+                    <path
+                        d="M384 32c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h320ZM223.7 96C135.3 96 64 168.2 64 256.6c0 69.4 44.1 126.9 103.4 148.4 8.4 3.1 16.6-2.5 16.6-10.9v-25c-4.4 1.9-10 3.1-15 3.1-20.6 0-32.8-11.2-41.6-32.2-3.4-8.4-7.2-13.4-14.4-14.4-3.7-.3-5-1.9-5-3.8 0-3.7 6.2-6.6 12.5-6.6 9.1 0 16.9 5.6 25 17.2 6.2 9.1 12.8 13.1 20.6 13.1s12.8-2.8 20-10c5.3-5.3 9.4-10 13.1-13.1-41.3-5-70.3-34.7-70.3-73.1 0-15.6 5.6-32.5 15-43.8-4.1-10.3-3.4-32.2 1.2-41.2 12.5-1.6 29.4 5 39.4 14.1 11.9-3.7 24.4-5.6 39.7-5.6s27.8 1.9 39.1 5.3c9.7-8.8 26.9-15.3 39.4-13.8 4.4 8.4 5 30.3.9 40.9 10 11.9 15.3 27.8 15.3 44.1 0 38.4-29.1 67.5-70.9 72.8 10.6 6.9 17.8 21.9 17.8 39.1v32.5c0 9.4 7.8 14.7 17.2 10.9 56.6-21.6 100.9-78.1 100.9-148.1C383.4 168.2 312.1 96 223.7 96Z"
+                    />
+                </svg>
+                GitHub / {{ site.github_username | escape }}
+            </a>
+        </nav>
+        <p class="footer-made-with">
+            Made with
+            <svg aria-label="coffee" class="footer-icon footer-icon--lucide" role="img" viewBox="0 0 24 24">
+                <path d="M10 2v2" />
+                <path d="M14 2v2" />
+                <path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1" />
+                <path d="M6 2v2" />
+            </svg>
+            and a
+            <svg aria-label="keyboard" class="footer-icon footer-icon--lucide" role="img" viewBox="0 0 24 24">
+                <path d="M10 8h.01" />
+                <path d="M12 12h.01" />
+                <path d="M14 8h.01" />
+                <path d="M16 12h.01" />
+                <path d="M18 8h.01" />
+                <path d="M6 8h.01" />
+                <path d="M7 16h10" />
+                <path d="M8 12h.01" />
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+            </svg>
+        </p>
+    </div>
+</footer>
