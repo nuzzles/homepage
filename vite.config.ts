@@ -116,6 +116,7 @@ export default defineConfig(({ command }) => {
     const blogProxyPath = process.env.HOMEPAGE_BLOG_PROXY_PATH
 
     return {
+        clearScreen: false,
         plugins: [react(), sitePlugin(site, documentSite)],
         server: blogProxyPath
             ? {

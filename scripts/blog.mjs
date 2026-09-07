@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process"
 import { readFileSync, writeFileSync } from "node:fs"
+import { createConnection } from "node:net"
 import { tmpdir } from "node:os"
 import { dirname, isAbsolute, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -89,6 +90,22 @@ if (command === "build") {
         }
     }
 
+    const announceWhenReady = (port, url) => {
+        const attempt = () => {
+            if (stopping) return
+            const socket = createConnection({ host: "127.0.0.1", port })
+            socket.once("connect", () => {
+                socket.destroy()
+                if (!stopping) console.log(`  ➜  Blog:   ${url}`)
+            })
+            socket.once("error", () => {
+                socket.destroy()
+                setTimeout(attempt, 100)
+            })
+        }
+        attempt()
+    }
+
     if (!blogOnly) {
         const viteEnvironment = { ...process.env }
         if (blog) viteEnvironment.HOMEPAGE_BLOG_PROXY_PATH = blog.basePath
@@ -118,10 +135,13 @@ if (command === "build") {
                 "--port",
                 port,
                 "--livereload",
+                "--quiet",
             ],
-            { env: bundleEnvironment }
+            { env: bundleEnvironment, stdio: ["inherit", "ignore", "inherit"] }
         )
         children.push(jekyll)
+        const publicPort = blogOnly ? port : "5173"
+        announceWhenReady(Number(port), `http://localhost:${publicPort}${blog.basePath}/`)
     }
 
     for (const child of children) {
@@ -138,6 +158,9 @@ if (command === "build") {
         })
     }
 
-    process.on("SIGINT", () => stop("SIGINT"))
+    process.on("SIGINT", () => {
+        if (process.stdout.isTTY) process.stdout.write("\n")
+        stop("SIGINT")
+    })
     process.on("SIGTERM", () => stop("SIGTERM"))
 }
