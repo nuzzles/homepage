@@ -220,6 +220,21 @@ a:focus-visible {
     line-height: 0.88;
 }
 
+.draft-marker {
+    display: inline-block;
+    margin: 0 0.45rem 0.65rem 0;
+    padding: 0.2rem 0.5rem;
+    color: #fcfaf3;
+    background: #d84c2f;
+    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transform: rotate(-1.5deg);
+}
+
 .post-list-heading,
 .post-content h2,
 .post-content h3,
@@ -358,6 +373,27 @@ a:focus-visible {
     border: 1px solid var(--blog-ink);
 }
 
+.evidence-figure {
+    max-width: 100%;
+    margin: 32px 0;
+}
+
+.evidence-figure a {
+    display: block;
+}
+
+.evidence-figure img {
+    margin: 0;
+}
+
+.evidence-figure figcaption {
+    max-width: 78ch;
+    margin-top: 12px;
+    color: var(--blog-muted);
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
 .post-content iframe {
     display: block;
     width: 100%;
@@ -403,6 +439,18 @@ a:focus-visible {
 .category-group a:hover,
 .category-group a:focus-visible {
     color: var(--blog-blue);
+}
+
+.category-post-title {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 0.65rem;
+}
+
+.category-post-title .draft-marker {
+    flex: none;
+    margin: 0;
 }
 
 blockquote {

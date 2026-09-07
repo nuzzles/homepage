@@ -1,0 +1,4 @@
+{%- assign source_path = include.post.relative_path | default: include.post.path -%} {%- if source_path contains
+"_drafts/" -%}
+<span class="draft-marker">Draft</span>
+{%- endif -%}
