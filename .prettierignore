@@ -2,4 +2,5 @@ dist
 node_modules
 .claude
 terraform/.terraform.lock.hcl
+terraform/functions/*.js
 public

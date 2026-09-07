@@ -2,6 +2,21 @@ locals {
   additional_sites = {
     for site, config in local.sites : site => config if site != local.primary_profile_id
   }
+  blog_sites = {
+    for site, config in local.profile_sites : site => config if config.blog_base_path != null
+  }
+}
+
+resource "aws_cloudfront_function" "blog_router" {
+  for_each = local.blog_sites
+
+  name    = "homepage-${var.environment}-${each.key}-blog-router"
+  runtime = "cloudfront-js-1.0"
+  comment = "Resolve ${each.value.blog_base_path} directory URLs for the ${each.key} blog."
+  publish = true
+  code = templatefile("${path.module}/functions/blog-router.js", {
+    blog_base_path = jsonencode(each.value.blog_base_path)
+  })
 }
 
 resource "aws_cloudfront_origin_access_control" "web_oac" {
@@ -39,7 +54,7 @@ resource "aws_cloudfront_response_headers_policy" "web" {
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; frame-src https://nuzzles.github.io; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+      content_security_policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; frame-src https://nuzzles.github.io https://www.youtube.com; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
       override                = true
     }
     content_type_options {
@@ -102,6 +117,14 @@ resource "aws_cloudfront_distribution" "web_distribution" {
     target_origin_id           = local.s3_origin_id
     viewer_protocol_policy     = "redirect-to-https"
     compress                   = true
+
+    dynamic "function_association" {
+      for_each = local.sites[local.primary_profile_id].blog_base_path == null ? [] : [true]
+      content {
+        event_type   = "viewer-request"
+        function_arn = aws_cloudfront_function.blog_router[local.primary_profile_id].arn
+      }
+    }
   }
 
   custom_error_response {
@@ -154,6 +177,14 @@ resource "aws_cloudfront_distribution" "additional" {
     target_origin_id           = local.s3_origin_id
     viewer_protocol_policy     = "redirect-to-https"
     compress                   = true
+
+    dynamic "function_association" {
+      for_each = each.value.blog_base_path == null ? [] : [true]
+      content {
+        event_type   = "viewer-request"
+        function_arn = aws_cloudfront_function.blog_router[each.key].arn
+      }
+    }
   }
 
   custom_error_response {

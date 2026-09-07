@@ -113,9 +113,19 @@ export default defineConfig(({ command }) => {
     }
     const site: BuildSite = isBuildSite(requestedSite) ? requestedSite : "selector"
     const documentSite = command === "serve" && !requestedSite ? "local" : site
+    const blogProxyPath = process.env.HOMEPAGE_BLOG_PROXY_PATH
 
     return {
         plugins: [react(), sitePlugin(site, documentSite)],
+        server: blogProxyPath
+            ? {
+                  proxy: {
+                      [blogProxyPath]: {
+                          target: "http://127.0.0.1:4001",
+                      },
+                  },
+              }
+            : undefined,
         build: {
             rolldownOptions: {
                 output: {

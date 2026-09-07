@@ -16,6 +16,11 @@ export interface ResumeConfig {
     lastModified: string
 }
 
+export interface BlogConfig {
+    source: string
+    basePath: `/${string}`
+}
+
 export interface StaticProfileMeta {
     description: string
     twitterDescription: string
@@ -40,6 +45,7 @@ export interface ProfileConfig {
     calendlyUrl?: string
     staticMeta: StaticProfileMeta
     lastModified: string
+    blog: BlogConfig | null
     resume: ResumeConfig | null
     socials: readonly SocialLink[]
 }

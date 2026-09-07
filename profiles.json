@@ -25,6 +25,10 @@
             "mastodonUrl": "https://mastodon.online/@scim"
         },
         "lastModified": "2026-09-05",
+        "blog": {
+            "source": "blogs/spencer",
+            "basePath": "/blog"
+        },
         "resume": {
             "pdfUrl": "https://nuzzles.github.io/resume/resume.pdf",
             "embedUrl": "https://nuzzles.github.io/resume/embed.html",
@@ -65,6 +69,7 @@
             "noscriptRole": "Phd Neuroscience"
         },
         "lastModified": "2026-09-05",
+        "blog": null,
         "resume": null,
         "socials": [
             {

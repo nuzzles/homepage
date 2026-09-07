@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest"
-import { getActiveProfile, getProfileHomePath, getProfileSwitchUrl, profileHasResume, type ProfileId } from "@/profiles"
+import {
+    getActiveProfile,
+    getProfile,
+    getProfileHomePath,
+    getProfileSwitchUrl,
+    profileHasResume,
+    type ProfileId,
+} from "@/profiles"
 import en from "@/i18n/locales/en.json"
 import fa from "@/i18n/locales/fa.json"
 import fr from "@/i18n/locales/fr.json"
@@ -48,6 +55,13 @@ describe("resume availability", () => {
         expect(getActiveProfile("imbleau.com")).toBeNull()
         expect(getActiveProfile("localhost")).toBeNull()
         expect(getActiveProfile("example.com")).toBeNull()
+    })
+})
+
+describe("blog availability", () => {
+    it("configures Spencer's blog independently from Sara's profile", () => {
+        expect(getProfile("spencer").blog).toEqual({ source: "blogs/spencer", basePath: "/blog" })
+        expect(getProfile("sara").blog).toBeNull()
     })
 })
 

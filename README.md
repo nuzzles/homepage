@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0%2FMIT-blue.svg)](LICENSE-APACHE)
 
 This is the source code for the joint homepage of Spencer Imbleau and Sara Aslani, built with React,
-TypeScript, and Vite.
+TypeScript, and Vite. Profile blogs are built with Jekyll and served from each profile's `/blog` path.
 
 ## Development Setup
 
@@ -13,12 +13,14 @@ TypeScript, and Vite.
 
 - [Node.js](https://nodejs.org/) v24.20.0 (latest LTS)
 - [pnpm](https://pnpm.io/) v11.25.0+
+- [Ruby](https://www.ruby-lang.org/) v3.1+ and Bundler
 - [resvg](https://github.com/niclas-AKA-Ansen/resvg) (`cargo install resvg`)
 
 **Installation:**
 
 ```sh
 pnpm install
+BUNDLE_PATH=blogs/vendor/bundle bundle install --gemfile blogs/Gemfile
 ```
 
 **Local Development:**
@@ -30,22 +32,35 @@ pnpm dev
 This starts the joint homepage at `/`, using the saved or browser-preferred language
 without changing the URL. The explicit English, French, and Farsi selector routes are
 `/en`, `/fr`, and `/fa`. Profile routes use the same prefixes, such as `/en/spencer`,
-`/fr/spencer`, and `/fa/sara`.
+`/fr/spencer`, and `/fa/sara`. It also starts Jekyll for the primary profile's configured
+blog at `/blog/`; currently that is Spencer's blog.
 
-Profile identity, hostnames, images, contact links, résumé settings, SEO, and translation
+To run the production-shaped Spencer site and its blog locally:
+
+```sh
+HOMEPAGE_SITE=spencer pnpm dev
+```
+
+Profiles without a configured blog run only the Vite development server.
+
+Profile identity, hostnames, images, contact links, résumé and blog settings, SEO, and translation
 keys are defined once in `profiles.json`. The UI, local routes, site builds, deployment
 matrix, sitemaps, and Terraform all derive from that registry.
 
 ## Available Commands
 
 ```sh
-pnpm dev      # Start development server
-pnpm build    # Build for production
+pnpm dev      # Start Vite and the configured Jekyll blog
+pnpm dev:blog # Start only the configured Jekyll blog
+pnpm build    # Build the selected profile and its configured blog
 pnpm lint     # Run ESLint
 pnpm format   # Format project files
 pnpm check    # Run formatting, lint, type, and build checks
 pnpm preview  # Preview production build locally
 ```
+
+The blog-only server is available at <http://localhost:4000/blog/>. It defaults to the primary
+profile; set `HOMEPAGE_SITE` to select another profile with a configured blog.
 
 Production builds default to the selector. To build and preview a profile site:
 

@@ -11,8 +11,9 @@
     },
     "author": "Spencer Imbleau",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc -b && vite build",
+        "dev": "node scripts/blog.mjs dev",
+        "dev:blog": "node scripts/blog.mjs dev-blog",
+        "build": "tsc -b && vite build && node scripts/blog.mjs build",
         "lint": "eslint .",
         "format": "prettier --write .",
         "format:check": "prettier --check .",

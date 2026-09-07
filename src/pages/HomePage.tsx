@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
 import CalendarMonth from "@mui/icons-material/CalendarMonth"
+import Article from "@mui/icons-material/Article"
 import Check from "@mui/icons-material/Check"
 import Coffee from "@mui/icons-material/Coffee"
 import ContentCopy from "@mui/icons-material/ContentCopy"
@@ -83,7 +84,7 @@ export const HomePage = () => {
     const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const profileId = profile.id
-    const actionCount = 2 + Number(Boolean(profile.calendlyUrl))
+    const actionCount = 2 + Number(Boolean(profile.blog)) + Number(Boolean(profile.calendlyUrl))
     const isLocalProfile = isLocalProfileHostname(window.location.hostname)
     const resumePath = localizedPath(isLocalProfile ? `/${profileId}/resume` : "/resume")
     const profileBaseUrl = profile.canonicalUrl
@@ -290,6 +291,12 @@ export const HomePage = () => {
                             <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                             {t("home.resume")}
                         </LightButton>
+                        {profile.blog && (
+                            <LightButton href={`${profile.blog.basePath}/`} variant="secondary" fullWidth>
+                                <Article sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                {t("home.blog")}
+                            </LightButton>
+                        )}
                         <RevealEmailButton key={profileId} encodedEmail={profile.encodedEmail} />
                         {profile.calendlyUrl && (
                             <LightButton
