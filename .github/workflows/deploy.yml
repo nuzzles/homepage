@@ -82,7 +82,6 @@ jobs:
         if: matrix.has_blog
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3"
           bundler-cache: true
           working-directory: blogs
 

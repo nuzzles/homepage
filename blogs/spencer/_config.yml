@@ -36,6 +36,8 @@ plugins:
 # FIX: See https://github.com/jekyll/minima/issues/709
 sass:
   quiet_deps: true
+  silence_deprecations:
+    - import
 
 # Exclude from processing.
 # The following items will not be processed, by default.

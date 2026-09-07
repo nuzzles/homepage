@@ -13,7 +13,7 @@ TypeScript, and Vite. Profile blogs are built with Jekyll and served from each p
 
 - [Node.js](https://nodejs.org/) v24.20.0 (latest LTS)
 - [pnpm](https://pnpm.io/) v11.25.0+
-- [Ruby](https://www.ruby-lang.org/) v3.1+ and Bundler
+- [Ruby](https://www.ruby-lang.org/) v4.0.6 and Bundler
 - [resvg](https://github.com/niclas-AKA-Ansen/resvg) (`cargo install resvg`)
 
 **Installation:**
