@@ -27,7 +27,8 @@
         "lastModified": "2026-09-05",
         "blog": {
             "source": "blogs/spencer",
-            "basePath": "/blog"
+            "basePath": "/blog",
+            "showOnHomepage": true
         },
         "resume": {
             "pdfUrl": "https://nuzzles.github.io/resume/resume.pdf",
@@ -71,7 +72,8 @@
         "lastModified": "2026-09-05",
         "blog": {
             "source": "blogs/sara",
-            "basePath": "/blog"
+            "basePath": "/blog",
+            "showOnHomepage": false
         },
         "resume": null,
         "socials": [

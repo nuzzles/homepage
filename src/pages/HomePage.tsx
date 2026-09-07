@@ -94,7 +94,8 @@ export const HomePage = () => {
     const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const profileId = profile.id
-    const actionCount = 2 + Number(Boolean(profile.blog)) + Number(Boolean(profile.calendlyUrl))
+    const showBlogButton = Boolean(profile.blog?.showOnHomepage)
+    const actionCount = 2 + Number(showBlogButton) + Number(Boolean(profile.calendlyUrl))
     const isLocalProfile = isLocalProfileHostname(window.location.hostname)
     const configuredSite = getConfiguredSite()
     const resumePath = localizedPath(isLocalProfile ? `/${profileId}/resume` : "/resume")
@@ -349,7 +350,7 @@ export const HomePage = () => {
                             <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                             {t("home.resume")}
                         </LightButton>
-                        {blogPath && (
+                        {showBlogButton && blogPath && (
                             <LightButton href={blogPath} variant="secondary" fullWidth>
                                 <Article sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                                 {t("home.blog")}

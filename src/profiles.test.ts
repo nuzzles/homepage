@@ -76,8 +76,16 @@ describe("resume availability", () => {
 
 describe("blog availability", () => {
     it("configures an independent blog for each profile", () => {
-        expect(getProfile("spencer").blog).toEqual({ source: "blogs/spencer", basePath: "/blog" })
-        expect(getProfile("sara").blog).toEqual({ source: "blogs/sara", basePath: "/blog" })
+        expect(getProfile("spencer").blog).toEqual({
+            source: "blogs/spencer",
+            basePath: "/blog",
+            showOnHomepage: true,
+        })
+        expect(getProfile("sara").blog).toEqual({
+            source: "blogs/sara",
+            basePath: "/blog",
+            showOnHomepage: false,
+        })
     })
 
     it.each([

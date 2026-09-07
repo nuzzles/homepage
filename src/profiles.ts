@@ -19,6 +19,7 @@ export interface ResumeConfig {
 export interface BlogConfig {
     source: string
     basePath: `/${string}`
+    showOnHomepage: boolean
 }
 
 export interface StaticProfileMeta {
