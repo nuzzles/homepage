@@ -350,12 +350,6 @@ export const HomePage = () => {
                             <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                             {t("home.resume")}
                         </LightButton>
-                        {showBlogButton && blogPath && (
-                            <LightButton href={blogPath} variant="secondary" fullWidth>
-                                <Article sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                                {t("home.blog")}
-                            </LightButton>
-                        )}
                         <RevealEmailButton key={profileId} encodedEmail={profile.encodedEmail} />
                         {profile.calendlyUrl && (
                             <LightButton
@@ -367,6 +361,12 @@ export const HomePage = () => {
                             >
                                 <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
                                 {t("home.scheduleOneOnOne")}
+                            </LightButton>
+                        )}
+                        {showBlogButton && blogPath && (
+                            <LightButton href={blogPath} variant="secondary" fullWidth>
+                                <Article sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                {t("home.blog")}
                             </LightButton>
                         )}
                     </Box>
