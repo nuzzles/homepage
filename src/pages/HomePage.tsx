@@ -170,17 +170,33 @@ export const HomePage = () => {
                             size="small"
                             sx={(theme) => ({
                                 flexShrink: 0,
-                                border: `1px solid ${theme.palette.text.primary}`,
+                                width: { xs: 30, sm: 34 },
+                                height: { xs: 30, sm: 34 },
+                                p: 0,
+                                marginInlineEnd: { xs: 0, sm: 0.25 },
                                 borderRadius: 0,
-                                color: theme.palette.text.primary,
+                                color: theme.palette.text.inactive,
+                                opacity: 0.7,
+                                transition: theme.transitions.create(["color", "opacity", "transform"], {
+                                    duration: theme.transitions.duration.shortest,
+                                }),
                                 "&:hover": {
                                     color: theme.palette.primary.main,
-                                    backgroundColor: theme.palette.background.sidebar,
+                                    backgroundColor: "transparent",
+                                    opacity: 1,
+                                    transform: "translateX(-2px)",
                                 },
+                                "&:focus-visible": {
+                                    color: theme.palette.primary.main,
+                                    opacity: 1,
+                                    outline: `2px solid ${theme.palette.primary.main}`,
+                                    outlineOffset: 2,
+                                },
+                                "[dir='rtl'] &:hover": { transform: "translateX(2px)" },
                                 "[dir='rtl'] & svg": { transform: "scaleX(-1)" },
                             })}
                         >
-                            <Undo2 aria-hidden="true" size={18} strokeWidth={2.25} />
+                            <Undo2 aria-hidden="true" size={22} strokeWidth={2.25} />
                         </IconButton>
                     </Tooltip>
                     <ProfileSwitcher
