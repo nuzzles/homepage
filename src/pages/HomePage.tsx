@@ -9,6 +9,7 @@ import Description from "@mui/icons-material/Description"
 import Email from "@mui/icons-material/Email"
 import Keyboard from "@mui/icons-material/Keyboard"
 import LinkedIn from "@mui/icons-material/LinkedIn"
+import { Undo2 } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -21,6 +22,7 @@ import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import {
     getProfileBlogPath,
+    getSelectorUrl,
     getProfileSwitchUrl,
     isLocalProfileHostname,
     isProfileId,
@@ -103,6 +105,11 @@ export const HomePage = () => {
     )
     const profileBaseUrl = profile.canonicalUrl
     const canonicalUrl = `${profileBaseUrl}${routePrefix}/`
+    const selectorPath = routePrefix ? `${routePrefix}/` : "/"
+    const selectorHref =
+        isLocalProfile && configuredSite === "local"
+            ? localizedPath("/")
+            : (getSelectorUrl(window.location.href, selectorPath) ?? `https://imbleau.com${selectorPath}`)
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
 
     const hrefForProfile = (nextProfile: ProfileId) => {
@@ -155,6 +162,27 @@ export const HomePage = () => {
                         borderBottom: `1px solid ${theme.palette.text.primary}`,
                     })}
                 >
+                    <Tooltip title={t("home.backToSelector")}>
+                        <IconButton
+                            component="a"
+                            href={selectorHref}
+                            aria-label={t("home.backToSelector")}
+                            size="small"
+                            sx={(theme) => ({
+                                flexShrink: 0,
+                                border: `1px solid ${theme.palette.text.primary}`,
+                                borderRadius: 0,
+                                color: theme.palette.text.primary,
+                                "&:hover": {
+                                    color: theme.palette.primary.main,
+                                    backgroundColor: theme.palette.background.sidebar,
+                                },
+                                "[dir='rtl'] & svg": { transform: "scaleX(-1)" },
+                            })}
+                        >
+                            <Undo2 aria-hidden="true" size={18} strokeWidth={2.25} />
+                        </IconButton>
+                    </Tooltip>
                     <ProfileSwitcher
                         value={profileId}
                         label={t("profileSwitcher.label")}

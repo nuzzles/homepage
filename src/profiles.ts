@@ -62,6 +62,11 @@ export const PROFILE_CARD_IMAGE_SIZES = "(max-width: 599px) calc((100vw - 28px) 
 export const PROFILE_HERO_IMAGE_SIZES =
     "(max-width: 419px) calc(100vw - 20px), (max-width: 659px) calc(100vw - 40px), (max-width: 899px) 620px, 390px"
 
+const SELECTOR_HOSTNAMES: Record<DeploymentEnvironment, string> = {
+    dev: "dev.imbleau.com",
+    stg: "stg.imbleau.com",
+    prod: "imbleau.com",
+}
 const SELECTOR_HOSTNAME = /^(?:(dev|stg)\.)?imbleau\.com$/i
 
 export function isProfileId(value: unknown): value is ProfileId {
@@ -133,6 +138,18 @@ export function getProfileSwitchUrl(currentHref: string, profile: ProfileId): st
     if (!nextHostname) return null
 
     nextUrl.hostname = nextHostname
+    return nextUrl.toString()
+}
+
+export function getSelectorUrl(currentHref: string, pathname: string): string | null {
+    const nextUrl = new URL(currentHref)
+    const profileMatch = getProfileHostMatch(nextUrl.hostname)
+    if (!profileMatch) return null
+
+    nextUrl.hostname = SELECTOR_HOSTNAMES[profileMatch.environment]
+    nextUrl.pathname = pathname
+    nextUrl.search = ""
+    nextUrl.hash = ""
     return nextUrl.toString()
 }
 

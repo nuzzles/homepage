@@ -5,6 +5,7 @@ import {
     getProfileBlogPath,
     getProfileHomePath,
     getProfileSwitchUrl,
+    getSelectorUrl,
     profileHasResume,
     type ProfileId,
 } from "@/profiles"
@@ -32,6 +33,20 @@ describe("profile switch URLs", () => {
 
     it("leaves local profile switching to client state", () => {
         expect(getProfileSwitchUrl("http://localhost:5173/fa", "sara")).toBeNull()
+    })
+})
+
+describe("selector URLs", () => {
+    it.each([
+        ["https://spencer.imbleau.com/", "/", "https://imbleau.com/"],
+        ["https://sara-dev.imbleau.com/fr", "/fr/", "https://dev.imbleau.com/fr/"],
+        ["https://spencer-stg.imbleau.com/fa?from=profile#top", "/fa/", "https://stg.imbleau.com/fa/"],
+    ])("returns from %s to the environment's selector", (currentUrl, pathname, expected) => {
+        expect(getSelectorUrl(currentUrl, pathname)).toBe(expected)
+    })
+
+    it("leaves local selector navigation to the client router", () => {
+        expect(getSelectorUrl("http://localhost:5173/spencer", "/")).toBeNull()
     })
 })
 
