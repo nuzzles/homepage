@@ -1,0 +1,13 @@
+title: Sara Aslani's blog
+email: sara@imbleau.com
+description: Blog of Sara Aslani
+baseurl: "/blog"
+url: "https://sara.imbleau.com"
+
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+sass:
+  quiet_deps: true

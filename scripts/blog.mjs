@@ -14,16 +14,15 @@ const fail = (message) => {
     process.exit(1)
 }
 
-if (command !== "build" && command !== "dev" && command !== "dev-blog") {
-    fail("Usage: node scripts/blog.mjs <build|dev|dev-blog>")
+if (command !== "build" && command !== "dev") {
+    fail("Usage: node scripts/blog.mjs <build|dev>")
 }
 
 const primaryProfile = Object.entries(profiles).find(([, profile]) => profile.primaryInfrastructure)?.[0]
 if (!primaryProfile) fail("profiles.json must define one primaryInfrastructure profile")
 
 const requestedSite = process.env.HOMEPAGE_SITE
-const profileId =
-    command !== "build" && (!requestedSite || requestedSite === "selector") ? primaryProfile : requestedSite
+const profileId = command === "dev" && (!requestedSite || requestedSite === "selector") ? primaryProfile : requestedSite
 const profile = profileId ? profiles[profileId] : undefined
 const blog = profile?.blog
 
@@ -76,9 +75,6 @@ if (command === "build") {
     child.on("error", (error) => fail(`Unable to start Jekyll: ${error.message}`))
     child.on("exit", (code, signal) => (process.exitCode = signal ? 1 : (code ?? 1)))
 } else {
-    const blogOnly = command === "dev-blog"
-    if (blogOnly && !blog) fail(`No blog configured for ${profileId ?? "selector"}`)
-
     const children = []
     let stopping = false
 
@@ -106,16 +102,14 @@ if (command === "build") {
         attempt()
     }
 
-    if (!blogOnly) {
-        const viteEnvironment = { ...process.env }
-        if (blog) viteEnvironment.HOMEPAGE_BLOG_PROXY_PATH = blog.basePath
-        const vite = run("pnpm", ["exec", "vite"], { env: viteEnvironment })
-        children.push(vite)
-    }
+    const viteEnvironment = { ...process.env }
+    if (blog) viteEnvironment.HOMEPAGE_BLOG_PROXY_PATH = blog.basePath
+    const vite = run("pnpm", ["exec", "vite"], { env: viteEnvironment })
+    children.push(vite)
 
     if (blog) {
         const { source } = getBlogPaths()
-        const port = blogOnly ? "4000" : "4001"
+        const port = "4001"
         const destination = join(tmpdir(), `homepage-jekyll-${profileId}-${command}`)
         const config = getJekyllConfig(`http://localhost:${port}`, command)
         const jekyll = run(
@@ -140,8 +134,7 @@ if (command === "build") {
             { env: bundleEnvironment, stdio: ["inherit", "ignore", "inherit"] }
         )
         children.push(jekyll)
-        const publicPort = blogOnly ? port : "5173"
-        announceWhenReady(Number(port), `http://localhost:${publicPort}${blog.basePath}/`)
+        announceWhenReady(Number(port), `http://localhost:5173${blog.basePath}/`)
     }
 
     for (const child of children) {

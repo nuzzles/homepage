@@ -51,16 +51,12 @@ matrix, sitemaps, and Terraform all derive from that registry.
 
 ```sh
 pnpm dev      # Start Vite and the configured Jekyll blog
-pnpm dev:blog # Start only the configured Jekyll blog
 pnpm build    # Build the selected profile and its configured blog
 pnpm lint     # Run ESLint
 pnpm format   # Format project files
 pnpm check    # Run formatting, lint, type, and build checks
 pnpm preview  # Preview production build locally
 ```
-
-The blog-only server is available at <http://localhost:4000/blog/>. It defaults to the primary
-profile; set `HOMEPAGE_SITE` to select another profile with a configured blog.
 
 Production builds default to the selector. To build and preview a profile site:
 

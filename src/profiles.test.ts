@@ -59,9 +59,9 @@ describe("resume availability", () => {
 })
 
 describe("blog availability", () => {
-    it("configures Spencer's blog independently from Sara's profile", () => {
+    it("configures an independent blog for each profile", () => {
         expect(getProfile("spencer").blog).toEqual({ source: "blogs/spencer", basePath: "/blog" })
-        expect(getProfile("sara").blog).toBeNull()
+        expect(getProfile("sara").blog).toEqual({ source: "blogs/sara", basePath: "/blog" })
     })
 })
 

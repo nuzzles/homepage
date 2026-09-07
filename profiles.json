@@ -69,7 +69,10 @@
             "noscriptRole": "Phd Neuroscience"
         },
         "lastModified": "2026-09-05",
-        "blog": null,
+        "blog": {
+            "source": "blogs/sara",
+            "basePath": "/blog"
+        },
         "resume": null,
         "socials": [
             {
