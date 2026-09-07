@@ -1,6 +1,13 @@
 name: Deploy Website (dev)
 
 on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag, or SHA to deploy to dev.
+        required: true
+        type: string
+        default: main
   workflow_run:
     workflows: [CI]
     branches: [main]
@@ -11,9 +18,9 @@ permissions:
 
 jobs:
   deploy:
-    if: github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: dev
-      ref: ${{ github.event.workflow_run.head_sha }}
+      ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.event.workflow_run.head_sha }}
     secrets: inherit
