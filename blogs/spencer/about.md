@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-This is Spencer Imbleau’s blog. He also has a [home page](https://spencer.imbleau.com). The opinions expressed in this blog are his, and are not official statements of his employer or teams.
+This is Spencer Imbleau’s blog. He also has a [home page]({{ site.homepage_url }}). The opinions expressed in this blog are his, and are not official statements of his employer or teams.
 
 The source for this blog is [on GitHub](https://github.com/nuzzles/homepage).
 Pull requests are welcome, as are [issues](https://github.com/nuzzles/homepage/issues). Issues are also used to track ideas in the pipeline.
