@@ -1,8 +1,12 @@
 title: Sara Aslani's blog
+profile_name: Sara Aslani
 email: sara@imbleau.com
 description: Blog of Sara Aslani
 baseurl: "/blog"
 url: "https://sara.imbleau.com"
+homepage_url: "https://sara.imbleau.com"
+header_pages:
+  - about.md
 
 markdown: kramdown
 theme: minima

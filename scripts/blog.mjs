@@ -48,9 +48,12 @@ const bundleEnvironment = {
     BUNDLE_PATH: process.env.BUNDLE_PATH ?? join(root, "blogs", "vendor", "bundle"),
 }
 
-const getJekyllConfig = (id, blogConfig, websiteUrl, basePath, mode) => {
+const getJekyllConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode) => {
     const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
-    writeFileSync(override, `url: ${JSON.stringify(websiteUrl)}\nbaseurl: ${JSON.stringify(basePath)}\n`)
+    writeFileSync(
+        override,
+        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\n`
+    )
     return `${join(resolve(root, blogConfig.source), "_config.yml")},${override}`
 }
 
@@ -62,7 +65,7 @@ if (command === "build") {
 
     const { source, output } = getBlogPaths(blog)
     const websiteUrl = process.env.HOMEPAGE_URL ?? `https://${profile.hostnames.prod}`
-    const config = getJekyllConfig(profileId, blog, websiteUrl, blog.basePath, "build")
+    const config = getJekyllConfig(profileId, blog, websiteUrl, websiteUrl, blog.basePath, "build")
     const child = run(
         "bundle",
         ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config],
@@ -105,7 +108,9 @@ if (command === "build") {
     for (const { id, blog: devBlog, port, liveReloadPort, publicBasePath } of devBlogs) {
         const { source } = getBlogPaths(devBlog)
         const destination = join(tmpdir(), `homepage-jekyll-${id}-${command}`)
-        const config = getJekyllConfig(id, devBlog, `http://localhost:${port}`, publicBasePath, command)
+        const publicUrl = "http://localhost:5173"
+        const homepageUrl = `${publicUrl}${isJointSite ? `/${id}` : ""}`
+        const config = getJekyllConfig(id, devBlog, publicUrl, homepageUrl, publicBasePath, command)
         const jekyll = run(
             "bundle",
             [
