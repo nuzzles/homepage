@@ -10,9 +10,9 @@ Gone are the days my mom would ask me for technical help with her printer; she h
 
 I don't think I need to tell you that AI is popular—it is. We are in an AI popularity bubble. But I do not think people are prepared for where it is going. AI is nowhere near saturated.
 
-My brother's requests changed from _"Could you build this website?"_ to _"Can you vibe this website in a few minutes?"_ Nature is healing, or nothing really changed. People still expect software to cost, be secure and hygienic, and come with support. AI has not yet markedly convinced non-technical people that they can safely make it themselves.
+My brother's requests changed from _"Could you build this website?"_ to _"Can you vibe this website in a few minutes?"_ Nature is healing, or nothing really changed. People still expect software to cost, be secure and hygienic, and come with support. AI has not yet markedly convinced non-technical people that they can make it themselves.
 
-That is popularity without saturation.
+We have popularity without saturation.
 
 ## The expensive hobby phase
 
@@ -33,7 +33,7 @@ But no tool in existence yet integrates my development workflow on a scalable pl
 
 _And this feels familiar_. Five years ago, my personal infrastructure was a homelab built from five Raspberry Pis running k3s with RAID storage, redundant networking, independent power switches, and a cooling solution. It was fun. But it also cost hundreds to thousands of dollars and required enough maintenance to qualify as a small, unpaid operations team.
 
-Now my homelab collects dust in my garage, and my personal projects live in my AWS account. That includes this website, my daily agenda app with a database, some business projects, a few Discord bots, and more. My monthly bill is on average $0.09.
+Now my homelab collects dust in my garage, and my personal projects live in my AWS account. That includes this website, my daily agenda app with a database, some business projects, a few Discord bots, and more. My monthly AWS bill is on average $0.09.
 
 Innovation made that possible. Services like Amazon DSQL—a distributed, serverless relational database with zero idle cost—became generally available and gave me a reasonable home for my daily TODOs, health data, and more.
 
@@ -49,26 +49,24 @@ That affects how I think about the broad AI trade in public markets. This is not
 
 ## Saturation looks like a personal manager
 
-AI reaches saturation when most people use it to manage their lives, not just when most people regularly use ChatGPT or Gemini.
+AI reaches saturation when most people use it to manage their lives, not infrequent use of a chatbot like Gemini.
 
-Everyone will need something like an OpenClaw in roughly the same way everyone now needs a phone or access to the internet. It will understand the annoying surface area of a day: messages, appointments, tasks, files, forms, reminders, purchases, and the small promises we make before immediately forgetting them.
+Everyone will need something like an OpenClaw in roughly the same way everyone now needs a phone or access to the internet. It will be competitive, and it will understand the annoying surface area of a day: messages, appointments, tasks, files, forms, reminders, purchases, and the small promises we make before immediately forgetting them.
 
 It has not yet arrived for me, even though the AI usage attributable to me could finance a bad habit.
 
-After I coded my own personal manager, I found that people are doing the same independently; so-called "AgenticOS" (slop dashboard) tutorial series are commonly piling up on YouTube.
+I am, however, coding personal tools more frequently. I see this trend growing independently; "AgenticOS" tutorial series are becoming quite popular on YouTube.
 
 <figure class="evidence-figure">
   <img src="{{ '/assets/agentic-os-youtube-collage.jpg' | relative_url }}" alt="Collage of YouTube thumbnails advertising Claude AgenticOS tutorials" />
   <figcaption>AgenticOS tutorials on YouTube.</figcaption>
 </figure>
 
-I get the allure-who wouldn't want JARVIS from Iron Man? For me though, I honestly just see garish vibe-slop. I would not expect similar YouTube series to focus on scaling, maintenance, or the hard integration work to make this useful. These seem more like fun experiments for AI enthusiasts. A useful personal manager would need a phone companion, sensible alerts, durable memory, authorization, and recovery when an agent does something stupid. Most people should not need to learn how containers work before asking software to remember a dentist appointment.
+These "OS" tutorials are really just slop dashboards, but I get the allure. Who wouldn't want JARVIS from Iron Man? Here is the gap - doing this right requires scaling, maintenance, and hard integration work. These are fun experiments for AI enthusiasts. A useful personal manager would need a phone companion, sensible alerts, durable memory, authorization, and recovery when an agent does something stupid. Most people watching these tutorials should not need to learn how containers work before asking software to remember a dentist appointment.
 
-And even worse, OpenClaw.
+And even worse, OpenClaw. There was a magic spark when I tried it, but that faded quickly. The interface was slop, and its security model did not earn my personal data.
 
-To be precise: there was a magic spark when I tried it, but that faded quickly. The interface was slop, and its security model did not earn my trust with personal data. A system that reads your life cannot treat security as a later sprint.
-
-Someone will eventually make the Apple-like quality version of OpenClaw: narrow enough to understand, polished enough to trust, and useful before the user has configured forty integrations. When that happens, the world will come to it.
+Someone will eventually make the Apple-like quality version of OpenClaw: narrow enough to understand, polished enough to trust, and useful before the user has configured forty integrations. When that happens, the world will come to it. Until then,
 
 ## A hostile launch environment
 
@@ -76,9 +74,9 @@ A loud part of the public is vehemently against AI.
 
 People see companies exploiting the political system, building data centers that may raise local water and electricity costs, expecting a government bailout, and burning cash without a believable return. Some of those concerns are measurable. Others are projections. A credible personal AI platform will have to survive all of them.
 
-Saturation will only make this launch environment more hostile. Adoption and acceptance are pulling in opposite directions: more aggregate compute means more electricity, cooling, and water demand. The [2026 Stanford AI Index](https://hai.stanford.edu/ai-index/2026-ai-index-report){:target="_blank" rel="noopener noreferrer"} found that global nervousness about AI rose three points in 2025 while excitement fell one. At the same time, it estimated AI data-center capacity at 29.6 gigawatts and annual GPT-4o inference water use at more than the drinking-water needs of 1.2 million people. Models and data centers will get more efficient, but cheaper intelligence will also invite us to use much more of it.
+Saturation will only make this launch environment more hostile. Adoption and acceptance are pulling in opposite directions: more aggregate compute means more electricity, cooling, and water demand. [Global nervousness about AI](https://hai.stanford.edu/ai-index/2026-ai-index-report){:target="_blank" rel="noopener noreferrer"} is rising while excitement drops. Models and data centers will get more efficient, but cheaper intelligence will also invite us to use much more of it.
 
-I think it will literally require an act of Congress: national rules deciding when data centers pay for the infrastructure they require, how scarce resources are allocated, and what costs can be passed to everyone else. AI companies want government assistance, but it needs to be politically favorable, or public opposition to AI will continue to harden.
+I think we will literally need an act of Congress: national rules deciding when data centers pay for the infrastructure they require, how scarce resources are allocated, and what costs can be passed to everyone else. AI companies want government assistance, but it needs to be politically favorable, or public opposition to AI will continue to harden.
 
 The winning product cannot merely be capable. It must be cheap, boring, secure, and visibly worth the infrastructure behind it.
 
