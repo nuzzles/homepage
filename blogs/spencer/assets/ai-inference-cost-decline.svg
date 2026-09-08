@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 650" role="img" aria-labelledby="title description">
+  <title id="title">Quality-adjusted AI inference cost decline</title>
+  <desc id="description">At a fixed GPT-3.5-level capability threshold, an indexed inference cost fell from 100 in November 2022 to less than 0.36 in October 2024, a decline of more than 280 times, according to the Stanford AI Index.</desc>
+  <rect width="1280" height="650" fill="#fcfaf3"/>
+  <rect x="16" y="16" width="1248" height="618" fill="none" stroke="#171813" stroke-width="2"/>
+
+  <g font-family="Barlow, Arial, sans-serif" fill="#171813">
+    <text x="56" y="66" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="42" font-weight="900">THE SAME CAPABILITY GOT &gt;280× CHEAPER</text>
+    <text x="56" y="98" font-size="18" fill="#68675a">Inference cost index · fixed GPT-3.5-level performance threshold</text>
+
+    <rect x="80" y="160" width="360" height="270" fill="#2047d6"/>
+    <text x="260" y="280" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="90" font-weight="900" fill="#fcfaf3">100</text>
+    <text x="260" y="327" text-anchor="middle" font-size="18" fill="#fcfaf3">COST INDEX</text>
+    <text x="260" y="468" text-anchor="middle" font-size="18" font-weight="700">NOV 2022</text>
+
+    <line x1="488" y1="295" x2="774" y2="295" stroke="#171813" stroke-width="4"/>
+    <path d="M774 295l-24-14v28z" fill="#171813"/>
+    <text x="631" y="266" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="30" font-weight="900" fill="#d84c2f">MORE THAN 280× DOWN</text>
+
+    <rect x="826" y="386" width="360" height="44" fill="#d84c2f"/>
+    <text x="1006" y="365" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="90" font-weight="900">&lt;0.36</text>
+    <text x="1006" y="418" text-anchor="middle" font-size="18" fill="#fcfaf3">COST INDEX</text>
+    <text x="1006" y="468" text-anchor="middle" font-size="18" font-weight="700">OCT 2024</text>
+
+    <rect x="80" y="520" width="1106" height="62" fill="#f3eedf" stroke="#8f8b7a"/>
+    <text x="100" y="548" font-size="16" font-weight="700">This is quality-adjusted.</text>
+    <text x="100" y="570" font-size="15" fill="#68675a">It compares systems at the same capability threshold, not the sticker price of unlike tokens.</text>
+    <text x="1224" y="614" text-anchor="end" font-size="14" fill="#68675a">Source: Stanford HAI, 2025 AI Index</text>
+  </g>
+</svg>

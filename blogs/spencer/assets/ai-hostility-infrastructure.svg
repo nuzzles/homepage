@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title description">
+  <title id="title">Public concern, data-center electricity demand, and a Virginia residential-cost projection</title>
+  <desc id="description">Three panels show that 51 percent of U.S. adults were more concerned than excited about AI in a 2024 Pew survey; U.S. data centers consumed 4.4 percent of electricity in 2023 and are projected to consume 6.7 to 12 percent in 2028; and a typical Virginia residential customer could face 14 to 37 dollars in additional monthly generation and transmission costs by 2040.</desc>
+  <rect width="1280" height="760" fill="#fcfaf3"/>
+  <rect x="16" y="16" width="1248" height="728" fill="none" stroke="#171813" stroke-width="2"/>
+
+  <g font-family="Barlow, Arial, sans-serif" fill="#171813">
+    <text x="56" y="66" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="42" font-weight="900">A HOSTILE LAUNCH ENVIRONMENT, IN NUMBERS</text>
+    <text x="56" y="98" font-size="18" fill="#68675a">Sentiment is observed. Infrastructure and household-cost figures mix observations with bounded forecasts.</text>
+
+    <rect x="56" y="142" width="1168" height="160" fill="#f3eedf" stroke="#8f8b7a"/>
+    <text x="80" y="176" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="23" font-weight="900" fill="#2047d6">U.S. PUBLIC SENTIMENT · 2024 SURVEY</text>
+    <rect x="80" y="205" width="560" height="42" fill="#d84c2f"/>
+    <rect x="640" y="205" width="418" height="42" fill="#8f8b7a"/>
+    <rect x="1058" y="205" width="121" height="42" fill="#2047d6"/>
+    <text x="92" y="234" font-size="17" font-weight="700" fill="#fcfaf3">51% MORE CONCERNED</text>
+    <text x="655" y="234" font-size="17" font-weight="700" fill="#fcfaf3">38% EQUALLY CONCERNED / EXCITED</text>
+    <text x="1068" y="234" font-size="14" font-weight="700" fill="#fcfaf3">11% EXCITED</text>
+    <text x="80" y="277" font-size="14" fill="#68675a">Observed · Pew Research Center · 5,410 U.S. adults</text>
+
+    <rect x="56" y="328" width="564" height="294" fill="#f3eedf" stroke="#8f8b7a"/>
+    <text x="80" y="365" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="23" font-weight="900" fill="#2047d6">U.S. DATA-CENTER ELECTRICITY</text>
+    <text x="80" y="398" font-size="15" fill="#68675a">Share of total U.S. electricity</text>
+    <rect x="110" y="520" width="100" height="57" fill="#2047d6"/>
+    <text x="160" y="505" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="33" font-weight="900">4.4%</text>
+    <text x="160" y="600" text-anchor="middle" font-size="16" font-weight="700">2023</text>
+    <line x1="250" y1="548" x2="350" y2="548" stroke="#171813" stroke-width="3"/>
+    <path d="M350 548l-18-10v20z" fill="#171813"/>
+    <rect x="390" y="421" width="100" height="156" fill="#d84c2f" opacity="0.35"/>
+    <rect x="390" y="490" width="100" height="87" fill="#d84c2f"/>
+    <text x="440" y="405" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="33" font-weight="900">6.7–12%</text>
+    <text x="440" y="600" text-anchor="middle" font-size="16" font-weight="700">2028</text>
+    <text x="80" y="645" font-size="14" fill="#68675a">2023 observed · 2028 projected range · DOE / LBNL</text>
+
+    <rect x="644" y="328" width="580" height="294" fill="#f3eedf" stroke="#8f8b7a"/>
+    <text x="668" y="365" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="23" font-weight="900" fill="#2047d6">VIRGINIA RESIDENTIAL COST</text>
+    <text x="668" y="398" font-size="15" fill="#68675a">Typical Dominion customer · generation + transmission</text>
+    <line x1="715" y1="505" x2="1150" y2="505" stroke="#8f8b7a" stroke-width="10" stroke-linecap="round"/>
+    <line x1="808" y1="505" x2="1085" y2="505" stroke="#d84c2f" stroke-width="18" stroke-linecap="round"/>
+    <circle cx="808" cy="505" r="16" fill="#d84c2f"/>
+    <circle cx="1085" cy="505" r="16" fill="#d84c2f"/>
+    <text x="808" y="470" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="38" font-weight="900">+$14</text>
+    <text x="1085" y="470" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="38" font-weight="900">+$37</text>
+    <text x="946" y="556" text-anchor="middle" font-size="17" font-weight="700">PER MONTH BY 2040</text>
+    <text x="668" y="600" font-size="14" fill="#68675a">Projected range in constant dollars · Virginia JLARC</text>
+
+    <line x1="56" y1="681" x2="1224" y2="681" stroke="#8f8b7a"/>
+    <text x="56" y="710" font-size="14" fill="#68675a">The Virginia projection is geographically specific. It is not a forecast for every U.S. household.</text>
+  </g>
+</svg>

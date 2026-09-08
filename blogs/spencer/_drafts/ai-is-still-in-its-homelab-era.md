@@ -6,19 +6,6 @@ date: 2026-09-07
 categories: ai
 ---
 
-<!--
-Publication blockers:
-
-1. Add a sourced adoption chart covering consumer awareness, regular use, and paid use over time.
-2. Preserve the redacted usage export behind the AI chart and document how attributed cost is calculated.
-3. Back the manual-coding competitiveness claim with representative assisted versus unassisted tasks, including time, defects, and review burden.
-4. Add primary sources and a cost curve for inference pricing, subsidies, and the market argument.
-5. Add sourced polling on public sentiment plus utility/capex data for the opposition section.
-6. Substantiate the infrastructure-policy prediction with geographically specific utility data and primary sources on who can regulate rates, permitting, and cost allocation.
-7. Add specific, dated OpenClaw security findings and a short recording or screenshots of the tested UX.
-8. Add a prediction graphic with measurable checkpoints through 2031.
--->
-
 Gone are the days my mom would ask me for technical help with her printer; she has ChatGPT. So too are the days my brother would ask me if I could make a website for his brick-and-mortar business; he knows it's possible to vibe code one.
 
 I don't think I need to tell you that AI is popular—it is. We are in an AI popularity bubble. But I do not think people are prepared for where it is going. AI is nowhere near saturated.
@@ -26,8 +13,6 @@ I don't think I need to tell you that AI is popular—it is. We are in an AI pop
 My brother's requests changed from _"Could you build this website?"_ to _"Can you vibe this website in a few minutes?"_ Nature is healing, or nothing really changed. To me, nothing really changed; the request persists. AI has not markedly changed the intuition for the general population of non-technical people.
 
 People still expect software to cost, be secure and hygienic, and come with support. AI has not yet markedly convinced non-technical people that they can safely make it themselves.
-
-<!-- Graphic: consumer AI adoption over time, separating awareness, occasional use, regular use, and paid use. Cite the primary datasets and explain what “adoption” means. -->
 
 That is popularity without saturation.
 
@@ -67,7 +52,12 @@ The homelab was useful, but maintenance-heavy and expensive. The cloud turned th
 
 AI is prohibitively expensive when used as aggressively as I use it now. That will not last. Models will get smaller, hardware will improve, inference will become more competitive, and providers will keep finding cheaper ways to serve the same useful unit of intelligence. [That pressure is already visible](https://www.anthropic.com/news/higher-limits-spacex).
 
-<!-- Evidence: plot a defensible unit-cost series, such as price per fixed benchmark/task or equivalent tokens at a fixed quality threshold. Do not compare raw token prices across unlike models without a quality control. -->
+<figure class="evidence-figure">
+  <a href="{{ '/assets/ai-inference-cost-decline.svg' | relative_url }}" target="_blank" rel="noopener noreferrer">
+    <img src="{{ '/assets/ai-inference-cost-decline.svg' | relative_url }}" alt="An indexed comparison shows the inference cost of GPT-3.5-level capability falling from 100 in November 2022 to less than 0.36 in October 2024, a decline of more than 280 times." />
+  </a>
+  <figcaption>The <a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank" rel="noopener noreferrer">2025 Stanford AI Index</a> reports that inference cost at a fixed GPT-3.5-level capability threshold fell more than 280-fold between November 2022 and October 2024. The index controls for capability instead of comparing raw token prices across unlike models.</figcaption>
+</figure>
 
 My prediction is not merely that AI gets cheaper. It becomes cheap enough that ordinary people stop thinking about the meter.
 
@@ -89,8 +79,6 @@ And even worse, OpenClaw.
 
 To be precise: there was a magic spark when I tried it, but that faded quickly. The interface was slop, and its security model did not earn access to your personal data. A system that reads your life cannot treat security as a later sprint.
 
-<!-- Evidence: cite specific security advisories or independently reproducible findings for the tested OpenClaw version. Add screenshots or a short recording for the UX critique and label subjective judgments as such. -->
-
 Someone will eventually make the Apple-like quality version of OpenClaw: narrow enough to understand, polished enough to trust, and useful before the user has configured forty integrations. When that happens, the world will come to it.
 
 ## A hostile launch environment
@@ -101,9 +89,14 @@ People see companies exploiting the political system, building data centers that
 
 Saturation will only make this launch environment more hostile. Adoption and acceptance are pulling in opposite directions: more aggregate compute means more electricity, cooling, and water demand. Models and data centers will get more efficient, but cheaper intelligence will also invite us to use much more of it.
 
-I think it will literally require an act of Congress: national rules deciding when data centers pay for the infrastructure they require, how scarce resources are allocated, and what costs can be passed to everyone else. AI companies want government assistance, but it needs to be politically favorable, or AI will continue to divide the public until we hear [the next UnitedHealthcare CEO is Sam Altman](https://www.nytimes.com/2024/12/04/nyregion/unitedhealthcare-ceo-brian-thompson-shooting.html){:target="_blank" rel="noopener noreferrer"}.
+<figure class="evidence-figure">
+  <a href="{{ '/assets/ai-hostility-infrastructure.svg' | relative_url }}" target="_blank" rel="noopener noreferrer">
+    <img src="{{ '/assets/ai-hostility-infrastructure.svg' | relative_url }}" alt="Three panels show that 51 percent of U.S. adults were more concerned than excited about AI, U.S. data centers used 4.4 percent of electricity in 2023 and are projected to use 6.7 to 12 percent in 2028, and a typical Virginia residential customer could face 14 to 37 dollars in additional monthly costs by 2040." />
+  </a>
+  <figcaption><a href="https://www.pewresearch.org/internet/2025/04/03/how-the-us-public-and-ai-experts-view-artificial-intelligence/" target="_blank" rel="noopener noreferrer">Pew</a> measured public sentiment in 2024. <a href="https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers" target="_blank" rel="noopener noreferrer">DOE and Lawrence Berkeley National Laboratory</a> report national electricity use and projections. <a href="https://jlarc.virginia.gov/landing-2024-data-centers-in-virginia.asp" target="_blank" rel="noopener noreferrer">Virginia JLARC</a> estimates the bounded residential-cost effect. The Virginia result is not a national household forecast.</figcaption>
+</figure>
 
-<!-- Graphic: plot consumer AI adoption and compute demand alongside sourced data-center electricity/water demand, local retail utility rates, and ratepayer cost allocation. Keep impacts geographically specific, separate efficiency gains from aggregate-demand rebound, distinguish reported facts from forecasts, and identify which remedies fall under federal versus state or local authority. -->
+I think it will literally require an act of Congress: national rules deciding when data centers pay for the infrastructure they require, how scarce resources are allocated, and what costs can be passed to everyone else. AI companies want government assistance, but it needs to be politically favorable, or AI will continue to divide the public until we hear [the next UnitedHealthcare CEO is Sam Altman](https://www.nytimes.com/2024/12/04/nyregion/unitedhealthcare-ceo-brian-thompson-shooting.html){:target="_blank" rel="noopener noreferrer"}.
 
 The winning product cannot merely be capable. It must be cheap, boring, secure, and visibly worth the infrastructure behind it.
 
@@ -111,15 +104,13 @@ The winning product cannot merely be capable. It must be cheap, boring, secure, 
 
 My guess is that we are at least five years away from saturation, unless another ChatGPT-sized viral moment pulls the schedule forward.
 
-By around 2031, I expect a credible personal agent to have four properties:
+By around 2031, I expect a credible personal agent to be common on phones and personal devices. It should:
 
-- it installs like a normal app and works across phone and desktop;
-- its permissions and mistakes are understandable to non-technical people;
-- it costs little enough that normal use is not a financial decision; and
-- it manages a meaningful part of the day without becoming another system to manage.
+- behave like a normal app;
+- have understandable permissions and mistakes;
+- cost little enough that use is not a financial decision; and
+- become a meaningful part of the day.
 
-<!-- Graphic: prediction timeline from 2026 through 2031 with measurable checkpoints for cost, adoption, setup time, platform coverage, and non-technical retention. Preserve this snapshot so the prediction can be graded later. -->
-
-The final signal will not be another benchmark. It will be my brother building the tool for his shop without asking me anything.
+The final signal will not be another benchmark. It will be my brother building the software for his shop without asking me anything.
 
 And if he leaks the customer database, we are only halfway there.
