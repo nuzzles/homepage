@@ -10,21 +10,19 @@ Gone are the days my mom would ask me for technical help with her printer; she h
 
 I don't think I need to tell you that AI is popular—it is. We are in an AI popularity bubble. But I do not think people are prepared for where it is going. AI is nowhere near saturated.
 
-My brother's requests changed from _"Could you build this website?"_ to _"Can you vibe this website in a few minutes?"_ Nature is healing, or nothing really changed. To me, nothing really changed; the request persists. AI has not markedly changed the intuition for the general population of non-technical people.
-
-People still expect software to cost, be secure and hygienic, and come with support. AI has not yet markedly convinced non-technical people that they can safely make it themselves.
+My brother's requests changed from _"Could you build this website?"_ to _"Can you vibe this website in a few minutes?"_ Nature is healing, or nothing really changed. People still expect software to cost, be secure and hygienic, and come with support. AI has not yet markedly convinced non-technical people that they can safely make it themselves.
 
 That is popularity without saturation.
 
 ## The expensive hobby phase
 
-My AI usage can punch upwards of $3,000 in a month. Most of which is coding, since my job is software engineering, while a very small amount is personal AI use. Most of my coding AI use will be the same or increasing - I believe coding everything by hand will not be generally competitive. However, even on my software engineering team, there are varying levels of saturation. My recorded usage is more than four times higher than the next-highest teammate. I do not attribute this to working four times as hard, I see it as evidence that even software engineers have not saturated into high usage.
+My AI usage can punch upwards of $3,000 in a month. Most of it is coding, since my craft is software engineering, while a very small amount is personal AI use. Most of my AI coding use will stay the same or increase—I believe coding everything by hand will not be generally competitive for long. However, even on my software engineering team, there are varying levels of saturation. In the graph below, my usage is roughly four times higher than the next-highest coworker. I do not attribute this to working four times as hard; I see it as evidence that even software engineers have not reached high usage.
 
 <figure class="evidence-figure">
   <a href="{{ '/assets/ai-team-usage-recent.svg' | relative_url }}" target="_blank" rel="noopener noreferrer">
     <img src="{{ '/assets/ai-team-usage-recent.svg' | relative_url }}" alt="Two horizontal bar charts comparing recent AI traces and AI cost for seven anonymized software engineers. Spencer leads in cost and traces." />
   </a>
-  <figcaption>Recent AI traces and attributed AI cost across my anonymized software engineering team.</figcaption>
+  <figcaption>AI traces and attributed AI cost across my anonymized software engineering team.</figcaption>
 </figure>
 
 This makes me a terrible example of normal AI use, but a useful example of its upper end.
@@ -37,7 +35,7 @@ _And this feels familiar_. Five years ago, my personal infrastructure was a home
 
 Now my homelab collects dust in my garage, and my personal projects live in my AWS account. That includes this website, my daily agenda app with a database, some business projects, a few Discord bots, and more. My monthly bill is on average $0.09.
 
-Innovation made that possible. Services like Amazon DSQL (a distributed, serverless relational database with zero idle cost) become generally available, which became a reasonable host for my daily TODOs, health data, and more.
+Innovation made that possible. Services like Amazon DSQL—a distributed, serverless relational database with zero idle cost—became generally available and gave me a reasonable home for my daily TODOs, health data, and more.
 
 The homelab was useful, but maintenance-heavy and expensive. The cloud turned this into a cheap commodity. I expect AI to follow the same curve.
 
@@ -64,11 +62,11 @@ After I coded my own personal manager, I found that people are doing the same in
   <figcaption>AgenticOS tutorials on YouTube.</figcaption>
 </figure>
 
-I get the gimmick, who wouldn't want Iron Man's JARVIS companion? For me, I honestly just see garish vibe-slop. I would not expect similar YouTube series to focus on scaling, maintenance, or the hard integration work to make this useful. They seem more like fun hobbyist projects with limited usefulness. A useful personal manager would need a phone companion, sensible alerts, durable memory, authorization, and recovery when an agent does something stupid. Most people should not need to learn how containers work before asking software to remember a dentist appointment.
+I get the allure-who wouldn't want JARVIS from Iron Man? For me though, I honestly just see garish vibe-slop. I would not expect similar YouTube series to focus on scaling, maintenance, or the hard integration work to make this useful. These seem more like fun experiments for AI enthusiasts. A useful personal manager would need a phone companion, sensible alerts, durable memory, authorization, and recovery when an agent does something stupid. Most people should not need to learn how containers work before asking software to remember a dentist appointment.
 
 And even worse, OpenClaw.
 
-To be precise: there was a magic spark when I tried it, but that faded quickly. The interface was slop, and its security model did not earn access to your personal data. A system that reads your life cannot treat security as a later sprint.
+To be precise: there was a magic spark when I tried it, but that faded quickly. The interface was slop, and its security model did not earn my trust with personal data. A system that reads your life cannot treat security as a later sprint.
 
 Someone will eventually make the Apple-like quality version of OpenClaw: narrow enough to understand, polished enough to trust, and useful before the user has configured forty integrations. When that happens, the world will come to it.
 
@@ -80,7 +78,7 @@ People see companies exploiting the political system, building data centers that
 
 Saturation will only make this launch environment more hostile. Adoption and acceptance are pulling in opposite directions: more aggregate compute means more electricity, cooling, and water demand. The [2026 Stanford AI Index](https://hai.stanford.edu/ai-index/2026-ai-index-report){:target="_blank" rel="noopener noreferrer"} found that global nervousness about AI rose three points in 2025 while excitement fell one. At the same time, it estimated AI data-center capacity at 29.6 gigawatts and annual GPT-4o inference water use at more than the drinking-water needs of 1.2 million people. Models and data centers will get more efficient, but cheaper intelligence will also invite us to use much more of it.
 
-I think it will literally require an act of Congress: national rules deciding when data centers pay for the infrastructure they require, how scarce resources are allocated, and what costs can be passed to everyone else. AI companies want government assistance, but it needs to be politically favorable, or AI will continue to divide the public until we hear [the next UnitedHealthcare CEO is Sam Altman](https://www.nytimes.com/2024/12/04/nyregion/unitedhealthcare-ceo-brian-thompson-shooting.html){:target="_blank" rel="noopener noreferrer"}.
+I think it will literally require an act of Congress: national rules deciding when data centers pay for the infrastructure they require, how scarce resources are allocated, and what costs can be passed to everyone else. AI companies want government assistance, but it needs to be politically favorable, or public opposition to AI will continue to harden.
 
 The winning product cannot merely be capable. It must be cheap, boring, secure, and visibly worth the infrastructure behind it.
 
