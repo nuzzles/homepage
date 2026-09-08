@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AI is in its homelab era"
-description: "AI is popular, but saturation is relatively low: personal AI is not cheap, safe, or ordinary enough to manage daily life."
+description: "AI is popular, but not saturated. My predictions for how cost, adoption, and public backlash shape the next five years."
 date: 2026-09-07
 categories: ai
 ---
@@ -10,23 +10,22 @@ categories: ai
 Publication blockers:
 
 1. Add a sourced adoption chart covering consumer awareness, regular use, and paid use over time.
-2. Add a redacted chart of monthly AI spending, split between coding and personal use.
+2. Preserve the redacted usage export behind the AI chart and document how attributed cost is calculated.
 3. Back the manual-coding competitiveness claim with representative assisted versus unassisted tasks, including time, defects, and review burden.
-4. Add a homelab-to-AWS architecture/cost graphic backed by redacted bills and current service pricing.
-5. Add primary sources and a cost curve for inference pricing, subsidies, and the market argument.
-6. Add sourced polling on public sentiment plus utility/capex data for the opposition section.
-7. Substantiate the infrastructure-policy prediction with geographically specific utility data and primary sources on who can regulate rates, permitting, and cost allocation.
-8. Add specific, dated OpenClaw security findings and a short recording or screenshots of the tested UX.
-9. Add a prediction graphic with measurable checkpoints through 2031.
+4. Add primary sources and a cost curve for inference pricing, subsidies, and the market argument.
+5. Add sourced polling on public sentiment plus utility/capex data for the opposition section.
+6. Substantiate the infrastructure-policy prediction with geographically specific utility data and primary sources on who can regulate rates, permitting, and cost allocation.
+7. Add specific, dated OpenClaw security findings and a short recording or screenshots of the tested UX.
+8. Add a prediction graphic with measurable checkpoints through 2031.
 -->
 
-Gone are the days my mom would ask me for technical help with her printer, she has ChatGPT. So too are the days my brother would ask me if I could make a website for his brick-and-mortar business; he knows it's possible to vibe code one.
+Gone are the days my mom would ask me for technical help with her printer; she has ChatGPT. So too are the days my brother would ask me if I could make a website for his brick-and-mortar business; he knows it's possible to vibe code one.
 
-I don't think I need to tell you that AI is popular - it is; we are in an AI popularity bubble. But I do not think people are prepared for where it is going. AI is nowhere near saturated.
+I don't think I need to tell you that AI is popular—it is. We are in an AI popularity bubble. But I do not think people are prepared for where it is going. AI is nowhere near saturated.
 
-My brother's requests changed from _"Could you build this website?"_ to _"Can you vibe this website in a few minutes?"_. Nature is healing, or nothing really changed. To me, nothing really changed; the request persists. AI has not markedly changed the intuition for the general population of non-technical people.
+My brother's requests changed from _"Could you build this website?"_ to _"Can you vibe this website in a few minutes?"_ Nature is healing, or nothing really changed. To me, nothing really changed; the request persists. AI has not markedly changed the intuition for the general population of non-technical people.
 
-People still expect software to cost, be secure and hygenic, and to come with support. AI has not yet markedly convinced non-technical people that they can safely make it themselves.
+People still expect software to cost, be secure and hygienic, and come with support. AI has not yet markedly convinced non-technical people that they can safely make it themselves.
 
 <!-- Graphic: consumer AI adoption over time, separating awareness, occasional use, regular use, and paid use. Cite the primary datasets and explain what “adoption” means. -->
 
@@ -34,7 +33,9 @@ That is popularity without saturation.
 
 ## The expensive hobby phase
 
-My current AI spend is above $3,000 per month. Most of that is coding, since my job is software engineering. Work I do for Blue Origin is demanding, and from where I sit, coding everything by hand will not be generally competitive. There is a gap clearly visible across my software engineering team. I can see that my recorded usage is four times as many AI traces as the next-highest. I do not attribute this to me working four times as hard, I see it as evidence that even software engineers have not saturated into harness coding, one of the most useful applications of AI.
+My AI usage can punch upwards of $3,000 in a month. This is general usage cost across the tools available to me, not personal expense. Roughly three quarters of the measured cost is coding, since my job is software engineering.
+
+The work is demanding, and from where I sit, coding everything by hand will not be generally competitive. There is a gap clearly visible across my software engineering team: my recorded usage is more than four times as many AI traces as the next-highest teammate. I do not attribute this to working four times as hard. I see it as evidence that even software engineers have not saturated into harness coding, one of the most useful applications of AI.
 
 <figure class="evidence-figure">
   <a href="{{ '/assets/ai-team-usage-recent.svg' | relative_url }}" target="_blank" rel="noopener noreferrer">
@@ -54,11 +55,13 @@ But no tool in existence yet integrates my development workflow on a scalable pl
 
 And this feels familiar. Five years ago, my personal infrastructure was a homelab built from five Raspberry Pis running k3s with RAID storage, redundant networking, independent power switches, and a cooling solution. It was fun. But it also cost hundreds to thousands of dollars and required enough maintenance to qualify as a small, unpaid operations team.
 
-Now my homelab collects dust in my garage, and my personal projects live on in my AWS account. That includes this website, my daily agenda app with a database, some business projects, a few Discord bots, and more. The relevant workloads cost me a sum total of single-digit cents per month, and I am not in a free tier. Innovation made that possible. I saw services like Amazon DSQL (a distributed, serverless relational database with zero idle cost) become generally available, which instantly became a reasonable host for my daily TODOs, health data, and more.
+Now my homelab collects dust in my garage, and my personal projects live in my AWS account. That includes this website, my daily agenda app with a database, some business projects, a few Discord bots, and more. My monthly bill is on average $0.09.
+
+Innovation made that possible. Services like Amazon DSQL (a distributed, serverless relational database with zero idle cost) become generally available, which became a reasonable host for my daily TODOs, health data, and more.
 
 <!-- Graphic: before/after architecture diagram and cost breakdown. Back the AWS total with a redacted bill, state the month and region, separate one-time/domain costs, and link current DSQL pricing. -->
 
-The homelab was useful, but large maintennce and expensive. The cloud turned this into a cheap commodity. I expect AI to follow the same curve.
+The homelab was useful, but maintenance-heavy and expensive. The cloud turned this into a cheap commodity. I expect AI to follow the same curve.
 
 ## Cheap enough to forget
 
@@ -78,7 +81,7 @@ AI reaches saturation when most people use it to manage their lives, not just wh
 
 Everyone will need something like an OpenClaw in roughly the same way everyone now needs a phone or access to the internet. It will understand the annoying surface area of a day: messages, appointments, tasks, files, forms, reminders, purchases, and the small promises we make before immediately forgetting them.
 
-It has not yet arrived for me, even though I spend enough on AI each month to finance a respectable bad habit.
+It has not yet arrived for me, even though the AI usage attributable to me could finance a bad habit.
 
 After I coded my own personal manager, I found that people are doing the same independently; so-called "AgenticOS" tutorial series are cropping up on YouTube. These shiny AgenticOS projects imitate Iron Man's JARVIS companion, although when I look at them, all I see is garish vibe-slop. I would not expect similar YouTube series to focus on scaling, maintenance, or the hard integration work to make this useful. They seem more like fun hobbyist projects with limited usefulness. A useful personal manager would need a phone companion, sensible alerts, durable memory, authorization, and recovery when an agent does something stupid. Most people should not need to learn how containers work before asking software to remember a dentist appointment.
 
