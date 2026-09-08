@@ -11,12 +11,13 @@ Publication blockers:
 
 1. Add a sourced adoption chart covering consumer awareness, regular use, and paid use over time.
 2. Add a redacted chart of monthly AI spending, split between coding and personal use.
-3. Add a homelab-to-AWS architecture/cost graphic backed by redacted bills and current service pricing.
-4. Add primary sources and a cost curve for inference pricing, subsidies, and the market argument.
-5. Add sourced polling on public sentiment plus utility/capex data for the opposition section.
-6. Substantiate the infrastructure-policy prediction with geographically specific utility data and primary sources on who can regulate rates, permitting, and cost allocation.
-7. Add specific, dated OpenClaw security findings and a short recording or screenshots of the tested UX.
-8. Add a prediction graphic with measurable checkpoints through 2031.
+3. Back the manual-coding competitiveness claim with representative assisted versus unassisted tasks, including time, defects, and review burden.
+4. Add a homelab-to-AWS architecture/cost graphic backed by redacted bills and current service pricing.
+5. Add primary sources and a cost curve for inference pricing, subsidies, and the market argument.
+6. Add sourced polling on public sentiment plus utility/capex data for the opposition section.
+7. Substantiate the infrastructure-policy prediction with geographically specific utility data and primary sources on who can regulate rates, permitting, and cost allocation.
+8. Add specific, dated OpenClaw security findings and a short recording or screenshots of the tested UX.
+9. Add a prediction graphic with measurable checkpoints through 2031.
 -->
 
 Gone are the days my mom would ask me for technical help with her printer, she has ChatGPT. So too are the days my brother would ask me if I could make a website for his brick-and-mortar business; he knows it's possible to vibe code one.
@@ -33,11 +34,11 @@ That is popularity without saturation.
 
 ## The expensive hobby phase
 
-My current AI spend is above $3,000 per month. Most of that is conversational coding with harnesses like Codex and Claude Code. The gap is even visible across my software engineering team. In a recent snapshot, I recorded over four times as many AI traces as the next-highest coworker.
+My current AI spend is above $3,000 per month. Most of that is coding, since my job is software engineering. Work I do for Blue Origin is demanding, and from where I sit, coding everything by hand will not be generally competitive. There is a gap clearly visible across my software engineering team. I can see that my recorded usage is four times as many AI traces as the next-highest. I do not attribute this to me working four times as hard, I see it as evidence that even software engineers have not saturated into harness coding, one of the most useful applications of AI.
 
 <figure class="evidence-figure">
   <a href="{{ '/assets/ai-team-usage-recent.svg' | relative_url }}" target="_blank" rel="noopener noreferrer">
-    <img src="{{ '/assets/ai-team-usage-recent.svg' | relative_url }}" alt="Two horizontal bar charts comparing recent AI traces and AI cost for seven anonymized software engineers. Spencer leads with 111,749 traces and $12,458 in AI cost." />
+    <img src="{{ '/assets/ai-team-usage-recent.svg' | relative_url }}" alt="Two horizontal bar charts comparing recent AI traces and AI cost for seven anonymized software engineers. Spencer leads in cost and traces." />
   </a>
   <figcaption>Recent AI traces and attributed AI cost across my anonymized software engineering team.</figcaption>
 </figure>
