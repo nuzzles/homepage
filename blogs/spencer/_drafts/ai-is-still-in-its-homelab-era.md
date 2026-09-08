@@ -64,7 +64,7 @@ After I coded my own personal manager, I found that people are doing the same in
   <figcaption>AgenticOS tutorials on YouTube.</figcaption>
 </figure>
 
-I get the appeal, who wouldn't want Iron Man's JARVIS companion? For me, I honestly just see garish vibe-slop. I would not expect similar YouTube series to focus on scaling, maintenance, or the hard integration work to make this useful. They seem more like fun hobbyist projects with limited usefulness. A useful personal manager would need a phone companion, sensible alerts, durable memory, authorization, and recovery when an agent does something stupid. Most people should not need to learn how containers work before asking software to remember a dentist appointment.
+I get the gimmick, who wouldn't want Iron Man's JARVIS companion? For me, I honestly just see garish vibe-slop. I would not expect similar YouTube series to focus on scaling, maintenance, or the hard integration work to make this useful. They seem more like fun hobbyist projects with limited usefulness. A useful personal manager would need a phone companion, sensible alerts, durable memory, authorization, and recovery when an agent does something stupid. Most people should not need to learn how containers work before asking software to remember a dentist appointment.
 
 And even worse, OpenClaw.
 
