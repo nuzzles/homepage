@@ -65,11 +65,9 @@ The homelab was useful, but maintenance-heavy and expensive. The cloud turned th
 
 ## Cheap enough to forget
 
-AI is prohibitively expensive when used as aggressively as I use it now. That will not last. Models will get smaller, hardware will improve, inference will become more competitive, and providers will keep finding cheaper ways to serve the same useful unit of intelligence.
+AI is prohibitively expensive when used as aggressively as I use it now. That will not last. Models will get smaller, hardware will improve, inference will become more competitive, and providers will keep finding cheaper ways to serve the same useful unit of intelligence. [That pressure is already visible](https://www.anthropic.com/news/higher-limits-spacex).
 
 <!-- Evidence: plot a defensible unit-cost series, such as price per fixed benchmark/task or equivalent tokens at a fixed quality threshold. Do not compare raw token prices across unlike models without a quality control. -->
-
-<!-- TODO: Note how services like OpenAI and Anthropic have recently given "free" credit limit upgrades, lowered prices, etc., which read to me like a desperate reaction to open-source catching up. -->
 
 My prediction is not merely that AI gets cheaper. It becomes cheap enough that ordinary people stop thinking about the meter.
 
