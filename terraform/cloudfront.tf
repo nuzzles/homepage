@@ -63,7 +63,7 @@ resource "aws_cloudfront_response_headers_policy" "web" {
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; frame-src https://nuzzles.github.io https://www.youtube.com; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+      content_security_policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; frame-src 'self' https://nuzzles.github.io https://www.youtube.com; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
       override                = true
     }
     content_type_options {
@@ -102,6 +102,48 @@ resource "aws_cloudfront_response_headers_policy" "web" {
   }
 }
 
+resource "aws_cloudfront_response_headers_policy" "blog_embed" {
+  name    = "homepage-${var.environment}-blog-embed-security"
+  comment = "Allow blog viewers to be embedded by their own site."
+
+  security_headers_config {
+    content_security_policy {
+      content_security_policy = "default-src 'none'; base-uri 'none'; connect-src 'none'; font-src 'self' data:; form-action 'none'; frame-ancestors 'self'; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+      override                = true
+    }
+    content_type_options {
+      override = true
+    }
+    frame_options {
+      frame_option = "SAMEORIGIN"
+      override     = true
+    }
+    referrer_policy {
+      referrer_policy = "strict-origin-when-cross-origin"
+      override        = true
+    }
+    strict_transport_security {
+      access_control_max_age_sec = 63072000
+      include_subdomains         = true
+      preload                    = true
+      override                   = true
+    }
+  }
+
+  custom_headers_config {
+    items {
+      header   = "Permissions-Policy"
+      value    = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()"
+      override = true
+    }
+    items {
+      header   = "X-Robots-Tag"
+      value    = "noindex, nofollow"
+      override = true
+    }
+  }
+}
+
 resource "aws_cloudfront_distribution" "web_distribution" {
   enabled             = true
   is_ipv6_enabled     = true
@@ -126,6 +168,20 @@ resource "aws_cloudfront_distribution" "web_distribution" {
     target_origin_id           = local.s3_origin_id
     viewer_protocol_policy     = "redirect-to-https"
     compress                   = true
+  }
+
+  dynamic "ordered_cache_behavior" {
+    for_each = local.sites[local.primary_profile_id].blog_base_path == null ? [] : [for viewer in ["hex-viewer", "motion-replay"] : "${local.sites[local.primary_profile_id].blog_base_path}/assets/${viewer}/*"]
+    content {
+      path_pattern               = ordered_cache_behavior.value
+      allowed_methods            = ["GET", "HEAD", "OPTIONS"]
+      cached_methods             = ["GET", "HEAD", "OPTIONS"]
+      cache_policy_id            = aws_cloudfront_cache_policy.web.id
+      response_headers_policy_id = aws_cloudfront_response_headers_policy.blog_embed.id
+      target_origin_id           = local.s3_origin_id
+      viewer_protocol_policy     = "redirect-to-https"
+      compress                   = true
+    }
   }
 
   dynamic "ordered_cache_behavior" {
@@ -216,6 +272,20 @@ resource "aws_cloudfront_distribution" "additional" {
     target_origin_id           = local.s3_origin_id
     viewer_protocol_policy     = "redirect-to-https"
     compress                   = true
+  }
+
+  dynamic "ordered_cache_behavior" {
+    for_each = each.value.blog_base_path == null ? [] : [for viewer in ["hex-viewer", "motion-replay"] : "${each.value.blog_base_path}/assets/${viewer}/*"]
+    content {
+      path_pattern               = ordered_cache_behavior.value
+      allowed_methods            = ["GET", "HEAD", "OPTIONS"]
+      cached_methods             = ["GET", "HEAD", "OPTIONS"]
+      cache_policy_id            = aws_cloudfront_cache_policy.web.id
+      response_headers_policy_id = aws_cloudfront_response_headers_policy.blog_embed.id
+      target_origin_id           = local.s3_origin_id
+      viewer_protocol_policy     = "redirect-to-https"
+      compress                   = true
+    }
   }
 
   dynamic "ordered_cache_behavior" {
