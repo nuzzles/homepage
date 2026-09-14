@@ -471,6 +471,21 @@ table {
     border: 1px solid var(--blog-ink);
 }
 
+.table-scroll {
+    max-width: 100%;
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.table-scroll:focus-visible {
+    outline: 2px solid var(--blog-blue);
+    outline-offset: 3px;
+}
+
+.table-scroll table {
+    margin-bottom: 0;
+}
+
 table th {
     color: var(--blog-paper);
     background: var(--blog-blue);

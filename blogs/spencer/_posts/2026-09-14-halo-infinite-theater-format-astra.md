@@ -108,6 +108,8 @@ The inspector also tracked how much of each film or packet had been parsed. That
 
 Movement input gives a small example of what these comparisons reveal. In the checked keyboard recordings, two 6-bit fields carry these values while the corresponding input is held:
 
+<div class="table-scroll" role="region" aria-label="Movement input values" tabindex="0" markdown="1">
+
 | Input    | Forward/backward field | Left/right field |
 | -------- | ---------------------: | ---------------: |
 | Neutral  |                     31 |               31 |
@@ -115,6 +117,8 @@ Movement input gives a small example of what these comparisons reveal. In the ch
 | Backward |                      0 |               31 |
 | Left     |                     31 |               62 |
 | Right    |                     31 |                0 |
+
+</div>
 
 Forward changes `011111` to `111110` in the first field; the second stays neutral. Backward drives that same field to zero, while the left/right controls change the other field. That supports interpreting them as two input axes. Their location shifts with the preceding records, so finding the same byte offset in every packet wouldn't work.
 
