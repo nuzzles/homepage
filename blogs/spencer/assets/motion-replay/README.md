@@ -18,8 +18,11 @@ and initial `start` and `end` in seconds:
 The include supplies the blog base path, lazy loading, a sandboxed iframe, and an 11px
 caption. When `download` is provided, a download link appears below the toy in the
 caption; the JSON is fetched only when requested. Only the viewport and playback timeline are visible. Readers cannot import another
-file or navigate to the lab. Each iframe is independent. No parent script, data fetch,
-or lab server is required. JavaScript and WebGL are required; the early video in the
+file or navigate to the lab. Each iframe is independent. Playback needs no parent script,
+data fetch, or lab server. The blog's shared `blog-media.js` adds an expand/collapse
+button without reloading the iframe or resetting playback. It uses native fullscreen
+where available and a fixed viewport on mobile browsers without that API.
+JavaScript and WebGL are required; the early video in the
 post remains available as a fallback. The asset is marked `noindex`.
 
 ## Rebuild from the homepage repository
@@ -57,8 +60,9 @@ The Octagon recording has no grenade or reload events.
 
 The embed's optional start/end bounds are set only in code. The blog starts at
 146.2 seconds and continues to the film's end, so both players are present initially.
-Visible controls are play/pause, the scrubber, and a camera selector: Nuzzles's or
-timesknightt's over-shoulder view, or Overview. Nuzzles is the default. There are no
+Visible controls are play/pause, a touch-draggable scrubber, and a camera selector
+labeled Nuzzles, timesknightt, and Map. The player names select an over-shoulder view;
+Map selects the overview. Nuzzles is the default. There are no
 range, playback-speed, loop, or origin-axis controls. Playback runs at 1× and stops
 at the end. The floor and grid render separately to avoid depth flicker.
 The blog's Barlow font files and OFL license are bundled; the viewer makes no font requests.

@@ -1,14 +1,22 @@
 const MAX_OUTPUT = 8 * 1024 * 1024
 const ROWS = 16
 const $ = (id) => document.getElementById(id)
-const narrow = matchMedia("(max-width: 620px)")
+const tableWrap = document.querySelector(".table-wrap")
+function columnsForWidth() {
+    const byteWidth = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--byte-width"))
+    return (
+        [16, 8, 4, 2, 1].find(
+            (columns) => 68 + columns * byteWidth + Math.max(4, columns) * 8 <= tableWrap.clientWidth
+        ) || 1
+    )
+}
 const state = {
     original: new Uint8Array(),
     decoded: null,
     view: "original",
     page: 0,
     selected: 0,
-    columns: narrow.matches ? 8 : 16,
+    columns: columnsForWidth(),
     zlib: false,
     busy: false,
     request: 0,
@@ -309,11 +317,13 @@ $("byte-rows").addEventListener("keydown", (event) => {
     }
     selectByte(state.selected, true)
 })
-narrow.addEventListener("change", () => {
-    state.columns = narrow.matches ? 8 : 16
+new ResizeObserver(() => {
+    const columns = columnsForWidth()
+    if (columns === state.columns) return
+    state.columns = columns
     state.page = Math.floor(state.selected / (ROWS * state.columns))
     render()
-})
+}).observe(tableWrap)
 render()
 if (window.parent !== window) {
     const sendHeight = () =>

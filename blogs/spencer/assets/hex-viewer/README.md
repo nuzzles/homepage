@@ -12,7 +12,7 @@ The blog supplies its zlib example through `site.data.halo_theater_hex` in `_dat
 
 The iframe uses `relative_url`, so it works under the configured blog base path. It receives text and title through messages checked against the parent origin and window; the description is escaped and rendered directly by the include. Its height follows its content. Multiple embeds on a page have independent content, byte selection, and pagination. The shared iframe include used by the Vong demo is unchanged.
 
-This is a read-only viewer. It has no file import, editing, download, or open-in-new-tab controls. It shows 16 bytes per row, or eight at narrow widths, with synchronized hex and printable ASCII. Other bytes appear as dots. Byte selection links the two columns; additional values and keyboard guidance are available to screen readers. Arrow keys move between bytes; Page Up / Down navigate pages. Zlib input enables Compressed and Decompressed tabs; other input is shown directly without those tabs.
+This is a read-only viewer. It has no file import, editing, download, or open-in-new-tab controls. It adapts from 16 bytes per row down to eight, four, two, or one according to the embed's available width, with synchronized hex and printable ASCII. Columns retain a minimum readable width, and touch screens get taller byte targets. Other bytes appear as dots. Byte selection links the two columns and shows the offset, hex, decimal, binary, and text values below the table. Arrow keys move between bytes; Page Up / Down navigate pages. Zlib input enables Compressed and Decompressed tabs; other input is shown directly without those tabs.
 
 ## Sample provenance
 
