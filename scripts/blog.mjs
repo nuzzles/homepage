@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process"
-import { readFileSync, writeFileSync } from "node:fs"
+import { createHash } from "node:crypto"
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, isAbsolute, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -50,12 +51,18 @@ const bundleEnvironment = {
 }
 
 const includeDrafts = command === "dev" || deploymentEnvironment === "dev" || deploymentEnvironment === "stg"
+const themeSource = join(root, "public/blog-theme.css")
+const themeStylesheet =
+    command === "build"
+        ? `/blog-theme.${createHash("sha256").update(readFileSync(themeSource)).digest("hex").slice(0, 16)}.css`
+        : "/blog-theme.css"
+const postStylesheets = {}
 
 const getJekyllConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode) => {
     const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
     writeFileSync(
         override,
-        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\nmermaid_script: ${JSON.stringify(mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js")}\n`
+        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\nblog_theme_stylesheet: ${JSON.stringify(themeStylesheet)}\nblog_stylesheets: ${JSON.stringify(postStylesheets)}\nmermaid_script: ${JSON.stringify(mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js")}\n`
     )
     return `${join(resolve(root, blogConfig.source), "_config.yml")},${override}`
 }
@@ -83,6 +90,20 @@ if (command === "build") {
             },
         },
     })
+    copyFileSync(themeSource, join(root, "dist", themeStylesheet.slice(1)))
+    const stylesDirectory = join(source, "assets/css")
+    if (existsSync(stylesDirectory)) {
+        const stylesOutput = join(root, "dist/assets/blog-styles")
+        mkdirSync(stylesOutput, { recursive: true })
+        for (const file of readdirSync(stylesDirectory, { withFileTypes: true })) {
+            if (!file.isFile() || !file.name.endsWith(".css")) continue
+            const stylesheet = readFileSync(join(stylesDirectory, file.name))
+            const hash = createHash("sha256").update(stylesheet).digest("hex").slice(0, 16)
+            const filename = `${file.name.slice(0, -4)}.${hash}.css`
+            writeFileSync(join(stylesOutput, filename), stylesheet)
+            postStylesheets[`/assets/css/${file.name}`] = `/assets/blog-styles/${filename}`
+        }
+    }
     const websiteUrl = process.env.HOMEPAGE_URL ?? `https://${profile.hostnames.prod}`
     const config = getJekyllConfig(profileId, blog, websiteUrl, websiteUrl, blog.basePath, "build")
     const args = ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config]
