@@ -1,0 +1,21 @@
+<figure class="evidence-figure motion-replay-figure">
+    {% if include.title %}
+    <div class="motion-replay-title">{{ include.title | escape }}</div>
+    {% endif %}
+    <iframe
+        src="{{ include.file | relative_url | escape }}{% if include.start or include.end %}#{% if include.start %}start={{ include.start | url_encode }}&amp;{% endif %}{% if include.end %}end={{ include.end | url_encode }}{% endif %}{% endif %}"
+        title="{{ include.title | default: 'Motion replay' | escape }}"
+        height="620"
+        loading="lazy"
+        sandbox="allow-scripts"
+    ></iframe>
+    {% if include.description or include.download %}
+    <figcaption>
+        {% if include.description %}{{ include.description | escape }}{% endif %} {% if include.download %}
+        <span class="motion-replay-download">
+            <a href="{{ include.download | relative_url | escape }}" download>Download replay data (compressed JSON)</a>
+        </span>
+        {% endif %}
+    </figcaption>
+    {% endif %}
+</figure>

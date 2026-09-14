@@ -55,7 +55,7 @@ const getJekyllConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode
     const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
     writeFileSync(
         override,
-        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\n`
+        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\nmermaid_script: ${JSON.stringify(mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js")}\n`
     )
     return `${join(resolve(root, blogConfig.source), "_config.yml")},${override}`
 }
@@ -67,6 +67,22 @@ if (command === "build") {
     }
 
     const { source, output } = getBlogPaths(blog)
+    // Keep the blog renderer separate from the homepage's shared vendor bundle.
+    const { build } = await import("vite")
+    await build({
+        configFile: false,
+        publicDir: false,
+        build: {
+            outDir: join(root, "dist/assets/mermaid"),
+            emptyOutDir: true,
+            minify: true,
+            lib: {
+                entry: join(root, "src/blog/mermaid.ts"),
+                formats: ["es"],
+                fileName: () => "embed.js",
+            },
+        },
+    })
     const websiteUrl = process.env.HOMEPAGE_URL ?? `https://${profile.hostnames.prod}`
     const config = getJekyllConfig(profileId, blog, websiteUrl, websiteUrl, blog.basePath, "build")
     const args = ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config]
