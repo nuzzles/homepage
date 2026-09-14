@@ -1,5 +1,8 @@
 # Project Guide
 
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming, PR title requirements, and validation.
+Use `simbleau/description` branches with lowercase kebab-case descriptions.
+
 ## Project Overview
 
 This is a joint homepage with separate root, Spencer, and Sara sites, built with React 19, TypeScript, and Vite. The project uses Material-UI for component styling and Emotion for CSS-in-JS.

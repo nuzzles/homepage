@@ -1,0 +1,55 @@
+name: Lint PR title
+
+on:
+  pull_request:
+    branches: [main]
+    # Keep this separate from CI so title edits rerun the check.
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  lint-title:
+    name: conventional commit PR title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup | Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24.20.0"
+
+      - name: Install | commitlint
+        run: npm install --prefix "$RUNNER_TEMP/pr-title-lint" --no-audit --no-fund @commitlint/cli@18 @commitlint/config-conventional@18.6.0
+
+      - name: Lint | PR title
+        id: lint
+        env:
+          # Pass the title as data to prevent shell injection.
+          TITLE: ${{ github.event.pull_request.title }}
+          CONFIG_FILE: ${{ runner.temp }}/pr-title-lint/commitlint.config.cjs
+          CONFIG: |
+            module.exports = { extends: ["@commitlint/config-conventional"] };
+        run: |
+          printf '%s\n' "$CONFIG" > "$CONFIG_FILE"
+          printf '%s\n' "$TITLE" | "$RUNNER_TEMP/pr-title-lint/node_modules/.bin/commitlint" --config "$CONFIG_FILE" 2>&1 | tee "$RUNNER_TEMP/lint-output.txt"
+
+      - name: Report | Helpful error
+        if: failure() && steps.lint.outcome == 'failure'
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          {
+            echo "### PR title did not pass conventional commit linting"
+            echo '```text'
+            printf '%s\n' "$TITLE"
+            cat "$RUNNER_TEMP/lint-output.txt"
+            echo '```'
+            echo 'Use `type: lowercase description` or `type(scope): lowercase description`.'
+            echo 'Examples: `ci: lint pull request titles` and `docs(blog): publish halo theater post`.'
+            echo 'See CONTRIBUTING.md and https://www.conventionalcommits.org/.'
+          } >> "$GITHUB_STEP_SUMMARY"
