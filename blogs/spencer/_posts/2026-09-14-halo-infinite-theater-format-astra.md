@@ -48,8 +48,6 @@ I decoded enough of these to reconstruct player movement, aim, and combat activi
 
 {% include motion-replay.html file="/assets/motion-replay/octagon.html" download="/assets/motion-replay/octagon.json.gz" start=146.2 title="Halo: Infinite Theater Toy - Octagon" description="Recorded movement and combat activity from an Octagon match. Models and animations are illustrative; the Octagon walls are placeholders." %}
 
-In this toy, unknown health and shields display as full, and held weapons are inferred from a fixed Bandit/S7 loadout, switch inputs, and shots. The download preserves the decoded observations.
-
 ## The Start
 
 [Den's writeup](https://den.dev/blog/extracting-stats-film-files-halo-infinite/) is great, but his reverse engineering methodology was evidently painful, manual, and required special intuition. For example, Den made a connection when looking at a heap of binary containing the bytes `78 5E` and recognized them as an indicator of `zlib` Fast Compression. I would have _never_ recognized that. Den clearly has some tribal knowledge; only on a good day could I recognize a hint of `==` Base64 padding. This was the moment that made me believe if I was to decode a Theater film file, I would need LLM assistance.

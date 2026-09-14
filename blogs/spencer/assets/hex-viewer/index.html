@@ -41,7 +41,7 @@
                             <tr>
                                 <th scope="col">Offset</th>
                                 <th scope="col"><div id="hex-heading" class="hex-bytes"></div></th>
-                                <th scope="col">Text <span class="muted">(ASCII)</span></th>
+                                <th scope="col" aria-label="ASCII text">Text</th>
                             </tr>
                         </thead>
                         <tbody id="byte-rows"></tbody>
@@ -52,7 +52,7 @@
                     <span id="range">—</span>
                     <button id="next" type="button" aria-label="Next page" disabled>Next →</button>
                 </div>
-                <p id="selection" class="sr-only" aria-live="polite"></p>
+                <p id="selection" aria-live="polite"></p>
                 <p id="error" role="alert" hidden></p>
             </section>
             <p id="keyboard-help" class="sr-only">
