@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="{{ site.blog_theme_stylesheet | default: '/blog-theme.css' | escape }}" />
+<link rel="stylesheet" href="{{ site.blog_media_stylesheet | default: '/blog-media.css' | escape }}" />
+<script type="module" src="/blog-media.js"></script>
+{% for stylesheet in page.stylesheets %} {% if site.blog_stylesheets[stylesheet] %}
+<link rel="stylesheet" href="{{ site.blog_stylesheets[stylesheet] | escape }}" />
+{% else %}
+<link rel="stylesheet" href="{{ stylesheet | relative_url | escape }}" />
+{% endif %} {% endfor %}

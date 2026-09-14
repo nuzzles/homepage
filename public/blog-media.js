@@ -1,17 +1,4 @@
-// Keep the reading position steady, including in mobile Safari.
-function lockScroll() {
-    const { scrollX, scrollY } = window
-    const style = document.body.getAttribute("style")
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = `-${scrollX}px`
-    document.body.style.width = "100%"
-    return () => {
-        if (style === null) document.body.removeAttribute("style")
-        else document.body.setAttribute("style", style)
-        window.scrollTo(scrollX, scrollY)
-    }
-}
+import { lockScroll } from "./blog-scroll.js"
 
 function setupImages() {
     const images = document.querySelectorAll(".post-content img")
@@ -66,6 +53,9 @@ function setupImages() {
 
     for (const img of images) {
         const link = img.closest("a")
+        // Image links can open their full-size source; navigation links must keep working.
+        if (link && !/\.(avif|gif|jpe?g|png|svg|webp)$/i.test(new URL(link.href).pathname)) continue
+        if (img.closest("button, [role='button']")) continue
         const control = link || img
         img.classList.add("enlargeable-image")
         control.setAttribute("aria-haspopup", "dialog")
@@ -78,7 +68,7 @@ function setupImages() {
             if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || dialog.open) return
             event.preventDefault()
             trigger = control
-            enlarged.src = img.currentSrc || img.src
+            enlarged.src = link?.href || img.currentSrc || img.src
             enlarged.alt = img.alt
             setZoom(false)
             unlock = lockScroll()
@@ -94,54 +84,4 @@ function setupImages() {
     }
 }
 
-function setupReplay(player) {
-    const button = player.querySelector(".replay-expand")
-    const frame = player.querySelector("iframe")
-    let expanded = false,
-        nativeFullscreen = false,
-        unlock
-    button.hidden = false
-
-    const collapse = () => {
-        if (!expanded) return
-        expanded = false
-        nativeFullscreen = false
-        player.classList.remove("is-expanded")
-        button.setAttribute("aria-expanded", "false")
-        button.setAttribute("aria-label", "Expand replay")
-        button.title = "Expand replay"
-        unlock?.()
-        unlock = null
-        button.focus({ preventScroll: true })
-        if (document.fullscreenElement === player) document.exitFullscreen().catch(() => {})
-    }
-    button.addEventListener("click", () => {
-        if (expanded) return collapse()
-        expanded = true
-        unlock = lockScroll()
-        player.classList.add("is-expanded")
-        button.setAttribute("aria-expanded", "true")
-        button.setAttribute("aria-label", "Collapse replay")
-        button.title = "Collapse replay"
-        button.focus({ preventScroll: true })
-        // The fixed viewport remains usable when iPhone Safari has no Fullscreen API.
-        if (document.fullscreenEnabled && player.requestFullscreen) player.requestFullscreen().catch(() => {})
-    })
-    document.addEventListener("fullscreenchange", () => {
-        if (document.fullscreenElement === player) nativeFullscreen = true
-        else if (nativeFullscreen) collapse()
-    })
-    document.addEventListener("keydown", (event) => {
-        if (expanded && event.key === "Escape") collapse()
-    })
-    document.addEventListener("focusin", (event) => {
-        if (expanded && !player.contains(event.target)) button.focus({ preventScroll: true })
-    })
-    window.addEventListener("message", (event) => {
-        // The sandbox has an opaque origin; authenticate using its exact window.
-        if (event.source === frame.contentWindow && event.data?.type === "motion-replay:escape") collapse()
-    })
-}
-
 setupImages()
-document.querySelectorAll("[data-replay-player]").forEach(setupReplay)

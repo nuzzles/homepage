@@ -56,13 +56,18 @@ const themeStylesheet =
     command === "build"
         ? `/blog-theme.${createHash("sha256").update(readFileSync(themeSource)).digest("hex").slice(0, 16)}.css`
         : "/blog-theme.css"
+const mediaSource = join(root, "public/blog-media.css")
+const mediaStylesheet =
+    command === "build"
+        ? `/blog-media.${createHash("sha256").update(readFileSync(mediaSource)).digest("hex").slice(0, 16)}.css`
+        : "/blog-media.css"
 const postStylesheets = {}
 
 const getJekyllConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode) => {
     const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
     writeFileSync(
         override,
-        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\nblog_theme_stylesheet: ${JSON.stringify(themeStylesheet)}\nblog_stylesheets: ${JSON.stringify(postStylesheets)}\nmermaid_script: ${JSON.stringify(mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js")}\n`
+        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\nblog_theme_stylesheet: ${JSON.stringify(themeStylesheet)}\nblog_media_stylesheet: ${JSON.stringify(mediaStylesheet)}\nblog_stylesheets: ${JSON.stringify(postStylesheets)}\nmermaid_script: ${JSON.stringify(mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js")}\n`
     )
     return `${join(resolve(root, blogConfig.source), "_config.yml")},${override}`
 }
@@ -91,6 +96,7 @@ if (command === "build") {
         },
     })
     copyFileSync(themeSource, join(root, "dist", themeStylesheet.slice(1)))
+    copyFileSync(mediaSource, join(root, "dist", mediaStylesheet.slice(1)))
     const stylesDirectory = join(source, "assets/css")
     if (existsSync(stylesDirectory)) {
         const stylesOutput = join(root, "dist/assets/blog-styles")

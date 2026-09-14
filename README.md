@@ -68,9 +68,31 @@ pnpm preview
 Valid site values come from `profiles.json`, plus `selector` for the joint homepage.
 Deployed `dev` and `stg` builds also include blog drafts; `prod` excludes them.
 
-## Mermaid diagrams in Spencer's blog
+## Shared blog media
 
-Store diagram files under `blogs/spencer/assets/diagrams/`, then pass the blog-relative path to the include:
+Both profile blogs load `public/blog-media.css` and `public/blog-media.js` through the shared
+`blogs/shared/_includes/blog-assets.html` include. Standard post images gain a keyboard-accessible
+lightbox automatically. Links to image files open their full-size image; images linking to other
+pages keep their normal navigation. Modified clicks retain the browser's usual link behavior.
+
+Figure spacing and captions, image viewing, and Mermaid controls are shared across posts. A post
+does not need `halo-theater.css` to use them. The existing Homelab post uses these shared figure
+styles and has no post-specific CSS.
+
+Use `stylesheets` in a post's front matter for styles that belong only to that post:
+
+```yaml
+stylesheets:
+    - /assets/css/my-post.css
+```
+
+The profile build versions shared and post-specific stylesheets by content; development uses the
+source files. New profile blogs should link `blog-assets.html` and `mermaid.html` from
+`blogs/shared/_includes/` into their `_includes/`, and include `blog-assets.html` from their head.
+
+## Mermaid diagrams in profile blogs
+
+Store diagram files under the profile's `assets/diagrams/` directory, then pass the blog-relative path to the include:
 
 ```liquid
 {% include mermaid.html
@@ -93,7 +115,11 @@ Use the profile build above when previewing static output; Jekyll alone does not
 If JavaScript is disabled, the caption and diagram-source link remain available. Loading or syntax
 errors display a message in the affected figure without preventing other diagrams from rendering.
 
-## Motion replay in Spencer's blog
+## Halo Theater motion replay
+
+The Octagon export, replay expansion script, and `halo-theater.css` belong to the Halo Theater
+post. Its `motion-replay.html` include loads the replay script only when the post embeds a replay;
+other posts and profiles do not load or initialize it.
 
 Build a single-film export in the adjacent `halo_api` repository, then embed the generated HTML:
 
