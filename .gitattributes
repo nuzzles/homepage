@@ -1,0 +1,2 @@
+# Preserve generated viewer exports, including upstream license formatting.
+blogs/spencer/assets/motion-replay/*.html linguist-generated=true -whitespace

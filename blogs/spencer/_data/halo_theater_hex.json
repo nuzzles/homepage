@@ -1,0 +1,20 @@
+{
+    "title": "Halo Infinite · zlib decompression",
+    "description": "A 4,096-byte registry excerpt, recompressed with zlib for this demo. Dots represent non-printable bytes.",
+    "text": "78 5E E5 97 41 6E C5 20 0C 44 D3 5E A3 27 E8 82 53 54 55 37 BD 84 7F 98 10 AB 60 52 20 5F FF F8 35 49 B3 49 D4 03 14 90 B2 41 D9 F8 31 63 8F 5F 87 61 78 D1 CF 51 80 81 38 16 98 02 0A 26 D0 B2 B0 38 33 C6 B0 44 81 14 FD A9 E1 F3 74 62 90 67 4A B0 3B 0A CF 77 E4 0E 40 9C 19 8C 6B 4A FA F0 26 17 2A E8 A0 FE 2A EF 33 83 CD 17 13 0B E7 59 E5 D0 87 19 FE D2 41 8A AB F4 CA 60 AF BD 70 40 EA 44 05 57 2F E4 D5 5A 88 B1 A0 32 6F 28 8C C7 54 DA C6 71 E9 07 89 46 98 05 89 E3 2E 87 0E 19 1C 7D 40 2C 17 8E 62 26 4F AE F5 F9 78 C9 07 63 82 7A 21 E3 7B 85 A8 22 7A 98 0C 67 06 E4 3D 53 2F C5 FF 66 DF 8B 0E 62 ED 80 60 AF 59 B9 75 0F 1C F1 FF 92 0F 28 2C C4 4E 7A 1A 8F 67 06 96 33 DD BC 46 C4 2F F6 DE DC A3 5F 6B 6E 6C BB 31 56 06 1F 9A 8F DF B7 B5 F1 AD 2E 8A 19 E9 13 A5 20 DD E2 63 BB 68 7D 73 7C 56 06 81 84 9C 3E FD B1 3E D7 90 F8 5F 7A C1 0F 04 67 E7 9B",
+    "provenance": {
+        "source": {
+            "repository": "https://github.com/nuzzles/halo_api",
+            "matchId": "67af0744-0b22-4791-b758-8e6870c1b799",
+            "chunk": "chunk-000-type-1.bin",
+            "offset": 0,
+            "length": 4096,
+            "sha256": "0d1bb9ba84b0ae24e4cdb93182861c040353445210f38928ee0ee7577e1a48a6"
+        },
+        "compression": {
+            "format": "zlib",
+            "level": 3,
+            "sha256": "f177747dafcef158f6ea0f4afcb0e410a7015dae911e5f98c76326c38bf0b2ba"
+        }
+    }
+}

@@ -1,0 +1,32 @@
+flowchart TD
+    accTitle: The feature discovery loop
+    accDescr {
+        Blue nodes are human steps: first record a do-nothing control clip, then
+        record an action clip with the same setup and a single changed input, review the replay,
+        and decide whether it looks correct.
+        Green rectangular nodes are Astra's steps: compare the binary, decode it,
+        and add the result to the digital twin.
+        No sends corrections back to Astra. Yes starts the next experiment.
+    }
+
+    control["Record control clip"]
+    action["Record action clip"]
+    probe["Compare the binary"]
+    decode["Decode"]
+    twin["Add to digital twin"]
+    check["Review the replay"]
+    good{"Looks correct?"}
+
+    control --> action
+    action --> probe
+    probe --> decode
+    decode --> twin
+    twin --> check
+    check --> good
+    good -->|No: Corrections| probe
+    good -->|Yes: Next experiment| control
+
+    classDef human fill:#e5eaff,stroke:#2047d6,color:#171813,stroke-width:2px
+    classDef ai fill:#e2f2ed,stroke:#267367,color:#171813,stroke-width:2px
+    class control,action,check,good human
+    class probe,decode,twin ai

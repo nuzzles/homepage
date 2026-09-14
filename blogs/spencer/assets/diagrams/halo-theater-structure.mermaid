@@ -1,0 +1,36 @@
+flowchart TD
+    accTitle: Halo Infinite Theater film structure
+    accDescr {
+        A film manifest lists separately compressed chunks. After zlib decompression,
+        chunk type 1 contains the component registry, type 2 a replication packet
+        stream, and type 3 summary events. Each replication packet has a 16-byte
+        little-endian header and a variable-length payload. Packet type 0 carries
+        a bit-packed frame. In the checked clock-first layouts, variable entity
+        records precede a three-bit end marker, input data, and unresolved tail bits.
+        This is a structural overview of the observed format, not a complete grammar.
+    }
+
+    film["Theater film manifest<br/>Match, version, timing, chunk list"]
+    chunks["Chunk files<br/>Each compressed separately with zlib"]
+    film --> chunks
+
+    chunks -->|decompress| registry["Chunk type 1<br/>Component registry"]
+    chunks -->|decompress| replication["Chunk type 2<br/>Replication packet stream"]
+    chunks -->|decompress| events["Chunk type 3<br/>Kills, deaths, medals"]
+
+    replication --> packets["Packets in sequence<br/>Header + payload, repeated"]
+    packets --> header["16-byte header · little-endian<br/>0–1: type · u16<br/>2–3: unknown · 2 bytes<br/>4–7: payload length · u32<br/>8–15: timestamp in µs · u64"]
+    packets --> payload["Variable-length payload<br/>Interpretation depends on packet type"]
+
+    payload --> frame["Type 0: frame<br/>Bit-packed state updates"]
+    payload --> other["Other packet types<br/>10: pre-frame marker<br/>7: chunk terminator<br/>Others remain partly unexplained"]
+
+    frame --> records["Entity records · variable length<br/>Clock, player, other entity updates"]
+    records --> chainEnd["Entity-chain end · 3 bits<br/>In checked layouts"]
+    chainEnd --> inputs["Input section<br/>Movement axes and other commands"]
+    inputs --> tail["Remaining bits<br/>Not fully decoded"]
+
+    classDef focus fill:#e5eaff,stroke:#2047d6,color:#171813,stroke-width:2px
+    classDef unknown fill:#f3eedf,stroke:#8f8b7a,color:#68675a,stroke-dasharray:5 4
+    class replication,packets,payload,frame focus
+    class other,tail unknown
