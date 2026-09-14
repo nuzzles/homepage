@@ -1,0 +1,14 @@
+<figure class="evidence-figure hex-viewer-figure">
+    <iframe
+        data-hex-viewer
+        src="{{ '/assets/hex-viewer/index.html' | relative_url }}"
+        title="{{ include.title | default: 'Hex / text' | escape }}"
+        height="700"
+        loading="lazy"
+    ></iframe>
+    <template data-hex-text>{{ include.text | escape }}</template>
+    {% if include.description %}
+    <figcaption>{{ include.description | escape }}</figcaption>
+    {% endif %}
+</figure>
+<script type="module" src="{{ '/assets/hex-viewer/embed.js' | relative_url }}"></script>

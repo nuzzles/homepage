@@ -68,6 +68,70 @@ pnpm preview
 Valid site values come from `profiles.json`, plus `selector` for the joint homepage.
 Deployed `dev` and `stg` builds also include blog drafts; `prod` excludes them.
 
+## Mermaid diagrams in Spencer's blog
+
+Store diagram files under `blogs/spencer/assets/diagrams/`, then pass the blog-relative path to the include:
+
+```liquid
+{% include mermaid.html
+   file="/assets/diagrams/halo-theater-structure.mermaid"
+   title="From film to frame"
+   description="The film's chunks, packets, and bit-packed records." %}
+```
+
+`file` is required; `title` and `description` are optional. The include applies the current blog base path,
+so use `/assets/…` without adding `/blog`. A post can include multiple diagrams. Put `accTitle` and
+`accDescr` in each Mermaid file to describe the diagram for screen readers. Each embed starts fitted
+to its canvas and has zoom in/out, Fit, and 100% controls. Drag to pan; Ctrl/⌘ + scroll zooms at the
+pointer while ordinary scrolling moves the page. With the canvas focused, use +/− to zoom, arrow
+keys to pan, F to fit, and 0 to reset to natural size. Touch dragging also pans the diagram.
+Each viewer keeps its own zoom and position. Captions use the same small type as the hex viewer.
+
+Mermaid is installed at a pinned version and served locally, only on pages with an embed. The profile
+build creates a separate renderer bundle; `pnpm dev` serves the TypeScript entry through Vite.
+Use the profile build above when previewing static output; Jekyll alone does not build the renderer.
+If JavaScript is disabled, the caption and diagram-source link remain available. Loading or syntax
+errors display a message in the affected figure without preventing other diagrams from rendering.
+
+## Motion replay in Spencer's blog
+
+Build a single-film export in the adjacent `halo_api` repository, then embed the generated HTML:
+
+```sh
+node ../halo_api/experiments/examples/build_decoded_replay.cjs --embed \
+  --octagon-walls --fixed-loadout 'Bandit EVO,S7 Sniper' --blog-fonts public/fonts \
+  ../halo_api/experiments/films/octagon/03-first-to-50/decoded-film.json \
+  --output blogs/spencer/assets/motion-replay/octagon.html
+```
+
+```liquid
+{% include motion-replay.html
+   file="/assets/motion-replay/octagon.html"
+   download="/assets/motion-replay/octagon.json.gz"
+   start=146.2
+   title="Octagon motion replay · preview"
+   description="A decoded first-to-50 match with placeholder Octagon walls." %}
+```
+
+The include takes `file`, plus optional `title`, `description`, `download`, `start`, and `end`, and applies the blog base path.
+The exporter also writes a matching `.json.gz` download containing the decoded source data.
+Initial start/end values are seconds and configured in code, without visible range settings.
+Readers have play/pause, scrubbing, and a camera selector, defaulting to Nuzzles's shoulder view.
+There are no speed or loop controls. The score counts recorded kills at the current playhead.
+Each lazy iframe contains exactly one recording, with only the viewport and playback timeline visible.
+Trails show up to 10 seconds before and after the playhead. The viewport uses placeholder Octagon
+walls when exported with `--octagon-walls`; unknown shields and health display their full numeric values.
+It starts paused. There is no upload, recording picker, or external viewer link. The generated HTML
+bundles the replay and renderer, works without the Theater Lab, and retains its source license notices.
+The input to the exporter is `decoded-film.json`, not the original Theater binary. JavaScript and WebGL
+are required; retain the early video as a fallback. See the asset folder's README for provenance.
+Re-export after changes in `halo_api`; generated viewer HTML is excluded from Prettier.
+
+CloudFront permits same-origin framing only for the hex and motion replay asset directories.
+Those viewers have a separate security policy that allows their embedded fonts and blocks network
+connections. Other pages retain their framing restrictions. Include the Terraform header changes
+when deploying these embeds; the local development server does not enforce CloudFront headers.
+
 ## Asset Generation
 
 All three sites share the favicons, app icons, and Open Graph image generated
