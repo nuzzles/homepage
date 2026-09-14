@@ -1,8 +1,10 @@
 import { spawn } from "node:child_process"
-import { readFileSync, writeFileSync } from "node:fs"
+import { createHash } from "node:crypto"
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, isAbsolute, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { compactReplayData } from "./replay-assets.mjs"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const profiles = JSON.parse(readFileSync(join(root, "profiles.json"), "utf8"))
@@ -50,12 +52,23 @@ const bundleEnvironment = {
 }
 
 const includeDrafts = command === "dev" || deploymentEnvironment === "dev" || deploymentEnvironment === "stg"
+const themeSource = join(root, "public/blog-theme.css")
+const themeStylesheet =
+    command === "build"
+        ? `/blog-theme.${createHash("sha256").update(readFileSync(themeSource)).digest("hex").slice(0, 16)}.css`
+        : "/blog-theme.css"
+const mediaSource = join(root, "public/blog-media.css")
+const mediaStylesheet =
+    command === "build"
+        ? `/blog-media.${createHash("sha256").update(readFileSync(mediaSource)).digest("hex").slice(0, 16)}.css`
+        : "/blog-media.css"
+const postStylesheets = {}
 
 const getJekyllConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode) => {
     const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
     writeFileSync(
         override,
-        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\n`
+        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\nblog_theme_stylesheet: ${JSON.stringify(themeStylesheet)}\nblog_media_stylesheet: ${JSON.stringify(mediaStylesheet)}\nblog_stylesheets: ${JSON.stringify(postStylesheets)}\nmermaid_script: ${JSON.stringify(mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js")}\n`
     )
     return `${join(resolve(root, blogConfig.source), "_config.yml")},${override}`
 }
@@ -67,13 +80,61 @@ if (command === "build") {
     }
 
     const { source, output } = getBlogPaths(blog)
+    // Keep the blog renderer separate from the homepage's shared vendor bundle.
+    const { build } = await import("vite")
+    await build({
+        configFile: false,
+        publicDir: false,
+        build: {
+            outDir: join(root, "dist/assets/mermaid"),
+            emptyOutDir: true,
+            minify: true,
+            lib: {
+                entry: join(root, "src/blog/mermaid.ts"),
+                formats: ["es"],
+                fileName: () => "embed.js",
+            },
+        },
+    })
+    copyFileSync(themeSource, join(root, "dist", themeStylesheet.slice(1)))
+    copyFileSync(mediaSource, join(root, "dist", mediaStylesheet.slice(1)))
+    const stylesDirectory = join(source, "assets/css")
+    if (existsSync(stylesDirectory)) {
+        const stylesOutput = join(root, "dist/assets/blog-styles")
+        mkdirSync(stylesOutput, { recursive: true })
+        for (const file of readdirSync(stylesDirectory, { withFileTypes: true })) {
+            if (!file.isFile() || !file.name.endsWith(".css")) continue
+            const stylesheet = readFileSync(join(stylesDirectory, file.name))
+            const hash = createHash("sha256").update(stylesheet).digest("hex").slice(0, 16)
+            const filename = `${file.name.slice(0, -4)}.${hash}.css`
+            writeFileSync(join(stylesOutput, filename), stylesheet)
+            postStylesheets[`/assets/css/${file.name}`] = `/assets/blog-styles/${filename}`
+        }
+    }
     const websiteUrl = process.env.HOMEPAGE_URL ?? `https://${profile.hostnames.prod}`
     const config = getJekyllConfig(profileId, blog, websiteUrl, websiteUrl, blog.basePath, "build")
     const args = ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config]
     if (includeDrafts) args.push("--drafts")
     const child = run("bundle", args, { env: bundleEnvironment })
     child.on("error", (error) => fail(`Unable to start Jekyll: ${error.message}`))
-    child.on("exit", (code, signal) => (process.exitCode = signal ? 1 : (code ?? 1)))
+    child.on("exit", async (code, signal) => {
+        process.exitCode = signal ? 1 : (code ?? 1)
+        if (process.exitCode !== 0) return
+        try {
+            const replayDirectory = join(output, "assets/motion-replay")
+            if (!existsSync(replayDirectory)) return
+            for (const file of readdirSync(replayDirectory, { withFileTypes: true })) {
+                if (!file.isFile() || !file.name.endsWith(".html")) continue
+                const filename = join(replayDirectory, file.name)
+                const html = readFileSync(filename, "utf8")
+                const compact = await compactReplayData(html, filename)
+                writeFileSync(filename, compact)
+                console.log(`Compacted ${file.name}: ${Buffer.byteLength(html)} → ${Buffer.byteLength(compact)} bytes`)
+            }
+        } catch (error) {
+            fail(`Unable to prepare replay assets: ${error.message}`)
+        }
+    })
 } else {
     const isJointSite = !requestedSite || requestedSite === "selector"
     const devProfiles = isJointSite ? Object.entries(profiles) : [[requestedSite, profile]]

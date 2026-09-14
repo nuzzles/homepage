@@ -373,27 +373,6 @@ a:focus-visible {
     border: 1px solid var(--blog-ink);
 }
 
-.evidence-figure {
-    max-width: 100%;
-    margin: 32px 0;
-}
-
-.evidence-figure a {
-    display: block;
-}
-
-.evidence-figure img {
-    margin: 0;
-}
-
-.evidence-figure figcaption {
-    max-width: 78ch;
-    margin-top: 12px;
-    color: var(--blog-muted);
-    font-size: 0.9rem;
-    line-height: 1.45;
-}
-
 .post-content iframe {
     display: block;
     width: 100%;

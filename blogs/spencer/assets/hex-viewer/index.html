@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex" />
+        <title>Hex / text</title>
+        <link rel="stylesheet" href="viewer.css" />
+        <script type="module" src="viewer.js"></script>
+    </head>
+    <body>
+        <main>
+            <header>
+                <div>
+                    <h1 id="viewer-title">Hex / text</h1>
+                </div>
+            </header>
+            <div class="view-controls">
+                <div class="tabs" role="tablist" aria-label="Byte representation">
+                    <button id="compressed-tab" type="button" role="tab" aria-selected="true" aria-controls="byte-view">
+                        Compressed
+                    </button>
+                    <button
+                        id="decoded-tab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="byte-view"
+                        tabindex="-1"
+                        disabled
+                    >
+                        Decompressed
+                    </button>
+                </div>
+                <span id="byte-count" class="count"></span>
+            </div>
+            <section id="byte-view" role="tabpanel" aria-labelledby="compressed-tab" aria-busy="true">
+                <div class="table-wrap">
+                    <table aria-label="Hex bytes and matching ASCII text" aria-describedby="keyboard-help">
+                        <thead>
+                            <tr>
+                                <th scope="col">Offset</th>
+                                <th scope="col"><div id="hex-heading" class="hex-bytes"></div></th>
+                                <th scope="col" aria-label="ASCII text">Text</th>
+                            </tr>
+                        </thead>
+                        <tbody id="byte-rows"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" aria-label="Byte pages">
+                    <button id="previous" type="button" aria-label="Previous page" disabled>← Previous</button>
+                    <span id="range">—</span>
+                    <button id="next" type="button" aria-label="Next page" disabled>Next →</button>
+                </div>
+                <p id="selection" aria-live="polite"></p>
+                <p id="error" role="alert" hidden></p>
+            </section>
+            <p id="keyboard-help" class="sr-only">
+                Select a byte to inspect it. Arrow keys move; Page Up / Down change pages.
+            </p>
+            <noscript>
+                <p>This hex/text viewer needs JavaScript.</p>
+            </noscript>
+        </main>
+    </body>
+</html>
