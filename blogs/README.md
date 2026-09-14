@@ -14,3 +14,10 @@ The normal workspace commands build and serve the configured blogs. `pnpm dev` s
 local site with profile-specific paths such as <http://localhost:5173/spencer/blog/> and
 <http://localhost:5173/sara/blog/>. Set `HOMEPAGE_SITE` to preview a specific deployed profile at
 <http://localhost:5173/blog/>.
+
+## Feature documentation
+
+- [Shared media and Mermaid diagrams](shared/README.md): images, captions, post stylesheets, and diagram embeds.
+- [Hex viewer](spencer/assets/hex-viewer/README.md): byte inspection, decompression, and sample provenance.
+- [Halo Theater motion replay](spencer/assets/motion-replay/README.md): embedding, rebuilding, playback, and source data.
+- [Embed security headers](../terraform/README.md#blog-embeds): CloudFront policies for iframe viewers.

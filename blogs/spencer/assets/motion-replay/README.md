@@ -1,5 +1,10 @@
 # Motion replay export
 
+The Octagon export, replay expansion script, and `halo-theater.css` belong to the Halo Theater post.
+Its `motion-replay.html` include loads the replay script only when a post embeds a replay.
+See [the infrastructure documentation](../../../../terraform/README.md#blog-embeds) for the
+CloudFront headers required by this iframe.
+
 `octagon.html` is a generated, self-contained export from `halo_api`'s motion replay.
 It contains one decoded first-to-50 match, the existing renderer, and local Three.js.
 The exporter also writes `octagon.json.gz`, a compressed, byte-for-byte copy of the

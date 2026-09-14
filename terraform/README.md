@@ -54,6 +54,16 @@ Every successful `main` CI run deploys the exact tested commit to `dev`. The
 Terraform provisions the environment, its targets fan out through a deployment
 matrix so each site builds, uploads, invalidates, and verifies independently.
 
+## Blog embeds
+
+CloudFront permits same-origin framing only for the blog's hex and motion replay asset directories.
+Those viewers use a separate security policy that allows their embedded fonts and blocks network
+connections. Other pages retain their framing restrictions. The local development server does not
+enforce these headers; deploy the Terraform configuration alongside the viewers.
+
+See the [hex viewer](../blogs/spencer/assets/hex-viewer/README.md) and
+[motion replay](../blogs/spencer/assets/motion-replay/README.md) documentation for embedding and rebuild instructions.
+
 ## Local validation
 
 ```sh
