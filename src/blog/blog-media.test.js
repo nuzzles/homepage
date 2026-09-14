@@ -43,10 +43,30 @@ describe("shared blog image viewing", () => {
         expect(dialog.querySelector("img").alt).toBe("A diagram")
         expect(document.body.style.position).toBe("fixed")
 
-        dialog.querySelector("button").click()
+        dialog.querySelector('[aria-label="Close enlarged image"]').click()
         expect(dialog.open).toBe(false)
         expect(document.activeElement).toBe(image)
         expect(document.body.getAttribute("style")).toBe(originalStyle)
+    })
+
+    it("provides a zoom button that stays open after pointer activation and resets on reopen", async () => {
+        const { image, dialog } = await loadImages('<img src="/image.png" alt="A diagram">')
+        image.click()
+        const zoom = [...dialog.querySelectorAll("button")].find((button) => button.textContent === "Zoom in")
+        expect(zoom.getAttribute("aria-pressed")).toBe("false")
+        zoom.dispatchEvent(new Event("pointerdown", { bubbles: true }))
+        zoom.click()
+        expect(dialog.open).toBe(true)
+        expect(dialog.classList.contains("is-zoomed")).toBe(true)
+        expect(zoom.textContent).toBe("Zoom out")
+        expect(zoom.getAttribute("aria-pressed")).toBe("true")
+        dialog.querySelector("img").click()
+        expect(zoom.textContent).toBe("Zoom in")
+        zoom.click()
+        dialog.close()
+        image.click()
+        expect(dialog.classList.contains("is-zoomed")).toBe(false)
+        expect(zoom.getAttribute("aria-pressed")).toBe("false")
     })
 
     it("uses an image link's full-size destination instead of its thumbnail", async () => {

@@ -14,6 +14,10 @@ function setupImages() {
     close.textContent = "×"
     close.className = "image-viewer-close"
     close.setAttribute("aria-label", "Close enlarged image")
+    const zoom = document.createElement("button")
+    zoom.type = "button"
+    zoom.textContent = "Zoom in"
+    zoom.setAttribute("aria-pressed", "false")
     const viewport = document.createElement("div")
     viewport.className = "image-viewer-viewport"
     viewport.tabIndex = 0
@@ -22,20 +26,23 @@ function setupImages() {
     const enlarged = document.createElement("img")
     enlarged.draggable = false
     viewport.append(enlarged)
-    toolbar.append(close)
+    toolbar.append(zoom, close)
     dialog.append(toolbar, viewport)
     document.body.append(dialog)
     let trigger, unlock
 
     const setZoom = (zoomed) => {
         dialog.classList.toggle("is-zoomed", zoomed)
+        zoom.textContent = zoomed ? "Zoom out" : "Zoom in"
+        zoom.setAttribute("aria-pressed", String(zoomed))
         viewport.scrollTo(0, 0)
     }
     const toggleZoom = () => setZoom(!dialog.classList.contains("is-zoomed"))
     enlarged.addEventListener("click", toggleZoom)
+    zoom.addEventListener("click", toggleZoom)
     close.addEventListener("click", () => dialog.close())
     // Only an actual outside tap closes; finishing a pan outside the image does not.
-    const isBackdrop = (target) => target !== enlarged && !close.contains(target)
+    const isBackdrop = (target) => target !== enlarged && !toolbar.contains(target)
     let outsideDown = false
     dialog.addEventListener("pointerdown", (event) => {
         outsideDown = isBackdrop(event.target)

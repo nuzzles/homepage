@@ -35,6 +35,11 @@ node ../halo_api/experiments/examples/build_decoded_replay.cjs --embed \
 pnpm exec prettier --write blogs/spencer/assets/motion-replay/octagon.html
 ```
 
+The profile build compacts only the embedded `CLIPS` data script in the deployed
+HTML. The checked-in export stays formatted; renderer code, licenses, and decoded
+values are preserved. This keeps the deployment below CloudFront's 10,000,000-byte
+automatic-compression limit without formatting exemptions or another runtime fetch.
+
 Edit the renderer in `halo_api/experiments/examples/theater_viewer/`, then re-export.
 Make behavior changes in the exporter source, then format the generated HTML with
 the repository's Prettier command above. The export includes the renderer's MIT notice and
@@ -43,8 +48,10 @@ viewer; no position samples are synthesized for the blog. Solid trails show the 
 10 seconds and dashed trails the next 10, each 5 CSS pixels wide, clipped to the playback window and current
 life, with gaps preserved. Recorded velocity arrows are visible. Health occupies
 the left 25% of one bar in red, with shields in the right 75%. Values are numeric:
-unknown health displays as 126 and unknown shields as 64, with full bars; decoded
-values remain unknown underneath. Death displays zero and empty bars
+until sampled in a life, health displays as 126 and shields as 64, with full bars.
+These are assumed full starting values for this Octagon mode's standard health and
+shields; decoded values remain unknown underneath. The encoded starting values may
+come from the game-type asset, but that source has not been located. Death displays zero and empty bars
 and struck-through names on player cards. The bottom-left feed says who killed whom;
 the followed player's card stays at the top center. The bottom-right score counts recorded kills through the
 playhead, including before the configured start. Raw diagnostic panels are hidden.

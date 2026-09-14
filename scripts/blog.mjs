@@ -4,6 +4,7 @@ import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFi
 import { tmpdir } from "node:os"
 import { dirname, isAbsolute, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { compactReplayData } from "./replay-assets.mjs"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const profiles = JSON.parse(readFileSync(join(root, "profiles.json"), "utf8"))
@@ -116,7 +117,24 @@ if (command === "build") {
     if (includeDrafts) args.push("--drafts")
     const child = run("bundle", args, { env: bundleEnvironment })
     child.on("error", (error) => fail(`Unable to start Jekyll: ${error.message}`))
-    child.on("exit", (code, signal) => (process.exitCode = signal ? 1 : (code ?? 1)))
+    child.on("exit", async (code, signal) => {
+        process.exitCode = signal ? 1 : (code ?? 1)
+        if (process.exitCode !== 0) return
+        try {
+            const replayDirectory = join(output, "assets/motion-replay")
+            if (!existsSync(replayDirectory)) return
+            for (const file of readdirSync(replayDirectory, { withFileTypes: true })) {
+                if (!file.isFile() || !file.name.endsWith(".html")) continue
+                const filename = join(replayDirectory, file.name)
+                const html = readFileSync(filename, "utf8")
+                const compact = await compactReplayData(html, filename)
+                writeFileSync(filename, compact)
+                console.log(`Compacted ${file.name}: ${Buffer.byteLength(html)} → ${Buffer.byteLength(compact)} bytes`)
+            }
+        } catch (error) {
+            fail(`Unable to prepare replay assets: ${error.message}`)
+        }
+    })
 } else {
     const isJointSite = !requestedSite || requestedSite === "selector"
     const devProfiles = isJointSite ? Object.entries(profiles) : [[requestedSite, profile]]
