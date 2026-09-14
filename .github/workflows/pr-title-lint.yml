@@ -28,6 +28,8 @@ jobs:
 
       - name: Lint | PR title
         id: lint
+        # Explicit bash enables pipefail so tee cannot hide lint failures.
+        shell: bash
         env:
           # Pass the title as data to prevent shell injection.
           TITLE: ${{ github.event.pull_request.title }}
