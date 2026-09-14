@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Reverse-engineering Halo: Infinite's Theater clips with AI"
+title: "Reverse-engineering Halo: Infinite's Theater films"
 description: "How I used controlled recordings, Astra, and a reconstructed replay to decode Halo Infinite's Theater format and check the results against gameplay."
 date: 2026-09-14
 categories: ai rust
