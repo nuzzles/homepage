@@ -4,4 +4,3 @@ node_modules
 terraform/.terraform.lock.hcl
 terraform/functions/*.js
 public
-blogs/spencer/assets/motion-replay/*.html

@@ -128,6 +128,7 @@ node ../halo_api/experiments/examples/build_decoded_replay.cjs --embed \
   --octagon-walls --fixed-loadout 'Bandit EVO,S7 Sniper' --blog-fonts public/fonts \
   ../halo_api/experiments/films/octagon/03-first-to-50/decoded-film.json \
   --output blogs/spencer/assets/motion-replay/octagon.html
+pnpm exec prettier --write blogs/spencer/assets/motion-replay/octagon.html
 ```
 
 ```liquid
@@ -151,7 +152,7 @@ It starts paused. There is no upload, recording picker, or external viewer link.
 bundles the replay and renderer, works without the Theater Lab, and retains its source license notices.
 The input to the exporter is `decoded-film.json`, not the original Theater binary. JavaScript and WebGL
 are required; retain the early video as a fallback. See the asset folder's README for provenance.
-Re-export after changes in `halo_api`; generated viewer HTML is excluded from Prettier.
+Re-export after changes in `halo_api`, then format the exported HTML with Prettier.
 
 CloudFront permits same-origin framing only for the hex and motion replay asset directories.
 Those viewers have a separate security policy that allows their embedded fonts and blocks network

@@ -19,7 +19,7 @@ The include supplies the blog base path, lazy loading, a sandboxed iframe, and a
 caption. When `download` is provided, a download link appears below the toy in the
 caption; the JSON is fetched only when requested. Only the viewport and playback timeline are visible. Readers cannot import another
 file or navigate to the lab. Each iframe is independent. Playback needs no parent script,
-data fetch, or lab server. The blog's shared `blog-media.js` adds an expand/collapse
+data fetch, or lab server. The post's `motion-replay/embed.js` adds an expand/collapse
 button without reloading the iframe or resetting playback. It uses native fullscreen
 where available and a fixed viewport on mobile browsers without that API.
 JavaScript and WebGL are required; the early video in the
@@ -32,10 +32,12 @@ node ../halo_api/experiments/examples/build_decoded_replay.cjs --embed \
   --octagon-walls --fixed-loadout 'Bandit EVO,S7 Sniper' --blog-fonts public/fonts \
   ../halo_api/experiments/films/octagon/03-first-to-50/decoded-film.json \
   --output blogs/spencer/assets/motion-replay/octagon.html
+pnpm exec prettier --write blogs/spencer/assets/motion-replay/octagon.html
 ```
 
 Edit the renderer in `halo_api/experiments/examples/theater_viewer/`, then re-export.
-Do not edit the generated HTML. The export includes the renderer's MIT notice and
+Make behavior changes in the exporter source, then format the generated HTML with
+the repository's Prettier command above. The export includes the renderer's MIT notice and
 the Three.js MIT license. Its data uses the same presentation adapter as the full
 viewer; no position samples are synthesized for the blog. Solid trails show the past
 10 seconds and dashed trails the next 10, each 5 CSS pixels wide, clipped to the playback window and current
