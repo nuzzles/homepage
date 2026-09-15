@@ -13,7 +13,7 @@ image:
     alt: Halo Infinite Theater replay with a match timeline, event markers, and playback controls
 ---
 
-On the week of AI comapnies [announcing solutions to Millenium Prize problems](https://openai.com/index/navier-stokes-solution/), I thought it was again time to solve an issue of tediousness - reverse engineering the opaque binary mess that is Halo: Infinite's Theater films with AI.
+On the week of AI comapnies [announcing solutions to Millenium Prize problems](https://openai.com/index/navier-stokes-solution/), I thought it was time again to attempt an issue of tediousness - reverse engineering the opaque binary mess that is Halo: Infinite's Theater films with AI.
 
 If you are unaware of what Halo: Infinite is, it's a multiplayer video game in the [Halo](<https://en.wikipedia.org/wiki/Halo_(franchise)>) franchise. If you are unaware of what _Theater_ is, it's a feature of Halo that allows you to replay and scrub the timeline of a game you played.
 
