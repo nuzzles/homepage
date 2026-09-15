@@ -1,13 +1,12 @@
 import { useState } from "react"
 import { Box, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
 import CalendarMonth from "@mui/icons-material/CalendarMonth"
-import Article from "@mui/icons-material/Article"
 import Check from "@mui/icons-material/Check"
 import ContentCopy from "@mui/icons-material/ContentCopy"
 import Description from "@mui/icons-material/Description"
 import Email from "@mui/icons-material/Email"
 import LinkedIn from "@mui/icons-material/LinkedIn"
-import { Coffee, Keyboard, Undo2 } from "lucide-react"
+import { Coffee, Feather, Keyboard, Undo2 } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -363,7 +362,7 @@ export const HomePage = () => {
                         )}
                         {showBlogButton && blogPath && (
                             <LightButton href={blogPath} variant="secondary" fullWidth>
-                                <Article sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
+                                <Feather aria-hidden="true" size="1rem" style={{ marginInlineEnd: 4, flexShrink: 0 }} />
                                 {t("home.blog")}
                             </LightButton>
                         )}
