@@ -40,6 +40,7 @@ export const ProfileSwitcher = ({ value, label, hrefForProfile }: ProfileSwitche
                     fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
                     fontSize: { xs: "clamp(1.25rem, 6.5vw, 1.75rem)", sm: "2.25rem" },
                     fontWeight: 900,
+                    letterSpacing: { xs: "0.05em", sm: theme.typography.button.letterSpacing },
                     lineHeight: 0.9,
                     textTransform: "uppercase",
                     whiteSpace: "nowrap",
