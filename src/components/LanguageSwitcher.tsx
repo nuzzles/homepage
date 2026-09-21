@@ -18,6 +18,13 @@ const languageTypography = {
     letterSpacing: "0.1em",
 } as const
 
+const flagStyles = {
+    flexShrink: 0,
+    borderRadius: "50%",
+    outline: "1px solid",
+    outlineColor: "divider",
+} as const
+
 export const LanguageSwitcher = () => {
     const { t, language, languageHref, rememberLanguage } = useLanguage()
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -66,7 +73,7 @@ export const LanguageSwitcher = () => {
                     },
                 })}
             >
-                <Box component="img" src={selected.flag} alt="" sx={{ width: 18, height: 18, flexShrink: 0 }} />
+                <Box component="img" src={selected.flag} alt="" sx={{ ...flagStyles, width: 18, height: 18 }} />
                 <Box
                     component="span"
                     sx={{
@@ -118,7 +125,7 @@ export const LanguageSwitcher = () => {
                                 },
                             })}
                         >
-                            <Box component="img" src={flag} alt="" sx={{ width: 20, height: 20, flexShrink: 0 }} />
+                            <Box component="img" src={flag} alt="" sx={{ ...flagStyles, width: 20, height: 20 }} />
                             {label}
                         </MenuItem>
                     ))}
