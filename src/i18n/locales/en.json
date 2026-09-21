@@ -32,7 +32,19 @@
         "blog": "blog",
         "scheduleOneOnOne": "Schedule a 1:1",
         "madeWith": "made with",
-        "andA": "and a"
+        "andA": "and a",
+        "biographies": {
+            "spencer": {
+                "introduction": "Spencer is a full stack software engineer with a specialization in computer graphics and AI.",
+                "details": "Spencer is a member of the <rust>Rust team</rust>, a core contributor to the <bevy>Bevy game engine</bevy>, a maintainer of <trunk>Trunk</trunk>, and a long-standing member of the <linebender>Linebender organization</linebender>."
+            },
+            "sara": {
+                "introduction": "Sara Aslani is a PhD researcher at the <uf>University of Florida</uf>, with a specialization in computation, machine learning, and AI.",
+                "details": ""
+            }
+        },
+        "readMore": "Read more...",
+        "readLess": "Read less"
     },
     "resumePage": {
         "title": "{{profile}} | Resume",

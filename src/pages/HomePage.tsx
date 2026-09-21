@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Box, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
+import { Box, Button, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
 import CalendarMonth from "@mui/icons-material/CalendarMonth"
 import Check from "@mui/icons-material/Check"
 import ContentCopy from "@mui/icons-material/ContentCopy"
@@ -8,7 +8,7 @@ import Email from "@mui/icons-material/Email"
 import LinkedIn from "@mui/icons-material/LinkedIn"
 import { Coffee, Feather, Keyboard, Undo2 } from "lucide-react"
 import { Helmet } from "react-helmet-async"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
 import { CornerFrame } from "@/components/CornerFrame"
@@ -91,6 +91,9 @@ export const HomePage = () => {
     const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const profileId = profile.id
+    const [expandedBiography, setExpandedBiography] = useState<ProfileId | null>(null)
+    const biographyExpanded = expandedBiography === profileId
+    const hasBiographyDetails = Boolean(t(`home.biographies.${profileId}.details`))
     const showBlogButton = Boolean(profile.blog?.showOnHomepage)
     const actionCount = 2 + Number(showBlogButton) + Number(Boolean(profile.calendlyUrl))
     const isLocalProfile = isLocalProfileHostname(window.location.hostname)
@@ -226,40 +229,108 @@ export const HomePage = () => {
                     component="section"
                     sx={{
                         display: "grid",
-                        gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.35fr) minmax(320px, 0.8fr)" },
+                        gridTemplateColumns: {
+                            xs: "1fr",
+                            sm: "minmax(0, 1.2fr) minmax(0, 1fr)",
+                            md: "minmax(0, 1.35fr) minmax(320px, 0.8fr)",
+                        },
                         alignItems: "center",
                         gap: { xs: 3, md: 6 },
                         pt: { xs: 2.5, md: 4 },
                     }}
                 >
-                    <Typography
-                        component="h1"
-                        variant="h1"
-                        sx={{
-                            m: 0,
-                            fontSize: { xs: "clamp(5rem, 25vw, 7rem)", md: "9.5rem" },
-                            fontWeight: 900,
-                            lineHeight: 0.75,
-                            letterSpacing: "-0.025em",
-                            textTransform: "uppercase",
-                            "@media (min-width: 420px) and (max-width: 899.95px)": {
-                                fontSize: "clamp(7rem, 18vw, 8.5rem)",
-                            },
-                        }}
-                    >
-                        {t("home.headline")}
-                    </Typography>
+                    <Box sx={{ minWidth: 0 }}>
+                        <Typography
+                            component="h1"
+                            variant="h1"
+                            sx={{
+                                m: 0,
+                                fontSize: "clamp(5rem, calc(2rem + 10vw), 9.5rem)",
+                                "&:lang(fr)": {
+                                    fontSize: "clamp(4rem, calc(1rem + 10vw), 8rem)",
+                                },
+                                fontWeight: 900,
+                                lineHeight: 0.75,
+                                letterSpacing: "-0.025em",
+                                textTransform: "uppercase",
+                            }}
+                        >
+                            {t("home.headline")}
+                        </Typography>
+                        <Typography
+                            component="p"
+                            sx={{
+                                mt: { xs: 2, md: 4 },
+                                mb: 0,
+                                maxWidth: "54ch",
+                                fontSize: { xs: "1rem", md: "1.0625rem" },
+                                lineHeight: 1.7,
+                                textWrap: "pretty",
+                                "& a": { textUnderlineOffset: "0.18em" },
+                            }}
+                        >
+                            <Trans
+                                t={t}
+                                i18nKey={`home.biographies.${profileId}.introduction`}
+                                components={{ uf: <MuiLink href="https://www.ufl.edu/" underline="always" /> }}
+                            />
+                            {hasBiographyDetails && (
+                                <Box
+                                    component="span"
+                                    id="profile-biography-details"
+                                    sx={{ display: { xs: biographyExpanded ? "inline" : "none", md: "inline" } }}
+                                >
+                                    {" "}
+                                    <Trans
+                                        t={t}
+                                        i18nKey={`home.biographies.${profileId}.details`}
+                                        components={{
+                                            rust: (
+                                                <MuiLink
+                                                    href="https://rust-lang.org/governance/people/nuzzles/"
+                                                    underline="always"
+                                                />
+                                            ),
+                                            bevy: <MuiLink href="https://bevy.org/" underline="always" />,
+                                            trunk: <MuiLink href="https://trunkrs.dev/" underline="always" />,
+                                            linebender: <MuiLink href="https://linebender.org/" underline="always" />,
+                                            uf: <MuiLink href="https://www.ufl.edu/" underline="always" />,
+                                        }}
+                                    />
+                                </Box>
+                            )}
+                            {hasBiographyDetails && (
+                                <Button
+                                    variant="text"
+                                    aria-expanded={biographyExpanded}
+                                    aria-controls="profile-biography-details"
+                                    onClick={() => setExpandedBiography(biographyExpanded ? null : profileId)}
+                                    sx={{
+                                        display: { xs: "inline", md: "none" },
+                                        minWidth: 0,
+                                        p: 0,
+                                        marginInlineStart: "0.3em",
+                                        font: "inherit",
+                                        letterSpacing: "inherit",
+                                        verticalAlign: "baseline",
+                                        textTransform: "none",
+                                        textDecoration: "underline",
+                                        textUnderlineOffset: "0.18em",
+                                        "&:hover": { textDecoration: "underline" },
+                                    }}
+                                >
+                                    {t(biographyExpanded ? "home.readLess" : "home.readMore")}
+                                </Button>
+                            )}
+                        </Typography>
+                    </Box>
 
                     <Box
                         sx={{
                             position: "relative",
                             width: "100%",
                             maxWidth: 390,
-                            justifySelf: { md: "end" },
-                            "@media (min-width: 420px) and (max-width: 899.95px)": {
-                                maxWidth: 620,
-                                justifySelf: "center",
-                            },
+                            justifySelf: { xs: "center", sm: "end" },
                         }}
                     >
                         <Box

@@ -61,7 +61,7 @@ export const PROFILE_ENTRIES = PROFILE_IDS.map((id) => ({ id, ...PROFILE_CONFIG[
 export const PROFILE_OPTIONS = PROFILE_ENTRIES.map(({ id, fullName }) => ({ id, name: fullName }))
 export const PROFILE_CARD_IMAGE_SIZES = "(max-width: 599px) calc((100vw - 28px) / 2), 350px"
 export const PROFILE_HERO_IMAGE_SIZES =
-    "(max-width: 419px) calc(100vw - 20px), (max-width: 659px) calc(100vw - 40px), (max-width: 899px) 620px, 390px"
+    "(max-width: 409px) calc(100vw - 20px), (max-width: 599px) 390px, (max-width: 899px) calc((100vw - 84px) / 2.2), 390px"
 
 const SELECTOR_HOSTNAMES: Record<DeploymentEnvironment, string> = {
     dev: "dev.imbleau.com",

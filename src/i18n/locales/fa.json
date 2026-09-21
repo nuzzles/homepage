@@ -32,7 +32,19 @@
         "blog": "وبلاگ",
         "scheduleOneOnOne": "رزرو جلسه",
         "madeWith": "ساخته شده با",
-        "andA": "و یک"
+        "andA": "و یک",
+        "biographies": {
+            "spencer": {
+                "introduction": "اسپنسر مهندس نرم‌افزار فول‌استک با تخصص در گرافیک کامپیوتری و هوش مصنوعی است.",
+                "details": "اسپنسر عضو <rust>تیم Rust</rust>، از مشارکت‌کنندگان اصلی <bevy>موتور بازی Bevy</bevy>، از نگه‌دارندگان <trunk>Trunk</trunk> و عضو دیرینهٔ <linebender>سازمان Linebender</linebender> است."
+            },
+            "sara": {
+                "introduction": "سارا اصلانی پژوهشگر دکتری در <uf>دانشگاه فلوریدا</uf> با تخصص در محاسبات، یادگیری ماشین و هوش مصنوعی است.",
+                "details": ""
+            }
+        },
+        "readMore": "بیشتر بخوانید",
+        "readLess": "نمایش کمتر"
     },
     "resumePage": {
         "title": "{{profile}} | رزومه",
