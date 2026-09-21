@@ -32,7 +32,19 @@
         "blog": "blog",
         "scheduleOneOnOne": "Planifier un entretien",
         "madeWith": "fait avec",
-        "andA": "et un"
+        "andA": "et un",
+        "biographies": {
+            "spencer": {
+                "introduction": "Spencer est un ingénieur logiciel full stack spécialisé dans l’informatique graphique et l’intelligence artificielle.",
+                "details": "Spencer est membre de l’<rust>équipe Rust</rust>, un contributeur majeur au <bevy>moteur de jeu Bevy</bevy>, un mainteneur de <trunk>Trunk</trunk> et un membre de longue date de l’<linebender>organisation Linebender</linebender>."
+            },
+            "sara": {
+                "introduction": "Sara Aslani est doctorante à l’<uf>Université de Floride</uf>, spécialisée dans le calcul, l’apprentissage automatique et l’intelligence artificielle.",
+                "details": ""
+            }
+        },
+        "readMore": "Lire la suite",
+        "readLess": "Réduire"
     },
     "resumePage": {
         "title": "{{profile}} | Curriculum vitæ",
