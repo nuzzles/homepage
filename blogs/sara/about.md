@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-This is Sara Aslani's blog.
+This is Sara Imbleau's blog.
