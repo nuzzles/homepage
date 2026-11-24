@@ -49,7 +49,7 @@
         },
         "copyFailed": "کپی نشد. برای تماس، نشانی ایمیل را انتخاب کنید.",
         "moreAbout": "می‌توانید در <about>صفحهٔ دربارهٔ من</about> بیشتر با من آشنا شوید.",
-        "greeting": "سلام، من {{name}} هستم"
+        "greeting": "سلام، <highlight>من {{name}} هستم</highlight>"
     },
     "resumePage": {
         "title": "{{profile}} | رزومه",

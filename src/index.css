@@ -494,6 +494,15 @@
     text-decoration: underline;
     text-underline-offset: 3px;
 }
+.marker-underline {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 18' preserveAspectRatio='none'%3E%3Cpath d='M4 11Q80 3 150 8T295 6M7 14Q105 9 184 12T290 10' fill='none' stroke='%23efc35b' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 0.28em;
+    background-position: 0 100%;
+    padding-bottom: 0.08em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
 .greeting-wave {
     display: inline-block;
     font-size: 0.8em;
@@ -571,8 +580,10 @@
     bottom: -16px;
     inset-inline-start: -16px;
     z-index: -1;
-    border-radius: 20px;
-    background: repeating-linear-gradient(-45deg, #e9bc59 0 3px, transparent 3px 10px);
+    fill: none;
+    stroke: #e9bc59;
+    stroke-width: 3.5;
+    stroke-linecap: round;
 }
 .portrait-spark {
     position: absolute;
@@ -580,7 +591,7 @@
     inset-inline-end: -20px;
     width: 44px;
     height: 44px;
-    fill: var(--card);
+    fill: none;
     stroke: var(--primary);
     stroke-width: 2.5;
     stroke-linejoin: round;
@@ -665,6 +676,11 @@
 }
 .project-card:hover {
     background: var(--muted);
+}
+.project-card:hover h3,
+.project-card:focus-visible h3 {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
 }
 .project-card h3 {
     font-size: 1.25rem;
@@ -837,18 +853,32 @@
             box-shadow 240ms ease-out;
     }
     .portrait-spark {
-        transition: transform 320ms ease-out;
+        animation: portrait-twinkle 4s ease-in-out infinite;
+        transform-origin: center;
+    }
+    .portrait-spark-small {
+        animation-duration: 3.4s;
+        animation-delay: -1.6s;
+    }
+    @keyframes portrait-twinkle {
+        0%,
+        100% {
+            opacity: 0.6;
+            transform: rotate(-5deg) scale(0.88);
+        }
+        45% {
+            opacity: 1;
+            transform: rotate(6deg) scale(1.08);
+        }
+        65% {
+            opacity: 0.9;
+            transform: rotate(2deg) scale(1);
+        }
     }
     @media (hover: hover) {
         .profile-portrait:hover .portrait-photo {
             transform: translateY(-3px);
             box-shadow: 0 12px 28px rgb(23 24 19 / 10%);
-        }
-        .profile-portrait:hover .portrait-spark {
-            transform: rotate(10deg) translateY(-2px);
-        }
-        .profile-portrait:hover .portrait-spark-small {
-            transform: rotate(-12deg);
         }
     }
     @keyframes hero-arrive {

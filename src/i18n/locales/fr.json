@@ -49,7 +49,7 @@
         },
         "copyFailed": "Copie impossible. Sélectionnez l’adresse e-mail pour me contacter.",
         "moreAbout": "Vous pouvez en apprendre davantage sur moi sur la <about>page À propos</about>.",
-        "greeting": "Bonjour, moi c’est {{name}}"
+        "greeting": "Bonjour, <highlight>moi c’est {{name}}</highlight>"
     },
     "resumePage": {
         "title": "{{profile}} | Curriculum vitæ",

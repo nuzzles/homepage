@@ -60,7 +60,12 @@ export const HomePage = () => {
                     <div className="hero-copy min-w-0">
                         <h1 className="hero-title">
                             <span>
-                                {t("home.greeting", { name: profile.firstName })}{" "}
+                                <Trans
+                                    t={t}
+                                    i18nKey="home.greeting"
+                                    values={{ name: profile.firstName }}
+                                    components={{ highlight: <span className="marker-underline" /> }}
+                                />{" "}
                                 <span className="greeting-wave" aria-hidden="true">
                                     👋
                                 </span>

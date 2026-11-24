@@ -49,7 +49,7 @@
         },
         "copyFailed": "Could not copy. Select the email address to contact me.",
         "moreAbout": "You can read more about me on the <about>About page</about>.",
-        "greeting": "Hi, I’m {{name}}"
+        "greeting": "Hi, <highlight>I’m {{name}}</highlight>"
     },
     "resumePage": {
         "title": "{{profile}} | Resume",
