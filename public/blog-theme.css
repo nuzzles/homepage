@@ -1,59 +1,3 @@
-@font-face {
-    font-family: "Barlow";
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: url("/fonts/barlow-500.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Barlow";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/fonts/barlow-400.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Barlow";
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url("/fonts/barlow-600.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Barlow";
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url("/fonts/barlow-700.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Barlow Condensed";
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url("/fonts/barlow-condensed-700.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Barlow Condensed";
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url("/fonts/barlow-condensed-800.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Barlow Condensed";
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url("/fonts/barlow-condensed-900.woff2") format("woff2");
-}
-
 :root {
     --blog-blue: #2047d6;
     --blog-blue-dark: #1838ae;
@@ -79,8 +23,6 @@ body {
     margin: 0;
     color: var(--blog-ink);
     background-color: var(--blog-paper);
-    font-size: 17px;
-    line-height: 1.65;
 }
 
 ::selection {
@@ -118,22 +60,8 @@ body {
     padding-block: var(--blog-top-padding);
 }
 
-.page-heading,
-.post-title {
-    margin: 0 0 0.35em;
-    color: var(--blog-ink);
-    font-family: "Barlow", Arial, sans-serif;
-    font-size: clamp(2.75rem, 8vw, 4.5rem);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    text-transform: none;
-}
-
 .post-title {
     max-width: 950px;
-    font-size: clamp(2.25rem, 6vw, 3.75rem);
-    line-height: 1.15;
 }
 
 .draft-marker {
@@ -151,9 +79,6 @@ body {
 }
 
 .post-list-heading,
-.post-content h2,
-.post-content h3,
-.post-content h4,
 .home > h1:not(.page-heading),
 .home > h2:not(.post-list-heading) {
     font-family: "Barlow", Arial, sans-serif;
@@ -259,21 +184,6 @@ body {
 
 .post-content {
     margin-bottom: 0;
-}
-
-.post-content h2 {
-    margin-top: 1.5em;
-    color: var(--blog-blue);
-    font-size: clamp(1.5rem, 4vw, 2rem);
-}
-
-.post-content h3 {
-    margin-top: 1.4em;
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-}
-
-.post-content h4 {
-    font-size: 1.4rem;
 }
 
 .post-content p,
@@ -450,13 +360,6 @@ table td {
 }
 
 @media (max-width: 680px) {
-    body {
-        font-size: 16px;
-    }
-
-
-
-
     .post-list {
         margin-right: 0;
     }
@@ -483,7 +386,6 @@ table td {
 .back-to-top a { border-radius: 8px; }
 .site-label, .draft-marker { border-radius: 4px; }
 .post-content { overflow-wrap: anywhere; }
-.post-content h2, .post-content h3, .post-content h4 { letter-spacing: -0.015em; }
 .post-meta, .rss-subscribe { font-family: "Barlow", Arial, sans-serif; letter-spacing: 0; }
 .post-header .post-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin: 32px 0 0; font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 500; }
 .post-meta time { color: var(--blog-ink); }
@@ -498,15 +400,14 @@ table td {
 }
 
 /* Fluid Markdown reading layouts, shared visually with About. */
-.blog-banner { padding-block: 8px 64px; border-bottom: 1px solid var(--blog-line); }
+.blog-banner { padding-block: var(--page-banner-padding); border-bottom: 1px solid var(--blog-line); }
 .blog-banner, .reading-post > .post-header {
     background: var(--blog-raised);
     margin-inline: calc(-1 * max(20px, 3.6vw));
     margin-top: calc(-1 * var(--blog-top-padding));
     padding-inline: max(20px, 3.6vw);
-    padding-top: var(--blog-top-padding);
+    padding-top: var(--page-banner-padding);
 }
-.blog-banner { padding-top: calc(var(--blog-top-padding) + 8px); }
 .blog-banner h1 { margin: 0; }
 .archive-year { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 5fr); gap: 32px; padding-top: 64px; }
 .archive-year-heading { align-self: start; position: sticky; top: 32px; }
@@ -523,7 +424,7 @@ table td {
 .reading-post { padding: 0; border: 0; border-radius: 0; background: transparent; }
 .post-breadcrumb { margin-bottom: 24px; }
 .reading-layout { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(0, 3fr); gap: 32px; }
-.reading-layout .post-content { min-width: 0; width: 100%; max-width: 880px; grid-column: 2; font-size: 1.1rem; line-height: 1.85; }
+.reading-layout .post-content { min-width: 0; width: 100%; max-width: 880px; grid-column: 2; }
 .reading-layout .post-content > :first-child { margin-top: 0; }
 .reading-layout .post-content :is(h2,h3) { scroll-margin-top: var(--reading-top, 32px); }
 .reading-sidebar-inner { position: sticky; top: var(--reading-top, 32px); max-height: calc(100dvh - var(--reading-top, 32px) - 32px); overflow-y: auto; }
@@ -555,7 +456,6 @@ table td {
 .post-timeline [aria-current="page"] .timeline-title { color: var(--blog-ink); }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 @media (max-width: 760px) {
-    .blog-banner { padding-bottom: 40px; }
     .archive-year { grid-template-columns: 1fr; padding-top: 48px; gap: 24px; }
     .archive-year-heading { position: static; display: flex; align-items: baseline; gap: 16px; }
     .archive-year-heading p { margin: 0; }
@@ -572,8 +472,7 @@ table td {
 }
 
 /* Baseline typography previously supplied by the Jekyll theme. */
-.page-content :is(h1, h2, h3, h4) { font-weight: 600; line-height: 1.25; }
-.page-content :is(p, ul, ol, pre, blockquote, figure) { margin: 0 0 24px; }
+.page-content :where(p, ul, ol, pre, blockquote, figure) { margin: 0 0 24px; }
 .page-content :is(ul, ol) { padding-inline-start: 24px; }
 .page-content a { text-decoration: none; }
 .page-content a:hover { text-decoration: underline; }

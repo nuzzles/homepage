@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./fonts.css";
+@import "./typography.css";
 
 @theme inline {
     --color-background: var(--background);
@@ -483,9 +485,7 @@
     margin-bottom: 14px;
 }
 .portfolio-page .hero-title,
-.section-heading h2,
-.about-banner h1,
-.about-prose h2 {
+.section-heading h2 {
     font-family: "Barlow", Tahoma, sans-serif;
     font-weight: 800;
     text-transform: none;
@@ -805,13 +805,8 @@
     text-align: start;
 }
 .about-banner {
-    padding-block: 80px;
+    padding-block: var(--page-banner-padding);
     border-bottom: 1px solid var(--color-border);
-}
-.about-banner h1 {
-    font-size: clamp(2.75rem, 7vw, 5rem);
-    line-height: 1;
-    margin: 0;
 }
 .about-layout {
     display: grid;
@@ -865,16 +860,6 @@
 }
 .about-prose section:last-child {
     margin-bottom: 0;
-}
-.about-prose h2 {
-    font-size: 1.8rem;
-    margin-bottom: 24px;
-    line-height: 1.15;
-}
-.about-prose p {
-    font-size: 1.1rem;
-    line-height: 1.85;
-    margin-bottom: 20px;
 }
 .about-prose p a,
 .about-project-list > li > a {
@@ -1023,9 +1008,6 @@
     .about-contents a {
         border: 0;
         padding-inline: 0;
-    }
-    .about-banner {
-        padding-block: 32px;
     }
 }
 @media (max-width: 399px) {

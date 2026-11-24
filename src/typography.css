@@ -1,0 +1,62 @@
+/* Loaded by both React and Hugo through the shared site stylesheet. */
+:root {
+    --page-banner-padding: 80px;
+}
+
+.about-banner h1,
+.page-heading,
+.post-title {
+    margin: 0;
+    font-family: "Barlow", Tahoma, sans-serif;
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    text-transform: none;
+}
+
+.about-prose,
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.85;
+}
+
+.about-prose :is(h2, h3, h4),
+.post-content :is(h2, h3, h4) {
+    margin-block: 1.5em 24px;
+    font-family: "Barlow", Tahoma, sans-serif;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    text-transform: none;
+}
+
+.about-prose h2,
+.post-content h2 {
+    font-size: 1.8rem;
+}
+
+.about-prose h3,
+.post-content h3 {
+    font-size: 1.5rem;
+}
+
+.about-prose h4,
+.post-content h4 {
+    font-size: 1.25rem;
+}
+
+.about-prose section > h2:first-child {
+    margin-top: 0;
+}
+
+.about-prose p,
+.post-content p {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+    :root {
+        --page-banner-padding: 32px;
+    }
+}

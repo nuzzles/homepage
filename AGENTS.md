@@ -87,6 +87,9 @@ and distinguish Spencer's contribution from the team's achievements.
   or a second component theme. Keep the cream background and blue primary color.
 - Header and footer are the same React components on the site and blog. Hugo renders
   them at build time and hydrates them; do not duplicate their markup or styles in templates.
+- Font files are declared once in `src/fonts.css`; About and Blog titles and prose share
+  `src/typography.css`, loaded through the shared site stylesheet. Change typography there
+  so the React and Hugo pages stay consistent; do not reintroduce blog-specific font rules.
 - The blog is coupled to Spencer: keep its Hugo config, content, layouts, and assets in
   `blog/`. Do not add profile-generic blog configuration or a Sara blog.
 - Preserve visible keyboard focus, 44px control targets, reduced-motion support,
