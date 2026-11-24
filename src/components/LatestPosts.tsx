@@ -46,9 +46,9 @@ export const LatestPosts = () => {
                     {t("latest.more")} <ArrowUpRight aria-hidden="true" />
                 </a>
             </div>
-            <div className="latest-grid">
+            <ol className="latest-list">
                 {posts.map((post) => (
-                    <article key={post.url}>
+                    <li key={post.url}>
                         <time dateTime={post.date}>
                             {new Intl.DateTimeFormat(language, { dateStyle: "medium" }).format(new Date(post.date))}
                         </time>
@@ -58,9 +58,9 @@ export const LatestPosts = () => {
                             </a>
                         </h3>
                         <p lang="en">{post.description}</p>
-                    </article>
+                    </li>
                 ))}
-            </div>
+            </ol>
         </section>
     )
 }

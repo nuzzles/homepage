@@ -78,7 +78,7 @@ and distinguish Spencer's contribution from the team's achievements.
 ## UI architecture
 
 - Use the owned shadcn/ui components in `src/components/ui/` for buttons, menus,
-  and cards. `components.json` configures the registry and aliases.
+  popovers, and cards. `components.json` configures the registry and aliases.
 - Use Tailwind and the semantic CSS variables in `src/index.css`; do not add MUI
   or a second component theme. Keep the cream background and blue primary color.
 - Keep the standalone Jekyll theme in `public/blog-theme.css` visually aligned.
@@ -94,15 +94,18 @@ and distinguish Spencer's contribution from the team's achievements.
 - Spencer's About page and projects live in profile configuration. Project
   descriptions and About copy use all three locale files. Use verified project facts;
   distinguish authorship from maintenance or contributions.
-- Keep Resume, Email, Calendly, GitHub, and LinkedIn together in the horizontal
-  action/social bar, using clear icon-and-name links. Do not add unconfirmed social accounts.
+- Keep the horizontal action/social bar ordered GitHub, LinkedIn, Resume, Email,
+  then Schedule 1:1. Use a PDF icon for Resume and the Calendly logo for scheduling.
+  Email opens a copyable popover that dismisses on outside click or Escape.
+  Do not add unconfirmed social accounts.
 
 - The homepage introduces the profile with a personal greeting and always shows the full
   biography. Do not add a profile dropdown or biography expansion control.
 - The profile header links are Blog, then About. The profile name links home;
   do not add separate Home or Projects links to the header.
 - Spencer's homepage sections are Latest and Projects. Latest uses Jekyll's generated
-  published-post feed; blog titles and excerpts remain English. Project cards contain
+  published-post feed, with date, title, and description in each row; blog titles and
+  excerpts remain English. Project cards contain
   only a title, description, and boxed external-link indicator and open in new tabs.
 - Spencer's former blog About URL redirects to his site About page. Keep the blog's
   ownership, contribution, category, and license information on that translated page.

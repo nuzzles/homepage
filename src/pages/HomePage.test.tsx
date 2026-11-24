@@ -49,21 +49,21 @@ describe("profile controls", () => {
     it("reveals email only after activation and announces a successful copy", async () => {
         const writeText = vi.fn().mockResolvedValue(undefined)
         vi.stubGlobal("navigator", { clipboard: { writeText } })
-        expect(container.querySelector('a[href^="mailto:"]')).toBeNull()
+        expect(document.querySelector('a[href^="mailto:"]')).toBeNull()
         await reveal()
         const email = atob(getProfile("spencer").encodedEmail)
-        expect(container.querySelector('a[href^="mailto:"]')?.getAttribute("href")).toBe(`mailto:${email}`)
-        await act(async () => container.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
+        expect(document.querySelector('a[href^="mailto:"]')?.getAttribute("href")).toBe(`mailto:${email}`)
+        await act(async () => document.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
         expect(writeText).toHaveBeenCalledWith(email)
-        expect(container.querySelector('[role="status"]')?.textContent).toBe("Copied!")
+        expect(document.querySelector('[role="status"]')?.textContent).toBe("Copied!")
     })
 
     it("keeps the email link available and explains clipboard failure", async () => {
         vi.stubGlobal("navigator", { clipboard: { writeText: vi.fn().mockRejectedValue(new Error("denied")) } })
         await reveal()
-        await act(async () => container.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
-        expect(container.querySelector('[role="status"]')?.textContent).toContain("Could not copy")
-        expect(container.querySelector('a[href^="mailto:"]')).not.toBeNull()
+        await act(async () => document.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
+        expect(document.querySelector('[role="status"]')?.textContent).toContain("Could not copy")
+        expect(document.querySelector('a[href^="mailto:"]')).not.toBeNull()
     })
 
     it("shows the complete introduction without an expansion control", () => {
@@ -86,14 +86,14 @@ describe("profile controls", () => {
     it("keeps the blog link usable when the latest feed fails", async () => {
         vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")))
         await act(async () => root.render(<App key="offline" />))
-        expect(container.querySelector(".latest-grid")?.textContent).toBe("")
+        expect(container.querySelector(".latest-list")?.textContent).toBe("")
         expect(container.querySelector(".latest-section a")?.getAttribute("href")).toBe("/blog/")
     })
 
     it("loads published posts and rejects URLs outside the blog", () => {
         expect(fetch).toHaveBeenCalledWith("/blog/latest.json", expect.any(Object))
-        expect(container.querySelector(".latest-grid")?.textContent).toContain("Published post")
-        expect(container.querySelector(".latest-grid")?.textContent).not.toContain("Unsafe URL")
-        expect(container.querySelector(".latest-grid a")?.getAttribute("target")).toBe("_blank")
+        expect(container.querySelector(".latest-list")?.textContent).toContain("Published post")
+        expect(container.querySelector(".latest-list")?.textContent).not.toContain("Unsafe URL")
+        expect(container.querySelector(".latest-list a")?.getAttribute("target")).toBe("_blank")
     })
 })
