@@ -52,6 +52,8 @@ beforeAll(() => {
         JSON.stringify({
             layoutDir: join(root, "blog/layouts"),
             params: {
+                notFoundHTML:
+                    '<!doctype html><html data-site="spencer"><head><meta name="robots" content="noindex, follow"></head><body><div id="root"></div><script type="module" src="/assets/homepage.js"></script></body></html>',
                 contentsHeader: renderBlogContentsHeader(),
                 homepageURL: "https://spencer.imbleau.com",
                 blogURL: "https://spencer.imbleau.com/blog/",
@@ -90,6 +92,14 @@ beforeAll(() => {
 afterAll(() => rmSync(temp, { recursive: true, force: true }))
 
 describe("Hugo migration", () => {
+    it("uses the translated site app for missing blog pages", () => {
+        const page = html("404.html")
+        expect(page.documentElement.dataset.site).toBe("spencer")
+        expect(page.querySelector("#root")).not.toBeNull()
+        expect(page.querySelector('script[src="/assets/homepage.js"]')).not.toBeNull()
+        expect(page.querySelector('[data-blog-chrome="header"]')).toBeNull()
+        expect(page.querySelector('meta[name="robots"]').content).toBe("noindex, follow")
+    })
     it("renders collapsible empty contents before JavaScript runs", () => {
         const contents = html(legacyPaths[0]).querySelector("[data-contents]")
         expect(contents.hidden).toBe(false)

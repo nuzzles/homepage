@@ -169,5 +169,10 @@
         "bookCount_one": "{{count}} کتاب",
         "bookCount_other": "{{count}} کتاب",
         "bookshop": "از <bookshop>کتاب‌فروشی محلی</bookshop> خود حمایت کنید."
+    },
+    "notFound": {
+        "title": "صفحه پیدا نشد",
+        "description": "این صفحه پیدا نشد. ممکن است جابه‌جا شده باشد یا پیوند نادرست باشد.",
+        "goHome": "بازگشت به صفحهٔ اصلی"
     }
 }

@@ -1,1 +1,1 @@
-{{ define "main" }}<h1 class="page-heading">Page not found</h1><p><a href="{{ site.Home.RelPermalink }}">Go back to the blog</a></p>{{ end }}
+{{ site.Params.notFoundHTML | safeHTML }}

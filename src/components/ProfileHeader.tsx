@@ -5,7 +5,7 @@ import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import { useProfileNavigation } from "@/hooks/useProfileNavigation"
 
-export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about" | "blog" }) => {
+export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about" | "blog" | "none" }) => {
     const { t } = useLanguage()
     const profile = useProfile()
     const { home, about, blog, reloadDocument } = useProfileNavigation()
