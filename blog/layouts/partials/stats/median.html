@@ -1,0 +1,11 @@
+{{ $values := sort . }}
+{{ $median := 0 }}
+{{ $length := len $values }}
+{{ if $length }}
+    {{ $middle := int (div $length 2) }}
+    {{ $median = index $values $middle }}
+    {{ if eq (mod $length 2) 0 }}
+        {{ $median = div (float (add (index $values (sub $middle 1)) $median)) 2 }}
+    {{ end }}
+{{ end }}
+{{ return $median }}

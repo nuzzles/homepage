@@ -14,13 +14,6 @@ dist
 dist-ssr
 *.local
 
-# Jekyll runtime and build output
-blogs/.bundle/
-blogs/vendor/
-blogs/**/_site/
-blogs/**/.jekyll-cache/
-blogs/**/.jekyll-metadata
-
 # Terraform runtime and local state
 .terraform/
 *.tfstate
@@ -39,3 +32,15 @@ crash.*.log
 *.njsproj
 *.sln
 *.sw?
+
+# Legacy local caches retained through the folder move
+blog/vendor/
+blog/.bundle/
+blog/**/_site/
+blog/**/.jekyll-cache/
+blog/**/.jekyll-metadata
+
+# Hugo local build state
+blog/.hugo_build.lock
+blog/resources/
+blog/public/

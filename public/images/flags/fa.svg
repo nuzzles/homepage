@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <!-- Source: https://commons.wikimedia.org/wiki/File:State_Flag_of_Iran_(1933-1964).svg
-     Public domain (PD-old): state (Lion and Sun) flag of Imperial Iran/Persia. Vendored verbatim for Ironfronts. -->
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="600 0 600 600">
-  <mask id="circle" maskUnits="userSpaceOnUse" x="600" y="0" width="600" height="600"><circle cx="900" cy="300" r="300" fill="#fff"/></mask>
-  <g mask="url(#circle)">
+     Public domain (PD-old): state (Lion and Sun) flag of Imperial Iran/Persia. Adapted to a rectangular icon with the original Lion and Sun emblem. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="450 0 900 600">
+  <g>
   <path d="m0 0h1800v600h-1800z" fill="#fff"/>
   <path d="m0 0h1800v199.99998h-1800z" fill="#239f40"/>
   <path d="m0 400h1800v199.99998h-1800z" fill="#da0000"/>

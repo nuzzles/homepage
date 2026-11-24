@@ -78,16 +78,12 @@ jobs:
       - name: Setup | Node and pnpm
         uses: ./.github/actions/setup-node
 
-      - name: Setup | Ruby and blog dependencies
-        if: matrix.has_blog
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "4.0.6"
-          bundler-cache: true
-          working-directory: blogs
-
       - name: Install | Dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Setup | Hugo
+        if: matrix.site == 'spencer'
+        run: pnpm setup:hugo
 
       - name: Configure | AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
@@ -149,7 +145,21 @@ jobs:
           curl --fail --silent --show-error --location \
             --retry 12 --retry-delay 5 --retry-connrefused \
             "https://${{ matrix.distribution_domain_name }}${{ matrix.blog_base_path }}/" \
-            | grep -F 'href="${{ matrix.blog_base_path }}/assets/main.css"'
+            | grep -F 'data-blog-chrome="header"'
+
+      - name: Verify | Stats and reading list
+        if: matrix.site == 'spencer'
+        run: |
+          curl --fail --silent --show-error --location \
+            --retry 12 --retry-delay 5 --retry-connrefused \
+            "https://${{ matrix.distribution_domain_name }}${{ matrix.blog_base_path }}/stats/" \
+            | grep -F 'class="blog-stats"' > /dev/null
+          for prefix in "" /en /fr /fa; do
+            curl --fail --silent --show-error \
+              --retry 12 --retry-delay 5 --retry-connrefused \
+              "https://${{ matrix.distribution_domain_name }}${prefix}/books" \
+              | grep -F 'data-site="spencer"' > /dev/null
+          done
 
   deployment:
     name: Complete ${{ inputs.environment }} deployment

@@ -1,0 +1,109 @@
+/* Loaded by both React and Hugo through the shared site stylesheet. */
+
+.about-banner h1,
+.page-heading,
+.post-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--type-display);
+    font-weight: 500;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    text-transform: none;
+}
+
+.about-prose,
+.post-content {
+    font-size: var(--type-lead);
+    line-height: var(--leading-prose);
+}
+
+.about-prose :is(h2, h3, h4),
+.post-content :is(h2, h3, h4) {
+    margin-block: var(--space-12) var(--space-6);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: var(--tracking-heading);
+    text-transform: none;
+}
+
+.about-prose h2,
+.post-content h2 {
+    font-size: var(--type-section);
+}
+
+.about-prose h3,
+.post-content h3 {
+    font-size: 1.5rem;
+}
+
+.about-prose h4,
+.post-content h4 {
+    font-size: 1.25rem;
+}
+
+.about-prose section > h2:first-child {
+    margin-top: 0;
+}
+
+.about-prose p,
+.post-content p {
+    margin-bottom: var(--space-6);
+}
+
+:is(.about-prose, .post-content) :is(ul, ol):not(.about-project-list) {
+    padding-inline-start: var(--space-8);
+    margin-block: 0 var(--space-6);
+    list-style-position: outside;
+}
+
+:is(.about-prose, .post-content) ul:not(.about-project-list) {
+    list-style-type: disc;
+}
+
+:is(.about-prose, .post-content) ol {
+    list-style-type: decimal;
+}
+
+:is(.about-prose, .post-content) li > :is(ul, ol) {
+    margin-block: var(--space-2) 0;
+}
+
+.marker-underline {
+    background-image: var(--marker-art);
+    background-repeat: no-repeat;
+    background-size: 100% 0.28em;
+    background-position: 0 100%;
+    padding-bottom: 0.08em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+.content-heading {
+    scroll-margin-top: 128px;
+}
+.content-heading .heading-anchor {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--control-height);
+    min-height: var(--control-height);
+    color: var(--muted-foreground);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.7em;
+    font-weight: 400;
+    vertical-align: baseline;
+}
+.content-heading .heading-anchor:is(:hover, :focus-visible) {
+    color: var(--foreground);
+    text-decoration: underline;
+}
+
+/* Shared by React Markdown pages and Hugo posts. */
+@media (max-width: 767px) {
+    .table-of-contents {
+        display: none;
+    }
+}

@@ -1,8 +1,9 @@
-import { Fragment, lazy, Suspense } from "react"
+import { Fragment } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
-import { Box, CircularProgress } from "@mui/material"
+import { ReadingListPage } from "@/pages/ReadingListPage"
 import { HowIWorkPage } from "@/pages/HowIWorkPage"
+import { AboutPage } from "@/pages/AboutPage"
 import { HomePage } from "@/pages/HomePage"
 import { ProfileSelectorPage } from "@/pages/ProfileSelectorPage"
 import { ResumeUnavailablePage } from "@/pages/ResumeUnavailablePage"
@@ -14,7 +15,7 @@ import { getProfile, isLocalProfileHostname, isProfileId, PROFILE_IDS } from "@/
 import { getConfiguredSite } from "@/site"
 import type { ProfileId } from "@/profiles"
 
-const ResumePage = lazy(() => import("@/pages/ResumePage").then((module) => ({ default: module.ResumePage })))
+import { ResumePage } from "@/pages/ResumePage"
 
 const ProfileHomeRoute = ({ profileId }: { profileId: ProfileId }) => (
     <ProfileProvider profileId={profileId}>
@@ -28,11 +29,7 @@ const ResumeContent = () => {
         return <ResumeUnavailablePage />
     }
 
-    return (
-        <Suspense fallback={<CircularProgress aria-label="Loading résumé" />}>
-            <ResumePage />
-        </Suspense>
-    )
+    return <ResumePage />
 }
 
 const ResumeRoute = ({ profileId }: { profileId: ProfileId }) => (
@@ -63,6 +60,24 @@ function App() {
     const profileSite = isProfileId(site) ? site : null
     const homeElement = profileSite ? <ProfileHomeRoute profileId={profileSite} /> : <ProfileSelectorPage />
 
+    const aboutRoutes = (prefix = "") => {
+        const page = getProfile("spencer").about
+        if (!page) return null
+        const element = (
+            <ProfileProvider profileId="spencer">
+                <AboutPage />
+            </ProfileProvider>
+        )
+        return (
+            <>
+                {profileSite === "spencer" && <Route path={`${prefix}${page.path}`} element={element} />}
+                {isLocal && (!profileSite || profileSite === "spencer") && (
+                    <Route path={`${prefix}/spencer${page.path}`} element={element} />
+                )}
+            </>
+        )
+    }
+
     const howIWorkRoutes = (prefix = "") => {
         const page = getProfile("spencer").howIWork
         if (!page) return null
@@ -81,24 +96,47 @@ function App() {
         )
     }
 
+    const readingListRoutes = (prefix = "") => {
+        const page = getProfile("spencer").readingList
+        if (!page) return null
+        const element = (
+            <ProfileProvider profileId="spencer">
+                <ReadingListPage />
+            </ProfileProvider>
+        )
+        return (
+            <>
+                {profileSite === "spencer" && (
+                    <>
+                        <Route path={`${prefix}${page.path}`} element={element} />
+                        <Route
+                            path={`${prefix}/reading-list`}
+                            element={<Navigate to={`${prefix}${page.path}`} replace />}
+                        />
+                    </>
+                )}
+                {isLocal && (!profileSite || profileSite === "spencer") && (
+                    <>
+                        <Route path={`${prefix}/spencer${page.path}`} element={element} />
+                        <Route
+                            path={`${prefix}/spencer/reading-list`}
+                            element={<Navigate to={`${prefix}/spencer${page.path}`} replace />}
+                        />
+                    </>
+                )}
+            </>
+        )
+    }
+
     return (
         <HelmetProvider>
             <BrowserRouter>
-                <Box
-                    component="main"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        minHeight: "100dvh",
-                        px: 1.25,
-                        py: 2.5,
-                    }}
-                >
+                <main className="app-shell">
                     <Routes>
                         <Route element={<PreferredLanguageLayout />}>
                             {howIWorkRoutes()}
+                            {readingListRoutes()}
+                            {aboutRoutes()}
                             <Route path="/" element={homeElement} />
                             {profileSite && <Route path="/resume" element={<ResumeRoute profileId={profileSite} />} />}
                             {isLocal && getLocalUnprefixedProfileRoutes()}
@@ -106,6 +144,8 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="en" />}>
                             {howIWorkRoutes("/en")}
+                            {readingListRoutes("/en")}
+                            {aboutRoutes("/en")}
                             <Route path="/en" element={homeElement} />
                             {profileSite && (
                                 <Route path="/en/resume" element={<ResumeRoute profileId={profileSite} />} />
@@ -115,6 +155,8 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="fr" />}>
                             {howIWorkRoutes("/fr")}
+                            {readingListRoutes("/fr")}
+                            {aboutRoutes("/fr")}
                             <Route path="/fr" element={homeElement} />
                             {profileSite && (
                                 <Route path="/fr/resume" element={<ResumeRoute profileId={profileSite} />} />
@@ -124,6 +166,8 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="fa" />}>
                             {howIWorkRoutes("/fa")}
+                            {readingListRoutes("/fa")}
+                            {aboutRoutes("/fa")}
                             <Route path="/fa" element={homeElement} />
                             {profileSite && (
                                 <Route path="/fa/resume" element={<ResumeRoute profileId={profileSite} />} />
@@ -133,7 +177,7 @@ function App() {
 
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
-                </Box>
+                </main>
             </BrowserRouter>
         </HelmetProvider>
     )

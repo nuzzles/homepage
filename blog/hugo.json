@@ -1,0 +1,46 @@
+{
+    "disableKinds": ["taxonomy", "term", "section"],
+    "enableRobotsTXT": false,
+    "markup": {
+        "goldmark": {
+            "renderer": {
+                "unsafe": true
+            }
+        },
+        "tableOfContents": {
+            "startLevel": 2,
+            "endLevel": 3
+        },
+        "highlight": {
+            "style": "friendly",
+            "noClasses": false
+        }
+    },
+    "outputs": {
+        "home": ["HTML", "RSS", "Latest"]
+    },
+    "outputFormats": {
+        "RSS": {
+            "baseName": "feed"
+        },
+        "Latest": {
+            "mediaType": "application/json",
+            "baseName": "latest",
+            "isPlainText": true
+        }
+    },
+    "module": {
+        "mounts": [
+            {
+                "source": "assets",
+                "target": "static/assets"
+            }
+        ]
+    },
+    "locale": "en-US",
+    "baseURL": "https://spencer.imbleau.com/blog/",
+    "title": "Spencer Imbleau's blog",
+    "params": {
+        "description": "Writing by Spencer Imbleau about Rust, computer graphics, open-source software, game development, AI, and engineering."
+    }
+}

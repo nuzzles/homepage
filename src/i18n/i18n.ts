@@ -82,7 +82,7 @@ i18n.use(initReactI18next).init({
         fr: { translation: fr },
         fa: { translation: fa },
     },
-    lng: getLanguageFromPath(window.location.pathname),
+    lng: typeof window === "undefined" ? defaultLanguage : getLanguageFromPath(window.location.pathname),
     fallbackLng: defaultLanguage,
     interpolation: {
         escapeValue: false,

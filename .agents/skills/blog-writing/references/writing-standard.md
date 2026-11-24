@@ -63,18 +63,17 @@ For interactive demos, provide controls, compatibility requirements, an accessib
 
 Use primary documentation, papers, source repositories, and first-party data ahead of summaries. Link a source at the claim it supports. Add attribution and license information for third-party visuals and modified assets.
 
-## Jekyll and SEO conventions
+## Hugo and SEO conventions
 
 Every post needs front matter shaped like this, with optional fields included only when used:
 
 ```yaml
 ---
-layout: post
 title: "A specific, human title"
 description: "A concise standalone description of the post and its value."
 date: YYYY-MM-DD
-modified: YYYY-MM-DD
-categories: rust graphics
+lastmod: YYYY-MM-DD
+categories: [rust, graphics]
 image:
     path: /assets/representative-image.png
     width: 1280
@@ -83,18 +82,20 @@ image:
 ---
 ```
 
+Set a stable `url` for each post. Preserve migrated URLs, including their category/date paths and `.html` suffix. Use `draft: true` for unfinished work in `content/posts/`. See [blog development](../../../../docs/blog-development.md) for setup and shortcodes.
+
 Apply these rules:
 
-- Make the filename date and `date` agree. Use `modified` only for a meaningful later revision.
+- Make the filename date and `date` agree. Use `lastmod` only for a meaningful later revision.
 - Write a unique description that reads naturally in search results, usually about 120–160 characters. Do not reuse another post's description.
 - Use a small number of stable, accurate categories; they also contribute post keywords.
 - Use a representative page image when one exists. Otherwise rely on the configured site-wide social image.
 - Keep exactly one clear page title and a logical heading hierarchy beneath it.
 - Use descriptive link text and image alt text; do not stuff keywords into either.
 - Link to relevant earlier posts or the canonical homepage when useful, not mechanically.
-- Let `jekyll-seo-tag`, the shared head include, and `jekyll-sitemap` generate canonical URLs, social metadata, author data, and sitemap entries.
+- Let the shared Hugo head template and sitemap renderer generate canonical URLs, social metadata, author data, and sitemap entries.
 
-For a production check from the repository root, use the pinned bundle and build the Spencer source to a temporary destination, then inspect the generated `<head>` and sitemap. A full profile build is appropriate when post assets or shared site integration changed.
+For a production check from the repository root, run `pnpm setup:hugo` and `HOMEPAGE_SITE=spencer pnpm build`, then inspect the generated `<head>` and sitemap. A full profile build is appropriate when post assets or shared site integration changed.
 
 ## Ready-to-publish checklist
 

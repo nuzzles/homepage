@@ -1,0 +1,45 @@
+<figure class="evidence-figure motion-replay-figure">
+    {{ if .Get "title" }}
+    <div class="motion-replay-title">{{ .Get "title" }}</div>
+    {{ end }}
+    <div class="motion-replay-player" data-replay-player>
+        <button
+            type="button"
+            class="replay-expand"
+            aria-label="Expand replay"
+            aria-expanded="false"
+            title="Expand replay"
+            hidden
+        >
+            <svg
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+            >
+                <path class="expand-icon" d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" />
+                <path class="collapse-icon" d="M3 8h5V3m13 5h-5V3M8 21v-5H3m13 5v-5h5" />
+            </svg>
+        </button>
+        <iframe
+            src="{{ strings.TrimPrefix "/" (.Get "file") | relURL }}{{ if or (.Get "start") (.Get "end") }}#{{ if .Get "start" }}start={{ .Get "start" }}&amp;{{ end }}{{ if .Get "end" }}end={{ .Get "end" }}{{ end }}{{ end }}"
+            title="{{ .Get "title" | default "Motion replay" }}"
+            height="620"
+            loading="lazy"
+            sandbox="allow-scripts"
+        ></iframe>
+    </div>
+    {{ if or (.Get "description") (.Get "download") }}
+    <figcaption>
+        {{ if .Get "description" }}{{ .Get "description" }}{{ end }} {{ if .Get "download" }}
+        <span class="motion-replay-download">
+            <a href="{{ strings.TrimPrefix "/" (.Get "download") | relURL }}" download>Download replay data (compressed JSON)</a>
+        </span>
+        {{ end }}
+    </figcaption>
+    {{ end }}
+</figure>
+<script type="module" src="{{ "assets/motion-replay/embed.js" | relURL }}"></script>

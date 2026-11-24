@@ -45,15 +45,11 @@ jobs:
       - name: Setup | Node and pnpm
         uses: ./.github/actions/setup-node
 
-      - name: Setup | Ruby and blog dependencies
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "4.0.6"
-          bundler-cache: true
-          working-directory: blogs
-
       - name: Install | Dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Setup | Hugo
+        run: pnpm setup:hugo
 
       - name: Check | Web
         run: pnpm check

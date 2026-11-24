@@ -1,0 +1,31 @@
+{{ $year := .year }}
+{{ $days := .days }}
+{{ $dayPosts := .dayPosts }}
+{{ $start := .start }}
+{{ $end := .end }}
+{{ $dayCount := int (div ($end.Sub $start).Hours 24) }}
+{{ $offset := mod (add (int $start.Weekday) 6) 7 }}
+{{ $columns := int (math.Ceil (div (float (add $dayCount $offset)) 7)) }}
+{{ $width := sub (add 26 (mul $columns 14)) 4 }}
+        <svg class="stats-calendar" viewBox="0 0 {{ $width }} 124" width="{{ $width }}" height="124" role="group" aria-labelledby="calendar-title-{{ $year.year }}-{{ .key }}">
+            <title id="calendar-title-{{ $year.year }}-{{ .key }}">Posts per day in {{ $year.year }}: {{ $year.posts }} total. Yearly totals are in the tables below.</title>
+            {{ range $row, $label := slice "M" "T" "W" "T" "F" "S" "S" }}<text class="stats-weekday" x="0" y="{{ add 35 (mul $row 14) }}">{{ $label }}</text>{{ end }}
+            {{ range seq 0 (sub $dayCount 1) }}
+                {{ $date := $start.AddDate 0 0 . }}
+                {{ $count := index $days ($date.Format "2006-01-02") | default 0 }}
+                {{ $column := int (div (add . $offset) 7) }}
+                {{ $x := add 26 (mul $column 14) }}
+                {{ $y := add 26 (mul (mod (add (int $date.Weekday) 6) 7) 14) }}
+                {{ if eq $date.Day 1 }}
+                    {{ $nextMonth := $date.AddDate 0 1 0 }}
+                    {{ $nextColumn := int (div (add (int (div ($nextMonth.Sub $start).Hours 24)) $offset) 7) }}
+                    {{ $labelX := add $x (div (sub (mul (sub $nextColumn $column) 14) 4) 2) }}
+                    <text class="stats-month" x="{{ $labelX }}" y="14" text-anchor="middle">{{ $date.Format "January" }}</text>
+                {{ end }}
+                {{ $key := $date.Format "2006-01-02" }}
+                {{ $posts := index $dayPosts $key }}
+                {{ if $posts }}<a href="{{ (index $posts 0).url }}" role="button" tabindex="0" class="stats-day-trigger" data-stats-popup="day-{{ $key }}" aria-label="{{ $date.Format "January 2, 2006" }}: {{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }}. Show post links." aria-haspopup="dialog" aria-expanded="false">{{ end }}
+                <rect x="{{ $x }}" y="{{ $y }}" width="10" height="10" rx="1" class="stats-day{{ if gt $count 0 }} has-posts{{ end }}" data-date="{{ $date.Format "2006-01-02" }}" data-count="{{ $count }}"><title>{{ $date.Format "January 2, 2006" }}: {{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }}</title></rect>
+                {{ if $posts }}</a>{{ end }}
+            {{ end }}
+        </svg>

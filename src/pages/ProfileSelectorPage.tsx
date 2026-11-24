@@ -1,7 +1,6 @@
-import { Box, ButtonBase, Typography } from "@mui/material"
-import ArrowForward from "@mui/icons-material/ArrowForward"
+import { ArrowRight } from "lucide-react"
 import { Helmet } from "react-helmet-async"
-import { CornerFrame } from "@/components/CornerFrame"
+import { Card } from "@/components/ui/card"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 import {
@@ -53,135 +52,45 @@ export const ProfileSelectorPage = () => {
                 <link rel="alternate" hrefLang="fa" href="https://imbleau.com/fa/" />
                 <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
             </Helmet>
-            <Box component="article" sx={{ width: "100%", maxWidth: 760, mx: "auto", px: { xs: 1, sm: 2.5 } }}>
-                <Box
-                    component="header"
-                    sx={(theme) => ({
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: 2,
-                        pb: 1,
-                        borderBottom: `1px solid ${theme.palette.text.primary}`,
-                    })}
-                >
-                    <Typography
-                        component="span"
-                        sx={{
-                            fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
-                            fontSize: { xs: "1.75rem", sm: "2.25rem" },
-                            fontWeight: 900,
-                            lineHeight: 0.9,
-                            textTransform: "uppercase",
-                        }}
-                    >
-                        {t("profileSelector.headerLabel")}
-                    </Typography>
+            <article className="w-full max-w-3xl">
+                <header className="profile-header justify-between">
+                    <h1 className="text-2xl font-semibold tracking-tight">{t("profileSelector.headerLabel")}</h1>
                     <LanguageSwitcher />
-                </Box>
-
-                <Box component="section" aria-label="Profiles" sx={{ py: { xs: 4, sm: 6 } }}>
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                            gap: { xs: 1, sm: 2.5 },
-                        }}
-                    >
-                        {PROFILE_ENTRIES.map(({ id, firstName, fullName, image, imageSrcSet }) => (
-                            <Box key={id} sx={{ position: "relative", minWidth: 0 }}>
-                                <Box
-                                    aria-hidden="true"
-                                    sx={(theme) => ({
-                                        position: "absolute",
-                                        inset: { xs: "12px -4px -4px 12px", sm: "16px -8px -8px 16px" },
-                                        backgroundColor: theme.palette.primary.main,
-                                    })}
+                </header>
+                <div className="grid grid-cols-2 gap-4 py-8 sm:gap-6 sm:py-12">
+                    {PROFILE_ENTRIES.map(({ id, firstName, fullName, image, imageSrcSet, roleKey }) => (
+                        <Card key={id} className="overflow-hidden shadow-none transition-shadow hover:shadow-md">
+                            <a
+                                className="profile-choice group block rounded-xl"
+                                href={hrefForProfile(id)}
+                                aria-label={fullName}
+                            >
+                                <img
+                                    className="aspect-square w-full object-cover"
+                                    src={image}
+                                    srcSet={imageSrcSet}
+                                    sizes={PROFILE_CARD_IMAGE_SIZES}
+                                    fetchPriority="high"
+                                    loading="eager"
+                                    alt=""
                                 />
-                                <CornerFrame>
-                                    <ButtonBase
-                                        component="a"
-                                        href={hrefForProfile(id)}
-                                        aria-label={fullName}
-                                        sx={(theme) => ({
-                                            display: "block",
-                                            width: "100%",
-                                            color: theme.palette.text.primary,
-                                            backgroundColor: theme.palette.background.paper,
-                                            border: `1px solid ${theme.palette.text.primary}`,
-                                            textAlign: "start",
-                                            "&:focus-visible": {
-                                                outline: `2px solid ${theme.palette.primary.main}`,
-                                                outlineOffset: 3,
-                                            },
-                                            "&:hover .profile-photo": {
-                                                transform: "scale(1.02)",
-                                            },
-                                            "&:hover .profile-name": {
-                                                color: theme.palette.primary.main,
-                                            },
-                                        })}
-                                    >
-                                        <Box sx={{ overflow: "hidden" }}>
-                                            <Box
-                                                className="profile-photo"
-                                                component="img"
-                                                src={image}
-                                                srcSet={imageSrcSet}
-                                                sizes={PROFILE_CARD_IMAGE_SIZES}
-                                                fetchPriority="high"
-                                                loading="eager"
-                                                alt={fullName}
-                                                sx={{
-                                                    display: "block",
-                                                    width: "100%",
-                                                    aspectRatio: "1 / 1",
-                                                    objectFit: "cover",
-                                                    transition: "transform 180ms ease-out",
-                                                }}
-                                            />
-                                        </Box>
-                                        <Box
-                                            component="span"
-                                            sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "space-between",
-                                                gap: 1,
-                                                px: { xs: 1.25, sm: 2 },
-                                                py: { xs: 1, sm: 1.5 },
-                                            }}
-                                        >
-                                            <Box
-                                                className="profile-name"
-                                                component="span"
-                                                sx={{
-                                                    minWidth: 0,
-                                                    fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
-                                                    fontSize: { xs: "1.6rem", sm: "2.25rem" },
-                                                    fontWeight: 800,
-                                                    lineHeight: 1,
-                                                    textTransform: "uppercase",
-                                                    transition: "color 120ms ease-out",
-                                                }}
-                                            >
-                                                {firstName}
-                                            </Box>
-                                            <ArrowForward
-                                                sx={{
-                                                    flexShrink: 0,
-                                                    fontSize: { xs: "1.25rem", sm: "1.5rem" },
-                                                    "[dir='rtl'] &": { transform: "rotate(180deg)" },
-                                                }}
-                                            />
-                                        </Box>
-                                    </ButtonBase>
-                                </CornerFrame>
-                            </Box>
-                        ))}
-                    </Box>
-                </Box>
-            </Box>
+                                <div className="p-4 sm:p-6">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <h2 className="text-xl font-semibold group-hover:text-primary sm:text-2xl">
+                                            {firstName}
+                                        </h2>
+                                        <ArrowRight
+                                            aria-hidden="true"
+                                            className="size-5 shrink-0 text-primary rtl:rotate-180"
+                                        />
+                                    </div>
+                                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(roleKey)}</p>
+                                </div>
+                            </a>
+                        </Card>
+                    ))}
+                </div>
+            </article>
         </>
     )
 }

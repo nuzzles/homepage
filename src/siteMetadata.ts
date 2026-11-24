@@ -86,9 +86,8 @@ const localizedUrl = (baseUrl: string, prefix: string, route: string) =>
 
 export function getRobotsTxt(site: BuildSite): string {
     const metadata = getStaticSiteMetadata(site)
-    const profile = site === "selector" ? null : getProfile(site)
     const sitemaps = [`${metadata.baseUrl}/sitemap.xml`]
-    if (profile?.blog) sitemaps.push(`${metadata.baseUrl}${profile.blog.basePath}/sitemap.xml`)
+    if (site === "spencer") sitemaps.push(`${metadata.baseUrl}/blog/sitemap.xml`)
 
     return `User-agent: *\nAllow: /\n\n${sitemaps.map((sitemap) => `Sitemap: ${sitemap}`).join("\n")}\n`
 }
@@ -107,8 +106,16 @@ export function getSitemapXml(site: BuildSite): string {
         pages.push({ route: "/resume", lastModified: profile.resume.lastModified, priority: "0.8" })
     }
 
+    if (profile?.about) {
+        pages.push({ route: profile.about.path, lastModified: profile.about.lastModified, priority: "0.8" })
+    }
+
     if (profile?.howIWork) {
         pages.push({ route: profile.howIWork.path, lastModified: profile.howIWork.lastModified, priority: "0.7" })
+    }
+
+    if (profile?.readingList) {
+        pages.push({ route: profile.readingList.path, lastModified: profile.readingList.lastModified, priority: "0.6" })
     }
 
     const urls = languages.flatMap((language) =>

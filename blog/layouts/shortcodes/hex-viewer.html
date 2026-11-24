@@ -1,0 +1,6 @@
+{{ $data := hugo.Data.halo_theater_hex }}
+<figure class="evidence-figure hex-viewer-figure">
+    <iframe data-hex-viewer src="{{ "assets/hex-viewer/index.html" | relURL }}" title="{{ $data.title }}" height="700" loading="lazy"></iframe>
+    <template data-hex-text>{{ $data.text }}</template><figcaption>{{ $data.description }}</figcaption>
+</figure>
+<script type="module" src="{{ "assets/hex-viewer/embed.js" | relURL }}"></script>

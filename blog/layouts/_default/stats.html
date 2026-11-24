@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{ $stats := partial "stats/data.html" . }}
+<div class="blog-stats">
+    <header class="blog-banner"><h1 class="page-heading">Blog stats</h1></header>
+    <p class="stats-introduction">A look at how much I write and how that changes over time. These numbers come from the published posts on this blog.</p>
+    {{ if $stats.postCount }}
+    <dl class="stats-totals">
+        <div><dt>Years writing</dt><dd><strong>{{ len $stats.years }}</strong><span>{{ $stats.firstYear }}–{{ $stats.lastYear }}</span></dd></div>
+        <div><dt>Posts</dt><dd><strong data-stat="posts">{{ $stats.postCount }}</strong><span>Median of {{ partial "stats/number.html" $stats.medianPosts }} a year</span></dd></div>
+        <div><dt>Words</dt><dd><strong data-stat="words">{{ lang.FormatNumber 0 $stats.totalWords }}</strong><span>Median of {{ partial "stats/number.html" $stats.medianWords }} a post</span></dd></div>
+    </dl>
+    <section class="stats-activity" aria-labelledby="per-day">
+        <h2 class="content-heading" id="per-day"><span class="marker-underline">Posts per day</span><a class="heading-anchor" href="#per-day" aria-label="Link to Posts per day">#</a></h2>
+        <p class="stats-note">Each square is one day. Select a published day to see its posts.</p>
+        <div class="stats-legend"><span><i class="stats-day" aria-hidden="true"></i>No posts</span><span><i class="stats-day has-posts" aria-hidden="true"></i>1+ posts</span></div>
+        {{ range sort $stats.years "year" "desc" }}{{ partial "stats/calendar.html" (dict "year" . "days" $stats.days "dayPosts" $stats.dayPosts) }}{{ end }}
+    </section>
+    <div class="stats-charts">
+        {{ partial "stats/chart.html" (dict "id" "posts-per-year" "title" "Posts per year" "period" "Year" "valueLabel" "Posts" "metric" "posts" "rows" $stats.years) }}
+        {{ partial "stats/chart.html" (dict "id" "words-per-year" "title" "Words per year" "period" "Year" "valueLabel" "Words" "metric" "words" "rows" $stats.years) }}
+        {{ partial "stats/chart.html" (dict "id" "posts-per-month" "title" "Posts per month" "description" "The last 24 calendar months, including months with no posts." "period" "Month" "valueLabel" "Posts" "metric" "posts" "rows" $stats.months) }}
+        {{ partial "stats/chart.html" (dict "id" "words-per-month" "title" "Words per month" "description" "The last 24 calendar months, including months with no posts." "period" "Month" "valueLabel" "Words" "metric" "words" "rows" $stats.months) }}
+        {{ partial "stats/chart.html" (dict "id" "median-words" "title" "Median words per post" "period" "Year" "valueLabel" "Words" "metric" "median" "rows" $stats.years) }}
+    </div>
+    <p class="stats-note stats-method">Updated whenever the site builds. Drafts and future-dated posts are excluded. Years without posts count toward the yearly median. Word counts use Hugo’s count of each rendered post.</p>
+    {{ else }}<p>No published posts yet.</p>{{ end }}
+    <div data-stats-interactions></div>
+</div>
+{{ end }}

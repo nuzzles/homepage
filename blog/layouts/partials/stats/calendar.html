@@ -1,0 +1,22 @@
+{{ $year := .year }}
+{{ $days := .days }}
+{{ $dayPosts := .dayPosts }}
+{{ $start := time.AsTime (printf "%d-01-01T00:00:00Z" $year.year) }}
+{{ $end := $start.AddDate 1 0 0 }}
+<section class="stats-calendar-year" aria-labelledby="activity-{{ $year.year }}">
+    <div class="stats-year-label"><h3 id="activity-{{ $year.year }}">{{ $year.year }}</h3><p>{{ $year.posts }} {{ if eq $year.posts 1 }}post{{ else }}posts{{ end }}</p></div>
+    <div class="stats-calendar-full">
+        {{ partial "stats/calendar-grid.html" (dict "year" $year "days" $days "dayPosts" $dayPosts "start" $start "end" $end "key" "full") }}
+    </div>
+    <div class="stats-calendar-quarters">
+        {{ range seq 0 3 }}
+            {{ $quarterStart := $start.AddDate 0 (mul . 3) 0 }}
+            {{ partial "stats/calendar-grid.html" (dict "year" $year "days" $days "dayPosts" $dayPosts "start" $quarterStart "end" ($quarterStart.AddDate 0 3 0) "key" (printf "quarter-%d" .)) }}
+        {{ end }}
+    </div>
+    {{ range $key, $posts := $dayPosts }}
+        {{ if hasPrefix $key (string $year.year) }}
+            <template id="day-{{ $key }}"><p>{{ (time.AsTime $key).Format "January 2, 2006" }}</p><ul>{{ range $posts }}<li><a href="{{ .url }}">{{ .title }}</a></li>{{ end }}</ul></template>
+        {{ end }}
+    {{ end }}
+</section>

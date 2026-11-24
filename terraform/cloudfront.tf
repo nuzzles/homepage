@@ -5,7 +5,7 @@ locals {
   blog_sites = {
     for site, config in local.profile_sites : site => config if config.blog_base_path != null
   }
-  spa_route_patterns = ["/resume*", "/en*", "/fr*", "/fa*", "/how-i-work*"]
+  spa_route_patterns = ["/resume*", "/en*", "/fr*", "/fa*", "/how-i-work*", "/about*"]
 }
 
 resource "aws_cloudfront_function" "blog_router" {
@@ -17,6 +17,7 @@ resource "aws_cloudfront_function" "blog_router" {
   publish = true
   code = templatefile("${path.module}/functions/blog-router.js", {
     blog_base_path = jsonencode(each.value.blog_base_path)
+    about_redirect = jsonencode("/about")
   })
 }
 

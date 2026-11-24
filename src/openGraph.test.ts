@@ -48,7 +48,7 @@ describe("static Open Graph metadata", () => {
         expect(getSitemapXml("sara")).not.toContain("/resume")
         expect(getSitemapXml("spencer")).toContain("/resume")
         expect(getRobotsTxt("spencer")).toContain("https://spencer.imbleau.com/blog/sitemap.xml")
-        expect(getRobotsTxt("sara")).toContain("https://sara.imbleau.com/blog/sitemap.xml")
+        expect(getRobotsTxt("sara")).not.toContain("/blog/")
         expect(getRobotsTxt("selector")).not.toContain("/blog/sitemap.xml")
     })
 
@@ -61,6 +61,23 @@ describe("static Open Graph metadata", () => {
         expect(sitemap).not.toContain("<loc>https://spencer.imbleau.com/how-i-work</loc>")
         expect(getSitemapXml("sara")).not.toContain("/how-i-work")
         expect(getSitemapXml("selector")).not.toContain("/how-i-work")
+    })
+
+    it("includes the translated reading list only in Spencer's sitemap", () => {
+        for (const language of ["en", "fr", "fa"]) {
+            expect(getSitemapXml("spencer")).toContain(`<loc>https://spencer.imbleau.com/${language}/books</loc>`)
+        }
+        expect(getSitemapXml("sara")).not.toContain("/books")
+        expect(getSitemapXml("selector")).not.toContain("/books")
+    })
+
+    it("includes translated About routes only in Spencer's sitemap", () => {
+        const sitemap = getSitemapXml("spencer")
+        for (const lang of ["en", "fr", "fa"])
+            expect(sitemap).toContain(`<loc>https://spencer.imbleau.com/${lang}/about</loc>`)
+        expect(sitemap).toContain('hreflang="x-default" href="https://spencer.imbleau.com/about"')
+        expect(getSitemapXml("sara")).not.toContain("/about")
+        expect(getSitemapXml("selector")).not.toContain("/about")
     })
 
     it("reserves the bare URL for language negotiation", () => {

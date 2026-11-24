@@ -23,11 +23,6 @@
             "noscriptRole": "Software Engineer"
         },
         "lastModified": "2026-09-05",
-        "blog": {
-            "source": "blogs/spencer",
-            "basePath": "/blog",
-            "showOnHomepage": true
-        },
         "resume": {
             "pdfUrl": "https://nuzzles.github.io/resume/resume.pdf",
             "embedUrl": "https://nuzzles.github.io/resume/embed.html",
@@ -36,14 +31,14 @@
         },
         "socials": [
             {
-                "kind": "linkedin",
-                "label": "LINKEDIN / SIMBLEAU",
-                "href": "https://www.linkedin.com/in/simbleau/"
+                "kind": "github",
+                "label": "GitHub",
+                "href": "https://www.github.com/nuzzles/"
             },
             {
-                "kind": "github",
-                "label": "GITHUB / NUZZLES",
-                "href": "https://www.github.com/nuzzles/"
+                "kind": "linkedin",
+                "label": "LinkedIn",
+                "href": "https://www.linkedin.com/in/simbleau/"
             }
         ],
         "howIWork": {
@@ -51,6 +46,62 @@
             "lastModified": "2026-11-23",
             "titleKey": "howIWorkPage.title",
             "descriptionKey": "howIWorkPage.description"
+        },
+        "about": {
+            "path": "/about",
+            "lastModified": "2026-11-24",
+            "titleKey": "aboutPage.title",
+            "descriptionKey": "aboutPage.description"
+        },
+        "projects": [
+            {
+                "id": "monet",
+                "name": "Monet",
+                "href": "https://monet3d.com",
+                "descriptionKey": "projects.monet.description"
+            },
+            {
+                "id": "bevyVello",
+                "name": "bevy_vello",
+                "href": "https://github.com/linebender/bevy_vello",
+                "descriptionKey": "projects.bevyVello.description"
+            },
+            {
+                "id": "trunk",
+                "name": "Trunk",
+                "href": "https://github.com/trunk-rs/trunk",
+                "descriptionKey": "projects.trunk.description"
+            },
+            {
+                "id": "halo",
+                "name": "halo_api",
+                "href": "https://github.com/nuzzles/halo_api",
+                "descriptionKey": "projects.halo.description"
+            },
+            {
+                "id": "nbody",
+                "name": "nbody-wasm-sim",
+                "href": "https://github.com/nuzzles/nbody-wasm-sim",
+                "descriptionKey": "projects.nbody.description"
+            },
+            {
+                "id": "haloMagick",
+                "name": "Halo Magick",
+                "href": "https://halomagick.com",
+                "descriptionKey": "projects.haloMagick.description"
+            },
+            {
+                "id": "nvtx",
+                "name": "nvtx",
+                "href": "https://github.com/nuzzles/nvtx",
+                "descriptionKey": "projects.nvtx.description"
+            }
+        ],
+        "readingList": {
+            "path": "/books",
+            "lastModified": "2026-11-24",
+            "titleKey": "readingListPage.title",
+            "descriptionKey": "readingListPage.description"
         }
     },
     "sara": {
@@ -74,16 +125,11 @@
             "noscriptRole": "Phd Neuroscience"
         },
         "lastModified": "2026-09-05",
-        "blog": {
-            "source": "blogs/sara",
-            "basePath": "/blog",
-            "showOnHomepage": false
-        },
         "resume": null,
         "socials": [
             {
                 "kind": "linkedin",
-                "label": "LINKEDIN / SARA IMBLEAU",
+                "label": "LinkedIn",
                 "href": "https://www.linkedin.com/in/sarah-aslani-76f9/"
             }
         ]

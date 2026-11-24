@@ -1,4 +1,10 @@
 {
+    "footer": {
+        "claudeHappy": "Rendre Claude heureux",
+        "credit": "Fait avec <coffee/> et <claude/>",
+        "coffee": "café",
+        "navigation": "Navigation de pied de page"
+    },
     "meta": {
         "title": "Spencer Imbleau | Page d'accueil",
         "description": "Ceci est la page Web de Spencer Imbleau. Je suis un ingénieur logiciel américain.",
@@ -18,33 +24,36 @@
         "personDescription": "Chercheuse en neurosciences titulaire d'un doctorat."
     },
     "home": {
-        "headline": "Bonjour.",
         "sticker": "Je suis Spencer.",
         "role": "Ingénieur logiciel",
         "saraSticker": "Je suis Sara.",
         "saraRole": "Chercheuse en neurosciences (Ph. D.)",
         "startHere": "Commencez ici.",
-        "revealEmail": "afficher le courriel",
-        "copied": "copié !",
-        "copy": "copier",
-        "backToSelector": "retour au choix du profil",
-        "resume": "curriculum vitæ",
-        "blog": "blog",
-        "scheduleOneOnOne": "Planifier un entretien",
-        "madeWith": "fait avec",
+        "revealEmail": "E-mail",
+        "copied": "Copié !",
+        "copy": "Copier",
+        "backToSelector": "Retour au choix du profil",
+        "resume": "CV",
+        "blog": "Blog",
+        "scheduleOneOnOne": "Rendez-vous 1:1",
+        "madeWith": "Fait avec",
         "andA": "et un",
         "biographies": {
             "spencer": {
-                "introduction": "Ingénieur logiciel spécialisé dans la création de systèmes graphiques accélérés par GPU, d’applications d’IA et de systèmes complexes. Je travaille principalement avec Rust, TypeScript, WebAssembly et Python.",
-                "details": "Je suis également <rust>membre de l’équipe de triage de Rust</rust>, <bevy>contributeur à Bevy</bevy>, <trunk>mainteneur principal de Trunk</trunk> et <linebender>mainteneur de Linebender</linebender>."
+                "introduction": "Je suis membre du personnel technique chez <blue>Blue Origin</blue>, <rust>membre de l’équipe de triage de Rust</rust>, <bevy>contributeur à Bevy</bevy>, <trunk>mainteneur principal de Trunk</trunk> et <linebender>mainteneur chez Linebender</linebender>.",
+                "details": ""
             },
             "sara": {
                 "introduction": "Sara Imbleau est doctorante à l’<uf>Université de Floride</uf>, spécialisée dans le calcul, l’apprentissage automatique et l’intelligence artificielle.",
                 "details": ""
             }
         },
-        "readMore": "Lire la suite",
-        "readLess": "Réduire"
+        "copyFailed": "Copie impossible. Rédigez un e-mail ou sélectionnez l’adresse pour la copier manuellement.",
+        "moreAbout": "Vous pouvez en apprendre davantage sur moi sur la <about>page À propos</about>.",
+        "greeting": "Bonjour, <highlight>moi c’est {{name}}</highlight>",
+        "composeEmail": "Rédiger un e-mail",
+        "copyEmail": "Copier l’adresse",
+        "closeEmail": "Fermer la fenêtre e-mail"
     },
     "resumePage": {
         "title": "{{profile}} | Curriculum vitæ",
@@ -53,15 +62,18 @@
         "loading": "Chargement du curriculum vitæ…",
         "loadingHelp": "Le chargement est long ? Ouvrez directement le PDF.",
         "openPdf": "Ouvrir le PDF",
-        "goBack": "retour",
-        "downloadResume": "télécharger",
+        "goBack": "Retour",
+        "downloadResume": "Télécharger",
         "unavailablePageTitle": "{{profile}} | Curriculum vitæ",
         "unavailableDescription": "Le curriculum vitæ de {{profile}} sera bientôt disponible.",
         "unavailable": "Curriculum vitæ indisponible",
-        "comingSoon": "Bientôt disponible."
+        "comingSoon": "Bientôt disponible.",
+        "downloading": "Téléchargement…",
+        "documentLanguage": "CV disponible uniquement en anglais"
     },
     "languageSwitcher": {
-        "label": "Langue du site :"
+        "label": "Langue du site :",
+        "title": "Langue"
     },
     "profileSwitcher": {
         "label": "Choisir un profil"
@@ -73,52 +85,86 @@
     },
     "howIWorkPage": {
         "title": "Ma façon de travailler",
-        "description": "Les principes qui guident mon travail d’ingénierie et ma collaboration : utilité, réussite collective, franchise, curiosité, équité et responsabilité.",
-        "label": "Valeurs personnelles",
-        "testLabel": "Mon critère",
-        "introduction": "Je veux construire des choses utiles avec des personnes qui se font confiance. Je mesure ma contribution aux problèmes que nous résolvons, à la qualité du résultat et à la capacité de mes collègues à mieux faire leur travail. Voici les principes que je choisis de mettre en pratique.",
-        "principles": [
-            {
-                "title": "Servir un objectif qui en vaut la peine",
-                "body": "Comprendre à qui le travail profite et pourquoi il compte. Laisser cet objectif guider les compromis. Prendre en compte les personnes touchées par un système, y compris celles qui n’ont jamais choisi de l’utiliser."
-            },
-            {
-                "title": "Renforcer l’équipe",
-                "body": "Partager le contexte, le mérite et les outils utiles. Aider au-delà de mon périmètre lorsque le travail l’exige. Assumer ma contribution sans présenter une réussite collective comme une performance individuelle. Réussir ne devrait pas exiger que quelqu’un d’autre dans l’équipe perde."
-            },
-            {
-                "title": "Allier exigence et respect",
-                "body": "Me préparer avec soin, livrer un travail rigoureux et accueillir les critiques constructives. Traiter avec dignité mes collègues, mes anciens employeurs et les personnes que j’encadre. Expliquer les désaccords par les faits, les contraintes et les décisions, plutôt que par des insultes ou des suppositions sur les intentions."
-            },
-            {
-                "title": "Dire la vérité clairement",
-                "body": "Distinguer ce que je sais, ce que je déduis et ce qui reste incertain. Signaler les problèmes tôt, reconnaître mes erreurs et expliquer la prochaine étape. Prendre des engagements que je peux tenir et communiquer les changements avant qu’ils ne deviennent des surprises."
-            },
-            {
-                "title": "Laisser les faits me faire changer d’avis",
-                "body": "Poser des questions simples, tester les hypothèses et examiner les résultats. Prendre au sérieux les idées qui me sont étrangères. Expliquer ce qui m’a fait changer d’avis et pourquoi. Être utile compte davantage qu’avoir eu raison en premier."
-            },
-            {
-                "title": "Apprendre en construisant",
-                "body": "Travailler directement avec les outils et les systèmes que je veux comprendre. Chercher des retours issus de leur utilisation réelle. Apprendre dans plusieurs disciplines et m’attaquer à des problèmes négligés lorsque les faits montrent leur importance."
-            },
-            {
-                "title": "Choisir une simplicité utile",
-                "body": "Commencer par une solution claire qui répond au besoin réel. L’améliorer par la mesure et l’itération. Investir dans la fiabilité, la maintenabilité et le travail d’ingénierie peu spectaculaire qui permet aux bonnes idées de fonctionner en pratique."
-            },
-            {
-                "title": "Gagner la confiance par l’équité",
-                "body": "Appliquer des critères cohérents, tenir mes promesses et parler ouvertement des contraintes. Permettre aux autres de me remettre en question. Dissiper les malentendus et réparer les relations plutôt que de laisser le ressentiment s’installer dans notre façon de travailler."
-            },
-            {
-                "title": "Conjuguer ambition et responsabilité",
-                "body": "Préciser à la fois les bénéfices que je recherche et les dommages que je dois prévenir. Soulever les préoccupations avec des éléments concrets et des options réalisables. Garder espoir sans exagérer et faire un prochain pas utile."
-            }
-        ],
-        "reflection": "Ai-je rendu le travail plus clair, le résultat meilleur et l’équipe plus capable de réussir ensemble ?"
+        "description": "Les principes qui guident mon travail d’ingénierie et ma collaboration : utilité, réussite collective, franchise, curiosité, équité et responsabilité."
     },
     "documentNavigation": {
-        "label": "Profil professionnel",
-        "resume": "CV"
+        "seeResume": "Voir mon CV",
+        "seeHowIWork": "Découvrir ma façon de travailler"
+    },
+    "navigation": {
+        "label": "Navigation principale",
+        "home": "Accueil",
+        "about": "À propos",
+        "projects": "Projets",
+        "socials": "Me retrouver en ligne",
+        "newTab": "S’ouvre dans un nouvel onglet",
+        "blogStats": "Statistiques du blog",
+        "tags": "Étiquettes"
+    },
+    "projects": {
+        "title": "Projets",
+        "monet": {
+            "description": "Un moteur 3D déclaratif et un studio collaboratif pour l’habillage graphique de diffusions et d’événements en direct."
+        },
+        "bevyVello": {
+            "description": "L’intégration du rendu vectoriel accéléré par GPU de Vello dans le moteur de jeu Bevy."
+        },
+        "trunk": {
+            "description": "Un outil de compilation Rust WebAssembly, du développement local avec rechargement à chaud à la préparation pour la production."
+        },
+        "halo": {
+            "description": "Une bibliothèque Rust pour les API de Halo Infinite et l’analyse hors ligne des fichiers de films du mode Cinéma."
+        },
+        "nbody": {
+            "description": "Une simulation à N corps développée avec Rust, WebAssembly et WebGPU."
+        },
+        "haloMagick": {
+            "description": "Des outils d’infographie procédurale et d’intelligence artificielle pour la diffusion de l’esport Halo"
+        },
+        "nvtx": {
+            "description": "Des liaisons Rust sûres pour le SDK NVIDIA Tools Extension (NVTX)."
+        }
+    },
+    "aboutPage": {
+        "title": "À propos",
+        "description": "À propos de Spencer Imbleau : génie logiciel, infographie, contributions open source et projets.",
+        "projects": {
+            "title": "Projets"
+        },
+        "contact": {
+            "title": "Contact"
+        },
+        "status": {
+            "title": "Situation actuelle"
+        },
+        "disclaimer": {
+            "title": "Avertissement"
+        },
+        "identity": {
+            "title": "Identité",
+            "platform": "Plateforme",
+            "account": "Compte",
+            "revealEmail": "Afficher l’adresse e-mail"
+        }
+    },
+    "latest": {
+        "title": "Derniers articles",
+        "more": "Voir tous les articles"
+    },
+    "heading": {
+        "permalink": "Lien vers {{heading}}"
+    },
+    "contents": {
+        "title": "Sommaire",
+        "collapse": "Réduire le sommaire",
+        "expand": "Développer le sommaire"
+    },
+    "readingListPage": {
+        "title": "Liste de lecture",
+        "description": "Mes lectures, regroupées par année.",
+        "introduction": "Quelques livres que j’ai lus au fil des années.",
+        "bookCount_one": "{{count}} livre",
+        "bookCount_other": "{{count}} livres",
+        "bookshop": "Soutenez votre <bookshop>librairie locale</bookshop>."
     }
 }

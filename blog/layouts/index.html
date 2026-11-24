@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="blog-archive">
+    <header class="blog-banner"><h1 class="page-heading">Blog</h1></header>
+    {{ range (where site.RegularPages "Section" "posts").GroupByDate "2006" }}
+    <section class="archive-year" aria-labelledby="y{{ .Key }}">
+        <header class="archive-year-heading"><h2 id="y{{ .Key }}"><a href="#y{{ .Key }}">{{ .Key }}</a></h2><p>{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}</p></header>
+        <ol class="archive-posts">
+            {{ range .Pages }}
+            <li><div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>{{ partial "draft.html" . }}<h3><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ partial "opinion-badge.html" . }}</h3></div><p>{{ .Description | default (.Summary | plainify) }}</p></li>
+            {{ end }}
+        </ol>
+    </section>
+    {{ else }}<p class="empty-archive">No posts yet.</p>{{ end }}
+</div>
+{{ end }}

@@ -22,8 +22,23 @@ const runFunction = (source: string, uri: string) =>
     }) as CloudFrontRequest | CloudFrontResponse
 
 describe("CloudFront request routing", () => {
-    const blogRouter = loadFunction("blog-router.js").replace("${blog_base_path}", JSON.stringify("/blog"))
+    const blogRouter = loadFunction("blog-router.js")
+        .replace("${blog_base_path}", JSON.stringify("/blog"))
+        .replace("${about_redirect}", JSON.stringify("/about"))
     const spaRouter = loadFunction("spa-router.js")
+
+    it.each(["/blog/about", "/blog/about/", "/blog/about/index.html", "/blog/about.html"])(
+        "redirects Spencer's old About URL %s",
+        (uri) => {
+            expect(runFunction(blogRouter, uri)).toMatchObject({
+                statusCode: 308,
+                headers: { location: { value: "/about" } },
+            })
+        }
+    )
+    it("does not resolve blog routes on the other sites", () => {
+        expect(runFunction(spaRouter, "/blog/")).toMatchObject({ uri: "/blog/" })
+    })
 
     it("redirects the blog root to its canonical trailing-slash URL", () => {
         expect(runFunction(blogRouter, "/blog")).toMatchObject({
@@ -32,7 +47,7 @@ describe("CloudFront request routing", () => {
         })
     })
 
-    it.each(["/blog/", "/blog/archive/"])("resolves the Jekyll directory URL %s", (uri) => {
+    it.each(["/blog/", "/blog/archive/", "/blog/stats/"])("resolves the static blog directory URL %s", (uri) => {
         expect(runFunction(blogRouter, uri)).toMatchObject({ uri: `${uri}index.html` })
     })
 
@@ -43,6 +58,8 @@ describe("CloudFront request routing", () => {
 
     it.each([
         "/resume",
+        ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/books`, `${prefix}/books/`]),
+        ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/about`, `${prefix}/about/`]),
         "/en",
         "/fr/resume/",
         "/fa/",
@@ -51,6 +68,15 @@ describe("CloudFront request routing", () => {
         ...["en", "fr", "fa"].flatMap((lang) => [`/${lang}/how-i-work`, `/${lang}/how-i-work/`]),
     ])("resolves the SPA route %s", (uri) => {
         expect(runFunction(spaRouter, uri)).toMatchObject({ uri: "/index.html" })
+    })
+
+    it.each(["", "/en", "/fr", "/fa"])("redirects the old %s reading route to books", (prefix) => {
+        for (const suffix of ["", "/"]) {
+            expect(runFunction(spaRouter, `${prefix}/reading-list${suffix}`)).toMatchObject({
+                statusCode: 308,
+                headers: { location: { value: `${prefix}/books` } },
+            })
+        }
     })
 
     it("leaves unknown routes unchanged so CloudFront can return a real 404", () => {

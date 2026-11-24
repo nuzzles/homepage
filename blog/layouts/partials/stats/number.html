@@ -1,0 +1,2 @@
+{{ $precision := cond (eq (float .) (float (int .))) 0 1 }}
+{{ return (lang.FormatNumber $precision .) }}

@@ -1,0 +1,25 @@
+/* One keyboard-focus treatment shared by React pages, owned UI, and Hugo. */
+:root :is(a, button, input, select, textarea, summary, [tabindex], [contenteditable="true"]):focus-visible {
+    outline: var(--focus-width) solid var(--focus-ring);
+    outline-offset: var(--focus-outline-offset, var(--focus-offset));
+    border-radius: var(--focus-radius);
+}
+
+/* Keep outlines inside adjoining cells and clipped menu viewports. */
+.action-strip .social-bar-action,
+.profile-choice,
+[role^="menuitem"] {
+    --focus-outline-offset: -2px;
+}
+
+/* SVG links get a browser-specific oval ring; outline the day itself instead. */
+:root .stats-day-trigger:focus {
+    outline: none;
+}
+
+.stats-day-trigger:is(:focus-visible, [aria-expanded="true"]) .stats-day {
+    stroke: var(--focus-ring);
+    stroke-width: var(--focus-width);
+    vector-effect: non-scaling-stroke;
+    rx: 0;
+}

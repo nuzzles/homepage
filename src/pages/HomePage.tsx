@@ -1,156 +1,26 @@
-import { useState, type ReactNode } from "react"
-import { Box, Button, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
-import CalendarMonth from "@mui/icons-material/CalendarMonth"
-import Check from "@mui/icons-material/Check"
-import ContentCopy from "@mui/icons-material/ContentCopy"
-import Description from "@mui/icons-material/Description"
-import Email from "@mui/icons-material/Email"
-import LinkedIn from "@mui/icons-material/LinkedIn"
-import { Coffee, Feather, Keyboard, Undo2 } from "lucide-react"
+import { ProfileFooter } from "@/components/ProfileFooter"
+import { Trans } from "react-i18next"
+import { LatestPosts } from "@/components/LatestPosts"
 import { Helmet } from "react-helmet-async"
-import { Trans, useTranslation } from "react-i18next"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faRust, faSquareGithub } from "@fortawesome/free-brands-svg-icons"
-import { CornerFrame } from "@/components/CornerFrame"
-import { LanguageSwitcher } from "@/components/LanguageSwitcher"
-import { LightButton } from "@/components/LightButton"
-import { ProfileSwitcher } from "@/components/ProfileSwitcher"
+import { ProfileHeader } from "@/components/ProfileHeader"
+import { ProfilePortrait } from "@/components/ProfilePortrait"
+import { ProfileActions } from "@/components/ProfileActions"
+import { ProfileBiography } from "@/components/ProfileBiography"
+import { MarkerUnderline } from "@/components/MarkerUnderline"
+import { ProjectsSection } from "@/components/ProjectsSection"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
-import {
-    getProfileBlogPath,
-    getSelectorUrl,
-    getProfileSwitchUrl,
-    isLocalProfileHostname,
-    isProfileId,
-    PROFILE_HERO_IMAGE_SIZES,
-    type ProfileId,
-} from "@/profiles"
-import { getConfiguredSite } from "@/site"
-
-const AffiliationLink = ({ href, icon, children }: { href: string; icon: ReactNode; children?: ReactNode }) => (
-    <MuiLink
-        href={href}
-        underline="always"
-        sx={{ display: "inline-flex", alignItems: "baseline", gap: "0.25em", maxWidth: "100%" }}
-    >
-        <Box
-            component="span"
-            aria-hidden="true"
-            sx={{
-                display: "inline-flex",
-                alignSelf: "center",
-                width: "1em",
-                height: "1em",
-                flexShrink: 0,
-                color: "text.primary",
-            }}
-        >
-            {icon}
-        </Box>
-        <span>{children}</span>
-    </MuiLink>
-)
-
-const affiliationIcon = (name: string) => (
-    <Box
-        component="img"
-        src={`/images/affiliations/${name}.svg`}
-        alt=""
-        sx={{ width: "100%", height: "100%", objectFit: "contain" }}
-    />
-)
-
-const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
-    const { t } = useTranslation()
-    const [email, setEmail] = useState<string | null>(null)
-    const [copied, setCopied] = useState(false)
-
-    const handleCopy = async () => {
-        if (!email) return
-        try {
-            await navigator.clipboard.writeText(email)
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        } catch {
-            setCopied(false)
-        }
-    }
-
-    if (email) {
-        return (
-            <Box
-                sx={(theme) => ({
-                    display: "flex",
-                    alignItems: "center",
-                    minHeight: 52,
-                    width: "100%",
-                    border: `1px solid ${theme.palette.text.primary}`,
-                    backgroundColor: theme.palette.background.paper,
-                })}
-            >
-                <MuiLink
-                    href={`mailto:${email}`}
-                    underline="hover"
-                    sx={{
-                        flex: 1,
-                        px: 1.5,
-                        fontSize: "0.95rem",
-                        fontWeight: 700,
-                        whiteSpace: "nowrap",
-                        textTransform: "uppercase",
-                    }}
-                >
-                    {email}
-                </MuiLink>
-                <Tooltip title={copied ? t("home.copied") : t("home.copy")}>
-                    <IconButton onClick={handleCopy} size="small" sx={{ marginInlineEnd: 0.5 }}>
-                        {copied ? <Check sx={{ fontSize: "1.1rem" }} /> : <ContentCopy sx={{ fontSize: "1.1rem" }} />}
-                    </IconButton>
-                </Tooltip>
-            </Box>
-        )
-    }
-
-    return (
-        <LightButton variant="secondary" fullWidth onClick={() => setEmail(atob(encodedEmail))}>
-            <Email sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-            {t("home.revealEmail")}
-        </LightButton>
-    )
-}
+import { usePageAnchor } from "@/hooks/usePageAnchor"
+import { getProfileHomePath } from "@/profiles"
 
 export const HomePage = () => {
+    usePageAnchor()
     const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
-    const profileId = profile.id
-    const [expandedBiography, setExpandedBiography] = useState<ProfileId | null>(null)
-    const biographyExpanded = expandedBiography === profileId
-    const hasBiographyDetails = Boolean(t(`home.biographies.${profileId}.details`))
-    const showBlogButton = Boolean(profile.blog?.showOnHomepage)
-    const actionCount = 2 + Number(showBlogButton) + Number(Boolean(profile.calendlyUrl))
-    const isLocalProfile = isLocalProfileHostname(window.location.hostname)
-    const configuredSite = getConfiguredSite()
-    const resumePath = localizedPath(isLocalProfile ? `/${profileId}/resume` : "/resume")
-    const blogPath = getProfileBlogPath(
-        window.location.hostname,
-        profileId,
-        isProfileId(configuredSite) ? configuredSite : null
-    )
     const profileBaseUrl = profile.canonicalUrl
     const canonicalUrl = `${profileBaseUrl}${routePrefix}/`
-    const selectorPath = routePrefix ? `${routePrefix}/` : "/"
-    const selectorHref =
-        isLocalProfile && configuredSite === "local"
-            ? localizedPath("/")
-            : (getSelectorUrl(window.location.href, selectorPath) ?? `https://imbleau.com${selectorPath}`)
+    const base = getProfileHomePath(window.location.hostname, profile.id).replace(/\/$/, "")
     const meta = (key: string) => t(`${profile.metaKey}.${key}`)
-
-    const hrefForProfile = (nextProfile: ProfileId) => {
-        const nextUrl = getProfileSwitchUrl(window.location.href, nextProfile)
-        return nextUrl ?? localizedPath(`/${nextProfile}`)
-    }
-
     return (
         <>
             <Helmet>
@@ -185,394 +55,41 @@ export const HomePage = () => {
                 </script>
             </Helmet>
 
-            <Box component="article" sx={{ width: "100%", maxWidth: 1120, mx: "auto", px: { xs: 1, sm: 2.5 } }}>
-                <Box
-                    component="header"
-                    sx={(theme) => ({
-                        display: "flex",
-                        alignItems: "center",
-                        gap: { xs: 0.5, sm: 2 },
-                        pb: 1,
-                        borderBottom: `1px solid ${theme.palette.text.primary}`,
-                    })}
-                >
-                    <Tooltip title={t("home.backToSelector")}>
-                        <IconButton
-                            component="a"
-                            href={selectorHref}
-                            aria-label={t("home.backToSelector")}
-                            size="small"
-                            sx={(theme) => ({
-                                flexShrink: 0,
-                                width: { xs: 30, sm: 34 },
-                                height: { xs: 30, sm: 34 },
-                                p: 0,
-                                marginInlineEnd: { xs: 0, sm: 0.25 },
-                                borderRadius: 0,
-                                color: theme.palette.text.inactive,
-                                opacity: 0.7,
-                                transition: theme.transitions.create(["color", "opacity", "transform"], {
-                                    duration: theme.transitions.duration.shortest,
-                                }),
-                                "&:hover": {
-                                    color: theme.palette.primary.main,
-                                    backgroundColor: "transparent",
-                                    opacity: 1,
-                                    transform: "translateX(-2px)",
-                                },
-                                "&:focus-visible": {
-                                    color: theme.palette.primary.main,
-                                    opacity: 1,
-                                    outline: `2px solid ${theme.palette.primary.main}`,
-                                    outlineOffset: 2,
-                                },
-                                "[dir='rtl'] &:hover": { transform: "translateX(2px)" },
-                                "[dir='rtl'] & svg": { transform: "scaleX(-1)" },
-                            })}
-                        >
-                            <Undo2 aria-hidden="true" size={22} strokeWidth={2.25} />
-                        </IconButton>
-                    </Tooltip>
-                    <ProfileSwitcher
-                        value={profileId}
-                        label={t("profileSwitcher.label")}
-                        hrefForProfile={hrefForProfile}
-                    />
-                    <Typography
-                        title={t(profile.roleKey)}
-                        sx={{
-                            display: { xs: "none", sm: "block" },
-                            minWidth: 0,
-                            flex: 1,
-                            overflow: "hidden",
-                            fontFamily: "Courier New, monospace",
-                            fontSize: "0.75rem",
-                            fontWeight: 700,
-                            textOverflow: "ellipsis",
-                            textTransform: "uppercase",
-                            whiteSpace: "nowrap",
-                        }}
-                    >
-                        {t(profile.roleKey)}
-                    </Typography>
-                    <LanguageSwitcher />
-                </Box>
-
-                <Box
-                    component="section"
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: {
-                            xs: "1fr",
-                            sm: "minmax(0, 1.2fr) minmax(0, 1fr)",
-                            md: "minmax(0, 1.35fr) minmax(320px, 0.8fr)",
-                        },
-                        alignItems: "center",
-                        gap: { xs: 3, md: 6 },
-                        pt: { xs: 2.5, md: 4 },
-                    }}
-                >
-                    <Box sx={{ minWidth: 0 }}>
-                        <Typography
-                            component="h1"
-                            variant="h1"
-                            sx={{
-                                m: 0,
-                                fontSize: "clamp(5rem, calc(2rem + 10vw), 9.5rem)",
-                                "&:lang(fr)": {
-                                    fontSize: "clamp(4rem, calc(1rem + 10vw), 8rem)",
-                                },
-                                fontWeight: 900,
-                                lineHeight: 0.75,
-                                letterSpacing: "-0.025em",
-                                textTransform: "uppercase",
-                            }}
-                        >
-                            {t("home.headline")}
-                        </Typography>
-                        <Typography
-                            component="p"
-                            sx={{
-                                mt: { xs: 2, md: 4 },
-                                mb: 0,
-                                maxWidth: "54ch",
-                                fontSize: { xs: "1rem", md: "1.0625rem" },
-                                lineHeight: 1.7,
-                                textWrap: "pretty",
-                                "& a": { textUnderlineOffset: "0.18em" },
-                            }}
-                        >
-                            <Trans
-                                t={t}
-                                i18nKey={`home.biographies.${profileId}.introduction`}
-                                components={{ uf: <MuiLink href="https://www.ufl.edu/" underline="always" /> }}
-                            />
-                            {hasBiographyDetails && (
-                                <Box
-                                    component="span"
-                                    id="profile-biography-details"
-                                    sx={{ display: { xs: biographyExpanded ? "inline" : "none", md: "inline" } }}
-                                >
-                                    {" "}
-                                    <Trans
-                                        t={t}
-                                        i18nKey={`home.biographies.${profileId}.details`}
-                                        components={{
-                                            rust: (
-                                                <AffiliationLink
-                                                    href="https://rust-lang.org/governance/people/nuzzles/"
-                                                    icon={
-                                                        <FontAwesomeIcon
-                                                            icon={faRust}
-                                                            style={{ width: "100%", height: "100%" }}
-                                                        />
-                                                    }
-                                                />
-                                            ),
-                                            bevy: (
-                                                <AffiliationLink
-                                                    href="https://github.com/bevyengine/bevy"
-                                                    icon={affiliationIcon("bevy")}
-                                                />
-                                            ),
-                                            trunk: (
-                                                <AffiliationLink
-                                                    href="https://github.com/trunk-rs/trunk"
-                                                    icon={affiliationIcon("wasm")}
-                                                />
-                                            ),
-                                            linebender: (
-                                                <AffiliationLink
-                                                    href="https://linebender.org/"
-                                                    icon={affiliationIcon("linebender")}
-                                                />
-                                            ),
-                                            uf: <MuiLink href="https://www.ufl.edu/" underline="always" />,
-                                        }}
-                                    />
-                                </Box>
-                            )}
-                            {hasBiographyDetails && (
-                                <Button
-                                    variant="text"
-                                    aria-expanded={biographyExpanded}
-                                    aria-controls="profile-biography-details"
-                                    onClick={() => setExpandedBiography(biographyExpanded ? null : profileId)}
-                                    sx={{
-                                        display: { xs: "inline", md: "none" },
-                                        minWidth: 0,
-                                        p: 0,
-                                        marginInlineStart: "0.3em",
-                                        font: "inherit",
-                                        letterSpacing: "inherit",
-                                        verticalAlign: "baseline",
-                                        textTransform: "none",
-                                        textDecoration: "underline",
-                                        textUnderlineOffset: "0.18em",
-                                        "&:hover": { textDecoration: "underline" },
-                                    }}
-                                >
-                                    {t(biographyExpanded ? "home.readLess" : "home.readMore")}
-                                </Button>
-                            )}
-                        </Typography>
-                    </Box>
-
-                    <Box
-                        sx={{
-                            position: "relative",
-                            width: "100%",
-                            maxWidth: 390,
-                            justifySelf: { xs: "center", sm: "end" },
-                        }}
-                    >
-                        <Box
-                            aria-hidden="true"
-                            sx={(theme) => ({
-                                position: "absolute",
-                                inset: "16px -14px -14px 16px",
-                                backgroundColor: theme.palette.primary.main,
-                            })}
-                        />
-                        <CornerFrame>
-                            <Box
-                                component="img"
-                                alt={profile.fullName}
-                                src={profile.image}
-                                srcSet={profile.imageSrcSet}
-                                sizes={PROFILE_HERO_IMAGE_SIZES}
-                                fetchPriority="high"
-                                loading="eager"
-                                sx={{
-                                    position: "relative",
-                                    display: "block",
-                                    width: "100%",
-                                    aspectRatio: "1 / 1",
-                                    objectFit: "cover",
-                                    clipPath: "polygon(0.4% 0, 99.5% 0.7%, 100% 98.8%, 98.6% 100%, 0.5% 99.4%, 0 1.2%)",
-                                }}
-                            />
-                        </CornerFrame>
-                        <Typography
-                            sx={{
-                                position: "absolute",
-                                right: { xs: -6, sm: -20 },
-                                bottom: { xs: -14, sm: -18 },
-                                px: 1.5,
-                                py: 0.45,
-                                color: "#FCFAF3",
-                                backgroundColor: "#D84C2F",
-                                fontFamily: "Barlow Condensed, Arial Narrow, sans-serif",
-                                fontSize: { xs: "1.1rem", sm: "1.35rem" },
-                                fontWeight: 800,
-                                letterSpacing: "0.025em",
-                                textTransform: "uppercase",
-                                transform: "rotate(2deg)",
-                            }}
-                        >
-                            {t(profile.stickerKey)}
-                        </Typography>
-                    </Box>
-                </Box>
-
-                <Box
-                    component="section"
-                    sx={(theme) => ({
-                        mt: { xs: 5, md: 4.5 },
-                        pt: 1.5,
-                        borderTop: `1px solid ${theme.palette.text.primary}`,
-                    })}
-                >
-                    <Typography
-                        component="h2"
-                        variant="h3"
-                        sx={(theme) => ({
-                            mb: 1.25,
-                            color: theme.palette.primary.main,
-                            fontSize: { xs: "2.25rem", sm: "2.8rem" },
-                            fontWeight: 900,
-                            lineHeight: 1,
-                            textTransform: "uppercase",
-                        })}
-                    >
-                        {t("home.startHere")}
-                    </Typography>
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                md: `repeat(${actionCount}, minmax(0, 1fr))`,
-                            },
-                            gap: 1,
-                        }}
-                    >
-                        <LightButton href={resumePath} variant="primary" fullWidth>
-                            <Description sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                            {t("home.resume")}
-                        </LightButton>
-                        <RevealEmailButton key={profileId} encodedEmail={profile.encodedEmail} />
-                        {profile.calendlyUrl && (
-                            <LightButton
-                                href={profile.calendlyUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                variant="secondary"
-                                fullWidth
-                            >
-                                <CalendarMonth sx={{ fontSize: "1rem", marginInlineEnd: 0.5 }} />
-                                {t("home.scheduleOneOnOne")}
-                            </LightButton>
+            <article className="profile-page portfolio-page">
+                <ProfileHeader />
+                <section className="profile-hero">
+                    <div className="hero-copy min-w-0">
+                        <h1 className="hero-title">
+                            <span>
+                                <Trans
+                                    t={t}
+                                    i18nKey="home.greeting"
+                                    values={{ name: profile.firstName }}
+                                    components={{ highlight: <MarkerUnderline /> }}
+                                />{" "}
+                                <span className="greeting-wave" aria-hidden="true">
+                                    👋
+                                </span>
+                            </span>
+                        </h1>
+                        <ProfileBiography />
+                        {profile.about && (
+                            <p className="about-link">
+                                <Trans
+                                    t={t}
+                                    i18nKey="home.moreAbout"
+                                    components={{ about: <a href={localizedPath(`${base}${profile.about.path}`)} /> }}
+                                />
+                            </p>
                         )}
-                        {showBlogButton && blogPath && (
-                            <LightButton href={blogPath} variant="secondary" fullWidth>
-                                <Feather aria-hidden="true" size="1rem" style={{ marginInlineEnd: 4, flexShrink: 0 }} />
-                                {t("home.blog")}
-                            </LightButton>
-                        )}
-                    </Box>
-                </Box>
-
-                <Box
-                    component="footer"
-                    sx={(theme) => ({
-                        mt: 2.5,
-                        pt: 1.25,
-                        display: "flex",
-                        alignItems: "center",
-                        flexWrap: "wrap",
-                        containerType: "inline-size",
-                        columnGap: 1,
-                        rowGap: 0.75,
-                        borderTop: `1px solid ${theme.palette.border.main}`,
-                    })}
-                >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            flexShrink: 0,
-                            gap: 0.25,
-                            width: "100%",
-                            "& > a": { width: "100%" },
-                            "@media (min-width: 380px)": {
-                                flexDirection: "row",
-                                width: "auto",
-                                "& > a": { width: "auto" },
-                            },
-                        }}
-                    >
-                        {profile.socials.map(({ kind, label, href }) => (
-                            <LightButton
-                                key={label}
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                variant="tertiary"
-                                size="small"
-                                fullWidth
-                                sx={{
-                                    px: 1,
-                                    gap: 0.6,
-                                    fontFamily: "Courier New, monospace",
-                                    fontSize: "0.72rem",
-                                    letterSpacing: "0.01em",
-                                }}
-                            >
-                                {kind === "linkedin" ? (
-                                    <LinkedIn sx={{ fontSize: "1rem" }} />
-                                ) : (
-                                    <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "1rem" }} />
-                                )}
-                                {label}
-                            </LightButton>
-                        ))}
-                    </Box>
-                    <Typography
-                        sx={{
-                            marginInlineStart: "auto",
-                            whiteSpace: "nowrap",
-                            color: "text.inactive",
-                            opacity: 0.55,
-                            fontFamily: "Courier New, monospace",
-                            fontSize: "0.68rem",
-                            fontWeight: 600,
-                            textTransform: "uppercase",
-                            "@container (max-width: 480px)": {
-                                flexBasis: "100%",
-                                marginInlineStart: 0,
-                                textAlign: "center",
-                            },
-                        }}
-                    >
-                        {t("home.madeWith")}{" "}
-                        <Coffee style={{ width: "0.8rem", height: "0.8rem", verticalAlign: "-0.15em" }} />{" "}
-                        {t("home.andA")}{" "}
-                        <Keyboard style={{ width: "0.8rem", height: "0.8rem", verticalAlign: "-0.15em" }} />
-                    </Typography>
-                </Box>
-            </Box>
+                    </div>
+                    <ProfilePortrait />
+                </section>
+                <ProfileActions />
+                {profile.id === "spencer" && <LatestPosts />}
+                <ProjectsSection />
+                <ProfileFooter />
+            </article>
         </>
     )
 }

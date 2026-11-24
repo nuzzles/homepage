@@ -14,7 +14,7 @@
 .evidence-figure figcaption {
     max-width: 78ch;
     margin-top: 12px;
-    color: var(--blog-muted);
+    color: var(--muted-foreground);
     font-size: 0.9rem;
     line-height: 1.45;
 }
@@ -24,7 +24,7 @@
 }
 
 .enlargeable-image:focus-visible {
-    outline: 3px solid var(--blog-blue);
+    outline: 3px solid var(--focus-ring);
     outline-offset: 4px;
 }
 
@@ -67,7 +67,7 @@
     min-height: 44px;
     padding: 6px 14px;
     border: 1px solid #fff8;
-    background: #171813;
+    background: var(--foreground);
     color: #fff;
     font: inherit;
     font-size: 16px;
@@ -130,8 +130,8 @@
     max-width: 100%;
     overflow-x: auto;
     padding: 16px;
-    border: 1px solid var(--blog-line);
-    background: var(--blog-paper);
+    border: 1px solid var(--border-color);
+    background: var(--background);
 }
 
 .mermaid-controls {
@@ -140,9 +140,9 @@
     align-items: center;
     gap: 6px;
     padding: 8px;
-    border: 1px solid var(--blog-line);
+    border: 1px solid var(--border-color);
     border-top: 0;
-    background: var(--blog-raised);
+    background: var(--card);
 }
 
 .mermaid-controls[hidden] {
@@ -160,18 +160,18 @@
     min-width: 36px;
     min-height: 36px;
     padding: 5px 10px;
-    border: 1px solid var(--blog-line);
+    border: 1px solid var(--border-color);
     border-radius: 0;
-    color: var(--blog-ink);
-    background: var(--blog-paper);
+    color: var(--foreground);
+    background: var(--background);
     font: inherit;
     font-size: 13px;
     cursor: pointer;
 }
 
 .mermaid-controls button:hover:not(:disabled) {
-    border-color: var(--blog-blue);
-    color: var(--blog-blue);
+    border-color: var(--focus-ring);
+    color: var(--focus-ring);
 }
 
 .mermaid-controls button:disabled {
@@ -187,7 +187,7 @@
 }
 
 .mermaid-hint {
-    color: var(--blog-muted);
+    color: var(--muted-foreground);
     font-size: 11px;
 }
 
@@ -214,7 +214,7 @@
 
 .mermaid-controls button:focus-visible,
 .mermaid-viewport:focus-visible {
-    outline: 2px solid var(--blog-blue);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 3px;
 }
 
@@ -226,6 +226,6 @@
 
 .mermaid-viewport [data-mermaid-status] {
     margin: 0;
-    color: var(--blog-muted);
+    color: var(--muted-foreground);
     font-size: 0.9rem;
 }
