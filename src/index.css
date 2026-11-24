@@ -344,22 +344,25 @@
     stroke-width: 4;
     stroke-linecap: round;
 }
-.squiggle path {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 0;
-}
 @media (prefers-reduced-motion: no-preference) {
-    .profile-brand:hover .squiggle path,
-    .profile-brand:focus-visible .squiggle path {
-        animation: squiggle-redraw 600ms steps(12, end) both;
+    .profile-brand:hover .squiggle svg,
+    .profile-brand:focus-visible .squiggle svg {
+        animation: squiggle-wiggle 600ms steps(1, end) infinite;
     }
 }
-@keyframes squiggle-redraw {
-    from {
-        stroke-dashoffset: 1;
+@keyframes squiggle-wiggle {
+    0%,
+    100% {
+        transform: none;
     }
-    to {
-        stroke-dashoffset: 0;
+    25% {
+        transform: translateY(-1px) rotate(-2deg) skewX(-8deg);
+    }
+    50% {
+        transform: translateY(1px) rotate(2deg) skewX(8deg);
+    }
+    75% {
+        transform: translateY(-1px) rotate(-1deg) skewX(-4deg);
     }
 }
 .profile-footer {

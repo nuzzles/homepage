@@ -153,12 +153,14 @@ describe("Hugo migration", () => {
         )
     })
     it("keeps five chronological neighbours, filling the window at either end", () => {
-        for (const index of [0, 2, 5]) {
+        for (const index of [0, 2, 3, 5]) {
             const timeline = html(legacyPaths[index]).querySelector(".post-timeline")
             expect(timeline.querySelectorAll("li")).toHaveLength(5)
             expect(timeline.querySelectorAll('[aria-current="page"]')).toHaveLength(1)
             const dates = [...timeline.querySelectorAll("time")].map((t) => t.dateTime)
             expect(dates).toEqual([...dates].sort())
+            expect(timeline.dataset.hasOlder).toBe(String(dates[0] !== "2021-05-30"))
+            expect(timeline.dataset.hasNewer).toBe(String(dates.at(-1) !== "2026-09-14"))
         }
     })
     it("labels Opinion posts with a notice and slash-separated reading metadata", () => {

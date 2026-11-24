@@ -3,7 +3,7 @@
 {{ $index := 0 }}
 {{ range $i, $post := $posts }}{{ if eq $post.RelPermalink $current.RelPermalink }}{{ $index = $i }}{{ end }}{{ end }}
 {{ $start := int (math.Max 0 (math.Min (sub $index 2) (sub (len $posts) 5))) }}
-<nav class="post-timeline" aria-label="Neighbouring posts"><ol>
+<nav class="post-timeline" aria-label="Neighbouring posts" data-has-older="{{ gt $start 0 }}" data-has-newer="{{ lt (add $start 5) (len $posts) }}"><ol>
     {{ range $i, $post := $posts }}{{ if and (ge $i $start) (lt $i (add $start 5)) }}
     <li aria-current="{{ if eq $post.RelPermalink $current.RelPermalink }}page{{ else }}false{{ end }}">
         <span class="timeline-stop" aria-hidden="true"></span><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
