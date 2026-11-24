@@ -1,10 +1,10 @@
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
 import { useLocation } from "react-router-dom"
 
 /** Start new pages at the top, or restore their requested fragment after mounting. */
 export const usePageAnchor = () => {
-    const { pathname, hash } = useLocation()
-    useEffect(() => {
+    const { pathname, hash, key } = useLocation()
+    useLayoutEffect(() => {
         if (hash) {
             let id = hash.slice(1)
             try {
@@ -14,5 +14,5 @@ export const usePageAnchor = () => {
             }
             document.getElementById(id)?.scrollIntoView()
         } else (document.scrollingElement ?? document.documentElement).scrollTop = 0
-    }, [pathname, hash])
+    }, [pathname, hash, key])
 }

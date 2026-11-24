@@ -8,8 +8,10 @@ import { ProfileFooter } from "@/components/ProfileFooter"
 import { ProfileDocumentLink } from "@/components/ProfileDocumentLink"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
+import { usePageAnchor } from "@/hooks/usePageAnchor"
 
 export const ResumePage = () => {
+    usePageAnchor()
     const { t, language, routePrefix } = useLanguage()
     const profile = useProfile()
     const profileId = profile.id
