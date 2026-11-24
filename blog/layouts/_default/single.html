@@ -8,7 +8,7 @@
         {{ with .Description }}<p class="post-description">{{ . }}</p>{{ end }}
         {{ if eq .Section "posts" }}<p class="post-meta"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time><span class="post-meta-item"><span class="meta-separator" aria-hidden="true">/</span>{{ .ReadingTime }} minute read</span>{{ if $opinion }}<span class="post-meta-item"><span class="meta-separator" aria-hidden="true">/</span>Opinion</span>{{ end }}</p>{{ end }}
     </header>
-    {{ if $opinion }}<aside class="opinion-notice" aria-label="Opinion notice"><span>Thinking out loud</span></aside>{{ end }}
+    {{ if $opinion }}<aside class="opinion-notice" aria-label="Opinion notice"><span>Opinion</span></aside>{{ end }}
     <div class="reading-layout">
         <aside class="reading-contents" data-contents>
             <div class="reading-sidebar-inner">

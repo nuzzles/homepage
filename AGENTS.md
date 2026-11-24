@@ -58,7 +58,7 @@ and distinguish Spencer's contribution from the team's achievements.
 - The blog is English only; blog posts do not need translations.
 - The blog language control keeps the English flag and replaces the dropdown caret with an X
   and an “English Only” tooltip (hover, keyboard focus, or tap). Opinion posts use `tags: [opinion]`,
-  which adds the sticky “Thinking out loud” banner and Opinion reading metadata.
+  which adds the sticky “Opinion” banner and Opinion reading metadata.
   Show topic/tag links below Contents; existing categories also appear in the tag archive.
 - The résumé document itself is an English-only PDF. Do not translate the PDF.
 - Everything else must be translated into every supported site language: English,

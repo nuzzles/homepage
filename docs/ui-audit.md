@@ -14,7 +14,7 @@ for palette, typography, spacing, control tokens, and font licenses.
 | Portrait decorations were excessive.                    | Rounded photo, restrained hand-drawn hatch, outlined stars with discrete twinkles, and an introduction marker underline.                                                         |
 | Homepage structure was noisy.                           | Full biography, Latest and Projects sections, simple project cards, and underlined Blog/About navigation. Profile name returns home.                                             |
 | Blog discovery and navigation were limited.             | Homepage feed, grouped year archive, collapsible contents and active headings, topic links, and a five-post timeline that continues to the edge when additional posts exist.     |
-| Opinion posts needed context.                           | Sticky Thinking out loud notice, reading metadata, and compact listing badges.                                                                                                   |
+| Opinion posts needed context.                           | Sticky Opinion notice, reading metadata, and compact listing badges.                                                                                                             |
 | About content was duplicated.                           | Translated Markdown on Spencer’s site; former blog About redirects there.                                                                                                        |
 | Footer details did not align.                           | Shared footer with compact pixel coffee/Clawd, stepped steam, footer-only pointer tracking, and accessible interactions.                                                         |
 

@@ -54,7 +54,7 @@ export const LatestPosts = () => {
                             <a href={post.url} target="_blank" rel="noopener noreferrer">
                                 {post.title}
                             </a>
-                            {post.opinion === true && <span className="opinion-badge">Thinking out loud</span>}
+                            {post.opinion === true && <span className="opinion-badge">Opinion</span>}
                         </h3>
                         <p lang="en">{post.description}</p>
                     </li>

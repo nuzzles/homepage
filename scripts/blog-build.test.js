@@ -211,7 +211,7 @@ describe("Hugo migration", () => {
     })
     it("labels Opinion posts with a notice and slash-separated reading metadata", () => {
         const opinion = html(legacyPaths[4])
-        expect(opinion.querySelector(".opinion-notice").textContent).toBe("Thinking out loud")
+        expect(opinion.querySelector(".opinion-notice").textContent).toBe("Opinion")
         expect(opinion.querySelector(".post-meta").textContent).toMatch(/September 7, 2026\/\d+ minute read\/Opinion/)
         expect(opinion.querySelectorAll(".meta-separator")).toHaveLength(2)
         const regular = html(legacyPaths[0])
@@ -223,7 +223,7 @@ describe("Hugo migration", () => {
         const archive = html("index.html")
         const badge = archive.querySelector(".opinion-badge")
         expect(archive.querySelectorAll(".opinion-badge")).toHaveLength(1)
-        expect(badge.textContent).toBe("Thinking out loud")
+        expect(badge.textContent).toBe("Opinion")
         expect(badge.closest("h3").querySelector("a").getAttribute("href")).toContain(legacyPaths[4])
         const latest = JSON.parse(readFileSync(join(output, "latest.json"), "utf8"))
         expect(latest.filter((post) => post.opinion).map((post) => post.title)).toEqual(["AI is in its homelab era"])
