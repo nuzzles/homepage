@@ -34,4 +34,8 @@
 
 متن این وبلاگ تحت مجوز [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) است. می‌توانید با ذکر منبع، آزادانه از آن نقل‌قول کنید یا آن را تغییر دهید. همهٔ قطعه‌کدها، از جمله دموهای تعاملی، تحت مجوز [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) هستند.
 
-تصاویر شخصیت Clawd اثر [Icons8](https://icons8.com/icons/set/anthropic-claude) هستند.
+## قدردانی {#credit}
+
+آیکون‌های شخصیت Clawd در پایین صفحه اثر [Icons8](https://icons8.com/icons/set/anthropic-claude) هستند.
+
+چیدمان این وب‌سایت تا حد زیادی از وب‌سایت [Den](https://den.dev/) الهام گرفته است.

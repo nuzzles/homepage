@@ -145,6 +145,9 @@
             "platform": "Plateforme",
             "account": "Compte",
             "revealEmail": "Afficher l’adresse e-mail"
+        },
+        "credit": {
+            "title": "Crédits"
         }
     },
     "latest": {

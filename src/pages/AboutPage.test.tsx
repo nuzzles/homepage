@@ -57,7 +57,7 @@ describe("About and portfolio routes", () => {
             frames.push(callback)
             return frames.length
         })
-        const ids = ["status", "projects", "contact", "identity", "disclaimer"]
+        const ids = ["status", "projects", "contact", "identity", "disclaimer", "credit"]
         let offset = 0
         vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
             return { top: ids.indexOf(this.id) * 400 - offset } as DOMRect
@@ -113,7 +113,7 @@ describe("About and portfolio routes", () => {
         expect(
             [...container.querySelectorAll("article h2 .heading-title")].map((heading) => heading.textContent)
         ).toEqual(
-            (["status", "projects", "contact", "identity", "disclaimer"] as const).map(
+            (["status", "projects", "contact", "identity", "disclaimer", "credit"] as const).map(
                 (key) => copy.aboutPage[key].title
             )
         )

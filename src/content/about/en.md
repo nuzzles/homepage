@@ -34,4 +34,8 @@ The source for this blog is [on GitHub](https://github.com/nuzzles/homepage). Pu
 
 The text of this blog is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Feel free to quote and adapt it, as long as you give attribution. All code snippets, including the interactive demos, are licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-The Clawd mascot artwork is by [Icons8](https://icons8.com/icons/set/anthropic-claude).
+## Credit {#credit}
+
+The Clawd mascot icons in the footer are by [Icons8](https://icons8.com/icons/set/anthropic-claude).
+
+This website’s layout was heavily inspired by [Den](https://den.dev/).
