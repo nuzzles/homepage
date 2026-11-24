@@ -13,7 +13,7 @@ import { useProfile } from "@/hooks/useProfile"
 import { usePageAnchor } from "@/hooks/usePageAnchor"
 import { getConfiguredSite } from "@/site"
 import { languageConfig } from "@/i18n/i18n"
-import { getProfileHomePath, getProfileBlogPath, isProfileId } from "@/profiles"
+import { getProfileHomePath, getSpencerBlogPath, isProfileId } from "@/profiles"
 
 export const AboutPage = () => {
     usePageAnchor()
@@ -25,7 +25,7 @@ export const AboutPage = () => {
     const canonical = `${profile.canonicalUrl}${routePrefix}${page.path}`
     const home = localizedPath(getProfileHomePath(window.location.hostname, profile.id))
     const site = getConfiguredSite()
-    const blog = getProfileBlogPath(window.location.hostname, profile.id, isProfileId(site) ? site : null)
+    const blog = getSpencerBlogPath(window.location.hostname, isProfileId(site) ? site : null)
     const sections = aboutSections(language)
     return (
         <div className="profile-page portfolio-page about-page">

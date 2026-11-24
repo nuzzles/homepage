@@ -1,15 +1,15 @@
 # Homepage
 
 Joint homepage of Spencer and Sara Imbleau, built with React, TypeScript, and Vite.
-Profile blogs use Hugo. See [docs/blog-development.md](docs/blog-development.md) for setup and
+Spencer's blog uses Hugo; Sara has no blog. See [docs/blog-development.md](docs/blog-development.md) for setup and
 [CONTRIBUTING.md](CONTRIBUTING.md) for branch, PR, and validation conventions.
 
 ## Development and build
 
 ```sh
-pnpm dev                          # joint homepage and profile blogs
+pnpm dev                          # joint homepage and Spencer's blog
 HOMEPAGE_SITE=spencer pnpm dev     # Spencer's profile site and blog
-HOMEPAGE_SITE=sara pnpm dev        # Sara's profile site and blog
+HOMEPAGE_SITE=sara pnpm dev        # Sara's profile site
 pnpm check                        # formatting, lint, types, tests, and Vite build
 HOMEPAGE_SITE=spencer pnpm build   # production profile build, including Hugo
 HOMEPAGE_SITE=sara pnpm build      # production profile build, including Hugo
@@ -27,10 +27,10 @@ src/
   siteMetadata.ts      # site metadata, robots.txt, and sitemaps
   components/ui/       # owned shadcn/ui components (Radix primitives)
   index.css            # Tailwind theme tokens and shared page layouts
-blogs/
-  spencer/             # Spencer's Hugo blog
-  sara/                # Sara's Hugo blog
-  shared/              # shared Hugo layouts and shortcodes
+blog/                  # Spencer's Hugo blog only
+  content/posts/       # English Markdown posts
+  layouts/             # Hugo reading layouts and shortcodes
+  assets/              # Blog images, diagrams, and demos
 public/                # static assets and shared blog styles
 docs/personal-values.md # Spencer's How I Work reference for blog writing
 scripts/               # blog development, build, and replay asset tooling
@@ -81,7 +81,10 @@ and distinguish Spencer's contribution from the team's achievements.
   popovers, and cards. `components.json` configures the registry and aliases.
 - Use Tailwind and the semantic CSS variables in `src/index.css`; do not add MUI
   or a second component theme. Keep the cream background and blue primary color.
-- Keep the standalone Hugo theme in `public/blog-theme.css` visually aligned.
+- Header and footer are the same React components on the site and blog. Hugo renders
+  them at build time and hydrates them; do not duplicate their markup or styles in templates.
+- The blog is coupled to Spencer: keep its Hugo config, content, layouts, and assets in
+  `blog/`. Do not add profile-generic blog configuration or a Sara blog.
 - Preserve visible keyboard focus, 44px control targets, reduced-motion support,
   and logical spacing for Persian RTL layouts. Language flag outlines stay black.
 - Résumé and How I Work navigation uses a filled primary button for the current
@@ -126,6 +129,6 @@ and distinguish Spencer's contribution from the team's achievements.
   can collapse and expand, and indicate the current section while scrolling.
 
 - About prose is authored in `src/content/about/{en,fr,fa}.md`. Preserve stable heading
-  anchors and component slots across translations. Blog posts live in `blogs/<profile>/content/posts/`;
+  anchors and component slots across translations. Blog posts live in `blog/content/posts/`;
   use Hugo shortcodes and keep explicit URLs on migrated posts. See `docs/blog-development.md`.
 - Keep the footer cream at every breakpoint; do not tint it with the primary color.

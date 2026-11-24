@@ -25,7 +25,7 @@ locals {
     for profile, config in local.profile_config : profile => {
       domain_name    = config.hostnames[var.environment]
       key_prefix     = profile
-      blog_base_path = try(config.blog.basePath, null)
+      blog_base_path = profile == "spencer" ? "/blog" : null
     }
   }
   sites = merge(

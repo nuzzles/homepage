@@ -36,11 +36,8 @@ describe("CloudFront request routing", () => {
             })
         }
     )
-    it("preserves Sara's blog About page", () => {
-        const saraRouter = loadFunction("blog-router.js")
-            .replace("${blog_base_path}", JSON.stringify("/blog"))
-            .replace("${about_redirect}", JSON.stringify(""))
-        expect(runFunction(saraRouter, "/blog/about/")).toMatchObject({ uri: "/blog/about/index.html" })
+    it("does not resolve blog routes on the other sites", () => {
+        expect(runFunction(spaRouter, "/blog/")).toMatchObject({ uri: "/blog/" })
     })
 
     it("redirects the blog root to its canonical trailing-slash URL", () => {

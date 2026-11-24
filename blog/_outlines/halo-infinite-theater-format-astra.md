@@ -44,7 +44,7 @@ Suggested caption: "Player movement and supported actions reconstructed from The
 
 ### Film breakdown
 
-The draft now includes a read-only hex/ASCII viewer beside the decompression explanation. The generic `blogs/shared/layouts/shortcodes/hex-viewer.html` takes only `text` (hex bytes), `title`, and `description`; the post supplies its zlib example from `data/halo_theater_hex.json`. There is no hardcoded Halo sample or status subheader in the component. The supplied description identifies the real 4,096-byte registry excerpt as recompressed for the demo. It has no file import, download, or standalone-viewer links. This is separate from the frame-field breakdown below.
+The draft now includes a read-only hex/ASCII viewer beside the decompression explanation. The generic `blog/layouts/shortcodes/hex-viewer.html` takes only `text` (hex bytes), `title`, and `description`; the post supplies its zlib example from `data/halo_theater_hex.json`. There is no hardcoded Halo sample or status subheader in the component. The supplied description identifies the real 4,096-byte registry excerpt as recompressed for the demo. It has no file import, download, or standalone-viewer links. This is separate from the frame-field breakdown below.
 
 - [x] Show film chunks: registry (type 1), replication (type 2), and summary events (type 3). The reusable `mermaid.html` include renders `assets/diagrams/halo-theater-structure.mermaid` in the draft.
 - [x] Diagram a replication packet's 16-byte header and variable payload. The unknown header word stays labeled unknown; the diagram distinguishes chunk types from packet types and qualifies the frame layout.

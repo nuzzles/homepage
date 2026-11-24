@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react"
 import { ArrowUpRight } from "lucide-react"
-import { useProfile } from "@/hooks/useProfile"
 import { useLanguage } from "@/hooks/useLanguage"
-import { getProfileBlogPath, isProfileId } from "@/profiles"
+import { getSpencerBlogPath, isProfileId } from "@/profiles"
 import { getConfiguredSite } from "@/site"
 
 type Post = { title: string; url: string; date: string; description: string }
 export const LatestPosts = () => {
-    const profile = useProfile()
     const { t, language } = useLanguage()
     const site = getConfiguredSite()
-    const blog = getProfileBlogPath(window.location.hostname, profile.id, isProfileId(site) ? site : null)
+    const blog = getSpencerBlogPath(window.location.hostname, isProfileId(site) ? site : null)
     const [posts, setPosts] = useState<Post[]>([])
     useEffect(() => {
         if (!blog) return

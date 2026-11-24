@@ -3,26 +3,27 @@ import { Squiggle } from "@/components/Squiggle"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
-import { getProfileHomePath, getProfileBlogPath, isProfileId } from "@/profiles"
-import { getConfiguredSite } from "@/site"
+import { useProfileNavigation } from "@/hooks/useProfileNavigation"
 
-export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about" }) => {
-    const { t, localizedPath } = useLanguage()
+export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about" | "blog" }) => {
+    const { t } = useLanguage()
     const profile = useProfile()
-    const site = getConfiguredSite()
-    const home = localizedPath(getProfileHomePath(window.location.hostname, profile.id))
-    const base = getProfileHomePath(window.location.hostname, profile.id).replace(/\/$/, "")
-    const blog = getProfileBlogPath(window.location.hostname, profile.id, isProfileId(site) ? site : null)
+    const { home, about, blog, reloadDocument } = useProfileNavigation()
     return (
         <header className="profile-header site-navigation">
-            <Link className="profile-brand" to={home}>
+            <Link className="profile-brand" to={home} reloadDocument={reloadDocument}>
                 <Squiggle>{profile.firstName}</Squiggle>
             </Link>
             <nav aria-label={t("navigation.label")} className="site-nav-links">
-                {profile.blog?.showOnHomepage && blog && <a href={blog}>{t("home.blog")}</a>}
-                {profile.about && (
+                {blog && (
+                    <a href={blog} aria-current={current === "blog" ? "page" : undefined}>
+                        {t("home.blog")}
+                    </a>
+                )}
+                {about && (
                     <Link
-                        to={localizedPath(`${base}${profile.about.path}`)}
+                        to={about}
+                        reloadDocument={reloadDocument}
                         aria-current={current === "about" ? "page" : undefined}
                     >
                         {t("navigation.about")}

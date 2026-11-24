@@ -5,7 +5,7 @@ import { compactReplayData } from "./replay-assets.mjs"
 
 describe("deployed replay data", () => {
     it("preserves the complete Octagon data and all surrounding HTML while reducing the deployment size", async () => {
-        const source = readFileSync("blogs/spencer/assets/motion-replay/octagon.html", "utf8")
+        const source = readFileSync("blog/assets/motion-replay/octagon.html", "utf8")
         const output = await compactReplayData(source, "octagon.html")
         const dataScript = /<script>\s*(const CLIPS\s*=[\s\S]*?)<\/script>/i
         const decoded = (html) =>

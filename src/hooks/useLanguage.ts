@@ -1,4 +1,5 @@
-import { useCallback, useEffect } from "react"
+import { BlogChromeContext } from "@/blog/chrome-context"
+import { useCallback, useContext, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 import { getDir, getExplicitLanguagePrefix, getHtmlLang, getLanguageSwitchPath, getLocalizedPath } from "@/i18n/i18n"
@@ -8,10 +9,13 @@ import { detectBrowserLanguage, savePreferredLanguage } from "@/i18n/languagePre
 export function useLanguage() {
     const { t, i18n } = useTranslation()
     const location = useLocation()
+    const blogLocation = useContext(BlogChromeContext)
 
     const language = i18n.language as SupportedLanguage
     const routePrefix = getExplicitLanguagePrefix(location.pathname)
-    const browserLanguage = detectBrowserLanguage(navigator.languages ?? [navigator.language])
+    const browserLanguage = detectBrowserLanguage(
+        typeof navigator === "undefined" ? ["en"] : (navigator.languages ?? [navigator.language])
+    )
 
     // Sync document attributes whenever language changes
     useEffect(() => {
@@ -31,8 +35,13 @@ export function useLanguage() {
 
     const languageHref = useCallback(
         (lang: SupportedLanguage) =>
-            getLanguageSwitchPath(location.pathname, lang, browserLanguage, location.search, location.hash),
-        [browserLanguage, location.hash, location.pathname, location.search]
+            blogLocation
+                ? new URL(
+                      `/${lang}${new URL(blogLocation.homepageURL).pathname.replace(/\/$/, "")}`,
+                      blogLocation.homepageURL
+                  ).href
+                : getLanguageSwitchPath(location.pathname, lang, browserLanguage, location.search, location.hash),
+        [blogLocation, browserLanguage, location.hash, location.pathname, location.search]
     )
 
     // The anchor handles navigation; this only persists the explicit choice.

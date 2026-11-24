@@ -4,6 +4,7 @@ import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
 import { JSDOM } from "jsdom"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
+import { renderBlogChrome } from "../src/blog/chrome-server"
 import { hugoBinary } from "./setup-hugo.mjs"
 
 const root = resolve(import.meta.dirname, "..")
@@ -27,11 +28,7 @@ function build(extra = []) {
             "--destination",
             output,
             "--config",
-            [
-                join(root, "blogs/shared/hugo.json"),
-                join(root, "blogs/spencer/hugo.json"),
-                join(temp, "runtime.json"),
-            ].join(","),
+            [join(root, "blog/hugo.json"), join(temp, "runtime.json")].join(","),
             "--clock",
             "2026-11-24T00:00:00Z",
             "--cacheDir",
@@ -44,15 +41,28 @@ function build(extra = []) {
         throw new Error(`${result.error ?? ""}\n${result.stdout}\n${result.stderr}`)
 }
 beforeAll(() => {
-    cpSync(join(root, "blogs/spencer/content"), join(temp, "content"), { recursive: true })
-    cpSync(join(root, "blogs/spencer/data"), join(temp, "data"), { recursive: true })
+    cpSync(join(root, "blog/content"), join(temp, "content"), { recursive: true })
+    cpSync(join(root, "blog/data"), join(temp, "data"), { recursive: true })
     mkdirSync(join(temp, "assets"))
     writeFileSync(
         join(temp, "runtime.json"),
         JSON.stringify({
-            layoutDir: join(root, "blogs/shared/layouts"),
+            layoutDir: join(root, "blog/layouts"),
             params: {
                 homepageURL: "https://spencer.imbleau.com",
+                blogURL: "https://spencer.imbleau.com/blog/",
+                chromeHeader: renderBlogChrome({
+                    homepageURL: "https://spencer.imbleau.com",
+                    blogURL: "https://spencer.imbleau.com/blog/",
+                    section: "header",
+                }),
+                chromeFooter: renderBlogChrome({
+                    homepageURL: "https://spencer.imbleau.com",
+                    blogURL: "https://spencer.imbleau.com/blog/",
+                    section: "footer",
+                }),
+                chromeScript: "/assets/chrome.js",
+                chromeStylesheets: ["/assets/site.css"],
                 aboutURL: "https://spencer.imbleau.com/about",
                 fullName: "Spencer Imbleau",
                 firstName: "Spencer",
@@ -76,6 +86,27 @@ beforeAll(() => {
 afterAll(() => rmSync(temp, { recursive: true, force: true }))
 
 describe("Hugo migration", () => {
+    it("ships shared header and footer navigation in archive and article HTML before JavaScript runs", () => {
+        for (const path of ["index.html", legacyPaths[0]]) {
+            const doc = html(path)
+            expect(doc.querySelector("header .profile-brand").href).toBe("https://spencer.imbleau.com/")
+            expect([...doc.querySelectorAll(".site-navigation nav a")].map((a) => a.textContent)).toEqual([
+                "Blog",
+                "About",
+            ])
+            expect(doc.querySelector('.site-navigation [aria-current="page"]').textContent).toBe("Blog")
+            expect([...doc.querySelectorAll("footer .footer-links a")].map((a) => a.textContent)).toEqual([
+                "Blog",
+                "About",
+                "Resume",
+            ])
+            expect(doc.querySelector("footer .social-strip").textContent).toContain("GitHub")
+            expect(doc.querySelector('footer [aria-label="coffee"]')).not.toBeNull()
+            expect(doc.querySelector('footer img[alt="Claude"]')).not.toBeNull()
+            expect(doc.querySelector('script[src="/assets/chrome.js"]')).not.toBeNull()
+            expect(doc.querySelector('link[href="/assets/site.css"]')).not.toBeNull()
+        }
+    })
     it("preserves every published URL, canonical URL, heading link, and article schema", () => {
         for (const path of legacyPaths) {
             const doc = html(path)

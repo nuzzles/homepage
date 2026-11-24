@@ -1,7 +1,0 @@
-{
-    "baseURL": "https://spencer.imbleau.com/blog/",
-    "title": "Spencer Imbleau's blog",
-    "params": {
-        "description": "Writing by Spencer Imbleau about Rust, computer graphics, open-source software, game development, AI, and engineering."
-    }
-}

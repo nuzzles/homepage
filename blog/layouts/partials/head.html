@@ -36,6 +36,18 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ "feed.xml" | absURL }}" />
     <link rel="sitemap" type="application/xml" href="{{ "sitemap.xml" | absURL }}" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {{ range site.Params.chromeStylesheets }}<link rel="stylesheet" href="{{ . }}" />{{ end }}
+    {{ if site.Params.chromeDev }}
+    <script type="module">
+        import RefreshRuntime from '/@react-refresh';
+        RefreshRuntime.injectIntoGlobalHook(window);
+        window.$RefreshReg$ = () => {};
+        window.$RefreshSig$ = () => (type) => type;
+        window.__vite_plugin_react_preamble_installed__ = true;
+    </script>
+    <script type="module" src="/@vite/client"></script>
+    {{ end }}
+    <script type="module" src="{{ site.Params.chromeScript }}"></script>
     <link rel="stylesheet" href="{{ site.Params.themeStylesheet }}" />
     <link rel="stylesheet" href="{{ site.Params.mediaStylesheet }}" />
     {{ range .Params.stylesheets }}<link rel="stylesheet" href="{{ index site.Params.postStylesheets . | default (strings.TrimPrefix "/" . | relURL) }}" />{{ end }}

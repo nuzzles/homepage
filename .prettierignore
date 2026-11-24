@@ -6,4 +6,4 @@ terraform/functions/*.js
 public
 
 # Hugo Go templates are not HTML/JSON and must not be rewritten by those parsers.
-blogs/shared/layouts
+blog/layouts

@@ -1,6 +1,6 @@
 # Blog development
 
-The profile blogs use Hugo 0.170.1. `pnpm setup:hugo` downloads the official binary,
+Spencer's blog uses Hugo 0.170.1. Sara has no blog. `pnpm setup:hugo` downloads the official binary,
 checks its pinned SHA-256 digest, and unpacks it under `node_modules/.cache/hugo/`.
 It does not install a system package. macOS and Linux x64 are supported by the
 installer; other platforms can set `HUGO_BINARY` to an installed Hugo executable.
@@ -8,17 +8,22 @@ installer; other platforms can set `HUGO_BINARY` to an installed Hugo executable
 
 ```sh
 pnpm setup:hugo
-pnpm dev                         # /spencer/blog/ and /sara/blog/
+pnpm dev                         # /spencer/blog/
 HOMEPAGE_SITE=spencer pnpm dev     # /blog/
 pnpm check
 HOMEPAGE_SITE=spencer pnpm build
 HOMEPAGE_SITE=sara pnpm build
 ```
 
-Posts are Markdown in `blogs/<profile>/content/posts/`. Shared layouts and shortcodes
-live in `blogs/shared/layouts/`; assets remain in `blogs/<profile>/assets/` and are
-mounted under the blog's `assets/` URL. The blog build runs alongside Vite; it does
-not load React into blog posts. Hugo renders the article contents links at build
+Posts are Markdown in `blog/content/posts/`. Layouts and shortcodes
+live in `blog/layouts/`; assets remain in `blog/assets/` and are
+mounted under the blog's `assets/` URL. Only `HOMEPAGE_SITE=spencer` builds Hugo; Sara and the selector build React alone. It renders `ProfileHeader` and `ProfileFooter`
+into Hugo HTML at build time and hydrates them with the same React components,
+shadcn controls, and stylesheet as the homepage. Change those components to update
+both surfaces; do not add separate Hugo header/footer markup. Vite shares cached
+JavaScript and CSS chunks between the two entries. Restart `pnpm dev` after changing
+shared chrome to refresh its server-rendered HTML. Blog language choices lead to
+translated homepages; posts stay English-only. Hugo renders the article contents links at build
 time; a small script adds collapse and scroll highlighting. Year labels stick while
 reading the archive. Each post's timeline includes up to two earlier and two later posts.
 
@@ -50,7 +55,7 @@ Use Hugo shortcodes for assets and demos:
 {{< hex-viewer >}}
 ```
 
-The hex viewer reads the existing sample from `blogs/spencer/data/halo_theater_hex.json`.
+The hex viewer reads the existing sample from `blog/data/halo_theater_hex.json`.
 Raw HTML is enabled for author-controlled figures and video. Preserve iframe sandbox
 attributes and the replay compaction step. RSS remains at `feed.xml`, the homepage
 feed at `latest.json`, categories at `categories.html`, and the sitemap at `sitemap.xml`.

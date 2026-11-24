@@ -131,7 +131,12 @@ export default defineConfig(({ command }) => {
               }
             : undefined,
         build: {
+            manifest: true,
             rolldownOptions: {
+                input: {
+                    homepage: "index.html",
+                    ...(site === "spencer" ? { chrome: "src/blog/chrome-client.tsx" } : {}),
+                },
                 output: {
                     codeSplitting: {
                         groups: [

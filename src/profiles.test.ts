@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest"
 import {
     getActiveProfile,
-    getProfile,
-    getProfileBlogPath,
+    getSpencerBlogPath,
     getProfileHomePath,
     getProfileSwitchUrl,
     getSelectorUrl,
@@ -75,28 +74,14 @@ describe("resume availability", () => {
 })
 
 describe("blog availability", () => {
-    it("configures an independent blog for each profile", () => {
-        expect(getProfile("spencer").blog).toEqual({
-            source: "blogs/spencer",
-            basePath: "/blog",
-            showOnHomepage: true,
-        })
-        expect(getProfile("sara").blog).toEqual({
-            source: "blogs/sara",
-            basePath: "/blog",
-            showOnHomepage: false,
-        })
-    })
-
     it.each([
-        ["localhost", "spencer", null, "/spencer/blog/"],
-        ["localhost", "sara", null, "/sara/blog/"],
-        ["localhost", "sara", "sara", "/blog/"],
-        ["sara.imbleau.com", "sara", "sara", "/blog/"],
-    ] satisfies [string, ProfileId, ProfileId | null, string][])(
-        "uses the correct blog path for %s and %s",
-        (hostname, profile, configuredProfile, expected) => {
-            expect(getProfileBlogPath(hostname, profile, configuredProfile)).toBe(expected)
+        ["localhost", null, "/spencer/blog/"],
+        ["localhost", "spencer", "/blog/"],
+        ["spencer.imbleau.com", "spencer", "/blog/"],
+    ] satisfies [string, ProfileId | null, string][])(
+        "uses Spencer's blog path for %s and %s",
+        (hostname, configuredProfile, expected) => {
+            expect(getSpencerBlogPath(hostname, configuredProfile)).toBe(expected)
         }
     )
 })

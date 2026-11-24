@@ -16,12 +16,6 @@ export interface ResumeConfig {
     lastModified: string
 }
 
-export interface BlogConfig {
-    source: string
-    basePath: `/${string}`
-    showOnHomepage: boolean
-}
-
 export interface StaticProfileMeta {
     description: string
     twitterDescription: string
@@ -60,7 +54,6 @@ export interface ProfileConfig {
     calendlyUrl?: string
     staticMeta: StaticProfileMeta
     lastModified: string
-    blog: BlogConfig | null
     howIWork?: ProfilePageConfig
     about?: ProfilePageConfig
     projects?: readonly ProjectConfig[]
@@ -125,16 +118,9 @@ export function profileHasResume(profile: ProfileId): boolean {
     return PROFILE_CONFIG[profile].resume !== null
 }
 
-export function getProfileBlogPath(
-    hostname: string,
-    profile: ProfileId,
-    configuredProfile: ProfileId | null
-): string | null {
-    const blog = PROFILE_CONFIG[profile].blog
-    if (!blog) return null
-
-    const profilePrefix = isLocalProfileHostname(hostname) && configuredProfile === null ? `/${profile}` : ""
-    return `${profilePrefix}${blog.basePath}/`
+// Spencer owns the only blog. Joint local previews namespace his routes.
+export function getSpencerBlogPath(hostname: string, configuredProfile: ProfileId | null): string {
+    return isLocalProfileHostname(hostname) && configuredProfile === null ? "/spencer/blog/" : "/blog/"
 }
 
 export function getProfileHomePath(hostname: string, profile: ProfileId): string {
