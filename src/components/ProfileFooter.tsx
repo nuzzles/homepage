@@ -60,6 +60,7 @@ export const ProfileFooter = () => {
                         {t("readingListPage.title")}
                     </Link>
                 )}
+                {blog && <a href={`${blog.replace(/\/$/, "")}/tags/`}>{t("navigation.tags")}</a>}
             </nav>
             <ProfileSocials />
         </footer>

@@ -15,7 +15,7 @@ export const ProfileSocials = ({ actionBar = false }: { actionBar?: boolean }) =
                     <a key={kind} href={href} target="_blank" rel="noopener noreferrer">
                         <FontAwesomeIcon icon={icons[kind]} aria-hidden="true" />
                         <span>{label}</span>
-                        <ExternalLink aria-hidden="true" className="social-arrow" />
+                        <ExternalLink aria-hidden="true" className="external-link-icon" />
                     </a>
                 )
                 return actionBar ? (

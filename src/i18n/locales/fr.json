@@ -98,7 +98,8 @@
         "projects": "Projets",
         "socials": "Me retrouver en ligne",
         "newTab": "S’ouvre dans un nouvel onglet",
-        "blogStats": "Statistiques du blog"
+        "blogStats": "Statistiques du blog",
+        "tags": "Étiquettes"
     },
     "projects": {
         "title": "Projets",
@@ -142,7 +143,8 @@
         "identity": {
             "title": "Identité",
             "platform": "Plateforme",
-            "account": "Compte"
+            "account": "Compte",
+            "revealEmail": "Afficher l’adresse e-mail"
         }
     },
     "latest": {

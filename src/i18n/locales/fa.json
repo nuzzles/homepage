@@ -98,7 +98,8 @@
         "projects": "پروژه‌ها",
         "socials": "من در شبکه‌های دیگر",
         "newTab": "در زبانهٔ جدید باز می‌شود",
-        "blogStats": "آمار وبلاگ"
+        "blogStats": "آمار وبلاگ",
+        "tags": "برچسب‌ها"
     },
     "projects": {
         "title": "پروژه‌ها",
@@ -142,7 +143,8 @@
         "identity": {
             "title": "هویت",
             "platform": "پلتفرم",
-            "account": "حساب"
+            "account": "حساب",
+            "revealEmail": "نمایش ایمیل"
         }
     },
     "latest": {

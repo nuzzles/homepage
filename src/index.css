@@ -728,8 +728,11 @@
     height: 18px;
     color: inherit;
 }
-.social-strip .social-arrow {
-    width: 14px;
+.social-strip .external-link-icon,
+.social-bar-action .external-link-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
 }
 .social-strip a:hover {
     color: var(--primary);
@@ -1254,6 +1257,24 @@
     color: var(--primary);
     text-decoration: underline;
     text-underline-offset: 3px;
+}
+.identity-email-trigger {
+    max-width: 100%;
+    white-space: normal;
+    height: auto;
+    padding-inline: var(--space-3);
+    text-align: start;
+}
+.identity-schedule-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+}
+.identity-schedule-link .external-link-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
 }
 
 .resume-sidebar {

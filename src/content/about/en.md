@@ -18,9 +18,7 @@ I’m a core maintainer of [Trunk](https://github.com/trunk-rs/trunk), contribut
 
 ## Contact {#contact}
 
-For engineering, graphics, open source, or a project you’re working on, send me an email or schedule a conversation. You can also find my code and professional profile below.
-
-::contact
+Reach out, I love talking to people about what they're working on. You may find my contacts in the Identity section below.
 
 ## Identity {#identity}
 

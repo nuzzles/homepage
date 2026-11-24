@@ -166,6 +166,7 @@ and distinguish Spencer's contribution from the team's achievements.
   Squiggle waves repeat at a fixed 24px spacing with a 3px stroke, independent of name width.
   Use a continuous path with inset round endpoints so neither side is clipped.
   On hover/focus, smoothly animate the wave phase along the line, keeping its container still.
+  When hover/focus ends, ease the wave forward to its next initial phase without reversing, freezing, or snapping.
   Do not bob, stretch, rotate, or skew the whole underline. Honor reduced-motion preferences.
   On wide screens, arrange footer navigation into two columns, retaining How I work below Resume.
   Footer credit uses coffee and Claude pixel icons with accessible names.

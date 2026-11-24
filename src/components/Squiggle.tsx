@@ -33,7 +33,7 @@ export const Squiggle = ({ children }: { children: ReactNode }) => {
         let focused = false
         const paint = () => path.setAttribute("d", wavePath(width, phase))
         const animate = (time: number) => {
-            if (previousTime) phase += (Math.min(time - previousTime, 50) / 1600) * Math.PI * 2
+            if (previousTime) phase = (phase + (Math.min(time - previousTime, 50) / 1600) * Math.PI * 2) % (Math.PI * 2)
             previousTime = time
             paint()
             frame = requestAnimationFrame(animate)
@@ -45,6 +45,23 @@ export const Squiggle = ({ children }: { children: ReactNode }) => {
             else if (motion?.matches) {
                 phase = 0
                 paint()
+            } else {
+                const from = phase
+                // Continue forward to the next idle phase without reversing
+                // or moving the underline container.
+                const target = Math.ceil(from / (Math.PI * 2)) * Math.PI * 2
+                const duration = Math.max(280, ((target - from) / (Math.PI * 2)) * 1600)
+                let started: number | undefined
+                const settle = (time: number) => {
+                    started ??= time
+                    const progress = Math.min((time - started) / duration, 1)
+                    const eased = progress * progress * (3 - 2 * progress)
+                    phase = from + (target - from) * eased
+                    if (progress === 1) phase = 0
+                    paint()
+                    if (progress < 1) frame = requestAnimationFrame(settle)
+                }
+                frame = requestAnimationFrame(settle)
             }
         }
         const enter = () => {

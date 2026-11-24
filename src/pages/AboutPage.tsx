@@ -4,7 +4,9 @@ import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { aboutSections } from "@/content/about"
 import { ProfileHeader } from "@/components/ProfileHeader"
-import { ProfileActions } from "@/components/ProfileActions"
+import { EmailDialog } from "@/components/EmailDialog"
+import { Button } from "@/components/ui/button"
+import { ExternalLink } from "lucide-react"
 import { ProfileBiography } from "@/components/ProfileBiography"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
@@ -54,7 +56,6 @@ export const AboutPage = () => {
                 components={{
                     p: ({ children }) => {
                         if (children === "::biography") return <ProfileBiography />
-                        if (children === "::contact") return <ProfileActions />
                         if (children === "::projects")
                             return (
                                 <ul className="about-project-list">
@@ -79,6 +80,35 @@ export const AboutPage = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                            <th scope="row">{t("home.revealEmail")}</th>
+                                            <td>
+                                                <EmailDialog encodedEmail={profile.encodedEmail}>
+                                                    <Button variant="outline" className="identity-email-trigger">
+                                                        {t("aboutPage.identity.revealEmail")}
+                                                    </Button>
+                                                </EmailDialog>
+                                            </td>
+                                        </tr>
+                                        {profile.calendlyUrl && (
+                                            <tr>
+                                                <th scope="row">Calendly</th>
+                                                <td>
+                                                    <a
+                                                        className="identity-schedule-link"
+                                                        href={profile.calendlyUrl}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
+                                                        <span>{t("home.scheduleOneOnOne")}</span>
+                                                        <ExternalLink
+                                                            aria-hidden="true"
+                                                            className="external-link-icon"
+                                                        />
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        )}
                                         {profile.socials.map(({ kind, label, href }) => (
                                             <tr key={kind}>
                                                 <th scope="row">{label}</th>

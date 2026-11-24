@@ -135,7 +135,11 @@ describe("About and portfolio routes", () => {
         ).toContain("GitHub")
         expect(container.querySelector('a[aria-current="page"]')?.textContent).toBe(copy.navigation.about)
         expect(container.querySelector(`a[href="/${lang}/spencer/resume"]`)).not.toBeNull()
-        expect(container.querySelector('a[href="https://calendly.com/simbleau/meet"]')).not.toBeNull()
+        expect(container.querySelector('.identity-table a[href="https://calendly.com/simbleau/meet"]')).not.toBeNull()
+        expect(container.querySelector("#contact .action-strip")).toBeNull()
+        expect(container.querySelector(".identity-email-trigger")?.textContent).toBe(
+            copy.aboutPage.identity.revealEmail
+        )
         expect(container.querySelector("button[aria-expanded]")).not.toBeNull()
         expect(
             container.querySelector('#disclaimer a[href="https://creativecommons.org/licenses/by/4.0/"]')
@@ -149,6 +153,17 @@ describe("About and portfolio routes", () => {
         expect(container.querySelector('.footer-links a[href$="/how-i-work"]')).not.toBeNull()
         expect(document.documentElement.dir).toBe(lang === "fa" ? "rtl" : "ltr")
         expect(window.location.pathname).toBe(path)
+    })
+    it("opens the shared email dialog from Identity and restores focus when closed", async () => {
+        await render("spencer", "/about")
+        const trigger = container.querySelector<HTMLButtonElement>(".identity-email-trigger")!
+        await act(async () => trigger.click())
+        const dialog = document.querySelector('[role="dialog"]')!
+        expect(dialog.querySelector('a[href^="mailto:"]')?.textContent).toContain(en.home.composeEmail)
+        expect(dialog.querySelector(`[aria-label="${en.home.copyEmail}"]`)).not.toBeNull()
+        await act(async () => dialog.querySelector<HTMLButtonElement>(`[aria-label="${en.home.closeEmail}"]`)!.click())
+        expect(document.querySelector('[role="dialog"]')).toBeNull()
+        await vi.waitFor(() => expect(document.activeElement).toBe(trigger))
     })
     it.each(languages)("honors the saved %s preference on the bare About route", async (lang) => {
         savePreferredLanguage(lang)

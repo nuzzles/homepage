@@ -18,9 +18,7 @@ Je suis mainteneur principal de [Trunk](https://github.com/trunk-rs/trunk), je c
 
 ## Contact {#contact}
 
-Pour parler d’ingénierie, de graphisme, d’open source ou de votre projet, envoyez-moi un courriel ou planifiez un échange. Mon code et mon profil professionnel sont également accessibles ci-dessous.
-
-::contact
+Contactez-moi, j’adore discuter avec les gens de ce sur quoi ils travaillent. Vous trouverez mes coordonnées dans la section Identité ci-dessous.
 
 ## Identité {#identity}
 
