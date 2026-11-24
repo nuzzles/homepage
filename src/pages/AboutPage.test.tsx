@@ -64,13 +64,19 @@ describe("About and portfolio routes", () => {
     )("renders $path on $site", async ({ lang, site, path }) => {
         await render(site, path)
         const copy = translations[lang]
-        expect(container.querySelector("h1")?.textContent).toBe(`${copy.aboutPage.title}.`)
+        expect(container.querySelector("h1")?.textContent).toBe(copy.aboutPage.title)
         expect(container.querySelector("article")?.textContent).toContain(copy.aboutPage.background.body)
-        expect(container.querySelectorAll("article h2")).toHaveLength(4)
+        expect(container.querySelectorAll("article h2")).toHaveLength(5)
+        expect(container.querySelector('#blog a[href="https://github.com/nuzzles/homepage"]')?.textContent).toContain(
+            "GitHub"
+        )
         expect(container.querySelector('a[aria-current="page"]')?.textContent).toBe(copy.navigation.about)
         expect(container.querySelector(`a[href="/${lang}/spencer/resume"]`)).not.toBeNull()
         expect(container.querySelector('a[href="https://calendly.com/simbleau/meet"]')).not.toBeNull()
         expect(container.querySelector("button[aria-expanded]")).not.toBeNull()
+        expect(container.querySelector('#blog a[href="https://creativecommons.org/licenses/by/4.0/"]')).not.toBeNull()
+        expect(container.querySelector('#blog a[href="https://www.apache.org/licenses/LICENSE-2.0"]')).not.toBeNull()
+        expect(container.querySelector('#blog a[href="https://github.com/nuzzles/homepage/issues"]')).not.toBeNull()
         expect(container.querySelector('a[href$="/how-i-work"]')).toBeNull()
         expect(document.documentElement.dir).toBe(lang === "fa" ? "rtl" : "ltr")
         expect(window.location.pathname).toBe(path)
@@ -78,7 +84,7 @@ describe("About and portfolio routes", () => {
     it.each(languages)("honors the saved %s preference on the bare About route", async (lang) => {
         savePreferredLanguage(lang)
         await render("spencer", "/about")
-        expect(container.querySelector("h1")?.textContent).toBe(`${translations[lang].aboutPage.title}.`)
+        expect(container.querySelector("h1")?.textContent).toBe(translations[lang].aboutPage.title)
         expect(window.location.pathname).toBe("/about")
     })
     it.each(["", "/en", "/fr", "/fa"])("keeps About off Sara and the joint site at %s", async (prefix) => {

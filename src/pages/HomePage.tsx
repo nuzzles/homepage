@@ -1,4 +1,6 @@
-import { ArrowRight, Coffee, Keyboard } from "lucide-react"
+import { Coffee, Keyboard } from "lucide-react"
+import { Trans } from "react-i18next"
+import { LatestPosts } from "@/components/LatestPosts"
 import { Helmet } from "react-helmet-async"
 import { ProfileHeader } from "@/components/ProfileHeader"
 import { ProfileSocials } from "@/components/ProfileSocials"
@@ -57,22 +59,30 @@ export const HomePage = () => {
                 <ProfileHeader />
                 <section className="profile-hero">
                     <div className="hero-copy min-w-0">
-                        <p className="eyebrow hero-eyebrow">{t(profile.roleKey)}</p>
                         <h1 className="hero-title">
-                            <span>{t("home.headline")}</span>
+                            <span>
+                                {t("home.greeting", { name: profile.firstName })}{" "}
+                                <span className="greeting-wave" aria-hidden="true">
+                                    👋
+                                </span>
+                            </span>
                         </h1>
                         <ProfileBiography />
                         {profile.about && (
-                            <a className="about-link" href={localizedPath(`${base}${profile.about.path}`)}>
-                                {t("home.moreAbout")}
-                                <ArrowRight aria-hidden="true" className="rtl:rotate-180" />
-                            </a>
+                            <p className="about-link">
+                                <Trans
+                                    t={t}
+                                    i18nKey="home.moreAbout"
+                                    components={{ about: <a href={localizedPath(`${base}${profile.about.path}`)} /> }}
+                                />
+                            </p>
                         )}
-                        <ProfileActions />
+                        <ProfileSocials />
                     </div>
                     <ProfilePortrait />
                 </section>
-                <ProfileSocials />
+                <ProfileActions />
+                {profile.id === "spencer" && <LatestPosts />}
                 <ProjectsSection />
                 <footer className="profile-footer">
                     <span className="footer-name">{profile.fullName}</span>

@@ -42,10 +42,7 @@ export interface ProjectConfig {
     id: string
     name: string
     href: string
-    icon: "box" | "pen" | "terminal" | "scan"
     descriptionKey: string
-    categoryKey: string
-    technologies: readonly string[]
 }
 
 export interface ProfileConfig {

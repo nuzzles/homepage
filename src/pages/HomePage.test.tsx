@@ -9,6 +9,21 @@ let container: HTMLDivElement
 let root: Root
 
 beforeEach(async () => {
+    vi.stubGlobal(
+        "fetch",
+        vi.fn().mockResolvedValue({
+            ok: true,
+            json: async () => [
+                {
+                    title: "Published post",
+                    url: "/blog/published.html",
+                    date: "2026-09-14T00:00:00Z",
+                    description: "An actual feed entry.",
+                },
+                { title: "Unsafe URL", url: "javascript:alert(1)", date: "2026-09-14", description: "Invalid" },
+            ],
+        })
+    )
     localStorage.clear()
     document.documentElement.dataset.site = "spencer"
     window.history.replaceState({}, "", "/en/spencer")
@@ -28,7 +43,7 @@ afterEach(async () => {
 })
 
 const button = (name: string) => [...container.querySelectorAll("button")].find((el) => el.textContent === name)!
-const reveal = async () => act(async () => button("Reveal Email").click())
+const reveal = async () => act(async () => button("Email").click())
 
 describe("profile controls", () => {
     it("reveals email only after activation and announces a successful copy", async () => {
@@ -51,13 +66,34 @@ describe("profile controls", () => {
         expect(container.querySelector('a[href^="mailto:"]')).not.toBeNull()
     })
 
-    it("expands and collapses the affiliation details", async () => {
-        const expand = button("Read more...")
-        expect(expand.getAttribute("aria-expanded")).toBe("false")
-        await act(async () => expand.click())
-        expect(expand.getAttribute("aria-expanded")).toBe("true")
-        expect(document.getElementById(expand.getAttribute("aria-controls")!)?.textContent).toContain("Rust triage")
-        await act(async () => expand.click())
-        expect(expand.getAttribute("aria-expanded")).toBe("false")
+    it("shows the complete introduction without an expansion control", () => {
+        expect(container.querySelector(".biography")?.textContent).toContain("Blue Origin")
+        expect(container.querySelector(".biography")?.textContent).toContain("Rust triage team member")
+        expect(container.querySelector(".biography")?.textContent).toContain("Linebender maintainer")
+        expect(container.querySelector(".biography button")).toBeNull()
+        expect(container.querySelector('button[aria-label="Choose profile"]')).toBeNull()
+    })
+    it("opens every project in a new tab with an external-link marker", () => {
+        const cards = [...container.querySelectorAll(".project-card")]
+        expect(cards).toHaveLength(4)
+        for (const card of cards) {
+            expect(card.getAttribute("target")).toBe("_blank")
+            expect(card.getAttribute("rel")).toContain("noopener")
+            expect(card.querySelector(".external-link-marker")).not.toBeNull()
+            expect(card.querySelector(".project-category, .project-technologies")).toBeNull()
+        }
+    })
+    it("keeps the blog link usable when the latest feed fails", async () => {
+        vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")))
+        await act(async () => root.render(<App key="offline" />))
+        expect(container.querySelector(".latest-grid")?.textContent).toBe("")
+        expect(container.querySelector(".latest-section a")?.getAttribute("href")).toBe("/blog/")
+    })
+
+    it("loads published posts and rejects URLs outside the blog", () => {
+        expect(fetch).toHaveBeenCalledWith("/blog/latest.json", expect.any(Object))
+        expect(container.querySelector(".latest-grid")?.textContent).toContain("Published post")
+        expect(container.querySelector(".latest-grid")?.textContent).not.toContain("Unsafe URL")
+        expect(container.querySelector(".latest-grid a")?.getAttribute("target")).toBe("_blank")
     })
 })

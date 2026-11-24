@@ -1,7 +1,6 @@
-import { ArrowUpRight, Box, PenTool, ScanLine, Terminal } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { useProfile } from "@/hooks/useProfile"
 import { useLanguage } from "@/hooks/useLanguage"
-const icons = { box: Box, pen: PenTool, scan: ScanLine, terminal: Terminal }
 export const ProjectsSection = () => {
     const profile = useProfile()
     const { t } = useLanguage()
@@ -9,33 +8,25 @@ export const ProjectsSection = () => {
     return (
         <section id="projects" className="projects-section" aria-labelledby="projects-title">
             <div className="section-heading">
-                <div>
-                    <p className="eyebrow">{t("projects.eyebrow")}</p>
-                    <h2 id="projects-title">{t("projects.title")}</h2>
-                </div>
-                <p>{t("projects.introduction")}</p>
+                <h2 id="projects-title">{t("projects.title")}</h2>
             </div>
             <div className="project-grid">
-                {profile.projects.map((project, index) => {
-                    const Icon = icons[project.icon]
-                    return (
-                        <a className="project-card" href={project.href} key={project.id}>
-                            <div className="project-top">
-                                <Icon aria-hidden="true" />
-                                <span>{String(index + 1).padStart(2, "0")}</span>
-                                <ArrowUpRight aria-hidden="true" />
-                            </div>
-                            <p className="project-category">{t(project.categoryKey)}</p>
-                            <h3>{project.name}</h3>
-                            <p className="project-description">{t(project.descriptionKey)}</p>
-                            <ul className="project-technologies" aria-label={t("projects.technologies")}>
-                                {project.technologies.map((tech) => (
-                                    <li key={tech}>{tech}</li>
-                                ))}
-                            </ul>
-                        </a>
-                    )
-                })}
+                {profile.projects.map((project) => (
+                    <a
+                        className="project-card"
+                        href={project.href}
+                        key={project.id}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <h3>{project.name}</h3>
+                        <p className="project-description">{t(project.descriptionKey)}</p>
+                        <span className="external-link-marker">
+                            <ExternalLink aria-hidden="true" />
+                            <span className="sr-only">{t("navigation.newTab")}</span>
+                        </span>
+                    </a>
+                ))}
             </div>
         </section>
     )

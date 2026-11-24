@@ -18,35 +18,33 @@
         "personDescription": "PhD neuroscience researcher."
     },
     "home": {
-        "headline": "Hello.",
         "sticker": "I'm Spencer.",
         "role": "Software Engineer",
         "saraSticker": "I'm Sara.",
         "saraRole": "PhD Neuroscience Researcher",
         "startHere": "Start here.",
-        "revealEmail": "Reveal Email",
+        "revealEmail": "Email",
         "copied": "Copied!",
         "copy": "Copy",
-        "backToSelector": "Back to Profile Selector",
+        "backToSelector": "Back to profile selector",
         "resume": "Resume",
         "blog": "Blog",
-        "scheduleOneOnOne": "Schedule 1:1",
+        "scheduleOneOnOne": "Calendly",
         "madeWith": "Made with",
         "andA": "and a",
         "biographies": {
             "spencer": {
-                "introduction": "Software engineer building GPU-accelerated computer graphics, AI applications, and complex systems. I work primarily in Rust, TypeScript, WebAssembly, and Python.",
-                "details": "I am also a <rust>Rust triage team member</rust>, <bevy>Bevy contributor</bevy>, <trunk>Trunk core maintainer</trunk>, and <linebender>Linebender maintainer</linebender>."
+                "introduction": "I am a member of technical staff at <blue>Blue Origin</blue>, a <rust>Rust triage team member</rust>, a <bevy>Bevy contributor</bevy>, a <trunk>Trunk core maintainer</trunk>, and a <linebender>Linebender maintainer</linebender>.",
+                "details": ""
             },
             "sara": {
                 "introduction": "Sara Imbleau is a PhD researcher at the <uf>University of Florida</uf>, with a specialization in computation, machine learning, and AI.",
                 "details": ""
             }
         },
-        "readMore": "Read more...",
-        "readLess": "Read less",
         "copyFailed": "Could not copy. Select the email address to contact me.",
-        "moreAbout": "More About Me"
+        "moreAbout": "You can read more about me on the <about>About page</about>.",
+        "greeting": "Hi, I’m {{name}}"
     },
     "resumePage": {
         "title": "{{profile}} | Resume",
@@ -55,7 +53,7 @@
         "loading": "Loading résumé…",
         "loadingHelp": "Taking a while? Open the PDF directly.",
         "openPdf": "Open PDF",
-        "goBack": "Go Back",
+        "goBack": "Go back",
         "downloadResume": "Download",
         "unavailablePageTitle": "{{profile}} | Resume",
         "unavailableDescription": "{{profile}}'s resume is coming soon.",
@@ -64,7 +62,7 @@
         "downloading": "Downloading…"
     },
     "languageSwitcher": {
-        "label": "Site Language:"
+        "label": "Site language:"
     },
     "profileSwitcher": {
         "label": "Choose profile"
@@ -75,7 +73,7 @@
         "metaDescription": "This is the joint homepage of {{profiles}}."
     },
     "howIWorkPage": {
-        "title": "How I Work",
+        "title": "How I work",
         "description": "The principles I bring to engineering and collaboration: useful work, shared success, candor, curiosity, fairness, and responsibility.",
         "label": "Personal values",
         "testLabel": "My test",
@@ -125,56 +123,60 @@
         "resume": "Résumé"
     },
     "navigation": {
-        "label": "Main Navigation",
+        "label": "Main navigation",
         "home": "Home",
         "about": "About",
         "projects": "Projects",
-        "socials": "Find Me Online"
+        "socials": "Find me online",
+        "newTab": "Opens in a new tab"
     },
     "projects": {
-        "eyebrow": "Built & Maintained",
-        "title": "Selected Projects",
-        "introduction": "Graphics, developer tools, and a little reverse engineering.",
-        "technologies": "Technologies",
+        "title": "Projects",
         "monet": {
-            "category": "Graphics & Live Events",
             "description": "A declarative 3D engine and collaborative studio for broadcast and live-event graphics."
         },
         "bevyVello": {
-            "category": "Open Source · Author & Maintainer",
             "description": "Bringing Vello’s GPU-accelerated vector graphics to the Bevy game engine."
         },
         "trunk": {
-            "category": "Open Source · Core Maintainer",
             "description": "A Rust WebAssembly build tool, from local development and hot reload to production packaging."
         },
         "halo": {
-            "category": "Reverse Engineering",
             "description": "A Rust library for Halo Infinite APIs and offline parsing of Theater film files."
         }
     },
     "aboutPage": {
         "title": "About",
         "description": "About Spencer Imbleau: software engineering, computer graphics, open-source work, and projects.",
-        "tagline": "Building useful things. Sharing what I learn.",
-        "contents": "On This Page",
+        "contents": "On this page",
         "background": {
-            "title": "A Little Background",
+            "title": "A little background",
             "body": "I like working close to the systems I’m trying to understand: rendering pixels, building tools, and turning experiments into software people can use. My work spans GPU graphics, browser applications, and the infrastructure behind them."
         },
         "openSource": {
-            "title": "Open Source",
+            "title": "Open source",
             "graphics": "I authored and maintain <bevyVello>bevy_vello</bevyVello>, the integration of Vello’s GPU-accelerated vector renderer with Bevy. Alongside other Linebender contributors, I also maintain <velloSvg>vello_svg</velloSvg> and <velato>velato</velato>, working on SVG rendering and Lottie animation.",
             "tools": "I’m a core maintainer of <trunk>Trunk</trunk>, contribute WebAssembly support to <bevy>Bevy</bevy>, and help triage compiler and standard-library issues as a member of the <rust>Rust triage team</rust>."
         },
         "projects": {
-            "title": "What I Build",
+            "title": "What I build",
             "body": "Some of my work becomes a product; some starts with a question about how a system works. These are a few projects I build or help maintain.",
-            "all": "Explore the Projects"
+            "all": "Explore the projects"
         },
         "contact": {
-            "title": "Let’s Talk",
+            "title": "Let’s talk",
             "body": "For engineering, graphics, open source, or a project you’re working on, send me an email or schedule a conversation. You can also find my code and professional profile below."
+        },
+        "blog": {
+            "title": "About this blog",
+            "opinions": "I write about software engineering, graphics, and AI on <blog>my blog</blog>. The opinions expressed there are my own, and are not official statements of my employer or teams.",
+            "source": "The source for this blog is <repository>on GitHub</repository>. Pull requests are welcome, as are <issues>issues</issues>. I also use issues to track ideas in the pipeline.",
+            "categories": "Browse <categories>posts by category</categories>.",
+            "license": "The text of this blog is licensed under <cc>CC BY 4.0</cc>. Feel free to quote and adapt it, as long as you give attribution. All code snippets, including the interactive demos, are licensed under <apache>Apache 2.0</apache>."
         }
+    },
+    "latest": {
+        "title": "Latest",
+        "more": "See more posts"
     }
 }

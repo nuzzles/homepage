@@ -63,37 +63,25 @@
                 "id": "monet",
                 "name": "Monet",
                 "href": "https://monet3d.com",
-                "icon": "box",
-                "descriptionKey": "projects.monet.description",
-                "categoryKey": "projects.monet.category",
-                "technologies": ["Rust", "TypeScript", "WebAssembly"]
+                "descriptionKey": "projects.monet.description"
             },
             {
                 "id": "bevyVello",
                 "name": "bevy_vello",
                 "href": "https://github.com/linebender/bevy_vello",
-                "icon": "pen",
-                "descriptionKey": "projects.bevyVello.description",
-                "categoryKey": "projects.bevyVello.category",
-                "technologies": ["Rust", "Bevy", "Vello"]
+                "descriptionKey": "projects.bevyVello.description"
             },
             {
                 "id": "trunk",
                 "name": "Trunk",
                 "href": "https://trunkrs.dev",
-                "icon": "terminal",
-                "descriptionKey": "projects.trunk.description",
-                "categoryKey": "projects.trunk.category",
-                "technologies": ["Rust", "WebAssembly"]
+                "descriptionKey": "projects.trunk.description"
             },
             {
                 "id": "halo",
                 "name": "halo_api",
                 "href": "https://github.com/nuzzles/halo_api",
-                "icon": "scan",
-                "descriptionKey": "projects.halo.description",
-                "categoryKey": "projects.halo.category",
-                "technologies": ["Rust", "Halo Infinite"]
+                "descriptionKey": "projects.halo.description"
             }
         ]
     },

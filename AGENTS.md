@@ -88,11 +88,19 @@ and distinguish Spencer's contribution from the team's achievements.
   page and an outlined button for the other page. Link to How I Work from the
   résumé page, not the homepage. Keep its article scrollable with Go back outside.
 
-- Keep bold display headings and properly capitalized controls. Preserve the playful
+- Use readable sentence-case headings and controls; never force uppercase with CSS. Preserve the playful
   portrait corner marks, offset blue frame, name sticker, and decorative motion.
   Motion must be brief and respect reduced-motion preferences.
-- Spencer's About page and selected projects live in profile configuration. Project
+- Spencer's About page and projects live in profile configuration. Project
   descriptions and About copy use all three locale files. Use verified project facts;
   distinguish authorship from maintenance or contributions.
-- Keep Resume, Reveal Email, and Schedule 1:1 prominent, with GitHub and LinkedIn
+- Keep Resume, Email, and Calendly in the horizontal action bar, with GitHub and LinkedIn
   presented as clear icon-and-name links. Do not add unconfirmed social accounts.
+
+- The homepage introduces the profile with a personal greeting and always shows the full
+  biography. Do not add a profile dropdown or biography expansion control.
+- Spencer's homepage sections are Latest and Projects. Latest uses Jekyll's generated
+  published-post feed; blog titles and excerpts remain English. Project cards contain
+  only a title, description, and boxed external-link indicator and open in new tabs.
+- Spencer's former blog About URL redirects to his site About page. Keep the blog's
+  ownership, contribution, category, and license information on that translated page.

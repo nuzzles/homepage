@@ -17,6 +17,7 @@ resource "aws_cloudfront_function" "blog_router" {
   publish = true
   code = templatefile("${path.module}/functions/blog-router.js", {
     blog_base_path = jsonencode(each.value.blog_base_path)
+    about_redirect = jsonencode(each.key == "spencer" ? "/about" : "")
   })
 }
 

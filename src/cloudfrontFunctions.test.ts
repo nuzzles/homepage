@@ -22,8 +22,26 @@ const runFunction = (source: string, uri: string) =>
     }) as CloudFrontRequest | CloudFrontResponse
 
 describe("CloudFront request routing", () => {
-    const blogRouter = loadFunction("blog-router.js").replace("${blog_base_path}", JSON.stringify("/blog"))
+    const blogRouter = loadFunction("blog-router.js")
+        .replace("${blog_base_path}", JSON.stringify("/blog"))
+        .replace("${about_redirect}", JSON.stringify("/about"))
     const spaRouter = loadFunction("spa-router.js")
+
+    it.each(["/blog/about", "/blog/about/", "/blog/about/index.html", "/blog/about.html"])(
+        "redirects Spencer's old About URL %s",
+        (uri) => {
+            expect(runFunction(blogRouter, uri)).toMatchObject({
+                statusCode: 308,
+                headers: { location: { value: "/about" } },
+            })
+        }
+    )
+    it("preserves Sara's blog About page", () => {
+        const saraRouter = loadFunction("blog-router.js")
+            .replace("${blog_base_path}", JSON.stringify("/blog"))
+            .replace("${about_redirect}", JSON.stringify(""))
+        expect(runFunction(saraRouter, "/blog/about/")).toMatchObject({ uri: "/blog/about/index.html" })
+    })
 
     it("redirects the blog root to its canonical trailing-slash URL", () => {
         expect(runFunction(blogRouter, "/blog")).toMatchObject({

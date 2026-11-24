@@ -23,33 +23,39 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
         }
         timer.current = setTimeout(() => setCopyState("idle"), 3000)
     }
-    if (email)
-        return (
-            <div className="relative flex min-w-0 items-center rounded-md border border-input bg-card">
-                <a className="min-w-0 flex-1 px-3 text-sm font-medium break-all" href={`mailto:${email}`}>
-                    {email}
-                </a>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handleCopy}
-                    aria-label={t(copyState === "copied" ? "home.copied" : "home.copy")}
-                >
-                    {copyState === "copied" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-                </Button>
-                <span
-                    role="status"
-                    className={copyState === "failed" ? "absolute top-full mt-1 text-xs text-destructive" : "sr-only"}
-                >
-                    {copyState === "copied" ? t("home.copied") : copyState === "failed" ? t("home.copyFailed") : ""}
-                </span>
-            </div>
-        )
+    const revealedEmail = email ? (
+        <div className="email-reveal-panel">
+            <a className="min-w-0 flex-1 px-3 text-sm font-medium break-all" href={`mailto:${email}`}>
+                {email}
+            </a>
+            <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleCopy}
+                aria-label={t(copyState === "copied" ? "home.copied" : "home.copy")}
+            >
+                {copyState === "copied" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+            </Button>
+            <span
+                role="status"
+                className={copyState === "failed" ? "absolute top-full mt-1 text-xs text-destructive" : "sr-only"}
+            >
+                {copyState === "copied" ? t("home.copied") : copyState === "failed" ? t("home.copyFailed") : ""}
+            </span>
+        </div>
+    ) : null
     return (
-        <Button variant="outline" onClick={() => setEmail(atob(encodedEmail))}>
-            <Mail aria-hidden="true" />
-            {t("home.revealEmail")}
-        </Button>
+        <div className="email-action">
+            <Button
+                variant="ghost"
+                aria-expanded={Boolean(email)}
+                onClick={() => setEmail(email ? null : atob(encodedEmail))}
+            >
+                <Mail aria-hidden="true" />
+                {t("home.revealEmail")}
+            </Button>
+            {revealedEmail}
+        </div>
     )
 }
 
@@ -58,16 +64,16 @@ export const ProfileActions = () => {
     const { t, localizedPath } = useLanguage()
     const base = getProfileHomePath(window.location.hostname, profile.id).replace(/\/$/, "")
     return (
-        <div className="profile-actions hero-actions">
-            <Button asChild>
-                <a href={localizedPath(`${base}/resume`)}>
+        <div className="profile-actions action-strip">
+            <Button asChild variant="ghost">
+                <a href={localizedPath(`${base}/resume`)} target="_blank" rel="noopener noreferrer">
                     <FileText aria-hidden="true" />
                     {t("home.resume")}
                 </a>
             </Button>
             <RevealEmailButton key={profile.id} encodedEmail={profile.encodedEmail} />
             {profile.calendlyUrl && (
-                <Button asChild variant="outline">
+                <Button asChild variant="ghost">
                     <a href={profile.calendlyUrl} target="_blank" rel="noopener noreferrer">
                         <Calendar aria-hidden="true" />
                         {t("home.scheduleOneOnOne")}

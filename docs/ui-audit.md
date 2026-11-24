@@ -1,23 +1,22 @@
 # Website UI audit and shadcn refresh
 
-Audited November 24, 2026. The portfolio pairs bold typography and a playful portrait
+Audited November 23, 2026. The portfolio pairs bold typography and a playful portrait
 with a clearer page hierarchy, consistent controls, and dedicated project and About content.
 The homepage and About structure take inspiration from [den.dev](https://den.dev),
 using this site's own colors, portrait, decorations, and copy.
 
-| Finding                                                                      | Change                                                                                                                                            |
-| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lowercase controls and subdued headings weakened the site's personality.     | Capitalized controls, bold Barlow Condensed display headings, and a mustard headline underline.                                                   |
-| The portrait lost its distinctive framing.                                   | Offset blue backplate, corner marks, rotated name sticker, star, and drawn scribble; brief entrance motion respects reduced-motion preferences.   |
-| A single biography did not provide room for background or project discovery. | Spencer-only About page with a contents sidebar, background, open source, projects, and contact sections; four featured projects on the homepage. |
-| Contact links were hard to scan.                                             | GitHub and LinkedIn icon-and-name strip; Resume, Reveal Email, and Schedule 1:1 remain prominent.                                                 |
-| Cross-page project links arrived at the top of the homepage.                 | Restore fragment scrolling after React mounts the target sections, with regression coverage.                                                      |
-| MUI, custom buttons, and static blog styles duplicated the visual system.    | Owned shadcn/ui buttons, cards, and Radix menus; Tailwind semantic tokens; MUI and Emotion removed. Jekyll retains matching static CSS.           |
-| Small controls and weak footer contrast reduced usability.                   | 44px button/menu targets, visible focus rings, readable muted text, and stronger secondary outlines.                                              |
-| Document pages lacked an immediate language switch.                          | Language menu beside the résumé/How I Work navigation; filled current page and outlined alternate page.                                           |
-| Failed email copying gave no explanation.                                    | Translated success/error feedback; the email link remains usable and timers are cleaned up on unmount.                                            |
-| The PDF's direct link appeared only during delayed loading.                  | Persistent Open PDF link and a disabled download button during downloads.                                                                         |
-| The blog index lacked a top-level heading.                                   | Latest posts is an h1 when the page has no separate title; post links are h2 headings.                                                            |
+| Finding                                                         | Change                                                                                                                                         |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Uppercase display styling reduced readability.                  | Sentence-case Barlow headings and controls, a personal greeting, and a full biography at every screen size.                                    |
+| The portrait lost its distinctive framing.                      | Offset blue frame, corner marks, rotated name sticker, star, and scribble; brief entrance motion respects reduced-motion preferences.          |
+| Projects contained too many visual labels.                      | Title and description only, with a boxed external-link marker. Every project opens in a new tab.                                               |
+| The homepage did not surface recent writing.                    | Latest displays three published posts from a small Jekyll-generated JSON feed; the blog link remains available if the feed fails.              |
+| Contact actions lacked a clear home.                            | A horizontal Resume, Email, and Calendly bar; email reveals in a compact panel. GitHub and LinkedIn sit beside the introduction.               |
+| Profile switching and biography expansion added distractions.   | Removed the homepage profile dropdown and expansion controls.                                                                                  |
+| About content was split across the blog and website.            | Migrated ownership, contribution links, categories, and license details into the translated site About page. The old blog URL redirects there. |
+| Cross-page anchors could miss their target while React mounted. | Restore fragment scrolling after sections mount, with regression coverage.                                                                     |
+| MUI and custom controls duplicated the UI system.               | Owned shadcn/ui components, Radix menus, and Tailwind tokens; matching static Jekyll CSS.                                                      |
+| Document controls and email feedback were incomplete.           | Language switching, consistent active/alternate navigation, a persistent Open PDF link, and translated copy feedback.                          |
 
 ![Refreshed Spencer homepage](ui-refresh-homepage.jpg)
 
@@ -26,11 +25,11 @@ using this site's own colors, portrait, decorations, and copy.
 ## Content and routing
 
 - Monet, bevy_vello, Trunk, and halo_api are configured in `profiles.json`.
-  Descriptions distinguish authorship, maintenance, and contribution. No Mastodon link is added.
+  Cards have no category, technology, or decorative icon labels. No Mastodon link is added.
 - About, projects, navigation, and controls are translated into English, French, and Persian.
   About follows the résumé route conventions, including bare and language-prefixed routes,
   local profile paths, canonical metadata, sitemap entries, and CloudFront routing.
-- About and the selected project section belong to Spencer. Sara retains her own profile content.
+- About, Latest, and Projects belong to Spencer. Sara retains her own profile content.
 - How I Work remains accessible through the résumé page, with a bounded scrollable article
   and Go Back outside. Its navigation keeps the filled active and outlined alternate styles.
 - Blog content and the résumé PDF remain English only. Blog background remains `#f3eedf`.
@@ -38,15 +37,15 @@ using this site's own colors, portrait, decorations, and copy.
 
 ## Validation
 
-- `pnpm check`: Prettier, ESLint, TypeScript, 208 tests, and the Vite build.
+- `pnpm check`: Prettier, ESLint, TypeScript, 216 tests, and the Vite build.
 - `HOMEPAGE_SITE=spencer pnpm build` and `HOMEPAGE_SITE=sara pnpm build`, including Jekyll.
 - `terraform -chdir=terraform fmt -check -recursive`,
   `terraform -chdir=terraform init -backend=false -input=false -lockfile=readonly`,
   and `terraform -chdir=terraform validate`.
 - Browser checks of the revised portfolio: 1280px homepage and About; 375px homepage;
-  320px English, French, and Persian About and Persian projects. Checked horizontal overflow,
+  320px English homepage and email reveal, French About, and Persian homepage. Checked horizontal overflow,
   header wrapping, language changes, cross-page project scrolling, email reveal/copy feedback,
-  résumé/How I Work button hierarchy, profile-switch destinations, and blog-to-About navigation.
+  résumé/How I Work button hierarchy, project new-tab targets, and blog About redirects.
 - Earlier refresh checks also covered the joint selector, Sara résumé state, mobile blog index
   and article, keyboard menu opening/Escape/focus return, biography expansion, article scrolling,
   image enlargement/Escape, and the PDF download.

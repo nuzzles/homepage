@@ -7,8 +7,9 @@ import { ProfileBiography } from "@/components/ProfileBiography"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import { usePageAnchor } from "@/hooks/usePageAnchor"
+import { getConfiguredSite } from "@/site"
 import { languageConfig } from "@/i18n/i18n"
-import { getProfileHomePath } from "@/profiles"
+import { getProfileHomePath, getProfileBlogPath, isProfileId } from "@/profiles"
 
 export const AboutPage = () => {
     usePageAnchor()
@@ -19,7 +20,9 @@ export const AboutPage = () => {
     const title = `${t(page.titleKey)} | ${profile.fullName}`
     const canonical = `${profile.canonicalUrl}${routePrefix}${page.path}`
     const home = localizedPath(getProfileHomePath(window.location.hostname, profile.id))
-    const sections = ["background", "openSource", "projects", "contact"] as const
+    const site = getConfiguredSite()
+    const blog = getProfileBlogPath(window.location.hostname, profile.id, isProfileId(site) ? site : null)
+    const sections = ["background", "openSource", "projects", "blog", "contact"] as const
     return (
         <div className="profile-page portfolio-page about-page">
             <Helmet>
@@ -42,12 +45,7 @@ export const AboutPage = () => {
             </Helmet>
             <ProfileHeader current="about" />
             <header className="about-banner">
-                <p className="eyebrow">{profile.fullName}</p>
-                <h1>
-                    {t(page.titleKey)}
-                    <span aria-hidden="true">.</span>
-                </h1>
-                <p>{t("aboutPage.tagline")}</p>
+                <h1>{t(page.titleKey)}</h1>
             </header>
             <div className="about-layout">
                 <aside className="about-contents">
@@ -63,7 +61,7 @@ export const AboutPage = () => {
                 <article className="about-prose">
                     <section id="background">
                         <h2>{t("aboutPage.background.title")}</h2>
-                        <ProfileBiography expandable={false} />
+                        <ProfileBiography />
                         <p>{t("aboutPage.background.body")}</p>
                     </section>
                     <section id="openSource">
@@ -73,9 +71,27 @@ export const AboutPage = () => {
                                 t={t}
                                 i18nKey="aboutPage.openSource.graphics"
                                 components={{
-                                    bevyVello: <a href="https://github.com/linebender/bevy_vello" />,
-                                    velloSvg: <a href="https://github.com/linebender/vello_svg" />,
-                                    velato: <a href="https://github.com/linebender/velato" />,
+                                    bevyVello: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://github.com/linebender/bevy_vello"
+                                        />
+                                    ),
+                                    velloSvg: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://github.com/linebender/vello_svg"
+                                        />
+                                    ),
+                                    velato: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://github.com/linebender/velato"
+                                        />
+                                    ),
                                 }}
                             />
                         </p>
@@ -84,9 +100,15 @@ export const AboutPage = () => {
                                 t={t}
                                 i18nKey="aboutPage.openSource.tools"
                                 components={{
-                                    trunk: <a href="https://trunkrs.dev" />,
-                                    bevy: <a href="https://bevy.org" />,
-                                    rust: <a href="https://rust-lang.org/governance/people/nuzzles/" />,
+                                    trunk: <a target="_blank" rel="noopener noreferrer" href="https://trunkrs.dev" />,
+                                    bevy: <a target="_blank" rel="noopener noreferrer" href="https://bevy.org" />,
+                                    rust: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://rust-lang.org/governance/people/nuzzles/"
+                                        />
+                                    ),
                                 }}
                             />
                         </p>
@@ -97,7 +119,9 @@ export const AboutPage = () => {
                         <ul className="about-project-list">
                             {profile.projects?.map((project) => (
                                 <li key={project.id}>
-                                    <a href={project.href}>{project.name}</a>
+                                    <a href={project.href} target="_blank" rel="noopener noreferrer">
+                                        {project.name}
+                                    </a>
                                     <p>{t(project.descriptionKey)}</p>
                                 </li>
                             ))}
@@ -105,6 +129,67 @@ export const AboutPage = () => {
                         <a className="text-link" href={`${home}#projects`}>
                             {t("aboutPage.projects.all")}
                         </a>
+                    </section>
+                    <section id="blog">
+                        <h2>{t("aboutPage.blog.title")}</h2>
+                        <p>
+                            <Trans
+                                t={t}
+                                i18nKey="aboutPage.blog.opinions"
+                                components={{ blog: <a href={blog ?? "/blog/"} /> }}
+                            />
+                        </p>
+                        <p>
+                            <Trans
+                                t={t}
+                                i18nKey="aboutPage.blog.source"
+                                components={{
+                                    repository: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://github.com/nuzzles/homepage"
+                                        />
+                                    ),
+                                    issues: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://github.com/nuzzles/homepage/issues"
+                                        />
+                                    ),
+                                }}
+                            />
+                        </p>
+                        <p>
+                            <Trans
+                                t={t}
+                                i18nKey="aboutPage.blog.categories"
+                                components={{ categories: <a href={`${blog ?? "/blog/"}categories.html`} /> }}
+                            />
+                        </p>
+                        <p>
+                            <Trans
+                                t={t}
+                                i18nKey="aboutPage.blog.license"
+                                components={{
+                                    cc: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://creativecommons.org/licenses/by/4.0/"
+                                        />
+                                    ),
+                                    apache: (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://www.apache.org/licenses/LICENSE-2.0"
+                                        />
+                                    ),
+                                }}
+                            />
+                        </p>
                     </section>
                     <section id="contact">
                         <h2>{t("aboutPage.contact.title")}</h2>
