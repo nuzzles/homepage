@@ -1253,7 +1253,8 @@
 .identity-table th {
     font-weight: 600;
 }
-.identity-table a {
+.identity-table a,
+.identity-email-trigger {
     color: var(--primary);
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -1262,16 +1263,21 @@
     max-width: 100%;
     white-space: normal;
     height: auto;
-    padding-inline: var(--space-3);
+    padding: 0;
+    font: inherit;
+    justify-content: flex-start;
     text-align: start;
 }
-.identity-schedule-link {
+.identity-account-link {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     min-height: var(--control-height);
 }
-.identity-schedule-link .external-link-icon {
+.identity-account-link span {
+    min-width: 0;
+}
+.identity-account-link .external-link-icon {
     width: 1rem;
     height: 1rem;
     flex-shrink: 0;

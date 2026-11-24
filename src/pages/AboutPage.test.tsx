@@ -135,7 +135,13 @@ describe("About and portfolio routes", () => {
         ).toContain("GitHub")
         expect(container.querySelector('a[aria-current="page"]')?.textContent).toBe(copy.navigation.about)
         expect(container.querySelector(`a[href="/${lang}/spencer/resume"]`)).not.toBeNull()
-        expect(container.querySelector('.identity-table a[href="https://calendly.com/simbleau/meet"]')).not.toBeNull()
+        expect(
+            container.querySelector('.identity-table a[href="https://calendly.com/simbleau/meet"]')?.textContent
+        ).toBe("simbleau")
+        for (const link of container.querySelectorAll(".identity-table a")) {
+            expect(link.querySelector(".external-link-icon")).not.toBeNull()
+        }
+        expect(container.querySelector(".identity-email-trigger svg")).toBeNull()
         expect(container.querySelector("#contact .action-strip")).toBeNull()
         expect(container.querySelector(".identity-email-trigger")?.textContent).toBe(
             copy.aboutPage.identity.revealEmail

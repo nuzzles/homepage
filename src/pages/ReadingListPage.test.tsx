@@ -54,12 +54,17 @@ describe("Reading list", () => {
             "Zero to One",
             "The 7 Habits of Highly Effective People",
             "Software Architecture: The Hard Parts",
+            "Rust for Rustaceans",
+            "NASA Systems Engineering Handbook",
+            "The International Space Station: Operating an Outpost in the New Frontier",
+            "Agile Software Development: Principles, Patterns, and Practices",
+            "The Rust Programming Language (1st edition)",
         ])
         expect(
             [...container.querySelectorAll(".reading-list-year")].map((section) =>
                 section.getAttribute("aria-labelledby")
             )
-        ).toEqual(["year-2026", "year-2025", "year-2023"])
+        ).toEqual(["year-2026", "year-2025", "year-2023", "year-2021", "year-2019", "year-2018"])
         expect(container.querySelector(".reading-list-content")?.getAttribute("dir")).toBe(
             language === "fa" ? "rtl" : "ltr"
         )
@@ -69,7 +74,7 @@ describe("Reading list", () => {
     it.each(["", "/en", "/fr", "/fa"])("redirects the old %s reading URL", async (prefix) => {
         await renderPage("spencer", `${prefix}/reading-list`)
         expect(window.location.pathname).toBe(`${prefix}/books`)
-        expect(container.querySelectorAll(".book-cover")).toHaveLength(3)
+        expect(container.querySelectorAll(".book-cover")).toHaveLength(8)
         expect(container.querySelector('a[href="https://bookshop.org/"]')?.getAttribute("target")).toBe("_blank")
     })
     it.each(languages)("respects the saved %s language on unprefixed routes", async (language) => {

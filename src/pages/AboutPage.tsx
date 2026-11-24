@@ -84,7 +84,7 @@ export const AboutPage = () => {
                                             <th scope="row">{t("home.revealEmail")}</th>
                                             <td>
                                                 <EmailDialog encodedEmail={profile.encodedEmail}>
-                                                    <Button variant="outline" className="identity-email-trigger">
+                                                    <Button variant="link" className="identity-email-trigger">
                                                         {t("aboutPage.identity.revealEmail")}
                                                     </Button>
                                                 </EmailDialog>
@@ -95,12 +95,19 @@ export const AboutPage = () => {
                                                 <th scope="row">Calendly</th>
                                                 <td>
                                                     <a
-                                                        className="identity-schedule-link"
+                                                        className="identity-account-link"
                                                         href={profile.calendlyUrl}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
+                                                        dir="ltr"
                                                     >
-                                                        <span>{t("home.scheduleOneOnOne")}</span>
+                                                        <span>
+                                                            {
+                                                                new URL(profile.calendlyUrl).pathname
+                                                                    .split("/")
+                                                                    .filter(Boolean)[0]
+                                                            }
+                                                        </span>
                                                         <ExternalLink
                                                             aria-hidden="true"
                                                             className="external-link-icon"
@@ -113,10 +120,22 @@ export const AboutPage = () => {
                                             <tr key={kind}>
                                                 <th scope="row">{label}</th>
                                                 <td>
-                                                    <a href={href} target="_blank" rel="noopener noreferrer" dir="ltr">
-                                                        {kind === "github"
-                                                            ? `@${new URL(href).pathname.split("/").filter(Boolean).at(-1)}`
-                                                            : new URL(href).pathname.replace(/\/$/, "")}
+                                                    <a
+                                                        className="identity-account-link"
+                                                        href={href}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        dir="ltr"
+                                                    >
+                                                        <span>
+                                                            {kind === "github"
+                                                                ? `@${new URL(href).pathname.split("/").filter(Boolean).at(-1)}`
+                                                                : new URL(href).pathname.replace(/\/$/, "")}
+                                                        </span>
+                                                        <ExternalLink
+                                                            aria-hidden="true"
+                                                            className="external-link-icon"
+                                                        />
                                                     </a>
                                                 </td>
                                             </tr>
