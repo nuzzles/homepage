@@ -197,7 +197,8 @@ export const ResumePage = () => {
                                 title={text("iframeTitle")}
                                 src={resume?.embedUrl}
                                 onLoad={() => setLoading(false)}
-                                className="size-full border-0"
+                                width="100%"
+                                height="100%"
                                 style={{ opacity: loading ? 0 : 1 }}
                             />
                         </div>

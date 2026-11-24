@@ -133,6 +133,8 @@ and distinguish Spencer's contribution from the team's achievements.
   Put the translated language note and PDF actions in the leading sidebar, and the PDF in the
   main column, capped by `--document-width` (56rem). Link to How I Work beneath the title.
   Give the PDF preview a square 2px foreground border matching the sidebar rule.
+  Contain the preview's inline size and position its iframe inside it so native PDF sizing
+  cannot widen the mobile layout; keep explicit iframe width and height attributes.
   On mobile, place the controls above the fluid-width preview and wrap them as needed. Keep the
   page shell visible while the PDF loads; show a skeleton only inside the preview.
   Group Open PDF beside the download icon and actual PDF file size.
