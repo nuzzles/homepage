@@ -69,7 +69,6 @@ export type ProfileId = keyof typeof config
 export const PROFILE_CONFIG: Readonly<Record<ProfileId, ProfileConfig>> = config
 export const PROFILE_IDS = Object.keys(config) as ProfileId[]
 export const PROFILE_ENTRIES = PROFILE_IDS.map((id) => ({ id, ...PROFILE_CONFIG[id] }))
-export const PROFILE_OPTIONS = PROFILE_ENTRIES.map(({ id, fullName }) => ({ id, name: fullName }))
 export const PROFILE_CARD_IMAGE_SIZES = "(max-width: 599px) calc((100vw - 28px) / 2), 350px"
 export const PROFILE_HERO_IMAGE_SIZES =
     "(max-width: 409px) calc(100vw - 20px), (max-width: 599px) 390px, (max-width: 899px) calc((100vw - 84px) / 2.2), 390px"
