@@ -97,7 +97,8 @@
         "about": "À propos",
         "projects": "Projets",
         "socials": "Me retrouver en ligne",
-        "newTab": "S’ouvre dans un nouvel onglet"
+        "newTab": "S’ouvre dans un nouvel onglet",
+        "blogStats": "Statistiques du blog"
     },
     "projects": {
         "title": "Projets",
@@ -155,5 +156,12 @@
         "title": "Sommaire",
         "collapse": "Réduire le sommaire",
         "expand": "Développer le sommaire"
+    },
+    "readingListPage": {
+        "title": "Liste de lecture",
+        "description": "Mes lectures, regroupées par année.",
+        "introduction": "Quelques livres que j’ai lus au fil des années.",
+        "bookCount_one": "{{count}} livre",
+        "bookCount_other": "{{count}} livres"
     }
 }

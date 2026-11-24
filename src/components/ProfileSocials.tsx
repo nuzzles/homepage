@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons"
 import { useProfile } from "@/hooks/useProfile"
@@ -15,7 +15,7 @@ export const ProfileSocials = ({ actionBar = false }: { actionBar?: boolean }) =
                     <a key={kind} href={href} target="_blank" rel="noopener noreferrer">
                         <FontAwesomeIcon icon={icons[kind]} aria-hidden="true" />
                         <span>{label}</span>
-                        <ArrowUpRight aria-hidden="true" className="social-arrow" />
+                        <ExternalLink aria-hidden="true" className="social-arrow" />
                     </a>
                 )
                 return actionBar ? (

@@ -15,7 +15,8 @@
     --accent-art: #c7785b;
     --highlight: #e6cfa0;
     --marker-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 18' preserveAspectRatio='none'%3E%3Cpath d='M4 11Q80 3 150 8T295 6M7 14Q105 9 184 12T290 10' fill='none' stroke='%23e6cfa0' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E");
-    --opinion-surface: #efbd4e;
+    --accent-yellow: #efbd4e;
+    --opinion-surface: var(--accent-yellow);
     --link-color: #30302e;
     --link-hover: #8a4935;
     --danger: #a33b32;

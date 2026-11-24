@@ -824,14 +824,14 @@
     bottom: 0;
     display: grid;
     place-items: center;
-    width: 30px;
-    height: 30px;
-    background: var(--muted);
+    width: 36px;
+    height: 36px;
+    background: var(--accent-yellow);
     color: var(--foreground);
 }
 .external-link-marker svg {
-    width: 17px;
-    height: 17px;
+    width: 22px;
+    height: 22px;
 }
 .latest-list > li {
     display: grid;
@@ -1381,5 +1381,60 @@
 @media (max-width: 767px) {
     .markdown-sidebar > .about-contents {
         position: static;
+    }
+}
+
+/* Reading log: the same full-width shell and year-led rhythm as the blog archive. */
+.reading-list-content {
+    padding: var(--section-space) var(--page-gutter);
+}
+.reading-list-introduction {
+    max-width: var(--reading-width);
+    font-size: var(--type-lead);
+    line-height: var(--leading-prose);
+    margin-bottom: var(--section-space);
+}
+.reading-list-year {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--border-color);
+}
+.reading-list-year h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--type-section);
+    font-weight: 500;
+}
+.reading-list-year header p,
+.reading-list-books p {
+    color: var(--muted-foreground);
+    margin-top: var(--space-2);
+}
+.reading-list-books {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+.reading-list-books li {
+    padding-block: var(--space-2) var(--space-6);
+    overflow-wrap: anywhere;
+}
+.reading-list-books h3 {
+    font-size: var(--type-title);
+    font-weight: 600;
+    line-height: var(--leading-heading);
+}
+@media (min-width: 768px) {
+    .reading-list-year {
+        grid-template-columns: minmax(140px, 1fr) minmax(0, 5fr);
+        gap: var(--layout-gap);
+    }
+    .reading-list-year > header {
+        position: sticky;
+        top: var(--space-8);
+        align-self: start;
     }
 }

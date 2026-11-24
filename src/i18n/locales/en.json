@@ -97,7 +97,8 @@
         "about": "About",
         "projects": "Projects",
         "socials": "Find me online",
-        "newTab": "Opens in a new tab"
+        "newTab": "Opens in a new tab",
+        "blogStats": "Blog stats"
     },
     "projects": {
         "title": "Projects",
@@ -155,5 +156,12 @@
         "title": "Contents",
         "collapse": "Collapse contents",
         "expand": "Expand contents"
+    },
+    "readingListPage": {
+        "title": "Reading list",
+        "description": "Books I’ve read, collected by year.",
+        "introduction": "A few books I’ve read over the years.",
+        "bookCount_one": "{{count}} book",
+        "bookCount_other": "{{count}} books"
     }
 }

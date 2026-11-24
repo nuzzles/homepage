@@ -334,9 +334,12 @@ table td {
     transform: skewX(-45deg);
 }
 .opinion-notice::before {
+    /* Extend by a full repeat so skew cannot expose a bare wedge at the viewport edge. */
+    margin-inline-start: -64px;
     background: repeating-linear-gradient(to left, var(--foreground) 0 32px, var(--opinion-surface) 32px 64px);
 }
 .opinion-notice::after {
+    margin-inline-end: -64px;
     background: repeating-linear-gradient(to right, var(--foreground) 0 32px, var(--opinion-surface) 32px 64px);
 }
 .reading-post:has(.opinion-notice) { --reading-top: 76px; }
@@ -442,3 +445,43 @@ table td {
 
 /* Hugo prose keeps its own rhythm; site chrome uses the homepage baseline. */
 .blog-chrome { font-size: 1rem; line-height: 1.5; }
+
+/* Build-time writing statistics. Calendars scroll locally; tables remain readable at 320px. */
+.stats-introduction { max-width: var(--reading-width); margin-block: var(--section-space) var(--space-12); font-size: var(--type-lead); line-height: var(--leading-prose); }
+.stats-totals { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); margin: 0 0 var(--section-space); }
+.stats-totals > div { border-top: 2px solid var(--foreground); padding-top: var(--space-4); }
+.stats-totals dt { font-weight: 600; }
+.stats-totals dd { margin: 0; display: flex; flex-direction: column; }
+.stats-totals strong { font-family: var(--font-display); font-size: var(--type-display); font-weight: 500; line-height: 1.3; }
+.stats-totals dd span, .stats-note, .stats-year-label p { color: var(--muted-foreground); }
+.blog-stats h2 { font-family: var(--font-display); font-size: var(--type-section); font-weight: 500; line-height: var(--leading-heading); margin: 0 0 var(--space-6); }
+.stats-note { max-width: var(--reading-width); }
+.stats-legend { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-block: var(--space-6); font-size: .875rem; }
+.stats-legend span { display: flex; align-items: center; gap: var(--space-2); }
+.stats-legend i { width: 12px; height: 12px; }
+.stats-day { fill: var(--border-color); background: var(--border-color); }
+.stats-day.has-posts { fill: var(--accent-yellow); background: var(--accent-yellow); stroke: var(--foreground); stroke-width: .5px; }
+.stats-day.has-many-posts { fill: var(--foreground); background: var(--foreground); }
+.stats-calendar-year { min-width: 0; padding-block: var(--space-6); border-top: 1px solid var(--border-color); }
+.stats-year-label { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); }
+.stats-year-label h3 { font-size: var(--type-title); margin: 0; }
+.stats-calendar-scroll { max-width: 100%; overflow-x: auto; padding-block: var(--space-2); }
+.stats-calendar { display: block; width: 798px; max-width: none; height: 130px; }
+.stats-calendar text { fill: var(--muted-foreground); font: 11px var(--font-body); }
+.stats-charts { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--section-space) var(--layout-gap); margin-top: var(--section-space); }
+.stats-chart { min-width: 0; }
+.stats-chart table { background: transparent; border: 0; width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.stats-chart th, .stats-chart td { border-bottom: 1px solid var(--border-color); padding: var(--space-3) var(--space-2); }
+.stats-chart th { color: var(--foreground); background: transparent; text-align: start; font-weight: 500; }
+.stats-chart thead { border-bottom: 2px solid var(--foreground); }
+.stats-chart td { position: relative; width: 65%; text-align: end; }
+.stats-bar { position: absolute; inset-block: var(--space-2); inset-inline-start: 0; width: var(--bar-width); background: var(--accent-yellow); }
+.stats-value { position: relative; background: var(--background); padding-inline: var(--space-1); }
+.stats-method { margin-top: var(--section-space); }
+@media (min-width: 600px) {
+    .stats-totals { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stats-totals strong { font-size: clamp(2.5rem, 5vw, 5rem); }
+}
+@media (min-width: 1024px) {
+    .stats-charts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

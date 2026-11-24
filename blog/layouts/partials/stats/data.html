@@ -1,0 +1,36 @@
+{{ $posts := (where (where (where site.RegularPages "Section" "posts") "Draft" false) "Date" "le" now).ByDate }}
+{{ $words := slice }}
+{{ $totalWords := 0 }}
+{{ $days := dict }}
+{{ range $posts }}
+    {{ $words = $words | append .WordCount }}
+    {{ $totalWords = add $totalWords .WordCount }}
+    {{ $key := .Date.Format "2006-01-02" }}
+    {{ $days = merge $days (dict $key (add (index $days $key | default 0) 1)) }}
+{{ end }}
+{{ $years := slice }}
+{{ $yearCounts := slice }}
+{{ $startYear := now.Year }}
+{{ with $posts }}{{ $startYear = (index . 0).Date.Year }}{{ end }}
+{{ range seq $startYear now.Year }}
+    {{ $year := . }}
+    {{ $yearWords := slice }}
+    {{ $total := 0 }}
+    {{ range $posts }}
+        {{ if eq .Date.Year $year }}
+            {{ $yearWords = $yearWords | append .WordCount }}
+            {{ $total = add $total .WordCount }}
+        {{ end }}
+    {{ end }}
+    {{ $count := len $yearWords }}
+    {{ $yearCounts = $yearCounts | append $count }}
+    {{ $years = $years | append (dict "label" (string $year) "year" $year "posts" $count "words" $total "median" (partial "stats/median.html" $yearWords)) }}
+{{ end }}
+{{ $months := slice }}
+{{ range $posts.GroupByDate "2006-01" }}
+    {{ $total := 0 }}
+    {{ range .Pages }}{{ $total = add $total .WordCount }}{{ end }}
+    {{ $months = $months | append (dict "key" .Key "label" ((index .Pages 0).Date.Format "January 2006") "posts" (len .Pages) "words" $total) }}
+{{ end }}
+{{ $months = last 24 (sort $months "key") }}
+{{ return (dict "postCount" (len $posts) "totalWords" $totalWords "medianWords" (partial "stats/median.html" $words) "medianPosts" (partial "stats/median.html" $yearCounts) "years" $years "months" $months "days" $days "firstYear" $startYear "lastYear" now.Year) }}

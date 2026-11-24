@@ -1,6 +1,7 @@
 import { Fragment } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
+import { ReadingListPage } from "@/pages/ReadingListPage"
 import { HowIWorkPage } from "@/pages/HowIWorkPage"
 import { AboutPage } from "@/pages/AboutPage"
 import { HomePage } from "@/pages/HomePage"
@@ -95,6 +96,24 @@ function App() {
         )
     }
 
+    const readingListRoutes = (prefix = "") => {
+        const page = getProfile("spencer").readingList
+        if (!page) return null
+        const element = (
+            <ProfileProvider profileId="spencer">
+                <ReadingListPage />
+            </ProfileProvider>
+        )
+        return (
+            <>
+                {profileSite === "spencer" && <Route path={`${prefix}${page.path}`} element={element} />}
+                {isLocal && (!profileSite || profileSite === "spencer") && (
+                    <Route path={`${prefix}/spencer${page.path}`} element={element} />
+                )}
+            </>
+        )
+    }
+
     return (
         <HelmetProvider>
             <BrowserRouter>
@@ -102,6 +121,7 @@ function App() {
                     <Routes>
                         <Route element={<PreferredLanguageLayout />}>
                             {howIWorkRoutes()}
+                            {readingListRoutes()}
                             {aboutRoutes()}
                             <Route path="/" element={homeElement} />
                             {profileSite && <Route path="/resume" element={<ResumeRoute profileId={profileSite} />} />}
@@ -110,6 +130,7 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="en" />}>
                             {howIWorkRoutes("/en")}
+                            {readingListRoutes("/en")}
                             {aboutRoutes("/en")}
                             <Route path="/en" element={homeElement} />
                             {profileSite && (
@@ -120,6 +141,7 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="fr" />}>
                             {howIWorkRoutes("/fr")}
+                            {readingListRoutes("/fr")}
                             {aboutRoutes("/fr")}
                             <Route path="/fr" element={homeElement} />
                             {profileSite && (
@@ -130,6 +152,7 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="fa" />}>
                             {howIWorkRoutes("/fa")}
+                            {readingListRoutes("/fa")}
                             {aboutRoutes("/fa")}
                             <Route path="/fa" element={homeElement} />
                             {profileSite && (

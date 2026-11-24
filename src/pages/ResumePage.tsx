@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { ArrowUpRight, Download, LoaderCircle } from "lucide-react"
+import { ExternalLink, Download, LoaderCircle } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -137,7 +137,7 @@ export const ResumePage = () => {
                                     rel="noopener noreferrer"
                                 >
                                     {text("openPdf")}
-                                    <ArrowUpRight aria-hidden="true" className="size-4" />
+                                    <ExternalLink aria-hidden="true" className="size-4" />
                                 </a>
                                 <Button
                                     ref={btnRef}

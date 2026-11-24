@@ -1,6 +1,15 @@
 function handler(event) {
     var request = event.request;
     var routes = {
+        "/reading-list": true,
+        "/reading-list/": true,
+        "/en/reading-list": true,
+        "/en/reading-list/": true,
+        "/fr/reading-list": true,
+        "/fr/reading-list/": true,
+        "/fa/reading-list": true,
+        "/fa/reading-list/": true,
+
         "/about": true,
         "/about/": true,
         "/en/about": true,

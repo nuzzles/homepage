@@ -55,6 +55,7 @@ export interface ProfileConfig {
     staticMeta: StaticProfileMeta
     lastModified: string
     howIWork?: ProfilePageConfig
+    readingList?: ProfilePageConfig
     about?: ProfilePageConfig
     projects?: readonly ProjectConfig[]
     resume: ResumeConfig | null

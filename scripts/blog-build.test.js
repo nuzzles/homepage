@@ -99,7 +99,7 @@ describe("Hugo migration", () => {
         expect(contents.querySelector("button").getAttribute("aria-controls")).toBe("post-contents-links")
     })
     it("ships shared header and footer navigation in archive and article HTML before JavaScript runs", () => {
-        for (const path of ["index.html", legacyPaths[0]]) {
+        for (const path of ["index.html", "stats/index.html", legacyPaths[0]]) {
             const doc = html(path)
             expect(doc.querySelector("header .profile-brand").href).toBe("https://spencer.imbleau.com/")
             expect([...doc.querySelectorAll(".site-navigation nav a")].map((a) => a.textContent)).toEqual([
@@ -112,6 +112,8 @@ describe("Hugo migration", () => {
                 "About",
                 "Resume",
                 "How I work",
+                "Blog stats",
+                "Reading list",
             ])
             expect(doc.querySelector("footer .social-strip").textContent).toContain("GitHub")
             expect(doc.querySelector('footer [aria-label="coffee"]')).not.toBeNull()
@@ -213,7 +215,7 @@ describe("Hugo migration", () => {
     })
     it("labels Opinion posts with a notice and slash-separated reading metadata", () => {
         const opinion = html(legacyPaths[4])
-        expect(opinion.querySelector(".opinion-notice").textContent).toBe("Opinion")
+        expect(opinion.querySelector(".opinion-notice").textContent).toBe("OPINION")
         expect(opinion.querySelector(".post-meta").textContent).toMatch(/September 7, 2026\/\d+ minute read\/Opinion/)
         expect(opinion.querySelectorAll(".meta-separator")).toHaveLength(2)
         const regular = html(legacyPaths[0])
@@ -258,10 +260,37 @@ describe("Hugo migration", () => {
             "{{Compute-centric vector graphics using bevy_vello}}"
         )
     })
+    it("derives stats from published posts, including empty years and leap days", () => {
+        const stats = html("stats/index.html")
+        expect(stats.querySelector('[data-stat="posts"]').textContent).toBe("6")
+        expect(stats.querySelectorAll('.stats-day[data-date^="2024-"]')).toHaveLength(366)
+        expect(stats.querySelectorAll('.stats-day[data-date^="2025-"]')).toHaveLength(365)
+        expect(stats.querySelector('[data-date="2021-05-30"]').getAttribute("data-count")).toBe("1")
+        expect(stats.querySelector('[data-date="2026-09-14"]').getAttribute("data-count")).toBe("1")
+        const rows = (id) =>
+            [...stats.querySelectorAll(`#${id} ~ table tbody tr`)].map((row) => Number(row.dataset.value))
+        expect(rows("posts-per-year")).toEqual([1, 1, 1, 1, 0, 2])
+        expect(rows("posts-per-month")).toEqual([1, 1, 1, 1, 2])
+        const words = Number(stats.querySelector('[data-stat="words"]').textContent.replaceAll(",", ""))
+        expect(words).toBeGreaterThan(1000)
+        for (const row of stats.querySelectorAll(".stats-chart tbody tr")) {
+            expect(Number(row.querySelector(".stats-value").textContent.replaceAll(",", ""))).toBe(
+                Number(row.dataset.value)
+            )
+        }
+        expect(rows("words-per-year").reduce((sum, count) => sum + count, 0)).toBe(words)
+        expect(rows("words-per-month").reduce((sum, count) => sum + count, 0)).toBe(words)
+        expect(stats.querySelector(".stats-bar").getAttribute("style")).toMatch(/--bar-width: [\d.]+%/)
+        expect(stats.querySelector('a[href="https://spencer.imbleau.com/blog/stats/"]')).not.toBeNull()
+        expect(stats.querySelector('a[href="https://spencer.imbleau.com/reading-list"]')).not.toBeNull()
+        expect(readFileSync(join(output, "sitemap.xml"), "utf8")).toContain("/blog/stats/")
+    })
     it("excludes drafts and scheduled posts in production but previews them without leaking them into feeds", () => {
         expect(existsSync(join(output, "unpublished/index.html"))).toBe(false)
         expect(existsSync(join(output, "scheduled/index.html"))).toBe(false)
+        const publishedStats = html("stats/index.html").querySelector(".blog-stats").textContent
         build(["--buildDrafts", "--buildFuture"])
+        expect(html("stats/index.html").querySelector(".blog-stats").textContent).toBe(publishedStats)
         expect(html("index.html").querySelectorAll(".archive-posts li")).toHaveLength(8)
         expect(html("unpublished/index.html").querySelector(".draft-marker").textContent).toBe("Draft")
         expect(readFileSync(join(output, "latest.json"), "utf8")).not.toMatch(/Unpublished|Scheduled/)

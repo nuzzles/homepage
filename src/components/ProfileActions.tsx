@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-import { ArrowUpRight, Check, Copy, X } from "lucide-react"
+import { ExternalLink, Check, Copy, X } from "lucide-react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope, faFilePdf } from "@fortawesome/free-solid-svg-icons"
 import { useTranslation } from "react-i18next"
@@ -47,7 +47,7 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
                     <a href={`mailto:${email}`}>
                         <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
                         <span>{t("home.composeEmail")}</span>
-                        <ArrowUpRight aria-hidden="true" />
+                        <ExternalLink aria-hidden="true" />
                     </a>
                 </Button>
                 <Button
@@ -103,7 +103,7 @@ export const ProfileActions = () => {
                     <a className="schedule-action" href={profile.calendlyUrl} target="_blank" rel="noopener noreferrer">
                         <span className="calendly-icon" aria-hidden="true" />
                         <span>{t("home.scheduleOneOnOne")}</span>
-                        <ArrowUpRight aria-hidden="true" className="schedule-arrow" />
+                        <ExternalLink aria-hidden="true" className="schedule-arrow" />
                     </a>
                 </SocialBarAction>
             )}

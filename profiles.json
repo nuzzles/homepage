@@ -96,7 +96,13 @@
                 "href": "https://github.com/nuzzles/nvtx",
                 "descriptionKey": "projects.nvtx.description"
             }
-        ]
+        ],
+        "readingList": {
+            "path": "/reading-list",
+            "lastModified": "2026-11-24",
+            "titleKey": "readingListPage.title",
+            "descriptionKey": "readingListPage.description"
+        }
     },
     "sara": {
         "firstName": "Sara",

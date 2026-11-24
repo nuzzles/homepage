@@ -1,0 +1,20 @@
+{{ $metric := .metric }}
+{{ $max := 1 }}
+{{ range .rows }}{{ $max = math.Max $max (index . $metric) }}{{ end }}
+<section class="stats-chart" aria-labelledby="{{ .id }}">
+    <h2 class="content-heading" id="{{ .id }}"><span class="marker-underline">{{ .title }}</span><a class="heading-anchor" href="#{{ .id }}" aria-label="Link to {{ .title }}">#</a></h2>
+    {{ with .description }}<p class="stats-note">{{ . }}</p>{{ end }}
+    <table>
+        <caption class="sr-only">{{ .title }}</caption>
+        <thead><tr><th scope="col">{{ .period }}</th><th scope="col">{{ .valueLabel }}</th></tr></thead>
+        <tbody>
+        {{ range .rows }}
+            {{ $value := index . $metric }}
+            <tr data-period="{{ .label }}" data-value="{{ $value }}">
+                <th scope="row">{{ .label }}</th>
+                <td><span class="stats-bar" style="--bar-width: {{ mul 100 (div (float $value) $max) }}%" aria-hidden="true"></span><span class="stats-value">{{ partial "stats/number.html" $value }}</span></td>
+            </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</section>

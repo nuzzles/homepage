@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useLanguage } from "@/hooks/useLanguage"
 import { getSpencerBlogPath, isProfileId } from "@/profiles"
 import { getConfiguredSite } from "@/site"
@@ -41,7 +41,7 @@ export const LatestPosts = () => {
             <div className="section-heading">
                 <h2 id="latest-title">{t("latest.title")}</h2>
                 <a className="text-link" href={blog} target="_blank" rel="noopener noreferrer">
-                    {t("latest.more")} <ArrowUpRight aria-hidden="true" />
+                    {t("latest.more")} <ArrowRight aria-hidden="true" />
                 </a>
             </div>
             <ol className="latest-list">

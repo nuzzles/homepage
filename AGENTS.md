@@ -61,6 +61,8 @@ and distinguish Spencer's contribution from the team's achievements.
   which adds the sticky “Opinion” banner and Opinion reading metadata.
   The banner uses the amber-orange opinion token with black stripes in separate skewed panels;
   keep generous clear space around the label and end adjacent stripes on full diagonal edges.
+  Only the tape label is uppercase “OPINION”; extend stripe panels past the viewport edges
+  before clipping so skew never leaves an unstriped wedge at the outer edges.
   Show topic/tag links below Contents; existing categories also appear in the tag archive.
 - The résumé document itself is an English-only PDF. Do not translate the PDF.
 - Everything else must be translated into every supported site language: English,
@@ -141,6 +143,7 @@ and distinguish Spencer's contribution from the team's achievements.
   published-post feed, with date, title, and description in each row; blog titles and
   excerpts remain English. Project cards contain
   only a title, description, and boxed external-link indicator and open in new tabs.
+  The external-link marker uses the shared yellow accent, a 36px square, and a 22px icon.
 - Spencer's former blog About URL redirects to his site About page. Keep the blog's
   ownership, contribution, and license information on that translated page.
 
@@ -185,3 +188,13 @@ and distinguish Spencer's contribution from the team's achievements.
   control and is also rendered into Hugo at build time. Use the shared `contents`
   translation keys, with “Contents” as the English title. Hide Contents below 768px
   on all Markdown pages; blog tags remain available.
+
+- All external-link indicators use Lucide `ExternalLink`, including project cards,
+  social-bar links, scheduling, and PDF actions.
+- Spencer's shared footer links to Blog stats (`/blog/stats/`) and Reading list
+  (`/reading-list`). Keep stats in the English-only Hugo blog, derived at build time
+  from published posts; exclude drafts and future-dated posts even in previews.
+  Keep calendar overflow inside keyboard-scrollable regions and include readable numeric tables.
+- Reading list is Spencer-only and translated into English, French, and Persian.
+  Store confirmed books and reading years in `src/content/reading-list.ts`, newest year first.
+  Do not invent ratings, reviews, or completion dates.

@@ -114,6 +114,10 @@ export function getSitemapXml(site: BuildSite): string {
         pages.push({ route: profile.howIWork.path, lastModified: profile.howIWork.lastModified, priority: "0.7" })
     }
 
+    if (profile?.readingList) {
+        pages.push({ route: profile.readingList.path, lastModified: profile.readingList.lastModified, priority: "0.6" })
+    }
+
     const urls = languages.flatMap((language) =>
         pages.map((page) => {
             const alternates = languages

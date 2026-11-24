@@ -1,0 +1,24 @@
+{{ $year := .year }}
+{{ $days := .days }}
+{{ $start := time.AsTime (printf "%d-01-01T00:00:00Z" $year.year) }}
+{{ $end := $start.AddDate 1 0 0 }}
+{{ $dayCount := int (div ($end.Sub $start).Hours 24) }}
+{{ $offset := int $start.Weekday }}
+<section class="stats-calendar-year" aria-labelledby="activity-{{ $year.year }}">
+    <div class="stats-year-label"><h3 id="activity-{{ $year.year }}">{{ $year.year }}</h3><p>{{ $year.posts }} {{ if eq $year.posts 1 }}post{{ else }}posts{{ end }}</p></div>
+    <div class="stats-calendar-scroll" tabindex="0" role="region" aria-label="Daily writing activity in {{ $year.year }}. Scroll horizontally to see the full year.">
+        <svg class="stats-calendar" viewBox="0 0 798 130" width="798" height="130" role="img" aria-labelledby="calendar-title-{{ $year.year }}">
+            <title id="calendar-title-{{ $year.year }}">Posts per day in {{ $year.year }}: {{ $year.posts }} total. Yearly totals are in the tables below.</title>
+            <text x="0" y="51">Mon</text><text x="0" y="79">Wed</text><text x="0" y="107">Fri</text>
+            {{ range seq 0 (sub $dayCount 1) }}
+                {{ $date := $start.AddDate 0 0 . }}
+                {{ $count := index $days ($date.Format "2006-01-02") | default 0 }}
+                {{ $column := int (div (add . $offset) 7) }}
+                {{ $x := add 42 (mul $column 14) }}
+                {{ $y := add 26 (mul (int $date.Weekday) 14) }}
+                {{ if eq $date.Day 1 }}<text x="{{ $x }}" y="14">{{ $date.Format "Jan" }}</text>{{ end }}
+                <rect x="{{ $x }}" y="{{ $y }}" width="10" height="10" rx="1" class="stats-day{{ if gt $count 0 }} has-posts{{ end }}{{ if gt $count 1 }} has-many-posts{{ end }}" data-date="{{ $date.Format "2006-01-02" }}" data-count="{{ $count }}"><title>{{ $date.Format "January 2, 2006" }}: {{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }}</title></rect>
+            {{ end }}
+        </svg>
+    </div>
+</section>

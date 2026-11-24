@@ -47,7 +47,7 @@ describe("CloudFront request routing", () => {
         })
     })
 
-    it.each(["/blog/", "/blog/archive/"])("resolves the static blog directory URL %s", (uri) => {
+    it.each(["/blog/", "/blog/archive/", "/blog/stats/"])("resolves the static blog directory URL %s", (uri) => {
         expect(runFunction(blogRouter, uri)).toMatchObject({ uri: `${uri}index.html` })
     })
 
@@ -58,6 +58,7 @@ describe("CloudFront request routing", () => {
 
     it.each([
         "/resume",
+        ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/reading-list`, `${prefix}/reading-list/`]),
         ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/about`, `${prefix}/about/`]),
         "/en",
         "/fr/resume/",
