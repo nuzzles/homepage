@@ -64,3 +64,11 @@ The language control takes its compact trigger, dark open state, muted panel hea
 and generous menu spacing from Anthropic’s navigation. A globe identifies language
 selection; the menu lists all native-language names and checks the current choice.
 Keep square focus outlines and the blog’s English-only tooltip.
+
+`ContentsHeader` supplies the same title and disclosure control to React reading
+pages and Hugo output. Labels live under `contents` in the locale files. About and
+How I work use `TableOfContents` through `MarkdownReadingLayout`. Document pages
+link to one another beneath their title using `ProfileDocumentLink`.
+
+Contents is hidden below 768px through the shared `.table-of-contents` rule in
+`src/typography.css`. Blog tags remain visible at these widths.

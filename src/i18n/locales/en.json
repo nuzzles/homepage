@@ -88,8 +88,8 @@
         "description": "The principles I bring to engineering and collaboration: useful work, shared success, candor, curiosity, fairness, and responsibility."
     },
     "documentNavigation": {
-        "label": "Professional profile",
-        "resume": "Résumé"
+        "seeResume": "See my resume",
+        "seeHowIWork": "See how I work"
     },
     "navigation": {
         "label": "Main navigation",
@@ -124,11 +124,8 @@
         }
     },
     "aboutPage": {
-        "collapseContents": "Collapse contents",
-        "expandContents": "Expand contents",
         "title": "About",
         "description": "About Spencer Imbleau: software engineering, computer graphics, open-source work, and projects.",
-        "contents": "On this page",
         "projects": {
             "title": "Projects"
         },
@@ -153,5 +150,10 @@
     },
     "heading": {
         "permalink": "Link to {{heading}}"
+    },
+    "contents": {
+        "title": "Contents",
+        "collapse": "Collapse contents",
+        "expand": "Expand contents"
     }
 }

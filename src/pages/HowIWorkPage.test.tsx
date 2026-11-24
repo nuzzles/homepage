@@ -51,7 +51,7 @@ describe("How I Work routing", () => {
     it.each(languages)("keeps the page visible while the PDF loads in %s", async (language) => {
         await renderPage("spencer", `/${language}/resume`)
         expect(container.querySelector(".site-navigation")).not.toBeNull()
-        expect(container.querySelector(".document-nav")).not.toBeNull()
+        expect(container.querySelector(".document-related-link")).not.toBeNull()
         expect(container.querySelector(".profile-footer")).not.toBeNull()
         expect(container.querySelector(".resume-sidebar p")?.textContent).toBe(
             translations[language].resumePage.documentLanguage
@@ -110,7 +110,7 @@ describe("How I Work routing", () => {
         expect(article.dir).toBe(languageConfig[language].dir)
         expect(container.querySelector(".site-navigation")).not.toBeNull()
         expect(container.querySelector(".profile-footer")).not.toBeNull()
-        expect(container.querySelector(`.document-nav a[href="/${language}/spencer/resume"]`)).not.toBeNull()
+        expect(container.querySelector(`.document-related-link a[href="/${language}/spencer/resume"]`)).not.toBeNull()
         expect(container.querySelector('.heading-anchor[href="#purpose"]')).not.toBeNull()
         expect(window.location.pathname).toBe(path)
     })
@@ -120,7 +120,7 @@ describe("How I Work routing", () => {
         await renderPage("spencer", "/how-i-work")
         expect(container.querySelector("h1")?.textContent).toBe(translations[language].howIWorkPage.title)
         expect(window.location.pathname).toBe("/how-i-work")
-        expect(container.querySelector('.document-nav a[href="/spencer/resume"]')).not.toBeNull()
+        expect(container.querySelector('.document-related-link a[href="/spencer/resume"]')).not.toBeNull()
     })
 
     it("opens the unprefixed local Spencer route", async () => {
@@ -140,10 +140,12 @@ describe("How I Work routing", () => {
         await renderPage("local", `${prefix}/spencer/resume`)
         await vi.waitFor(async () => {
             await act(async () => {})
-            expect(container.querySelector(".document-nav")).not.toBeNull()
+            expect(container.querySelector(".document-related-link")).not.toBeNull()
         })
-        const nav = container.querySelector(".document-nav")!
-        expect(nav.querySelector('a[aria-current="page"]')?.getAttribute("href")).toBe(`${prefix}/spencer/resume`)
+        const nav = container.querySelector(".document-related-link")!
+        expect(nav.closest(".about-banner")).not.toBeNull()
+        expect(nav.querySelectorAll("a")).toHaveLength(1)
+        expect(container.querySelector(".segmented-control")).toBeNull()
         expect(nav.querySelector(`a[href="${prefix}/spencer/how-i-work"]`)).not.toBeNull()
         expect(container.querySelector("iframe")).not.toBeNull()
         expect(container.querySelector(".site-navigation")).not.toBeNull()
@@ -153,10 +155,9 @@ describe("How I Work routing", () => {
             nav.querySelector<HTMLAnchorElement>(`a[href="${prefix}/spencer/how-i-work"]`)!.click()
         })
         expect(window.location.pathname).toBe(`${prefix}/spencer/how-i-work`)
-        const valuesNav = container.querySelector(".document-nav")!
-        expect(valuesNav.querySelector('a[aria-current="page"]')?.getAttribute("href")).toBe(
-            `${prefix}/spencer/how-i-work`
-        )
+        const valuesNav = container.querySelector(".document-related-link")!
+        expect(valuesNav.closest(".about-banner")).not.toBeNull()
+        expect(valuesNav.querySelectorAll("a")).toHaveLength(1)
         expect(valuesNav.querySelector(`a[href="${prefix}/spencer/resume"]`)).not.toBeNull()
         expect(container.querySelector('article[aria-labelledby="how-i-work-title"]')).not.toBeNull()
     })

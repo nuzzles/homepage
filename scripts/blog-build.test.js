@@ -4,7 +4,7 @@ import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
 import { JSDOM } from "jsdom"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
-import { renderBlogChrome } from "../src/blog/chrome-server"
+import { renderBlogChrome, renderBlogContentsHeader } from "../src/blog/chrome-server"
 import { hugoBinary } from "./setup-hugo.mjs"
 
 const root = resolve(import.meta.dirname, "..")
@@ -52,6 +52,7 @@ beforeAll(() => {
         JSON.stringify({
             layoutDir: join(root, "blog/layouts"),
             params: {
+                contentsHeader: renderBlogContentsHeader(),
                 homepageURL: "https://spencer.imbleau.com",
                 blogURL: "https://spencer.imbleau.com/blog/",
                 chromeHeader: renderBlogChrome({

@@ -1,7 +1,6 @@
-import type { ReactNode } from "react"
 import Markdown, { type Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { AboutContents } from "./AboutContents"
+import { TableOfContents } from "./TableOfContents"
 import { ContentHeading } from "./ContentHeading"
 import { remarkHeadingIds } from "@/content/remarkHeadingIds"
 import { useLanguage } from "@/hooks/useLanguage"
@@ -43,13 +42,11 @@ const headings: Components = {
 export const MarkdownReadingLayout = ({
     sections,
     introduction,
-    navigation,
     labelledBy,
     components,
 }: {
     sections: { id: string; title: string; body: string }[]
     introduction?: string
-    navigation?: ReactNode
     labelledBy?: string
     components?: Components
 }) => {
@@ -65,8 +62,7 @@ export const MarkdownReadingLayout = ({
     return (
         <div className="about-layout">
             <div className="markdown-sidebar">
-                {navigation && <div className="markdown-document-nav">{navigation}</div>}
-                <AboutContents sections={sections} />
+                <TableOfContents sections={sections} />
             </div>
             <article
                 className="about-prose"

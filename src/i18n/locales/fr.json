@@ -88,8 +88,8 @@
         "description": "Les principes qui guident mon travail d’ingénierie et ma collaboration : utilité, réussite collective, franchise, curiosité, équité et responsabilité."
     },
     "documentNavigation": {
-        "label": "Profil professionnel",
-        "resume": "CV"
+        "seeResume": "Voir mon CV",
+        "seeHowIWork": "Découvrir ma façon de travailler"
     },
     "navigation": {
         "label": "Navigation principale",
@@ -124,11 +124,8 @@
         }
     },
     "aboutPage": {
-        "collapseContents": "Réduire le sommaire",
-        "expandContents": "Développer le sommaire",
         "title": "À propos",
         "description": "À propos de Spencer Imbleau : génie logiciel, infographie, contributions open source et projets.",
-        "contents": "Sur cette page",
         "projects": {
             "title": "Projets"
         },
@@ -153,5 +150,10 @@
     },
     "heading": {
         "permalink": "Lien vers {{heading}}"
+    },
+    "contents": {
+        "title": "Sommaire",
+        "collapse": "Réduire le sommaire",
+        "expand": "Développer le sommaire"
     }
 }

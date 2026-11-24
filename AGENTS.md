@@ -98,8 +98,8 @@ and distinguish Spencer's contribution from the team's achievements.
   and logical spacing for Persian RTL layouts. The language menu uses a globe trigger, a dark open state, a translated heading,
   and spacious native-language choices with a check for the current language. Keep
   all three languages visible in the menu, with the shared square keyboard-focus treatment.
-- Résumé and How I Work navigation is one shared segmented control with joined cells,
-  a filled current segment, and React Router links. Link to How I Work below Resume
+- Résumé and How I Work use `ProfileDocumentLink` beneath the page title to link to
+  the other document with translated “See my resume” / “See how I work” text. Link to How I Work below Resume
   in Spencer’s shared footer and from the résumé page; keep it out of the homepage hero. How I Work uses the shared Markdown reading layout,
   Contents sidebar, and site header/footer, with prose in `src/content/how-i-work/{en,fr,fa}.md`.
 
@@ -131,7 +131,7 @@ and distinguish Spencer's contribution from the team's achievements.
 
 - The résumé page uses the shared header/footer and About-style title banner and two-column
   layout, stacking on mobile. Keep document navigation beside the preview and PDF controls above it.
-  Show the translated PDF language note beneath the segmented navigation. Keep the
+  Show the translated PDF language note in the résumé sidebar. Keep the
   page shell visible while the PDF loads; show a skeleton only inside the preview.
   Group Open PDF beside the download icon and actual PDF file size.
   Keep a translated accessible download label even when its visible text is only the size.
@@ -159,3 +159,8 @@ and distinguish Spencer's contribution from the team's achievements.
   anchors and component slots across translations. Blog posts live in `blog/content/posts/`;
   use Hugo shortcodes and keep explicit URLs on migrated posts. See `docs/blog-development.md`.
 - Keep the footer on the shared warm off-white background at every breakpoint; do not tint it with the primary color.
+
+- Markdown pages share `TableOfContents`; `ContentsHeader` owns its title and collapse
+  control and is also rendered into Hugo at build time. Use the shared `contents`
+  translation keys, with “Contents” as the English title. Hide Contents below 768px
+  on all Markdown pages; blog tags remain available.

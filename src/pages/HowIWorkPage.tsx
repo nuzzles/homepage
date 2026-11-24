@@ -6,7 +6,7 @@ import { usePageAnchor } from "@/hooks/usePageAnchor"
 import { Helmet } from "react-helmet-async"
 import { useLanguage } from "@/hooks/useLanguage"
 import { languageConfig } from "@/i18n/i18n"
-import { ProfileDocumentNavigation } from "@/components/ProfileDocumentNavigation"
+import { ProfileDocumentLink } from "@/components/ProfileDocumentLink"
 import { useProfile } from "@/hooks/useProfile"
 
 export const HowIWorkPage = () => {
@@ -49,12 +49,9 @@ export const HowIWorkPage = () => {
                 <ProfileHeader />
                 <header className="about-banner">
                     <h1 id="how-i-work-title">{t(page.titleKey)}</h1>
+                    <ProfileDocumentLink current="howIWork" />
                 </header>
-                <MarkdownReadingLayout
-                    {...content}
-                    labelledBy="how-i-work-title"
-                    navigation={<ProfileDocumentNavigation current="howIWork" />}
-                />
+                <MarkdownReadingLayout {...content} labelledBy="how-i-work-title" />
                 <ProfileFooter />
             </div>
         </>

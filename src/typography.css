@@ -100,3 +100,10 @@
     color: var(--foreground);
     text-decoration: underline;
 }
+
+/* Shared by React Markdown pages and Hugo posts. */
+@media (max-width: 767px) {
+    .table-of-contents {
+        display: none;
+    }
+}

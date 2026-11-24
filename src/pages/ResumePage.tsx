@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ProfileHeader } from "@/components/ProfileHeader"
 import { ProfileFooter } from "@/components/ProfileFooter"
-import { ProfileDocumentNavigation } from "@/components/ProfileDocumentNavigation"
+import { ProfileDocumentLink } from "@/components/ProfileDocumentLink"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 
@@ -123,10 +123,10 @@ export const ResumePage = () => {
                 <ProfileHeader />
                 <header className="about-banner">
                     <h1>{text("iframeTitle")}</h1>
+                    <ProfileDocumentLink current="resume" />
                 </header>
                 <main className="about-layout resume-layout">
                     <aside className="resume-sidebar">
-                        <ProfileDocumentNavigation current="resume" />
                         <p>{text("documentLanguage")}</p>
                     </aside>
                     <section className="resume-document" aria-label={text("iframeTitle")}>

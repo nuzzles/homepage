@@ -41,6 +41,7 @@ describe("About and portfolio routes", () => {
         await render("local", "/en/spencer/about")
         const toggle = container.querySelector<HTMLButtonElement>('button[aria-controls="about-contents-links"]')!
         const links = container.querySelector<HTMLElement>("#about-contents-links")!
+        expect(container.querySelector(".table-of-contents .contents-heading p")?.textContent).toBe("Contents")
         expect(toggle.getAttribute("aria-expanded")).toBe("true")
         await act(async () => toggle.click())
         expect(links.hidden).toBe(true)

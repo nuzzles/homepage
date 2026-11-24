@@ -29,7 +29,7 @@ export function initializeContents(doc = document, win = window) {
     const collapse = () => {
         list.hidden = !list.hidden
         toggle.setAttribute('aria-expanded', String(!list.hidden))
-        toggle.setAttribute('aria-label', list.hidden ? 'Expand contents' : 'Collapse contents')
+        toggle.setAttribute('aria-label', list.hidden ? (toggle.dataset.expandLabel ?? 'Expand contents') : (toggle.dataset.collapseLabel ?? 'Collapse contents'))
         toggle.firstElementChild.textContent = list.hidden ? '[+]' : '[−]'
     }
     let frame = 0

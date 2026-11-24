@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { ContentsHeader } from "./ContentsHeader"
 import { useLanguage } from "@/hooks/useLanguage"
 
-export const AboutContents = ({ sections }: { sections: { id: string; title: string }[] }) => {
+export const TableOfContents = ({ sections }: { sections: { id: string; title: string }[] }) => {
     const { t, language } = useLanguage()
     const [expanded, setExpanded] = useState(true)
     const [active, setActive] = useState<string>(sections[0]?.id ?? "")
@@ -36,21 +36,18 @@ export const AboutContents = ({ sections }: { sections: { id: string; title: str
     }, [language, sections])
 
     return (
-        <aside className="about-contents">
-            <nav aria-label={t("aboutPage.contents")}>
-                <div className="contents-heading">
-                    <p>{t("aboutPage.contents")}</p>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        aria-expanded={expanded}
-                        aria-controls="about-contents-links"
-                        aria-label={t(expanded ? "aboutPage.collapseContents" : "aboutPage.expandContents")}
-                        onClick={() => setExpanded((value) => !value)}
-                    >
-                        <span aria-hidden="true">{expanded ? "[−]" : "[+]"}</span>
-                    </Button>
-                </div>
+        <aside className="about-contents table-of-contents">
+            <nav aria-label={t("contents.title")}>
+                <ContentsHeader
+                    labels={{
+                        title: t("contents.title"),
+                        collapse: t("contents.collapse"),
+                        expand: t("contents.expand"),
+                    }}
+                    controlsId="about-contents-links"
+                    expanded={expanded}
+                    onToggle={() => setExpanded((value) => !value)}
+                />
                 <div id="about-contents-links" className="contents-links" hidden={!expanded}>
                     {sections.map(({ id, title }) => (
                         <a key={id} href={`#${id}`} aria-current={active === id ? "location" : undefined}>

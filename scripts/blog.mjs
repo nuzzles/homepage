@@ -83,7 +83,7 @@ await viteBuild({
 })
 if (previousNodeEnv === undefined) delete process.env.NODE_ENV
 else process.env.NODE_ENV = previousNodeEnv
-const { renderBlogChrome } = await import(join(chromeServerDirectory, "server.mjs"))
+const { renderBlogChrome, renderBlogContentsHeader } = await import(join(chromeServerDirectory, "server.mjs"))
 const manifest = command === "build" ? JSON.parse(readFileSync(join(root, "dist/.vite/manifest.json"), "utf8")) : null
 const chromeEntry = manifest?.["src/blog/chrome-client.tsx"]
 const chromeStylesheets = new Set()
@@ -108,6 +108,7 @@ const getHugoConfig = (websiteUrl, homepageUrl, basePath) => {
             baseURL: `${websiteUrl}${basePath}/`,
             layoutDir: join(root, "blog/layouts"),
             params: {
+                contentsHeader: renderBlogContentsHeader(),
                 homepageURL: homepageUrl,
                 blogURL: `${websiteUrl}${basePath}/`,
                 chromeHeader: renderBlogChrome({

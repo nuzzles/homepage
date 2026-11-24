@@ -225,39 +225,17 @@
     gap: var(--space-2);
     padding: var(--space-6) var(--page-gutter);
 }
-.segmented-control {
-    display: inline-grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
-    max-width: 22rem;
-    border: 1px solid var(--color-border);
-    background: var(--background);
+.document-related-link {
+    margin: var(--space-6) 0 0;
+    font-size: var(--type-lead);
+    line-height: var(--leading-prose);
 }
-.segmented-control .segment {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    min-height: var(--control-height);
-    padding: var(--space-3);
-    text-align: center;
-    font-size: var(--type-sm);
-    font-weight: 500;
-    line-height: 1.4;
-    --focus-outline-offset: -3px;
-}
-.segmented-control .segment + .segment {
-    border-inline-start: 1px solid var(--color-border);
-}
-.segmented-control .segment[aria-current="page"] {
-    background: var(--foreground);
-    color: var(--background);
-    --focus-ring: var(--background);
-}
-.segmented-control .segment:not([aria-current="page"]):is(:hover, :focus-visible) {
-    background: var(--color-accent);
+.document-related-link a {
     text-decoration: underline;
     text-underline-offset: 4px;
+}
+.document-related-link a:hover {
+    color: var(--primary);
 }
 .document-actions {
     display: flex;
@@ -1348,9 +1326,6 @@
 .markdown-sidebar > .about-contents {
     position: sticky;
     top: var(--space-8);
-}
-.markdown-document-nav {
-    margin-bottom: var(--space-8);
 }
 .markdown-introduction {
     margin-bottom: var(--space-12);

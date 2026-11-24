@@ -381,7 +381,9 @@ table td {
 .post-timeline [aria-current="page"] .timeline-stop { background: var(--link-color); border-color: var(--link-color); box-shadow: 0 0 0 5px var(--muted); }
 .post-timeline [aria-current="page"] .timeline-title { color: var(--foreground); }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
+    .reading-contents:not(:has(.post-tags)) { display: none; }
+    .reading-contents .post-tags { margin-top: 0; }
     .archive-year { grid-template-columns: 1fr; padding-top: 48px; gap: 24px; }
     .archive-year-heading { position: static; display: flex; align-items: baseline; gap: 16px; }
     .archive-year-heading p { margin: 0; }

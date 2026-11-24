@@ -12,8 +12,8 @@
     <div class="reading-layout">
         <aside class="reading-contents" data-contents>
             <div class="reading-sidebar-inner">
-            <nav aria-label="Contents">
-                <div class="contents-heading"><p>Contents</p><button type="button" aria-expanded="true" aria-controls="post-contents-links" aria-label="Collapse contents"><span aria-hidden="true">[−]</span></button></div>
+            <nav class="table-of-contents" aria-label="Contents">
+                {{ site.Params.contentsHeader | safeHTML }}
                 <div id="post-contents-links" class="contents-links">{{ if findRE `<a\s` .TableOfContents }}{{ .TableOfContents | replaceRE `<nav[^>]*>|</nav>` "" | safeHTML }}{{ else }}<p class="contents-empty">Nothing here.</p>{{ end }}</div>
             </nav>
             {{ with partial "post-tags.html" . }}
