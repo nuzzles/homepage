@@ -763,6 +763,19 @@
     font-size: 0.9rem;
     line-height: 1.8;
 }
+.opinion-badge {
+    display: inline-block;
+    margin-inline-start: 8px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background: #f3c453;
+    color: #171813;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    vertical-align: middle;
+    white-space: nowrap;
+}
 .latest-list h3 {
     font-size: 1.2rem;
     line-height: 1.45;

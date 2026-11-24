@@ -5,5 +5,5 @@
 {{ range $posts }}{{ range .Params.categories }}{{ $categories = $categories | append . }}{{ end }}{{ end }}
 <div class="category-list">{{ range sort (uniq $categories) }}
 <section class="category-group"><h2>{{ . }}</h2><ul>{{ range where $posts "Params.categories" "intersect" (slice .) }}
-<li><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ partial "draft.html" . }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></li>{{ end }}</ul></section>{{ end }}</div>
+<li><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ partial "opinion-badge.html" . }}{{ partial "draft.html" . }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></li>{{ end }}</ul></section>{{ end }}</div>
 {{ end }}

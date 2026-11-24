@@ -152,14 +152,48 @@ describe("Hugo migration", () => {
             "https://spencer.imbleau.com/about"
         )
     })
-    it("places the current post among up to two earlier and two later posts", () => {
+    it("keeps five chronological neighbours, filling the window at either end", () => {
         for (const index of [0, 2, 5]) {
             const timeline = html(legacyPaths[index]).querySelector(".post-timeline")
-            expect(timeline.querySelectorAll("li")).toHaveLength(index === 2 ? 5 : 3)
+            expect(timeline.querySelectorAll("li")).toHaveLength(5)
             expect(timeline.querySelectorAll('[aria-current="page"]')).toHaveLength(1)
             const dates = [...timeline.querySelectorAll("time")].map((t) => t.dateTime)
             expect(dates).toEqual([...dates].sort())
         }
+    })
+    it("labels Opinion posts with a notice and slash-separated reading metadata", () => {
+        const opinion = html(legacyPaths[4])
+        expect(opinion.querySelector(".opinion-notice").textContent).toBe("Thinking out loud")
+        expect(opinion.querySelector(".post-meta").textContent).toMatch(/September 7, 2026\/\d+ minute read\/Opinion/)
+        expect(opinion.querySelectorAll(".meta-separator")).toHaveLength(2)
+        const regular = html(legacyPaths[0])
+        expect(regular.querySelector(".opinion-notice")).toBeNull()
+        expect(regular.querySelector(".post-meta").textContent).not.toContain("Opinion")
+        expect(regular.querySelectorAll(".meta-separator")).toHaveLength(1)
+    })
+    it("badges Opinion titles in archives and exposes the label to homepage listings", () => {
+        const archive = html("index.html")
+        const badge = archive.querySelector(".opinion-badge")
+        expect(archive.querySelectorAll(".opinion-badge")).toHaveLength(1)
+        expect(badge.textContent).toBe("Thinking out loud")
+        expect(badge.closest("h3").querySelector("a").getAttribute("href")).toContain(legacyPaths[4])
+        const latest = JSON.parse(readFileSync(join(output, "latest.json"), "utf8"))
+        expect(latest.filter((post) => post.opinion).map((post) => post.title)).toEqual(["AI is in its homelab era"])
+    })
+    it("links sidebar tags to populated archive sections", () => {
+        const index = html("tags/index.html")
+        const post = html(legacyPaths[4])
+        const tags = [...post.querySelectorAll(".post-tags a")]
+        expect(tags.map((tag) => tag.textContent)).toEqual(["#ai", "#opinion"])
+        for (const tag of tags) {
+            const href = new URL(tag.getAttribute("href"), "https://spencer.imbleau.com")
+            expect(href.pathname).toBe("/blog/tags/")
+            const group = index.getElementById(href.hash.slice(1)).closest("section")
+            expect([...group.querySelectorAll("a")].some((a) => a.getAttribute("href").endsWith(legacyPaths[4]))).toBe(
+                true
+            )
+        }
+        expect(html(legacyPaths[1]).querySelector(".post-tags").textContent).toContain("#rust")
     })
     it("retains replay, hex, Mermaid, video, citations, and sandbox markup", () => {
         const article = html(legacyPaths[5])

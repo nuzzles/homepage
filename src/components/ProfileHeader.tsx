@@ -30,7 +30,7 @@ export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about"
                     </Link>
                 )}
             </nav>
-            <LanguageSwitcher />
+            <LanguageSwitcher englishOnly={current === "blog"} />
         </header>
     )
 }

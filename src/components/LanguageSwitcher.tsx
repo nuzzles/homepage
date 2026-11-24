@@ -9,9 +9,17 @@ const languages = [
     { code: "fa", label: "فارسی", flag: "/images/flags/fa.svg" },
 ] as const
 
-export const LanguageSwitcher = () => {
+export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolean }) => {
     const { t, language, languageHref, rememberLanguage } = useLanguage()
     const selected = languages.find(({ code }) => code === language) ?? languages[0]
+    if (englishOnly) {
+        return (
+            <span className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-medium" lang="en">
+                <img className="flag hidden sm:inline" src={languages[0].flag} alt="" />
+                <span>English Only</span>
+            </span>
+        )
+    }
     return (
         <DropdownMenu dir={language === "fa" ? "rtl" : "ltr"}>
             <DropdownMenuTrigger asChild>

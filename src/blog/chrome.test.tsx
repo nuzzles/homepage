@@ -36,6 +36,10 @@ describe("shared blog chrome", () => {
                 expect(links.some((link) => link.href === new URL(homepageURL).href)).toBe(true)
                 expect(links.some((link) => link.textContent === "About")).toBe(true)
                 expect(links.some((link) => link.href.includes("/sara"))).toBe(false)
+                if (section === "header") {
+                    expect(container.textContent).toContain("English Only")
+                    expect(container.querySelector('[aria-haspopup="menu"]')).toBeNull()
+                }
                 await act(async () => root.unmount())
             }
         }

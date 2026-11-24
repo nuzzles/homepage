@@ -1,5 +1,5 @@
 {{- $posts := slice -}}
 {{- range first 3 (where (where (where site.RegularPages "Section" "posts") "Draft" false) "PublishDate" "le" now) -}}
-{{- $posts = $posts | append (dict "title" .Title "url" .RelPermalink "date" (.Date.Format "2006-01-02T15:04:05Z07:00") "description" (.Description | default (.Summary | plainify) | truncate 220 | htmlUnescape)) -}}
+{{- $posts = $posts | append (dict "title" .Title "url" .RelPermalink "date" (.Date.Format "2006-01-02T15:04:05Z07:00") "description" (.Description | default (.Summary | plainify) | truncate 220 | htmlUnescape) "opinion" (partial "is-opinion.html" .)) -}}
 {{- end -}}
 {{- $posts | jsonify -}}

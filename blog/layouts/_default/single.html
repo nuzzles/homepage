@@ -1,18 +1,28 @@
 {{ define "main" }}
+{{ $opinion := partial "is-opinion.html" . }}
 <article class="post reading-post h-entry">
     <header class="post-header">
         <nav class="post-breadcrumb" aria-label="Breadcrumb"><a href="{{ site.Home.RelPermalink }}">Blog</a>{{ if eq .Section "posts" }} / <a href="{{ site.Home.RelPermalink }}#y{{ .Date.Format "2006" }}">{{ .Date.Format "2006" }}</a>{{ end }}</nav>
         {{ partial "draft.html" . }}
         <h1 class="post-title p-name">{{ .Title }}</h1>
         {{ with .Description }}<p class="post-description">{{ . }}</p>{{ end }}
-        {{ if eq .Section "posts" }}<p class="post-meta"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time> · {{ .ReadingTime }} minute read</p>{{ end }}
+        {{ if eq .Section "posts" }}<p class="post-meta"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time><span class="post-meta-item"><span class="meta-separator" aria-hidden="true">/</span>{{ .ReadingTime }} minute read</span>{{ if $opinion }}<span class="post-meta-item"><span class="meta-separator" aria-hidden="true">/</span>Opinion</span>{{ end }}</p>{{ end }}
     </header>
+    {{ if $opinion }}<aside class="opinion-notice" aria-label="Opinion notice"><span>Thinking out loud</span></aside>{{ end }}
     <div class="reading-layout">
         <aside class="reading-contents" data-contents>
+            <div class="reading-sidebar-inner">
             <nav aria-label="Contents">
                 <div class="contents-heading"><p>Contents</p><button type="button" aria-expanded="true" aria-controls="post-contents-links" aria-label="Collapse contents"><span aria-hidden="true">[−]</span></button></div>
                 <div id="post-contents-links" class="contents-links">{{ if findRE `<a\s` .TableOfContents }}{{ .TableOfContents | replaceRE `<nav[^>]*>|</nav>` "" | safeHTML }}{{ else }}<p class="contents-empty">Nothing here.</p>{{ end }}</div>
             </nav>
+            {{ with partial "post-tags.html" . }}
+            <nav class="post-tags" aria-label="Tags">
+                <p>Tags</p>
+                <ul>{{ range . }}<li><a href="{{ "tags/" | relURL }}#tag-{{ . | anchorize }}">#{{ . }}</a></li>{{ end }}</ul>
+            </nav>
+            {{ end }}
+            </div>
         </aside>
         <div class="post-content e-content" data-reading-content>{{ .Content }}</div>
     </div>

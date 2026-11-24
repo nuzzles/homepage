@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage"
 import { getSpencerBlogPath, isProfileId } from "@/profiles"
 import { getConfiguredSite } from "@/site"
 
-type Post = { title: string; url: string; date: string; description: string }
+type Post = { title: string; url: string; date: string; description: string; opinion?: boolean }
 export const LatestPosts = () => {
     const { t, language } = useLanguage()
     const site = getConfiguredSite()
@@ -54,6 +54,7 @@ export const LatestPosts = () => {
                             <a href={post.url} target="_blank" rel="noopener noreferrer">
                                 {post.title}
                             </a>
+                            {post.opinion === true && <span className="opinion-badge">Thinking out loud</span>}
                         </h3>
                         <p lang="en">{post.description}</p>
                     </li>

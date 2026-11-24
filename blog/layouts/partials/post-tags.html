@@ -1,0 +1,6 @@
+{{/* Existing categories are also topics in the tag index; preserve their original URLs. */}}
+{{ $tags := slice }}
+{{ range union (.Params.categories | default slice) (.Params.tags | default slice) }}
+    {{ $tags = $tags | append (lower .) }}
+{{ end }}
+{{ return (sort (uniq $tags)) }}

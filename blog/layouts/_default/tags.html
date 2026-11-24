@@ -1,0 +1,17 @@
+{{ define "main" }}
+<header class="blog-banner"><h1 class="page-heading">Tags</h1></header>
+{{ $posts := (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $tags := slice }}
+{{ range $posts }}{{ $tags = union $tags (partial "post-tags.html" .) }}{{ end }}
+{{ range sort $tags }}
+{{ $tag := . }}
+<section class="archive-year" aria-labelledby="tag-{{ . | anchorize }}">
+    <header class="archive-year-heading"><h2 id="tag-{{ . | anchorize }}">#{{ . }}</h2></header>
+    <ol class="archive-posts">
+        {{ range $posts }}{{ if in (partial "post-tags.html" .) $tag }}
+        <li><div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>{{ partial "draft.html" . }}<h3><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ partial "opinion-badge.html" . }}</h3></div><p>{{ .Description | default (.Summary | plainify) }}</p></li>
+        {{ end }}{{ end }}
+    </ol>
+</section>
+{{ end }}
+{{ end }}

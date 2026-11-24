@@ -3,6 +3,7 @@ title: "AI is in its homelab era"
 description: "AI is popular, but not saturated. My predictions for how cost, adoption, and public backlash shape the next five years."
 date: 2026-09-07
 categories: ["ai"]
+tags: ["opinion"]
 url: ai/2026/09/07/ai-is-still-in-its-homelab-era.html
 ---
 
@@ -41,7 +42,7 @@ The homelab was useful, but maintenance-heavy and expensive. The cloud turned th
 
 ## Cheap enough to forget
 
-AI is prohibitively expensive when used as aggressively as I use it now. That will not last. Models will get smaller, hardware will improve, inference will become more competitive, and providers will keep finding cheaper ways to serve the same useful unit of intelligence. [Capability has been getting cheaper](https://epoch.ai/data-insights/llm-inference-price-trends){:target="_blank" rel="noopener noreferrer"}, and that is likely to continue. [Anthropic raising free usage limits](https://www.anthropic.com/news/higher-limits-spacex){:target="_blank" rel="noopener noreferrer"} may be another sign of that pressure reaching users.
+AI is prohibitively expensive when used as aggressively as I use it now. That will not last. Models will get smaller, hardware will improve, inference will become more competitive, and providers will keep finding cheaper ways to serve the same useful unit of intelligence. <a href="https://epoch.ai/data-insights/llm-inference-price-trends" target="_blank" rel="noopener noreferrer">Capability has been getting cheaper</a>, and that is likely to continue. <a href="https://www.anthropic.com/news/higher-limits-spacex" target="_blank" rel="noopener noreferrer">Anthropic raising free usage limits</a> may be another sign of that pressure reaching users.
 
 My prediction is not merely that AI gets cheaper. It becomes cheap enough that ordinary people stop thinking about the meter.
 
@@ -74,7 +75,7 @@ A loud part of the public is vehemently against AI.
 
 People see companies exploiting the political system, building data centers that may raise local water and electricity costs, expecting a government bailout, and burning cash without a believable return. Some of those concerns are measurable. Others are projections. A credible personal AI platform will have to survive all of them.
 
-Saturation will only make this launch environment more hostile. Adoption and acceptance are pulling in opposite directions: more aggregate compute means more electricity, cooling, and water demand. [Global nervousness about AI](https://hai.stanford.edu/ai-index/2026-ai-index-report){:target="_blank" rel="noopener noreferrer"} is rising while excitement drops. Models and data centers will get more efficient, but cheaper intelligence will also invite us to use much more of it.
+Saturation will only make this launch environment more hostile. Adoption and acceptance are pulling in opposite directions: more aggregate compute means more electricity, cooling, and water demand. <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">Global nervousness about AI</a> is rising while excitement drops. Models and data centers will get more efficient, but cheaper intelligence will also invite us to use much more of it.
 
 I think we will literally need an act of Congress: national rules deciding when data centers pay for the infrastructure they require, how scarce resources are allocated, and what costs can be passed to everyone else. AI companies want government assistance, but it needs to be politically favorable, or public opposition to AI will continue to harden.
 
