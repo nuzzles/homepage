@@ -225,14 +225,14 @@ resource "aws_cloudfront_distribution" "web_distribution" {
 
   custom_error_response {
     error_code            = 403
-    response_code         = local.sites[local.primary_profile_id].blog_base_path == null ? 200 : 404
-    response_page_path    = local.sites[local.primary_profile_id].blog_base_path == null ? "/index.html" : "${local.sites[local.primary_profile_id].blog_base_path}/404.html"
+    response_code         = 404
+    response_page_path    = "/404.html"
     error_caching_min_ttl = 0
   }
   custom_error_response {
     error_code            = 404
-    response_code         = local.sites[local.primary_profile_id].blog_base_path == null ? 200 : 404
-    response_page_path    = local.sites[local.primary_profile_id].blog_base_path == null ? "/index.html" : "${local.sites[local.primary_profile_id].blog_base_path}/404.html"
+    response_code         = 404
+    response_page_path    = "/404.html"
     error_caching_min_ttl = 0
   }
   restrictions {
@@ -329,14 +329,14 @@ resource "aws_cloudfront_distribution" "additional" {
 
   custom_error_response {
     error_code            = 403
-    response_code         = each.value.blog_base_path == null ? 200 : 404
-    response_page_path    = each.value.blog_base_path == null ? "/index.html" : "${each.value.blog_base_path}/404.html"
+    response_code         = 404
+    response_page_path    = "/404.html"
     error_caching_min_ttl = 0
   }
   custom_error_response {
     error_code            = 404
-    response_code         = each.value.blog_base_path == null ? 200 : 404
-    response_page_path    = each.value.blog_base_path == null ? "/index.html" : "${each.value.blog_base_path}/404.html"
+    response_code         = 404
+    response_page_path    = "/404.html"
     error_caching_min_ttl = 0
   }
   restrictions {

@@ -92,4 +92,13 @@ describe("CloudFront request routing", () => {
         expect(runFunction(spaRouter, "/missing")).toMatchObject({ uri: "/missing" })
         expect(runFunction(spaRouter, "/how-i-work/missing")).toMatchObject({ uri: "/how-i-work/missing" })
     })
+
+    it("serves the shared translated error document with a real 404 on every site", () => {
+        const responses = [...cloudfrontConfig.matchAll(/custom_error_response\s*\{([^}]+)\}/g)]
+        expect(responses).toHaveLength(4)
+        for (const [, response] of responses) {
+            expect(response).toMatch(/response_code\s*=\s*404/)
+            expect(response).toMatch(/response_page_path\s*=\s*"\/404.html"/)
+        }
+    })
 })

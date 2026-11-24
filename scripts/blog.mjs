@@ -6,6 +6,7 @@ import { dirname, join, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import { hugoBinary, setupHugo } from "./setup-hugo.mjs"
 import { compactReplayData } from "./replay-assets.mjs"
+import { notFoundDocument } from "../src/notFoundDocument.ts"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const profiles = JSON.parse(readFileSync(join(root, "profiles.json"), "utf8"))
@@ -98,6 +99,26 @@ if (chromeEntry) collectStyles(chromeEntry)
 // SSR chrome needs render-blocking CSS in development too, before hydration loads.
 if (command === "dev") chromeStylesheets.add("/src/index.css?direct")
 
+// Hugo's development 404 and CloudFront's error document use the same React app.
+let notFoundHTML
+if (command === "build") {
+    notFoundHTML = readFileSync(join(root, "dist/404.html"), "utf8")
+} else {
+    const { createServer } = await import("vite")
+    const renderer = await createServer({
+        server: { middlewareMode: true, ws: false, watch: null },
+        optimizeDeps: { noDiscovery: true, include: [] },
+        appType: "custom",
+    })
+    try {
+        notFoundHTML = notFoundDocument(
+            await renderer.transformIndexHtml("/404.html", readFileSync(join(root, "index.html"), "utf8"))
+        )
+    } finally {
+        await renderer.close()
+    }
+}
+
 const getHugoConfig = (websiteUrl, homepageUrl, basePath) => {
     const override =
         command === "dev" ? join(devDirectory, "runtime.json") : join(tmpdir(), "homepage-hugo-spencer-build.json")
@@ -108,6 +129,7 @@ const getHugoConfig = (websiteUrl, homepageUrl, basePath) => {
             baseURL: `${websiteUrl}${basePath}/`,
             layoutDir: join(root, "blog/layouts"),
             params: {
+                notFoundHTML,
                 contentsHeader: renderBlogContentsHeader(),
                 homepageURL: homepageUrl,
                 blogURL: `${websiteUrl}${basePath}/`,

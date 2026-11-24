@@ -169,5 +169,10 @@
         "bookCount_one": "{{count}} book",
         "bookCount_other": "{{count}} books",
         "bookshop": "Support your local <bookshop>bookshop</bookshop>."
+    },
+    "notFound": {
+        "title": "Page not found",
+        "description": "This page could not be found. It may have moved, or the link may be incorrect.",
+        "goHome": "Go to the homepage"
     }
 }

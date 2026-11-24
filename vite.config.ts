@@ -1,6 +1,9 @@
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
+import { readFile, writeFile } from "node:fs/promises"
+import { resolve } from "node:path"
+import { notFoundDocument } from "./src/notFoundDocument.ts"
 import {
     getAlternateUrls,
     getRobotsTxt,
@@ -103,6 +106,11 @@ const sitePlugin = (site: BuildSite, documentSite: BuildSite | "local"): Plugin 
         generateBundle() {
             this.emitFile({ type: "asset", fileName: "robots.txt", source: getRobotsTxt(site) })
             this.emitFile({ type: "asset", fileName: "sitemap.xml", source: getSitemapXml(site) })
+        },
+        async writeBundle(options) {
+            const directory = options.dir ?? "dist"
+            const html = await readFile(resolve(directory, "index.html"), "utf8")
+            await writeFile(resolve(directory, "404.html"), notFoundDocument(html))
         },
     }
 }

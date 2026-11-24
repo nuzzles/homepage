@@ -16,6 +16,7 @@ import { getConfiguredSite } from "@/site"
 import type { ProfileId } from "@/profiles"
 
 import { ResumePage } from "@/pages/ResumePage"
+import { NotFoundPage } from "@/pages/NotFoundPage"
 
 const ProfileHomeRoute = ({ profileId }: { profileId: ProfileId }) => (
     <ProfileProvider profileId={profileId}>
@@ -140,6 +141,7 @@ function App() {
                             <Route path="/" element={homeElement} />
                             {profileSite && <Route path="/resume" element={<ResumeRoute profileId={profileSite} />} />}
                             {isLocal && getLocalUnprefixedProfileRoutes()}
+                            <Route path="*" element={<NotFoundPage />} />
                         </Route>
 
                         <Route element={<LocalizedLayout lang="en" />}>
@@ -151,6 +153,7 @@ function App() {
                                 <Route path="/en/resume" element={<ResumeRoute profileId={profileSite} />} />
                             )}
                             {isLocal && getLocalProfileRoutes("/en")}
+                            <Route path="/en/*" element={<NotFoundPage />} />
                         </Route>
 
                         <Route element={<LocalizedLayout lang="fr" />}>
@@ -162,6 +165,7 @@ function App() {
                                 <Route path="/fr/resume" element={<ResumeRoute profileId={profileSite} />} />
                             )}
                             {isLocal && getLocalProfileRoutes("/fr")}
+                            <Route path="/fr/*" element={<NotFoundPage />} />
                         </Route>
 
                         <Route element={<LocalizedLayout lang="fa" />}>
@@ -173,9 +177,8 @@ function App() {
                                 <Route path="/fa/resume" element={<ResumeRoute profileId={profileSite} />} />
                             )}
                             {isLocal && getLocalProfileRoutes("/fa")}
+                            <Route path="/fa/*" element={<NotFoundPage />} />
                         </Route>
-
-                        <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </main>
             </BrowserRouter>
