@@ -5,7 +5,7 @@ locals {
   blog_sites = {
     for site, config in local.profile_sites : site => config if config.blog_base_path != null
   }
-  spa_route_patterns = ["/resume*", "/en*", "/fr*", "/fa*"]
+  spa_route_patterns = ["/resume*", "/en*", "/fr*", "/fa*", "/how-i-work*"]
 }
 
 resource "aws_cloudfront_function" "blog_router" {

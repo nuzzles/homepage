@@ -114,7 +114,12 @@ export default defineConfig(({ command }) => {
     const site: BuildSite = isBuildSite(requestedSite) ? requestedSite : "selector"
     const documentSite = command === "serve" && !requestedSite ? "local" : site
     const blogProxyTargets = JSON.parse(process.env.HOMEPAGE_BLOG_PROXIES ?? "{}") as Record<string, string>
-    const blogProxy = Object.fromEntries(Object.entries(blogProxyTargets).map(([path, target]) => [path, { target }]))
+    const blogProxy = Object.fromEntries(
+        Object.entries(blogProxyTargets).map(([path, target]) => [
+            `^${path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:/|$)`,
+            { target },
+        ])
+    )
 
     return {
         clearScreen: false,

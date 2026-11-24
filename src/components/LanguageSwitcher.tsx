@@ -22,7 +22,7 @@ const flagStyles = {
     flexShrink: 0,
     borderRadius: "50%",
     outline: "1px solid",
-    outlineColor: "divider",
+    outlineColor: "#000",
 } as const
 
 export const LanguageSwitcher = () => {

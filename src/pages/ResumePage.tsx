@@ -7,6 +7,7 @@ import Description from "@mui/icons-material/Description"
 import Download from "@mui/icons-material/Download"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LightButton } from "@/components/LightButton"
+import { ProfileDocumentNavigation } from "@/components/ProfileDocumentNavigation"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import { getProfileHomePath } from "@/profiles"
@@ -98,12 +99,16 @@ export const ResumePage = () => {
             </Helmet>
 
             <Box sx={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <ProfileDocumentNavigation current="resume" />
                 <CornerFrame>
                     <Box
                         sx={(theme) => ({
                             position: "relative",
                             aspectRatio: "8.5 / 11",
-                            height: "calc(100dvh - 120px)",
+                            height:
+                                profile.id === "spencer" && profile.howIWork
+                                    ? "calc(100dvh - 164px)"
+                                    : "calc(100dvh - 120px)",
                             maxHeight: "11in",
                             maxWidth: "min(calc(100vw - 48px), 8.5in)",
                             width: "100%",

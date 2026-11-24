@@ -31,6 +31,13 @@ export interface StaticProfileMeta {
     mastodonUrl?: string
 }
 
+export interface HowIWorkConfig {
+    path: `/${string}`
+    titleKey: string
+    descriptionKey: string
+    lastModified: string
+}
+
 export interface ProfileConfig {
     firstName: string
     fullName: string
@@ -47,6 +54,7 @@ export interface ProfileConfig {
     staticMeta: StaticProfileMeta
     lastModified: string
     blog: BlogConfig | null
+    howIWork?: HowIWorkConfig
     resume: ResumeConfig | null
     socials: readonly SocialLink[]
 }

@@ -45,7 +45,13 @@
                 "label": "GITHUB / NUZZLES",
                 "href": "https://www.github.com/nuzzles/"
             }
-        ]
+        ],
+        "howIWork": {
+            "path": "/how-i-work",
+            "lastModified": "2026-11-23",
+            "titleKey": "howIWorkPage.title",
+            "descriptionKey": "howIWorkPage.description"
+        }
     },
     "sara": {
         "firstName": "Sara",

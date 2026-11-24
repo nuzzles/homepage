@@ -35,8 +35,8 @@
         "andA": "et un",
         "biographies": {
             "spencer": {
-                "introduction": "Spencer est un ingénieur logiciel full stack spécialisé dans l’informatique graphique et l’intelligence artificielle.",
-                "details": "Spencer est membre de l’<rust>équipe Rust</rust>, un contributeur majeur au <bevy>moteur de jeu Bevy</bevy>, un mainteneur de <trunk>Trunk</trunk> et un membre de longue date de l’<linebender>organisation Linebender</linebender>."
+                "introduction": "Ingénieur logiciel spécialisé dans la création de systèmes graphiques accélérés par GPU, d’applications d’IA et de systèmes complexes. Je travaille principalement avec Rust, TypeScript, WebAssembly et Python.",
+                "details": "Je suis également <rust>membre de l’équipe de triage de Rust</rust>, <bevy>contributeur à Bevy</bevy>, <trunk>mainteneur principal de Trunk</trunk> et <linebender>mainteneur de Linebender</linebender>."
             },
             "sara": {
                 "introduction": "Sara Imbleau est doctorante à l’<uf>Université de Floride</uf>, spécialisée dans le calcul, l’apprentissage automatique et l’intelligence artificielle.",
@@ -70,5 +70,55 @@
         "headerLabel": "Découvrez-nous",
         "metaTitle": "{{profiles}} | Page d'accueil",
         "metaDescription": "Ceci est la page d'accueil commune de {{profiles}}."
+    },
+    "howIWorkPage": {
+        "title": "Ma façon de travailler",
+        "description": "Les principes qui guident mon travail d’ingénierie et ma collaboration : utilité, réussite collective, franchise, curiosité, équité et responsabilité.",
+        "label": "Valeurs personnelles",
+        "testLabel": "Mon critère",
+        "introduction": "Je veux construire des choses utiles avec des personnes qui se font confiance. Je mesure ma contribution aux problèmes que nous résolvons, à la qualité du résultat et à la capacité de mes collègues à mieux faire leur travail. Voici les principes que je choisis de mettre en pratique.",
+        "principles": [
+            {
+                "title": "Servir un objectif qui en vaut la peine",
+                "body": "Comprendre à qui le travail profite et pourquoi il compte. Laisser cet objectif guider les compromis. Prendre en compte les personnes touchées par un système, y compris celles qui n’ont jamais choisi de l’utiliser."
+            },
+            {
+                "title": "Renforcer l’équipe",
+                "body": "Partager le contexte, le mérite et les outils utiles. Aider au-delà de mon périmètre lorsque le travail l’exige. Assumer ma contribution sans présenter une réussite collective comme une performance individuelle. Réussir ne devrait pas exiger que quelqu’un d’autre dans l’équipe perde."
+            },
+            {
+                "title": "Allier exigence et respect",
+                "body": "Me préparer avec soin, livrer un travail rigoureux et accueillir les critiques constructives. Traiter avec dignité mes collègues, mes anciens employeurs et les personnes que j’encadre. Expliquer les désaccords par les faits, les contraintes et les décisions, plutôt que par des insultes ou des suppositions sur les intentions."
+            },
+            {
+                "title": "Dire la vérité clairement",
+                "body": "Distinguer ce que je sais, ce que je déduis et ce qui reste incertain. Signaler les problèmes tôt, reconnaître mes erreurs et expliquer la prochaine étape. Prendre des engagements que je peux tenir et communiquer les changements avant qu’ils ne deviennent des surprises."
+            },
+            {
+                "title": "Laisser les faits me faire changer d’avis",
+                "body": "Poser des questions simples, tester les hypothèses et examiner les résultats. Prendre au sérieux les idées qui me sont étrangères. Expliquer ce qui m’a fait changer d’avis et pourquoi. Être utile compte davantage qu’avoir eu raison en premier."
+            },
+            {
+                "title": "Apprendre en construisant",
+                "body": "Travailler directement avec les outils et les systèmes que je veux comprendre. Chercher des retours issus de leur utilisation réelle. Apprendre dans plusieurs disciplines et m’attaquer à des problèmes négligés lorsque les faits montrent leur importance."
+            },
+            {
+                "title": "Choisir une simplicité utile",
+                "body": "Commencer par une solution claire qui répond au besoin réel. L’améliorer par la mesure et l’itération. Investir dans la fiabilité, la maintenabilité et le travail d’ingénierie peu spectaculaire qui permet aux bonnes idées de fonctionner en pratique."
+            },
+            {
+                "title": "Gagner la confiance par l’équité",
+                "body": "Appliquer des critères cohérents, tenir mes promesses et parler ouvertement des contraintes. Permettre aux autres de me remettre en question. Dissiper les malentendus et réparer les relations plutôt que de laisser le ressentiment s’installer dans notre façon de travailler."
+            },
+            {
+                "title": "Conjuguer ambition et responsabilité",
+                "body": "Préciser à la fois les bénéfices que je recherche et les dommages que je dois prévenir. Soulever les préoccupations avec des éléments concrets et des options réalisables. Garder espoir sans exagérer et faire un prochain pas utile."
+            }
+        ],
+        "reflection": "Ai-je rendu le travail plus clair, le résultat meilleur et l’équipe plus capable de réussir ensemble ?"
+    },
+    "documentNavigation": {
+        "label": "Profil professionnel",
+        "resume": "CV"
     }
 }
