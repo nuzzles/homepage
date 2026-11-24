@@ -164,7 +164,8 @@ and distinguish Spencer's contribution from the team's achievements.
   Keep prose at a readable line length. Share the spacious grouped-link footer between
   the homepage and About, with a Squiggle around the home-link name in both header and footer.
   Squiggle waves repeat at a fixed 24px spacing with a 3px stroke, independent of name width.
-  Hover/focus motion translates the whole line evenly; do not stretch, rotate, or skew it.
+  Use a continuous path with inset round endpoints so neither side is clipped.
+  Hover/focus motion smoothly translates the whole line evenly; do not stretch, rotate, or skew it.
   Footer credit uses coffee and Claude pixel icons with accessible names.
 - `ClaudeMascot` is shared by the site and blog footer. Keep the original local Icons8
   expression SVGs and attribution on About. Track gaze and circles only within the footer and reset to the neutral pose (including circle/reaction state) on exit.

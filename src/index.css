@@ -383,7 +383,7 @@
 @media (prefers-reduced-motion: no-preference) {
     .profile-brand:hover .squiggle svg,
     .profile-brand:focus-visible .squiggle svg {
-        animation: squiggle-wiggle 600ms steps(1, end) infinite;
+        animation: squiggle-wiggle 1200ms ease-in-out infinite;
     }
 }
 @keyframes squiggle-wiggle {
@@ -394,11 +394,8 @@
     25% {
         transform: translateY(-1px);
     }
-    50% {
-        transform: translateY(1px);
-    }
     75% {
-        transform: translateY(-1px);
+        transform: translateY(1px);
     }
 }
 .profile-footer {
