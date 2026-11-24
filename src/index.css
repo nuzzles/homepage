@@ -342,3 +342,568 @@
         scroll-behavior: auto !important;
     }
 }
+
+/* Personal-site layout: bold type, a playful portrait, and clear sections. */
+.portfolio-page {
+    max-width: 1160px;
+}
+.site-navigation {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 18px;
+}
+.profile-brand {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+.site-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-inline-start: auto;
+}
+.site-nav-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+}
+.site-nav-links a::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 3px;
+    height: 3px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform 160ms ease;
+}
+.site-nav-links a:hover::after,
+.site-nav-links a[aria-current="page"]::after {
+    transform: scaleX(1);
+}
+.site-navigation > button {
+    margin-inline-start: 12px;
+}
+.portfolio-page .profile-hero {
+    padding-block: 68px 76px;
+    gap: 80px;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.8fr);
+}
+.hero-eyebrow {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+.portfolio-page .hero-title,
+.section-heading h2,
+.about-banner h1,
+.about-prose h2 {
+    font-family: "Barlow Condensed", "Barlow", Tahoma, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+}
+.portfolio-page .hero-title {
+    font-size: clamp(5rem, 11vw, 9rem);
+    line-height: 0.88;
+    margin-bottom: 32px;
+}
+.hero-title > span {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+}
+.hero-title > span::after {
+    content: "";
+    position: absolute;
+    height: 12%;
+    background: #e3aa41;
+    inset-inline: -2%;
+    bottom: -4%;
+    transform: rotate(-1.5deg);
+    z-index: -1;
+}
+.portfolio-page .biography {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 58ch;
+}
+.about-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    min-height: 44px;
+    margin-top: 12px;
+}
+.about-link svg {
+    width: 18px;
+    height: 18px;
+    transition: translate 160ms;
+}
+.about-link:hover svg {
+    translate: 4px 0;
+}
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+}
+.hero-actions > * {
+    flex: 0 1 auto;
+}
+.hero-actions > a,
+.hero-actions > button {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.playful-portrait {
+    position: relative;
+    max-width: 340px;
+    margin-inline-end: 14px;
+    isolation: isolate;
+}
+.portrait-shadow {
+    position: absolute;
+    inset: 12px -12px -12px 12px;
+    background: var(--primary);
+    z-index: -1;
+}
+.portrait-photo {
+    position: relative;
+    border: 1px solid var(--foreground);
+    background: var(--card);
+    padding: 7px;
+    transform: rotate(2deg);
+    transition: transform 250ms ease;
+}
+.portrait-photo::before,
+.portrait-photo::after {
+    content: "";
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    border-color: var(--foreground);
+    z-index: 1;
+}
+.portrait-photo::before {
+    top: -8px;
+    inset-inline-start: -8px;
+    border-top: 3px solid;
+    border-inline-start: 3px solid;
+}
+.portrait-photo::after {
+    bottom: -8px;
+    inset-inline-end: -8px;
+    border-bottom: 3px solid;
+    border-inline-end: 3px solid;
+}
+.playful-portrait img {
+    border: 0;
+    border-radius: 0;
+}
+.playful-portrait:hover .portrait-photo {
+    transform: rotate(0deg) translateY(-3px);
+}
+.playful-portrait figcaption {
+    position: absolute;
+    bottom: -22px;
+    inset-inline: auto -18px;
+    color: var(--foreground);
+    background: #f0b951;
+    border: 1px solid var(--foreground);
+    padding: 7px 16px;
+    font-family: "Barlow Condensed", "Barlow", Tahoma, sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    transform: rotate(-5deg);
+}
+.portrait-spark {
+    position: absolute;
+    top: -35px;
+    inset-inline-end: -25px;
+    width: 64px;
+    height: 64px;
+    fill: #f0b951;
+    stroke: var(--foreground);
+    stroke-width: 2;
+    transform: rotate(10deg);
+}
+.portrait-scribble {
+    position: absolute;
+    bottom: -45px;
+    inset-inline-start: -25px;
+    width: 140px;
+    height: 60px;
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 0;
+}
+.social-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    border-block: 1px solid var(--color-border);
+    background: var(--card);
+}
+.social-strip a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 66px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 160ms;
+}
+.social-strip a + a {
+    border-inline-start: 1px solid var(--color-border);
+}
+.social-strip a > svg {
+    width: 19px;
+    height: 19px;
+    color: var(--primary);
+}
+.social-strip .social-arrow {
+    width: 16px;
+    color: var(--color-muted-foreground);
+    transition: transform 160ms;
+}
+.social-strip a:hover {
+    background: var(--muted);
+}
+.social-strip a:hover .social-arrow {
+    transform: translate(2px, -2px);
+}
+.projects-section {
+    padding-block: 64px 20px;
+    scroll-margin-top: 24px;
+}
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+.section-heading h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    margin-top: 8px;
+}
+.section-heading > p {
+    color: var(--color-muted-foreground);
+    max-width: 35ch;
+    line-height: 1.6;
+}
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+.project-card {
+    padding: clamp(22px, 3vw, 32px);
+    background: var(--card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    transition:
+        border-color 180ms,
+        box-shadow 180ms,
+        transform 180ms;
+}
+.project-card:hover {
+    border-color: var(--primary);
+    box-shadow: 4px 4px 0 var(--primary);
+    transform: translate(-2px, -2px);
+}
+.project-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
+    margin-bottom: 26px;
+}
+.project-top > svg {
+    width: 24px;
+    height: 24px;
+}
+.project-top > span {
+    margin-inline-start: auto;
+    color: var(--color-muted-foreground);
+    font-family: monospace;
+    font-size: 0.75rem;
+}
+.project-top > svg:last-child {
+    width: 18px;
+    height: 18px;
+}
+.project-category {
+    font-size: 0.8rem;
+    color: var(--color-muted-foreground);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.project-card h3 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+.project-description {
+    font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: 28px;
+}
+.project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+.project-technologies li {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    background: var(--muted);
+    border-radius: 4px;
+}
+.footer-name {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+.about-banner {
+    padding-block: 56px;
+    border-bottom: 1px solid var(--color-border);
+}
+.about-banner h1 {
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 1;
+    margin-block: 12px 20px;
+}
+.about-banner h1 span {
+    color: var(--primary);
+}
+.about-banner > p:last-child {
+    font-size: 1.2rem;
+    color: var(--color-muted-foreground);
+}
+.about-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 64px;
+    padding-block: 48px;
+}
+.about-contents nav {
+    position: sticky;
+    top: 32px;
+    border-top: 2px solid var(--primary);
+    padding-top: 16px;
+}
+.about-contents p {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.about-contents a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-inline-start: 2px solid var(--color-border);
+    color: var(--color-muted-foreground);
+    font-size: 0.9rem;
+}
+.about-contents a:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: var(--card);
+}
+.about-prose section {
+    scroll-margin-top: 32px;
+    margin-bottom: 48px;
+}
+.about-prose section:last-child {
+    margin-bottom: 0;
+}
+.about-prose h2 {
+    font-size: 2.25rem;
+    margin-bottom: 24px;
+    line-height: 1.15;
+}
+.about-prose p {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    margin-bottom: 20px;
+}
+.about-prose p a,
+.about-project-list > li > a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.about-project-list > li {
+    padding: 16px 0;
+    border-top: 1px solid var(--color-border);
+}
+.about-project-list > li > a {
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+.about-project-list p {
+    font-size: 1rem;
+    margin-block: 8px 0;
+}
+.about-prose .social-strip {
+    margin-top: 24px;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .hero-copy {
+        animation: hero-arrive 550ms ease-out both;
+    }
+    .playful-portrait {
+        animation: hero-arrive 700ms 120ms ease-out both;
+    }
+    .portrait-spark {
+        animation: spark-arrive 900ms 400ms ease-out both;
+    }
+    .portrait-scribble {
+        animation: draw-scribble 1000ms 650ms ease-out both;
+    }
+    @keyframes hero-arrive {
+        from {
+            opacity: 0;
+            translate: 0 18px;
+        }
+        to {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+    @keyframes spark-arrive {
+        from {
+            opacity: 0;
+            transform: rotate(-45deg) scale(0.5);
+        }
+        to {
+            opacity: 1;
+            transform: rotate(10deg) scale(1);
+        }
+    }
+    @keyframes draw-scribble {
+        from {
+            stroke-dashoffset: 400;
+        }
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+}
+@media (max-width: 959px) {
+    .site-nav-links {
+        gap: 16px;
+    }
+    .portfolio-page .profile-hero {
+        gap: 40px;
+        padding-block: 48px 64px;
+    }
+    .about-layout {
+        gap: 32px;
+        grid-template-columns: 180px minmax(0, 1fr);
+    }
+}
+@media (max-width: 767px) {
+    .site-navigation {
+        gap: 4px;
+    }
+    .site-navigation > button {
+        margin-inline-start: auto;
+    }
+    .site-nav-links {
+        order: 3;
+        width: 100%;
+        margin-top: 8px;
+        margin-inline-start: 0;
+        gap: 24px;
+    }
+    .portfolio-page .profile-hero {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 68px;
+    }
+    .playful-portrait {
+        justify-self: center;
+        max-width: 300px;
+        width: calc(100% - 48px);
+        margin-bottom: 16px;
+    }
+    .section-heading {
+        display: block;
+    }
+    .section-heading > p {
+        margin-top: 16px;
+    }
+    .projects-section {
+        padding-top: 44px;
+    }
+    .project-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+    .about-layout {
+        display: block;
+        padding-top: 24px;
+    }
+    .about-contents nav {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        margin-bottom: 32px;
+    }
+    .about-contents p {
+        width: 100%;
+    }
+    .about-contents a {
+        border: 0;
+        padding-inline: 0;
+    }
+    .about-banner {
+        padding-block: 32px;
+    }
+}
+@media (max-width: 399px) {
+    .profile-brand {
+        flex: 1;
+    }
+    .profile-brand > button {
+        font-size: 1rem;
+        padding-inline: 4px;
+    }
+    .site-navigation > button {
+        padding-inline: 4px;
+    }
+    .hero-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .site-nav-links {
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .site-nav-links a {
+        font-size: 0.9rem;
+    }
+}

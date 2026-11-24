@@ -31,11 +31,21 @@ export interface StaticProfileMeta {
     mastodonUrl?: string
 }
 
-export interface HowIWorkConfig {
+export interface ProfilePageConfig {
     path: `/${string}`
     titleKey: string
     descriptionKey: string
     lastModified: string
+}
+
+export interface ProjectConfig {
+    id: string
+    name: string
+    href: string
+    icon: "box" | "pen" | "terminal" | "scan"
+    descriptionKey: string
+    categoryKey: string
+    technologies: readonly string[]
 }
 
 export interface ProfileConfig {
@@ -54,7 +64,9 @@ export interface ProfileConfig {
     staticMeta: StaticProfileMeta
     lastModified: string
     blog: BlogConfig | null
-    howIWork?: HowIWorkConfig
+    howIWork?: ProfilePageConfig
+    about?: ProfilePageConfig
+    projects?: readonly ProjectConfig[]
     resume: ResumeConfig | null
     socials: readonly SocialLink[]
 }

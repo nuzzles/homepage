@@ -107,6 +107,10 @@ export function getSitemapXml(site: BuildSite): string {
         pages.push({ route: "/resume", lastModified: profile.resume.lastModified, priority: "0.8" })
     }
 
+    if (profile?.about) {
+        pages.push({ route: profile.about.path, lastModified: profile.about.lastModified, priority: "0.8" })
+    }
+
     if (profile?.howIWork) {
         pages.push({ route: profile.howIWork.path, lastModified: profile.howIWork.lastModified, priority: "0.7" })
     }

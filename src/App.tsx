@@ -4,6 +4,7 @@ import { HelmetProvider } from "react-helmet-async"
 import { LoaderCircle } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { HowIWorkPage } from "@/pages/HowIWorkPage"
+import { AboutPage } from "@/pages/AboutPage"
 import { HomePage } from "@/pages/HomePage"
 import { ProfileSelectorPage } from "@/pages/ProfileSelectorPage"
 import { ResumeUnavailablePage } from "@/pages/ResumeUnavailablePage"
@@ -72,6 +73,24 @@ function App() {
     const profileSite = isProfileId(site) ? site : null
     const homeElement = profileSite ? <ProfileHomeRoute profileId={profileSite} /> : <ProfileSelectorPage />
 
+    const aboutRoutes = (prefix = "") => {
+        const page = getProfile("spencer").about
+        if (!page) return null
+        const element = (
+            <ProfileProvider profileId="spencer">
+                <AboutPage />
+            </ProfileProvider>
+        )
+        return (
+            <>
+                {profileSite === "spencer" && <Route path={`${prefix}${page.path}`} element={element} />}
+                {isLocal && (!profileSite || profileSite === "spencer") && (
+                    <Route path={`${prefix}/spencer${page.path}`} element={element} />
+                )}
+            </>
+        )
+    }
+
     const howIWorkRoutes = (prefix = "") => {
         const page = getProfile("spencer").howIWork
         if (!page) return null
@@ -97,6 +116,7 @@ function App() {
                     <Routes>
                         <Route element={<PreferredLanguageLayout />}>
                             {howIWorkRoutes()}
+                            {aboutRoutes()}
                             <Route path="/" element={homeElement} />
                             {profileSite && <Route path="/resume" element={<ResumeRoute profileId={profileSite} />} />}
                             {isLocal && getLocalUnprefixedProfileRoutes()}
@@ -104,6 +124,7 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="en" />}>
                             {howIWorkRoutes("/en")}
+                            {aboutRoutes("/en")}
                             <Route path="/en" element={homeElement} />
                             {profileSite && (
                                 <Route path="/en/resume" element={<ResumeRoute profileId={profileSite} />} />
@@ -113,6 +134,7 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="fr" />}>
                             {howIWorkRoutes("/fr")}
+                            {aboutRoutes("/fr")}
                             <Route path="/fr" element={homeElement} />
                             {profileSite && (
                                 <Route path="/fr/resume" element={<ResumeRoute profileId={profileSite} />} />
@@ -122,6 +144,7 @@ function App() {
 
                         <Route element={<LocalizedLayout lang="fa" />}>
                             {howIWorkRoutes("/fa")}
+                            {aboutRoutes("/fa")}
                             <Route path="/fa" element={homeElement} />
                             {profileSite && (
                                 <Route path="/fa/resume" element={<ResumeRoute profileId={profileSite} />} />

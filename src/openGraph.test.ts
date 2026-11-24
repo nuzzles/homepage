@@ -63,6 +63,15 @@ describe("static Open Graph metadata", () => {
         expect(getSitemapXml("selector")).not.toContain("/how-i-work")
     })
 
+    it("includes translated About routes only in Spencer's sitemap", () => {
+        const sitemap = getSitemapXml("spencer")
+        for (const lang of ["en", "fr", "fa"])
+            expect(sitemap).toContain(`<loc>https://spencer.imbleau.com/${lang}/about</loc>`)
+        expect(sitemap).toContain('hreflang="x-default" href="https://spencer.imbleau.com/about"')
+        expect(getSitemapXml("sara")).not.toContain("/about")
+        expect(getSitemapXml("selector")).not.toContain("/about")
+    })
+
     it("reserves the bare URL for language negotiation", () => {
         const alternates = getAlternateUrls("selector")
         const sitemap = getSitemapXml("selector")

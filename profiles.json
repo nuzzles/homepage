@@ -36,14 +36,14 @@
         },
         "socials": [
             {
-                "kind": "linkedin",
-                "label": "LINKEDIN / SIMBLEAU",
-                "href": "https://www.linkedin.com/in/simbleau/"
+                "kind": "github",
+                "label": "GitHub",
+                "href": "https://www.github.com/nuzzles/"
             },
             {
-                "kind": "github",
-                "label": "GITHUB / NUZZLES",
-                "href": "https://www.github.com/nuzzles/"
+                "kind": "linkedin",
+                "label": "LinkedIn",
+                "href": "https://www.linkedin.com/in/simbleau/"
             }
         ],
         "howIWork": {
@@ -51,7 +51,51 @@
             "lastModified": "2026-11-23",
             "titleKey": "howIWorkPage.title",
             "descriptionKey": "howIWorkPage.description"
-        }
+        },
+        "about": {
+            "path": "/about",
+            "lastModified": "2026-11-24",
+            "titleKey": "aboutPage.title",
+            "descriptionKey": "aboutPage.description"
+        },
+        "projects": [
+            {
+                "id": "monet",
+                "name": "Monet",
+                "href": "https://monet3d.com",
+                "icon": "box",
+                "descriptionKey": "projects.monet.description",
+                "categoryKey": "projects.monet.category",
+                "technologies": ["Rust", "TypeScript", "WebAssembly"]
+            },
+            {
+                "id": "bevyVello",
+                "name": "bevy_vello",
+                "href": "https://github.com/linebender/bevy_vello",
+                "icon": "pen",
+                "descriptionKey": "projects.bevyVello.description",
+                "categoryKey": "projects.bevyVello.category",
+                "technologies": ["Rust", "Bevy", "Vello"]
+            },
+            {
+                "id": "trunk",
+                "name": "Trunk",
+                "href": "https://trunkrs.dev",
+                "icon": "terminal",
+                "descriptionKey": "projects.trunk.description",
+                "categoryKey": "projects.trunk.category",
+                "technologies": ["Rust", "WebAssembly"]
+            },
+            {
+                "id": "halo",
+                "name": "halo_api",
+                "href": "https://github.com/nuzzles/halo_api",
+                "icon": "scan",
+                "descriptionKey": "projects.halo.description",
+                "categoryKey": "projects.halo.category",
+                "technologies": ["Rust", "Halo Infinite"]
+            }
+        ]
     },
     "sara": {
         "firstName": "Sara",
@@ -83,7 +127,7 @@
         "socials": [
             {
                 "kind": "linkedin",
-                "label": "LINKEDIN / SARA IMBLEAU",
+                "label": "LinkedIn",
                 "href": "https://www.linkedin.com/in/sarah-aslani-76f9/"
             }
         ]

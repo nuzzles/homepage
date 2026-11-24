@@ -43,6 +43,7 @@ describe("CloudFront request routing", () => {
 
     it.each([
         "/resume",
+        ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/about`, `${prefix}/about/`]),
         "/en",
         "/fr/resume/",
         "/fa/",

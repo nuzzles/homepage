@@ -7,9 +7,11 @@
         <nav class="site-nav" aria-label="Blog navigation">
             <a class="page-link" href="{{ site.homepage_url }}">Homepage</a>
             {%- for path in site.header_pages -%} {%- assign nav_page = site.pages | where: "path", path | first -%} {%-
-            if nav_page.title -%}
+            if nav_page.title -%} {%- if path == "about.md" -%}
+            <a class="page-link" href="{{ site.homepage_url }}/about">{{ nav_page.title | escape }}</a>
+            {%- else -%}
             <a class="page-link" href="{{ nav_page.url | relative_url }}">{{ nav_page.title | escape }}</a>
-            {%- endif -%} {%- endfor -%}
+            {%- endif -%} {%- endif -%} {%- endfor -%}
         </nav>
     </div>
 </header>

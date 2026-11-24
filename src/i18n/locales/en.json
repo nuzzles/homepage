@@ -24,14 +24,14 @@
         "saraSticker": "I'm Sara.",
         "saraRole": "PhD Neuroscience Researcher",
         "startHere": "Start here.",
-        "revealEmail": "reveal email",
-        "copied": "copied!",
-        "copy": "copy",
-        "backToSelector": "back to profile selector",
-        "resume": "resume",
-        "blog": "blog",
-        "scheduleOneOnOne": "Schedule a 1:1",
-        "madeWith": "made with",
+        "revealEmail": "Reveal Email",
+        "copied": "Copied!",
+        "copy": "Copy",
+        "backToSelector": "Back to Profile Selector",
+        "resume": "Resume",
+        "blog": "Blog",
+        "scheduleOneOnOne": "Schedule 1:1",
+        "madeWith": "Made with",
         "andA": "and a",
         "biographies": {
             "spencer": {
@@ -45,7 +45,8 @@
         },
         "readMore": "Read more...",
         "readLess": "Read less",
-        "copyFailed": "Could not copy. Select the email address to contact me."
+        "copyFailed": "Could not copy. Select the email address to contact me.",
+        "moreAbout": "More About Me"
     },
     "resumePage": {
         "title": "{{profile}} | Resume",
@@ -54,8 +55,8 @@
         "loading": "Loading résumé…",
         "loadingHelp": "Taking a while? Open the PDF directly.",
         "openPdf": "Open PDF",
-        "goBack": "go back",
-        "downloadResume": "download",
+        "goBack": "Go Back",
+        "downloadResume": "Download",
         "unavailablePageTitle": "{{profile}} | Resume",
         "unavailableDescription": "{{profile}}'s resume is coming soon.",
         "unavailable": "No résumé available",
@@ -122,5 +123,58 @@
     "documentNavigation": {
         "label": "Professional profile",
         "resume": "Résumé"
+    },
+    "navigation": {
+        "label": "Main Navigation",
+        "home": "Home",
+        "about": "About",
+        "projects": "Projects",
+        "socials": "Find Me Online"
+    },
+    "projects": {
+        "eyebrow": "Built & Maintained",
+        "title": "Selected Projects",
+        "introduction": "Graphics, developer tools, and a little reverse engineering.",
+        "technologies": "Technologies",
+        "monet": {
+            "category": "Graphics & Live Events",
+            "description": "A declarative 3D engine and collaborative studio for broadcast and live-event graphics."
+        },
+        "bevyVello": {
+            "category": "Open Source · Author & Maintainer",
+            "description": "Bringing Vello’s GPU-accelerated vector graphics to the Bevy game engine."
+        },
+        "trunk": {
+            "category": "Open Source · Core Maintainer",
+            "description": "A Rust WebAssembly build tool, from local development and hot reload to production packaging."
+        },
+        "halo": {
+            "category": "Reverse Engineering",
+            "description": "A Rust library for Halo Infinite APIs and offline parsing of Theater film files."
+        }
+    },
+    "aboutPage": {
+        "title": "About",
+        "description": "About Spencer Imbleau: software engineering, computer graphics, open-source work, and projects.",
+        "tagline": "Building useful things. Sharing what I learn.",
+        "contents": "On This Page",
+        "background": {
+            "title": "A Little Background",
+            "body": "I like working close to the systems I’m trying to understand: rendering pixels, building tools, and turning experiments into software people can use. My work spans GPU graphics, browser applications, and the infrastructure behind them."
+        },
+        "openSource": {
+            "title": "Open Source",
+            "graphics": "I authored and maintain <bevyVello>bevy_vello</bevyVello>, the integration of Vello’s GPU-accelerated vector renderer with Bevy. Alongside other Linebender contributors, I also maintain <velloSvg>vello_svg</velloSvg> and <velato>velato</velato>, working on SVG rendering and Lottie animation.",
+            "tools": "I’m a core maintainer of <trunk>Trunk</trunk>, contribute WebAssembly support to <bevy>Bevy</bevy>, and help triage compiler and standard-library issues as a member of the <rust>Rust triage team</rust>."
+        },
+        "projects": {
+            "title": "What I Build",
+            "body": "Some of my work becomes a product; some starts with a question about how a system works. These are a few projects I build or help maintain.",
+            "all": "Explore the Projects"
+        },
+        "contact": {
+            "title": "Let’s Talk",
+            "body": "For engineering, graphics, open source, or a project you’re working on, send me an email or schedule a conversation. You can also find my code and professional profile below."
+        }
     }
 }

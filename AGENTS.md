@@ -21,7 +21,7 @@ HOMEPAGE_SITE=sara pnpm build      # production profile build, including Jekyll
 profiles.json          # profile identity, routes, links, metadata, and translation keys
 src/
   App.tsx              # application routes and language layouts
-  pages/               # homepage, résumé page, and How I Work page
+  pages/               # homepage, About, résumé, and How I Work pages
   components/          # shared UI
   i18n/locales/        # English, French, and Persian translations
   siteMetadata.ts      # site metadata, robots.txt, and sitemaps
@@ -87,3 +87,12 @@ and distinguish Spencer's contribution from the team's achievements.
 - Résumé and How I Work navigation uses a filled primary button for the current
   page and an outlined button for the other page. Link to How I Work from the
   résumé page, not the homepage. Keep its article scrollable with Go back outside.
+
+- Keep bold display headings and properly capitalized controls. Preserve the playful
+  portrait corner marks, offset blue frame, name sticker, and decorative motion.
+  Motion must be brief and respect reduced-motion preferences.
+- Spencer's About page and selected projects live in profile configuration. Project
+  descriptions and About copy use all three locale files. Use verified project facts;
+  distinguish authorship from maintenance or contributions.
+- Keep Resume, Reveal Email, and Schedule 1:1 prominent, with GitHub and LinkedIn
+  presented as clear icon-and-name links. Do not add unconfirmed social accounts.

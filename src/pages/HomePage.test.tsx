@@ -28,7 +28,7 @@ afterEach(async () => {
 })
 
 const button = (name: string) => [...container.querySelectorAll("button")].find((el) => el.textContent === name)!
-const reveal = async () => act(async () => button("reveal email").click())
+const reveal = async () => act(async () => button("Reveal Email").click())
 
 describe("profile controls", () => {
     it("reveals email only after activation and announces a successful copy", async () => {
@@ -38,15 +38,15 @@ describe("profile controls", () => {
         await reveal()
         const email = atob(getProfile("spencer").encodedEmail)
         expect(container.querySelector('a[href^="mailto:"]')?.getAttribute("href")).toBe(`mailto:${email}`)
-        await act(async () => container.querySelector<HTMLButtonElement>('button[aria-label="copy"]')!.click())
+        await act(async () => container.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
         expect(writeText).toHaveBeenCalledWith(email)
-        expect(container.querySelector('[role="status"]')?.textContent).toBe("copied!")
+        expect(container.querySelector('[role="status"]')?.textContent).toBe("Copied!")
     })
 
     it("keeps the email link available and explains clipboard failure", async () => {
         vi.stubGlobal("navigator", { clipboard: { writeText: vi.fn().mockRejectedValue(new Error("denied")) } })
         await reveal()
-        await act(async () => container.querySelector<HTMLButtonElement>('button[aria-label="copy"]')!.click())
+        await act(async () => container.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
         expect(container.querySelector('[role="status"]')?.textContent).toContain("Could not copy")
         expect(container.querySelector('a[href^="mailto:"]')).not.toBeNull()
     })

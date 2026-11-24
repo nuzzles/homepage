@@ -1,6 +1,15 @@
 function handler(event) {
     var request = event.request;
     var routes = {
+        "/about": true,
+        "/about/": true,
+        "/en/about": true,
+        "/en/about/": true,
+        "/fr/about": true,
+        "/fr/about/": true,
+        "/fa/about": true,
+        "/fa/about/": true,
+
         "/how-i-work": true,
         "/how-i-work/": true,
         "/resume": true,

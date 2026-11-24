@@ -24,14 +24,14 @@
         "saraSticker": "Je suis Sara.",
         "saraRole": "Chercheuse en neurosciences (Ph. D.)",
         "startHere": "Commencez ici.",
-        "revealEmail": "afficher le courriel",
-        "copied": "copié !",
-        "copy": "copier",
-        "backToSelector": "retour au choix du profil",
-        "resume": "curriculum vitæ",
-        "blog": "blog",
+        "revealEmail": "Afficher le courriel",
+        "copied": "Copié !",
+        "copy": "Copier",
+        "backToSelector": "Retour au choix du profil",
+        "resume": "Curriculum vitæ",
+        "blog": "Blog",
         "scheduleOneOnOne": "Planifier un entretien",
-        "madeWith": "fait avec",
+        "madeWith": "Fait avec",
         "andA": "et un",
         "biographies": {
             "spencer": {
@@ -45,7 +45,8 @@
         },
         "readMore": "Lire la suite",
         "readLess": "Réduire",
-        "copyFailed": "Copie impossible. Sélectionnez l’adresse e-mail pour me contacter."
+        "copyFailed": "Copie impossible. Sélectionnez l’adresse e-mail pour me contacter.",
+        "moreAbout": "En savoir plus sur moi"
     },
     "resumePage": {
         "title": "{{profile}} | Curriculum vitæ",
@@ -54,8 +55,8 @@
         "loading": "Chargement du curriculum vitæ…",
         "loadingHelp": "Le chargement est long ? Ouvrez directement le PDF.",
         "openPdf": "Ouvrir le PDF",
-        "goBack": "retour",
-        "downloadResume": "télécharger",
+        "goBack": "Retour",
+        "downloadResume": "Télécharger",
         "unavailablePageTitle": "{{profile}} | Curriculum vitæ",
         "unavailableDescription": "Le curriculum vitæ de {{profile}} sera bientôt disponible.",
         "unavailable": "Curriculum vitæ indisponible",
@@ -122,5 +123,58 @@
     "documentNavigation": {
         "label": "Profil professionnel",
         "resume": "CV"
+    },
+    "navigation": {
+        "label": "Navigation principale",
+        "home": "Accueil",
+        "about": "À propos",
+        "projects": "Projets",
+        "socials": "Me retrouver en ligne"
+    },
+    "projects": {
+        "eyebrow": "Création et maintenance",
+        "title": "Projets choisis",
+        "introduction": "Graphisme, outils de développement et un peu de rétro-ingénierie.",
+        "technologies": "Technologies",
+        "monet": {
+            "category": "Graphisme et événements en direct",
+            "description": "Un moteur 3D déclaratif et un studio collaboratif pour l’habillage graphique de diffusions et d’événements en direct."
+        },
+        "bevyVello": {
+            "category": "Open source · Auteur et mainteneur",
+            "description": "L’intégration du rendu vectoriel accéléré par GPU de Vello dans le moteur de jeu Bevy."
+        },
+        "trunk": {
+            "category": "Open source · Mainteneur principal",
+            "description": "Un outil de compilation Rust WebAssembly, du développement local avec rechargement à chaud à la préparation pour la production."
+        },
+        "halo": {
+            "category": "Rétro-ingénierie",
+            "description": "Une bibliothèque Rust pour les API de Halo Infinite et l’analyse hors ligne des fichiers de films du mode Cinéma."
+        }
+    },
+    "aboutPage": {
+        "title": "À propos",
+        "description": "À propos de Spencer Imbleau : génie logiciel, infographie, contributions open source et projets.",
+        "tagline": "Construire des choses utiles. Partager ce que j’apprends.",
+        "contents": "Sur cette page",
+        "background": {
+            "title": "Mon parcours",
+            "body": "J’aime travailler au plus près des systèmes que je cherche à comprendre : produire des images, créer des outils et transformer des expériences en logiciels utiles. Mon travail couvre le graphisme sur GPU, les applications web et leur infrastructure."
+        },
+        "openSource": {
+            "title": "Open source",
+            "graphics": "J’ai créé et je maintiens <bevyVello>bevy_vello</bevyVello>, l’intégration du moteur de rendu vectoriel accéléré par GPU Vello dans Bevy. Avec d’autres contributeurs de Linebender, je maintiens également <velloSvg>vello_svg</velloSvg> et <velato>velato</velato>, pour le rendu SVG et les animations Lottie.",
+            "tools": "Je suis mainteneur principal de <trunk>Trunk</trunk>, je contribue à la prise en charge de WebAssembly dans <bevy>Bevy</bevy> et j’aide à trier les problèmes du compilateur et de la bibliothèque standard au sein de l’<rust>équipe de triage de Rust</rust>."
+        },
+        "projects": {
+            "title": "Ce que je construis",
+            "body": "Certains de mes travaux deviennent des produits ; d’autres commencent par une question sur le fonctionnement d’un système. Voici quelques projets que je développe ou contribue à maintenir.",
+            "all": "Explorer les projets"
+        },
+        "contact": {
+            "title": "Discutons",
+            "body": "Pour parler d’ingénierie, de graphisme, d’open source ou de votre projet, envoyez-moi un courriel ou planifiez un échange. Mon code et mon profil professionnel sont également accessibles ci-dessous."
+        }
     }
 }
