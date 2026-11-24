@@ -56,7 +56,7 @@ describe("How I Work routing", () => {
         expect(container.querySelector(".resume-document-toolbar p")?.textContent).toBe(
             translations[language].resumePage.documentLanguage
         )
-        expect(container.querySelector(".resume-sidebar")).toBeNull()
+        expect(container.querySelector(".resume-sidebar")).not.toBeNull()
         const preview = container.querySelector(".resume-preview")!
         expect(preview.querySelector('[role="status"]')?.textContent).toContain(
             translations[language].resumePage.loading

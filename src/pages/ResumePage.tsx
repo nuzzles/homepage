@@ -125,8 +125,8 @@ export const ResumePage = () => {
                     <h1>{text("iframeTitle")}</h1>
                     <ProfileDocumentLink current="resume" />
                 </header>
-                <main className="resume-layout">
-                    <section className="resume-document" aria-label={text("iframeTitle")}>
+                <main className="about-layout resume-layout">
+                    <aside className="resume-sidebar">
                         <div className="resume-document-toolbar">
                             <p>{text("documentLanguage")}</p>
                             <div className="resume-download-actions">
@@ -160,6 +160,8 @@ export const ResumePage = () => {
                                 </Button>
                             </div>
                         </div>
+                    </aside>
+                    <section className="resume-document" aria-label={text("iframeTitle")}>
                         <div className="resume-preview relative">
                             {loading && (
                                 <div role="status" className="resume-loading">
