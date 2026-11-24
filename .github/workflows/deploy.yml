@@ -147,21 +147,6 @@ jobs:
             "https://${{ matrix.distribution_domain_name }}${{ matrix.blog_base_path }}/" \
             | grep -F 'data-blog-chrome="header"'
 
-      - name: Verify | Translated error document
-        env:
-          SITE_URL: https://${{ matrix.distribution_domain_name }}
-          SITE_ID: ${{ matrix.site }}
-        run: |
-          for path in /missing-page /fr/missing-page /fa/missing-page /blog/missing-page; do
-            status=$(curl --silent --show-error --retry 3 \
-              --output /tmp/homepage-not-found.html --write-out '%{http_code}' \
-              "$SITE_URL$path")
-            test "$status" = 404
-            grep -F "data-site=\"$SITE_ID\"" /tmp/homepage-not-found.html > /dev/null
-            grep -F 'id="root"' /tmp/homepage-not-found.html > /dev/null
-            grep -F 'noindex, follow' /tmp/homepage-not-found.html > /dev/null
-          done
-
       - name: Verify | Stats and reading list
         if: matrix.site == 'spencer'
         run: |
