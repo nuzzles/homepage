@@ -6,6 +6,10 @@ locals {
     for site, config in local.profile_sites : site => config if config.blog_base_path != null
   }
   spa_route_patterns = ["/resume*", "/en*", "/fr*", "/fa*", "/how-i-work*", "/about*", "/books*", "/reading-list*"]
+  # The preview iframe and the PDF's HEAD/download requests use separate CSP directives.
+  web_connect_sources = concat(["'self'"], distinct(compact([
+    for profile in values(local.profile_config) : try(profile.resume.pdfUrl, "")
+  ])))
 }
 
 resource "aws_cloudfront_function" "blog_router" {
@@ -64,7 +68,7 @@ resource "aws_cloudfront_response_headers_policy" "web" {
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; frame-src 'self' https://nuzzles.github.io https://www.youtube.com; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+      content_security_policy = "default-src 'self'; base-uri 'self'; connect-src ${join(" ", local.web_connect_sources)}; font-src 'self'; form-action 'self'; frame-ancestors 'none'; frame-src 'self' https://nuzzles.github.io https://www.youtube.com; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
       override                = true
     }
     content_type_options {
