@@ -43,6 +43,10 @@ HOMEPAGE_SITE=spencer pnpm dev
 
 Profiles without a configured blog run only the Vite development server.
 
+Spencer's English-language personal manifesto is available at `/how-i-work` on his
+profile site, or `/spencer/how-i-work` in the joint local preview. Its route and
+metadata are configured in `profiles.json`; the homepage links to it below the main actions.
+
 Profile identity, hostnames, images, contact links, résumé and blog settings, SEO, and translation
 keys are defined once in `profiles.json`. The UI, local routes, site builds, deployment
 matrix, sitemaps, and Terraform all derive from that registry.

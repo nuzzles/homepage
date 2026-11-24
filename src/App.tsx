@@ -2,6 +2,7 @@ import { Fragment, lazy, Suspense } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
 import { Box, CircularProgress } from "@mui/material"
+import { HowIWorkPage } from "@/pages/HowIWorkPage"
 import { HomePage } from "@/pages/HomePage"
 import { ProfileSelectorPage } from "@/pages/ProfileSelectorPage"
 import { ResumeUnavailablePage } from "@/pages/ResumeUnavailablePage"
@@ -9,7 +10,7 @@ import { LocalizedLayout } from "@/components/LocalizedLayout"
 import { PreferredLanguageLayout } from "@/components/PreferredLanguageLayout"
 import { ProfileProvider } from "@/components/ProfileProvider"
 import { useProfile } from "@/hooks/useProfile"
-import { isLocalProfileHostname, isProfileId, PROFILE_IDS } from "@/profiles"
+import { getProfile, isLocalProfileHostname, isProfileId, PROFILE_IDS } from "@/profiles"
 import { getConfiguredSite } from "@/site"
 import type { ProfileId } from "@/profiles"
 
@@ -78,6 +79,28 @@ function App() {
                     }}
                 >
                     <Routes>
+                        {profileSite && getProfile(profileSite).howIWork && (
+                            <Route
+                                path={getProfile(profileSite).howIWork!.path}
+                                element={
+                                    <ProfileProvider profileId={profileSite}>
+                                        <HowIWorkPage />
+                                    </ProfileProvider>
+                                }
+                            />
+                        )}
+                        {isLocal &&
+                            PROFILE_IDS.filter((id) => getProfile(id).howIWork).map((id) => (
+                                <Route
+                                    key={`values-${id}`}
+                                    path={`/${id}${getProfile(id).howIWork!.path}`}
+                                    element={
+                                        <ProfileProvider profileId={id}>
+                                            <HowIWorkPage />
+                                        </ProfileProvider>
+                                    }
+                                />
+                            ))}
                         <Route element={<PreferredLanguageLayout />}>
                             <Route path="/" element={homeElement} />
                             {profileSite && <Route path="/resume" element={<ResumeRoute profileId={profileSite} />} />}

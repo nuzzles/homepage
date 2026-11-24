@@ -44,7 +44,8 @@
             }
         },
         "readMore": "Lire la suite",
-        "readLess": "Réduire"
+        "readLess": "Réduire",
+        "howIWork": "Ma façon de travailler"
     },
     "resumePage": {
         "title": "{{profile}} | Curriculum vitæ",

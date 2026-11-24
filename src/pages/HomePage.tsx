@@ -19,6 +19,7 @@ import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import {
     getProfileBlogPath,
+    getProfileHomePath,
     getSelectorUrl,
     getProfileSwitchUrl,
     isLocalProfileHostname,
@@ -438,6 +439,15 @@ export const HomePage = () => {
                             </LightButton>
                         )}
                     </Box>
+                    {profile.howIWork && (
+                        <MuiLink
+                            href={`${getProfileHomePath(window.location.hostname, profileId).replace(/\/$/, "")}${profile.howIWork.path}`}
+                            underline="always"
+                            sx={{ display: "inline-block", mt: 2, fontWeight: 600, textUnderlineOffset: "0.2em" }}
+                        >
+                            {t("home.howIWork")}
+                        </MuiLink>
+                    )}
                 </Box>
 
                 <Box

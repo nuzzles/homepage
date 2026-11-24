@@ -45,7 +45,13 @@
                 "label": "GITHUB / NUZZLES",
                 "href": "https://www.github.com/nuzzles/"
             }
-        ]
+        ],
+        "howIWork": {
+            "path": "/how-i-work",
+            "title": "How I Work",
+            "description": "The principles I bring to engineering and collaboration: useful work, shared success, candor, curiosity, fairness, and responsibility.",
+            "lastModified": "2026-11-23"
+        }
     },
     "sara": {
         "firstName": "Sara",

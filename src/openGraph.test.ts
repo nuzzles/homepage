@@ -52,6 +52,14 @@ describe("static Open Graph metadata", () => {
         expect(getRobotsTxt("selector")).not.toContain("/blog/sitemap.xml")
     })
 
+    it("includes the English manifesto only in Spencer's sitemap", () => {
+        const sitemap = getSitemapXml("spencer")
+        expect(sitemap).toContain("<loc>https://spencer.imbleau.com/how-i-work</loc>")
+        expect(sitemap).not.toContain("/fr/how-i-work")
+        expect(getSitemapXml("sara")).not.toContain("/how-i-work")
+        expect(getSitemapXml("selector")).not.toContain("/how-i-work")
+    })
+
     it("reserves the bare URL for language negotiation", () => {
         const alternates = getAlternateUrls("selector")
         const sitemap = getSitemapXml("selector")

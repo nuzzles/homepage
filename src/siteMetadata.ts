@@ -128,6 +128,16 @@ ${alternates}
         })
     )
 
+    // The personal manifesto is authored in English, without translated alternates.
+    if (profile?.howIWork) {
+        urls.push(`    <url>
+        <loc>${metadata.baseUrl}${profile.howIWork.path}</loc>
+        <lastmod>${profile.howIWork.lastModified}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>`)
+    }
+
     return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">

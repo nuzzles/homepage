@@ -44,7 +44,8 @@
             }
         },
         "readMore": "بیشتر بخوانید",
-        "readLess": "نمایش کمتر"
+        "readLess": "نمایش کمتر",
+        "howIWork": "روش کار من"
     },
     "resumePage": {
         "title": "{{profile}} | رزومه",
