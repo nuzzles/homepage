@@ -1,4 +1,4 @@
-import { Coffee, Keyboard } from "lucide-react"
+import { ProfileFooter } from "@/components/ProfileFooter"
 import { Trans } from "react-i18next"
 import { LatestPosts } from "@/components/LatestPosts"
 import { Helmet } from "react-helmet-async"
@@ -82,13 +82,7 @@ export const HomePage = () => {
                 <ProfileActions />
                 {profile.id === "spencer" && <LatestPosts />}
                 <ProjectsSection />
-                <footer className="profile-footer">
-                    <span className="footer-name">{profile.fullName}</span>
-                    <p className="footer-credit">
-                        {t("home.madeWith")} <Coffee aria-hidden="true" /> {t("home.andA")}{" "}
-                        <Keyboard aria-hidden="true" />
-                    </p>
-                </footer>
+                <ProfileFooter />
             </article>
         </>
     )

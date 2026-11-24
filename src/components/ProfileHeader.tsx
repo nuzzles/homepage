@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+import { Squiggle } from "@/components/Squiggle"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
@@ -13,18 +15,18 @@ export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about"
     const blog = getProfileBlogPath(window.location.hostname, profile.id, isProfileId(site) ? site : null)
     return (
         <header className="profile-header site-navigation">
-            <a className="profile-brand" href={home}>
-                {profile.firstName}
-            </a>
+            <Link className="profile-brand" to={home}>
+                <Squiggle>{profile.firstName}</Squiggle>
+            </Link>
             <nav aria-label={t("navigation.label")} className="site-nav-links">
                 {profile.blog?.showOnHomepage && blog && <a href={blog}>{t("home.blog")}</a>}
                 {profile.about && (
-                    <a
-                        href={localizedPath(`${base}${profile.about.path}`)}
+                    <Link
+                        to={localizedPath(`${base}${profile.about.path}`)}
                         aria-current={current === "about" ? "page" : undefined}
                     >
                         {t("navigation.about")}
-                    </a>
+                    </Link>
                 )}
             </nav>
             <LanguageSwitcher />

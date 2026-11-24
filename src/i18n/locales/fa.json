@@ -1,4 +1,9 @@
 {
+    "footer": {
+        "credit": "ساخته‌شده با <coffee/> و <claude/>",
+        "coffee": "قهوه",
+        "navigation": "ناوبری پایین صفحه"
+    },
     "meta": {
         "title": "Spencer Imbleau | صفحه اصلی",
         "description": "این صفحه وب اسپنسر ایمبلو است. من یک مهندس نرم‌افزار آمریکایی هستم.",

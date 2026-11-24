@@ -1,3 +1,4 @@
+import { ProfileFooter } from "@/components/ProfileFooter"
 import { Helmet } from "react-helmet-async"
 import { Trans } from "react-i18next"
 import { ProfileHeader } from "@/components/ProfileHeader"
@@ -197,12 +198,7 @@ export const AboutPage = () => {
                     </section>
                 </article>
             </div>
-            <footer className="profile-footer">
-                <span className="footer-name">{profile.fullName}</span>
-                <a className="text-link" href={home}>
-                    {t("navigation.home")}
-                </a>
-            </footer>
+            <ProfileFooter />
         </div>
     )
 }

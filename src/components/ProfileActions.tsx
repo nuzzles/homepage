@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-import { Check, Copy, Mail } from "lucide-react"
+import { ArrowUpRight, Check, Copy, Mail } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { ProfileSocials } from "@/components/ProfileSocials"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -80,7 +81,7 @@ export const ProfileActions = () => {
         <div className="profile-actions action-strip">
             <ProfileSocials />
             <Button asChild variant="ghost">
-                <a href={localizedPath(`${base}/resume`)} target="_blank" rel="noopener noreferrer">
+                <Link to={localizedPath(`${base}/resume`)}>
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                         <path d="M14 2H5a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8zM14 2v6h6" />
                         <text
@@ -96,7 +97,7 @@ export const ProfileActions = () => {
                         </text>
                     </svg>
                     {t("home.resume")}
-                </a>
+                </Link>
             </Button>
             <RevealEmailButton key={profile.id} encodedEmail={profile.encodedEmail} />
             {profile.calendlyUrl && (
@@ -104,6 +105,7 @@ export const ProfileActions = () => {
                     <a className="schedule-action" href={profile.calendlyUrl} target="_blank" rel="noopener noreferrer">
                         <img src="/images/affiliations/calendly.svg" className="size-4 shrink-0" alt="" />
                         <span>{t("home.scheduleOneOnOne")}</span>
+                        <ArrowUpRight aria-hidden="true" className="schedule-arrow" />
                     </a>
                 </Button>
             )}

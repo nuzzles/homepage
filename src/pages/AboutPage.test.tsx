@@ -103,7 +103,7 @@ describe("About and portfolio routes", () => {
             expect(projectSection.querySelector(`a[href="${project.href}"]`)?.textContent).toContain(project.name)
         }
         expect(projectSection.querySelectorAll(".project-card")).toHaveLength(4)
-        expect(container.querySelectorAll(".social-strip a")).toHaveLength(2)
+        expect(container.querySelectorAll(".action-strip .social-strip a")).toHaveLength(2)
         expect(container.querySelector(".social-strip")?.textContent).toContain("GitHub")
         expect(container.querySelector(".social-strip")?.textContent).toContain("LinkedIn")
     })

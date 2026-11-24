@@ -1,4 +1,9 @@
 {
+    "footer": {
+        "credit": "Fait avec <coffee/> et <claude/>",
+        "coffee": "café",
+        "navigation": "Navigation de pied de page"
+    },
     "meta": {
         "title": "Spencer Imbleau | Page d'accueil",
         "description": "Ceci est la page Web de Spencer Imbleau. Je suis un ingénieur logiciel américain.",
