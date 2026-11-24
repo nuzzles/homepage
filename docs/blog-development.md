@@ -22,8 +22,8 @@ into Hugo HTML at build time and hydrates them with the same React components,
 shadcn controls, and stylesheet as the homepage. Change those components to update
 both surfaces; do not add separate Hugo header/footer markup. Vite shares cached
 JavaScript and CSS chunks between the two entries. Restart `pnpm dev` after changing
-shared chrome to refresh its server-rendered HTML. Blog language choices lead to
-translated homepages; posts stay English-only. Hugo renders the article contents links at build
+shared chrome to refresh its server-rendered HTML. The blog language control shows
+an English-only indicator; posts stay English-only. Hugo renders the article contents links at build
 time; a small script adds collapse and scroll highlighting. Year labels stick while
 reading the archive. Each post's timeline includes up to two earlier and two later posts.
 
@@ -58,12 +58,22 @@ Use Hugo shortcodes for assets and demos:
 The hex viewer reads the existing sample from `blog/data/halo_theater_hex.json`.
 Raw HTML is enabled for author-controlled figures and video. Preserve iframe sandbox
 attributes and the replay compaction step. RSS remains at `feed.xml`, the homepage
-feed at `latest.json`, categories at `categories.html`, and the sitemap at `sitemap.xml`.
+feed at `latest.json`, tags at `tags.html`, and the sitemap at `sitemap.xml`.
+The former `categories.html` route redirects to the tag archive.
 Spencer's old blog About URL redirects to his translated site About page.
 
 About prose is Markdown in `src/content/about/{en,fr,fa}.md`, rendered inside the React
 site so language routing and interactive contact controls remain consistent. Each
 level-two heading has a stable `{#anchor}`. Standalone `::biography`, `::projects`,
 `::contact`, and `::identity` paragraphs insert components backed by profile configuration.
-The relative link targets `projects`, `blog`, and `categories` resolve to the active
+The relative link targets `projects` and `blog` resolve to the active
 profile's routes. Keep those markers and anchors consistent across translations.
+
+How I work uses translated Markdown in `src/content/how-i-work/{en,fr,fa}.md` and the
+same `MarkdownReadingLayout` as About. Preserve section anchors across translations.
+React uses `ContentHeading`; Hugo uses `layouts/_markup/render-heading.html` for
+heading permalinks. Both consume the shared marker underline in `src/typography.css`.
+
+The development server keeps its generated pages, static assets, runtime config, and
+cache in `node_modules/.cache/hugo-dev/`, separate from production build output and
+OS temporary-file cleanup. Restart `pnpm dev` to regenerate a missing embed asset.

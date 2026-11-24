@@ -524,15 +524,6 @@
     text-decoration: underline;
     text-underline-offset: 3px;
 }
-.marker-underline {
-    background-image: var(--marker-art);
-    background-repeat: no-repeat;
-    background-size: 100% 0.28em;
-    background-position: 0 100%;
-    padding-bottom: 0.08em;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-}
 .greeting-wave {
     display: inline-block;
     font-size: 0.8em;
@@ -1266,5 +1257,21 @@
     }
     .resume-sidebar p {
         max-width: var(--reading-width);
+    }
+}
+
+.markdown-sidebar > .about-contents {
+    position: sticky;
+    top: var(--space-8);
+}
+.markdown-document-nav {
+    margin-bottom: var(--space-8);
+}
+.markdown-introduction {
+    margin-bottom: var(--space-12);
+}
+@media (max-width: 767px) {
+    .markdown-sidebar > .about-contents {
+        position: static;
     }
 }

@@ -1,8 +1,6 @@
-import { AboutContents } from "@/components/AboutContents"
+import { MarkdownReadingLayout } from "@/components/MarkdownReadingLayout"
 import { ProfileFooter } from "@/components/ProfileFooter"
 import { Helmet } from "react-helmet-async"
-import Markdown from "react-markdown"
-import remarkGfm from "remark-gfm"
 import { Link } from "react-router-dom"
 import { aboutSections } from "@/content/about"
 import { ProfileHeader } from "@/components/ProfileHeader"
@@ -51,87 +49,64 @@ export const AboutPage = () => {
             <header className="about-banner">
                 <h1>{t(page.titleKey)}</h1>
             </header>
-            <div className="about-layout">
-                <AboutContents sections={sections} />
-                <article className="about-prose">
-                    {sections.map(({ id, title, body }) => (
-                        <section id={id} key={id}>
-                            <h2>{title}</h2>
-                            <Markdown
-                                remarkPlugins={[remarkGfm]}
-                                components={{
-                                    p: ({ children }) => {
-                                        if (children === "::biography") return <ProfileBiography />
-                                        if (children === "::contact") return <ProfileActions />
-                                        if (children === "::projects")
-                                            return (
-                                                <ul className="about-project-list">
-                                                    {profile.projects?.map((project) => (
-                                                        <li key={project.id}>
-                                                            <a
-                                                                href={project.href}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                            >
-                                                                {project.name}
-                                                            </a>
-                                                            <p>{t(project.descriptionKey)}</p>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            )
-                                        if (children === "::identity")
-                                            return (
-                                                <table className="identity-table">
-                                                    <caption className="sr-only">
-                                                        {t("aboutPage.identity.title")}
-                                                    </caption>
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">{t("aboutPage.identity.platform")}</th>
-                                                            <th scope="col">{t("aboutPage.identity.account")}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {profile.socials.map(({ kind, label, href }) => (
-                                                            <tr key={kind}>
-                                                                <th scope="row">{label}</th>
-                                                                <td>
-                                                                    <a
-                                                                        href={href}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        dir="ltr"
-                                                                    >
-                                                                        {kind === "github"
-                                                                            ? `@${new URL(href).pathname.split("/").filter(Boolean).at(-1)}`
-                                                                            : new URL(href).pathname.replace(/\/$/, "")}
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-                                            )
-                                        return <p>{children}</p>
-                                    },
-                                    a: ({ href, children }) => {
-                                        if (href === "projects") return <Link to={`${home}#projects`}>{children}</Link>
-                                        if (href === "blog") return <a href={blog ?? "/blog/"}>{children}</a>
-                                        return (
-                                            <a href={href} target="_blank" rel="noopener noreferrer">
-                                                {children}
+            <MarkdownReadingLayout
+                sections={sections}
+                components={{
+                    p: ({ children }) => {
+                        if (children === "::biography") return <ProfileBiography />
+                        if (children === "::contact") return <ProfileActions />
+                        if (children === "::projects")
+                            return (
+                                <ul className="about-project-list">
+                                    {profile.projects?.map((project) => (
+                                        <li key={project.id}>
+                                            <a href={project.href} target="_blank" rel="noopener noreferrer">
+                                                {project.name}
                                             </a>
-                                        )
-                                    },
-                                }}
-                            >
-                                {body}
-                            </Markdown>
-                        </section>
-                    ))}
-                </article>
-            </div>
+                                            <p>{t(project.descriptionKey)}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )
+                        if (children === "::identity")
+                            return (
+                                <table className="identity-table">
+                                    <caption className="sr-only">{t("aboutPage.identity.title")}</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">{t("aboutPage.identity.platform")}</th>
+                                            <th scope="col">{t("aboutPage.identity.account")}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {profile.socials.map(({ kind, label, href }) => (
+                                            <tr key={kind}>
+                                                <th scope="row">{label}</th>
+                                                <td>
+                                                    <a href={href} target="_blank" rel="noopener noreferrer" dir="ltr">
+                                                        {kind === "github"
+                                                            ? `@${new URL(href).pathname.split("/").filter(Boolean).at(-1)}`
+                                                            : new URL(href).pathname.replace(/\/$/, "")}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            )
+                        return <p>{children}</p>
+                    },
+                    a: ({ href, children }) => {
+                        if (href === "projects") return <Link to={`${home}#projects`}>{children}</Link>
+                        if (href === "blog") return <a href={blog ?? "/blog/"}>{children}</a>
+                        return (
+                            <a href={href} target="_blank" rel="noopener noreferrer">
+                                {children}
+                            </a>
+                        )
+                    },
+                }}
+            />
             <ProfileFooter />
         </div>
     )

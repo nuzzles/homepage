@@ -1,3 +1,4 @@
+import { howIWorkContent } from "@/content/how-i-work"
 import { act } from "react"
 import { createRoot, type Root } from "react-dom/client"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
@@ -80,17 +81,18 @@ describe("How I Work routing", () => {
         const copy = translations[language].howIWorkPage
         const article = container.querySelector("article")!
         expect(container.querySelector("h1")?.textContent).toBe(copy.title)
-        expect(article.querySelectorAll("h2")).toHaveLength(9)
-        for (const principle of copy.principles) {
+        expect(article.querySelectorAll("h2")).toHaveLength(10)
+        for (const principle of howIWorkContent(language).sections) {
             expect(article.textContent).toContain(principle.title)
-            expect(article.textContent).toContain(principle.body)
+            expect(article.textContent).toContain(principle.body.trim())
         }
-        expect(article.textContent).toContain(copy.reflection)
+        expect(article.textContent).toContain(howIWorkContent(language).introduction)
         expect(article.lang).toBe(languageConfig[language].htmlLang)
         expect(article.dir).toBe(languageConfig[language].dir)
-        expect(container.querySelector(`a[href="/${language}/spencer"]`)?.textContent).toBe(
-            translations[language].resumePage.goBack
-        )
+        expect(container.querySelector(".site-navigation")).not.toBeNull()
+        expect(container.querySelector(".profile-footer")).not.toBeNull()
+        expect(container.querySelector(`.document-nav a[href="/${language}/spencer/resume"]`)).not.toBeNull()
+        expect(container.querySelector('.heading-anchor[href="#purpose"]')).not.toBeNull()
         expect(window.location.pathname).toBe(path)
     })
 
@@ -99,9 +101,7 @@ describe("How I Work routing", () => {
         await renderPage("spencer", "/how-i-work")
         expect(container.querySelector("h1")?.textContent).toBe(translations[language].howIWorkPage.title)
         expect(window.location.pathname).toBe("/how-i-work")
-        expect(container.querySelector('a[href="/spencer"]')?.textContent).toBe(
-            translations[language].resumePage.goBack
-        )
+        expect(container.querySelector('.document-nav a[href="/spencer/resume"]')).not.toBeNull()
     })
 
     it("opens the unprefixed local Spencer route", async () => {

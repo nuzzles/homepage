@@ -20,7 +20,7 @@ export function initializeContents(doc = document, win = window) {
         }
         const link = [...list.querySelectorAll('a')].find((entry) => decodeURIComponent(entry.hash.slice(1)) === heading.id) ?? doc.createElement('a')
         link.href = `#${encodeURIComponent(heading.id)}`
-        link.textContent = heading.textContent
+        link.textContent = (heading.querySelector('.heading-title') ?? heading).textContent
         if (heading.tagName === 'H3') link.className = 'contents-subheading'
         if (!link.parentElement) list.append(link)
         return link

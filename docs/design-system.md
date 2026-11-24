@@ -53,3 +53,9 @@ Keyboard focus is shared through `src/focus.css`: a square 2px outline in the fo
 color, with a 3px gap. Action-bar cells and menu items inset the same outline to
 avoid clipping. Focused controls use square corners; buttons do not add a second
 box-shadow ring. Every action-bar item uses `SocialBarAction`.
+
+About and How I work share `MarkdownReadingLayout`, including collapsible Contents,
+scroll highlighting, and translated Markdown. `ContentHeading` adds accessible `#`
+permalinks and uses `MarkerUnderline`, also used by the homepage introduction. Hugo
+heading and marker partials emit the same classes; `src/typography.css` owns their
+shared appearance. Contents labels omit the decorative permalink character.

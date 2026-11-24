@@ -44,6 +44,9 @@ beforeAll(() => {
     cpSync(join(root, "blog/content"), join(temp, "content"), { recursive: true })
     cpSync(join(root, "blog/data"), join(temp, "data"), { recursive: true })
     mkdirSync(join(temp, "assets"))
+    for (const directory of ["hex-viewer", "motion-replay", "diagrams"]) {
+        cpSync(join(root, "blog/assets", directory), join(temp, "assets", directory), { recursive: true })
+    }
     writeFileSync(
         join(temp, "runtime.json"),
         JSON.stringify({
@@ -129,6 +132,39 @@ describe("Hugo migration", () => {
                 ).not.toBeNull()
             }
         }
+    })
+    it("renders heading permalinks and marker titles without polluting the contents", () => {
+        for (const path of legacyPaths.slice(1)) {
+            const doc = html(path)
+            for (const heading of doc.querySelectorAll(".post-content :is(h1,h2,h3,h4,h5,h6)")) {
+                const title = heading.querySelector(".heading-title")
+                expect(title.querySelector(".marker-underline")).not.toBeNull()
+                const anchor = heading.querySelector(".heading-anchor")
+                expect(decodeURIComponent(anchor.hash.slice(1))).toBe(heading.id)
+                expect(anchor.getAttribute("aria-label")).toBe(`Link to ${title.textContent}`)
+                const tocLink = [...doc.querySelectorAll(".contents-links a")].find(
+                    (a) => decodeURIComponent(a.hash.slice(1)) === heading.id
+                )
+                if (tocLink) expect(tocLink.textContent).toBe(title.textContent)
+            }
+        }
+    })
+    it("ships the actual replay and decompression documents with their local dependencies", () => {
+        const doc = html(legacyPaths[5])
+        for (const frame of doc.querySelectorAll(".motion-replay-player iframe, iframe[data-hex-viewer]")) {
+            const path = new URL(frame.src, "https://spencer.imbleau.com").pathname.replace(/^\/blog\//, "")
+            const embedded = html(path)
+            expect(embedded.querySelector("script")).not.toBeNull()
+            for (const resource of embedded.querySelectorAll("script[src], link[rel=stylesheet]")) {
+                const relative = resource.getAttribute("src") ?? resource.getAttribute("href")
+                const url = new URL(relative, new URL(frame.src, "https://spencer.imbleau.com"))
+                if (url.origin === new URL(frame.src, "https://spencer.imbleau.com").origin) {
+                    expect(existsSync(join(output, url.pathname.replace(/^\/blog\//, ""))), url.pathname).toBe(true)
+                }
+            }
+        }
+        expect(html("assets/hex-viewer/index.html").querySelector("#decoded-tab").textContent).toContain("Decompressed")
+        expect(readFileSync(join(output, "assets/motion-replay/octagon.html"), "utf8")).toContain("<canvas")
     })
     it("groups all posts by year and preserves RSS and the published feed", () => {
         const archive = html("index.html")

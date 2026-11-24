@@ -109,11 +109,20 @@ describe("About and portfolio routes", () => {
         expect(container.querySelector("#status")?.textContent).toContain(
             aboutSections(lang)[0].body.split("\n").filter(Boolean).at(-1)
         )
-        expect([...container.querySelectorAll("article h2")].map((heading) => heading.textContent)).toEqual(
+        expect(
+            [...container.querySelectorAll("article h2 .heading-title")].map((heading) => heading.textContent)
+        ).toEqual(
             (["status", "projects", "contact", "identity", "disclaimer"] as const).map(
                 (key) => copy.aboutPage[key].title
             )
         )
+        for (const { id, title } of aboutSections(lang)) {
+            const heading = container.querySelector(`#${id} h2`)!
+            const anchor = heading.querySelector(".heading-anchor")!
+            expect(anchor.getAttribute("href")).toBe(`#${id}`)
+            expect(anchor.getAttribute("aria-label")).toBe(copy.heading.permalink.replace("{{heading}}", title))
+            expect(heading.querySelector(".marker-underline")?.textContent).toBe(title)
+        }
         expect(container.querySelector('.identity-table a[href="https://www.github.com/nuzzles/"]')?.textContent).toBe(
             "@nuzzles"
         )

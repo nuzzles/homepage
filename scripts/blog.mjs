@@ -25,6 +25,7 @@ const requestedSite = process.env.HOMEPAGE_SITE
 const spencer = profiles.spencer
 const source = join(root, "blog")
 const output = join(root, "dist/blog")
+const devDirectory = join(root, "node_modules/.cache/hugo-dev")
 
 const run = (executable, args, options = {}) =>
     spawn(executable, args, {
@@ -98,7 +99,9 @@ if (chromeEntry) collectStyles(chromeEntry)
 if (command === "dev") chromeStylesheets.add("/src/index.css?direct")
 
 const getHugoConfig = (websiteUrl, homepageUrl, basePath) => {
-    const override = join(tmpdir(), `homepage-hugo-spencer-${command}.json`)
+    const override =
+        command === "dev" ? join(devDirectory, "runtime.json") : join(tmpdir(), "homepage-hugo-spencer-build.json")
+    mkdirSync(dirname(override), { recursive: true })
     writeFileSync(
         override,
         JSON.stringify({
@@ -219,7 +222,9 @@ if (command === "build") {
     children.push(vite)
 
     {
-        const destination = join(tmpdir(), "homepage-hugo-spencer-dev")
+        // Static assets preserve their source timestamps. Keep the live server output
+        // out of the OS temporary directory, where old files can be reclaimed.
+        const destination = join(devDirectory, "public")
         const publicUrl = "http://localhost:5173"
         const homepageUrl = `${publicUrl}${isJointSite ? "/spencer" : ""}`
         const config = getHugoConfig(publicUrl, homepageUrl, publicBasePath)
@@ -238,7 +243,7 @@ if (command === "build") {
             "--appendPort=false",
             "--disableLiveReload",
             "--cacheDir",
-            join(root, "node_modules/.cache/hugo-build"),
+            join(devDirectory, "cache"),
             "--noHTTPCache",
         ]
         if (includeDrafts) args.push("--buildDrafts", "--buildFuture")

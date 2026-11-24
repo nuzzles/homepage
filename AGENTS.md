@@ -98,7 +98,8 @@ and distinguish Spencer's contribution from the team's achievements.
   and logical spacing for Persian RTL layouts. Language flag outlines stay black.
 - Résumé and How I Work navigation uses a filled primary button for the current
   page and an outlined button for the other page. Link to How I Work from the
-  résumé page, not the homepage. Keep its article scrollable with Go back outside.
+  résumé page, not the homepage. How I Work uses the shared Markdown reading layout,
+  Contents sidebar, and site header/footer, with prose in `src/content/how-i-work/{en,fr,fa}.md`.
 
 - Use readable sentence-case headings and controls; never force uppercase with CSS. Keep the portrait clean: rounded photo, small line-art stars, and a restrained hatch accent.
   Avoid tilted frames, oversized stickers, and corner brackets. Use hand-drawn accents,
@@ -147,6 +148,9 @@ and distinguish Spencer's contribution from the team's achievements.
 - Keep affiliation icons attached to their link labels as they wrap. About's contents
   can collapse and expand, and indicate the current section while scrolling.
 
+- Render Markdown headings with `ContentHeading` in React and the Hugo heading hook.
+  Share the `marker-underline` styling with the homepage, preserve stable anchors, and
+  give each heading a translated, accessible `#` permalink.
 - About prose is authored in `src/content/about/{en,fr,fa}.md`. Preserve stable heading
   anchors and component slots across translations. Blog posts live in `blog/content/posts/`;
   use Hugo shortcodes and keep explicit URLs on migrated posts. See `docs/blog-development.md`.

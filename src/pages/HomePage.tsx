@@ -6,6 +6,7 @@ import { ProfileHeader } from "@/components/ProfileHeader"
 import { ProfilePortrait } from "@/components/ProfilePortrait"
 import { ProfileActions } from "@/components/ProfileActions"
 import { ProfileBiography } from "@/components/ProfileBiography"
+import { MarkerUnderline } from "@/components/MarkerUnderline"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
@@ -64,7 +65,7 @@ export const HomePage = () => {
                                     t={t}
                                     i18nKey="home.greeting"
                                     values={{ name: profile.firstName }}
-                                    components={{ highlight: <span className="marker-underline" /> }}
+                                    components={{ highlight: <MarkerUnderline /> }}
                                 />{" "}
                                 <span className="greeting-wave" aria-hidden="true">
                                     👋

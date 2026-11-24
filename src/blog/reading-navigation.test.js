@@ -24,6 +24,12 @@ describe("Markdown article navigation", () => {
         expect(links[1].className).toBe("contents-subheading")
         expect(document.querySelector("[data-contents]").hidden).toBe(false)
     })
+    it("keeps permalink symbols out of the contents labels", () => {
+        setup(
+            '<h2 id="prior-art"><span class="heading-title"><span class="marker-underline">Prior Art</span></span> <a class="heading-anchor" href="#prior-art">#</a></h2>'
+        )
+        expect(document.querySelector(".contents-links a").textContent).toBe("Prior Art")
+    })
     it("collapses and expands without hiding the article", () => {
         setup("<h2>Section</h2><p>Read me</p>")
         const toggle = document.querySelector("button")
