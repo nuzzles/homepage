@@ -1,8 +1,11 @@
 # Website UI audit and shadcn refresh
 
 Audited November 23, 2026. The portfolio pairs bold typography and a playful portrait
-with a fluid full-width layout, responsive gutters, readable prose widths, consistent controls,
-and dedicated project and About content. The homepage and About share a spacious grouped-link
+with full-width page sections, an edge-to-edge homepage action bar, internal padding of
+3.6vw (20px minimum), readable prose widths, consistent controls,
+and dedicated project and About content. This follows the measured layout on den.dev:
+96px desktop section spacing and 56px on mobile. Blog and document shells also span
+the viewport, while long-form prose retains a readable measure. The homepage and About share a spacious grouped-link
 footer with a reusable blue name squiggle and accessible coffee/Claude pixel icons.
 The homepage and About structure take inspiration from [den.dev](https://den.dev),
 using this site's own colors, portrait, decorations, and copy.

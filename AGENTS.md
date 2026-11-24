@@ -113,7 +113,9 @@ and distinguish Spencer's contribution from the team's achievements.
 - On the résumé page, group Open PDF beside the download icon and actual PDF file size.
   Keep a translated accessible download label even when its visible text is only the size.
 
-- Use a fluid, full-width portfolio shell with responsive gutters and generous section spacing.
+- Use full-width sections with internal padding (3.6vw, minimum 20px), following den.dev.
+  Header, hero, action bar, and footer span the viewport; do not inset the entire page.
+  Apply the same fluid shell to the blog and document pages.
   Keep prose at a readable line length. Share the spacious grouped-link footer between
   the homepage and About, with a Squiggle around the home-link name in both header and footer.
   Footer credit uses coffee and Claude pixel icons with accessible names.
