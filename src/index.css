@@ -1129,6 +1129,14 @@
 .action-strip .social-strip a {
     border-inline-start: 1px solid var(--color-border);
 }
+.action-strip > a:is(:hover, :focus-visible),
+.action-strip .social-strip a:is(:hover, :focus-visible),
+.action-strip .email-action > button:is(:hover, :focus-visible) {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
 .action-strip .social-strip a > svg {
     flex-shrink: 0;
 }
