@@ -356,7 +356,8 @@
 .portfolio-page > .latest-section,
 .portfolio-page > .projects-section,
 .portfolio-page > .about-banner,
-.portfolio-page > .about-layout {
+.portfolio-page > .about-layout,
+.portfolio-page > .resume-layout {
     padding-inline: var(--page-gutter);
 }
 .squiggle {
@@ -1262,11 +1263,13 @@
     text-underline-offset: 3px;
 }
 
-.resume-sidebar p {
-    max-width: 28ch;
-    margin-block: var(--space-6);
+.resume-layout {
+    padding-block: var(--section-space);
+}
+.resume-document-toolbar > p {
+    margin: 0;
     color: var(--muted-foreground);
-    line-height: var(--leading-prose);
+    font-size: var(--type-sm);
 }
 .resume-document {
     min-width: 0;
@@ -1275,7 +1278,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: var(--space-4);
     padding-bottom: var(--space-5);
 }
@@ -1315,11 +1318,8 @@
     text-align: center;
 }
 @media (max-width: 767px) {
-    .resume-sidebar {
-        margin-bottom: var(--space-8);
-    }
-    .resume-sidebar p {
-        max-width: var(--reading-width);
+    .resume-layout {
+        padding-block: var(--space-8);
     }
 }
 

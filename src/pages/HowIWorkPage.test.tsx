@@ -53,10 +53,10 @@ describe("How I Work routing", () => {
         expect(container.querySelector(".site-navigation")).not.toBeNull()
         expect(container.querySelector(".document-related-link")).not.toBeNull()
         expect(container.querySelector(".profile-footer")).not.toBeNull()
-        expect(container.querySelector(".resume-sidebar p")?.textContent).toBe(
+        expect(container.querySelector(".resume-document-toolbar p")?.textContent).toBe(
             translations[language].resumePage.documentLanguage
         )
-        expect(container.querySelector(".resume-document-toolbar p")).toBeNull()
+        expect(container.querySelector(".resume-sidebar")).toBeNull()
         const preview = container.querySelector(".resume-preview")!
         expect(preview.querySelector('[role="status"]')?.textContent).toContain(
             translations[language].resumePage.loading

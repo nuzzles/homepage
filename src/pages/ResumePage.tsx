@@ -125,12 +125,10 @@ export const ResumePage = () => {
                     <h1>{text("iframeTitle")}</h1>
                     <ProfileDocumentLink current="resume" />
                 </header>
-                <main className="about-layout resume-layout">
-                    <aside className="resume-sidebar">
-                        <p>{text("documentLanguage")}</p>
-                    </aside>
+                <main className="resume-layout">
                     <section className="resume-document" aria-label={text("iframeTitle")}>
                         <div className="resume-document-toolbar">
+                            <p>{text("documentLanguage")}</p>
                             <div className="resume-download-actions">
                                 <a
                                     className="text-link text-sm"

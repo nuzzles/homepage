@@ -129,9 +129,10 @@ and distinguish Spencer's contribution from the team's achievements.
 - Spencer's former blog About URL redirects to his site About page. Keep the blog's
   ownership, contribution, and license information on that translated page.
 
-- The résumé page uses the shared header/footer and About-style title banner and two-column
-  layout, stacking on mobile. Keep document navigation beside the preview and PDF controls above it.
-  Show the translated PDF language note in the résumé sidebar. Keep the
+- The résumé page uses the shared header/footer, About-style title banner, and a single-column
+  layout with a full-width PDF preview. Link to How I Work beneath the title. The toolbar
+  places the translated PDF language note on the leading side and PDF actions on the trailing side.
+  Wrap the toolbar as needed on mobile. Keep the
   page shell visible while the PDF loads; show a skeleton only inside the preview.
   Group Open PDF beside the download icon and actual PDF file size.
   Keep a translated accessible download label even when its visible text is only the size.
