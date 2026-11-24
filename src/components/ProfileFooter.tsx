@@ -1,8 +1,9 @@
-import { Coffee } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Trans } from "react-i18next"
 import { ProfileSocials } from "@/components/ProfileSocials"
 import { Squiggle } from "@/components/Squiggle"
+import { ClaudeMascot } from "@/components/ClaudeMascot"
+import { PixelCoffee } from "@/components/PixelCoffee"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import { useProfileNavigation } from "@/hooks/useProfileNavigation"
@@ -26,8 +27,8 @@ export const ProfileFooter = () => {
                         t={t}
                         i18nKey="footer.credit"
                         components={{
-                            coffee: <Coffee role="img" aria-label={t("footer.coffee")} className="footer-coffee" />,
-                            claude: <img src="/images/claude-pixel.svg" className="claude-pixel" alt="Claude" />,
+                            coffee: <PixelCoffee label={t("footer.coffee")} />,
+                            claude: <ClaudeMascot />,
                         }}
                     />
                 </p>

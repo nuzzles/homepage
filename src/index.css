@@ -341,8 +341,26 @@
     overflow: visible;
     fill: none;
     stroke: var(--primary);
-    stroke-width: 2.5;
+    stroke-width: 4;
     stroke-linecap: round;
+}
+.squiggle path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .profile-brand:hover .squiggle path,
+    .profile-brand:focus-visible .squiggle path {
+        animation: squiggle-redraw 600ms steps(12, end) both;
+    }
+}
+@keyframes squiggle-redraw {
+    from {
+        stroke-dashoffset: 1;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 .profile-footer {
     display: grid;
@@ -370,18 +388,37 @@
 .footer-credit {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 .footer-coffee {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     flex-shrink: 0;
 }
-.claude-pixel {
-    display: inline-block;
-    width: 28px;
-    height: 25px;
+.claude-mascot {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+}
+/* Keep a 44px hit area without adding space to the sentence. */
+.claude-mascot::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+}
+.claude-mascot img {
+    width: 24px;
+    height: 24px;
+    transform: translateY(-3px);
     image-rendering: pixelated;
+    pointer-events: none;
 }
 .footer-links,
 .profile-footer .social-strip {
@@ -850,6 +887,37 @@
     margin-top: 24px;
 }
 @media (prefers-reduced-motion: no-preference) {
+    .coffee-steam {
+        animation: coffee-steam-rise 2s steps(1, end) infinite;
+    }
+    .coffee-steam-center {
+        animation-delay: -0.6s;
+    }
+    .coffee-steam-right {
+        animation-delay: -1.2s;
+    }
+    @keyframes coffee-steam-rise {
+        0% {
+            transform: translateY(2px);
+            opacity: 0;
+        }
+        25% {
+            transform: translateY(1px);
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(-1px);
+            opacity: 1;
+        }
+        75% {
+            transform: translateY(-3px);
+            opacity: 0.6;
+        }
+        100% {
+            transform: translateY(-3px);
+            opacity: 0;
+        }
+    }
     .hero-copy {
         animation: hero-arrive 550ms ease-out both;
     }

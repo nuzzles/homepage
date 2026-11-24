@@ -130,6 +130,9 @@ and distinguish Spencer's contribution from the team's achievements.
   Keep prose at a readable line length. Share the spacious grouped-link footer between
   the homepage and About, with a Squiggle around the home-link name in both header and footer.
   Footer credit uses coffee and Claude pixel icons with accessible names.
+- `ClaudeMascot` is shared by the site and blog footer. Keep the original local Icons8
+  expression SVGs and attribution on About. Support directional eyes, dizziness after two quick nearby circles,
+  idle sleep, and click/keyboard happiness; clean up global listeners and timers on unmount.
 - Resume links navigate in the same tab through React Router. Schedule 1:1 uses the
   Calendly logo and an external-link arrow and opens in a new tab.
 
