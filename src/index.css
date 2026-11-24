@@ -126,14 +126,17 @@
     text-underline-offset: 3px;
 }
 .affiliation {
-    display: inline;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25em;
+    max-width: 100%;
 }
 .affiliation-icon {
     display: inline-flex;
     width: 1em;
     height: 1em;
-    margin-inline-end: 0.25em;
-    vertical-align: -0.12em;
+    flex-shrink: 0;
+    transform: translateY(0.12em);
     color: var(--foreground);
 }
 .affiliation-icon img {
@@ -799,11 +802,18 @@
     border-top: 2px solid var(--primary);
     padding-top: 16px;
 }
-.about-contents p {
+.contents-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.contents-heading p {
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: none;
-    margin-bottom: 12px;
+    margin: 0;
 }
 .about-contents a {
     display: flex;
@@ -814,10 +824,14 @@
     color: var(--color-muted-foreground);
     font-size: 0.9rem;
 }
-.about-contents a:hover {
+.about-contents a:hover,
+.about-contents a[aria-current="location"] {
     color: var(--primary);
     border-color: var(--primary);
     background: var(--card);
+}
+.about-contents a[aria-current="location"] {
+    font-weight: 700;
 }
 .about-prose {
     max-width: 880px;
@@ -976,13 +990,12 @@
     }
     .about-contents nav {
         position: static;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px 12px;
         margin-bottom: 32px;
     }
-    .about-contents p {
-        width: 100%;
+    .contents-links:not([hidden]) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
     }
     .about-contents a {
         border: 0;
@@ -1087,4 +1100,29 @@
         border-inline-start: 0;
         border-top: 1px solid var(--color-border);
     }
+}
+
+.identity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+.identity-table th,
+.identity-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-border);
+    text-align: start;
+    overflow-wrap: anywhere;
+}
+.identity-table thead {
+    background: var(--muted);
+}
+.identity-table th {
+    font-weight: 600;
+}
+.identity-table a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }

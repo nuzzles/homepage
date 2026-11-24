@@ -1,3 +1,4 @@
+import { AboutContents } from "@/components/AboutContents"
 import { ProfileFooter } from "@/components/ProfileFooter"
 import { Helmet } from "react-helmet-async"
 import { Trans } from "react-i18next"
@@ -22,7 +23,6 @@ export const AboutPage = () => {
     const home = localizedPath(getProfileHomePath(window.location.hostname, profile.id))
     const site = getConfiguredSite()
     const blog = getProfileBlogPath(window.location.hostname, profile.id, isProfileId(site) ? site : null)
-    const sections = ["background", "openSource", "projects", "blog", "contact"] as const
     return (
         <div className="profile-page portfolio-page about-page">
             <Helmet>
@@ -48,24 +48,17 @@ export const AboutPage = () => {
                 <h1>{t(page.titleKey)}</h1>
             </header>
             <div className="about-layout">
-                <aside className="about-contents">
-                    <nav aria-label={t("aboutPage.contents")}>
-                        <p>{t("aboutPage.contents")}</p>
-                        {sections.map((id) => (
-                            <a key={id} href={`#${id}`}>
-                                {t(`aboutPage.${id}.title`)}
-                            </a>
-                        ))}
-                    </nav>
-                </aside>
+                <AboutContents />
                 <article className="about-prose">
-                    <section id="background">
-                        <h2>{t("aboutPage.background.title")}</h2>
+                    <section id="status">
+                        <h2>{t("aboutPage.status.title")}</h2>
                         <ProfileBiography />
-                        <p>{t("aboutPage.background.body")}</p>
+                        <p>{t("aboutPage.status.body")}</p>
                     </section>
-                    <section id="openSource">
-                        <h2>{t("aboutPage.openSource.title")}</h2>
+
+                    <section id="projects">
+                        <h2>{t("aboutPage.projects.title")}</h2>
+                        <p>{t("aboutPage.projects.body")}</p>
                         <p>
                             <Trans
                                 t={t}
@@ -112,10 +105,6 @@ export const AboutPage = () => {
                                 }}
                             />
                         </p>
-                    </section>
-                    <section id="projects">
-                        <h2>{t("aboutPage.projects.title")}</h2>
-                        <p>{t("aboutPage.projects.body")}</p>
                         <ul className="about-project-list">
                             {profile.projects?.map((project) => (
                                 <li key={project.id}>
@@ -130,19 +119,52 @@ export const AboutPage = () => {
                             {t("aboutPage.projects.all")}
                         </a>
                     </section>
-                    <section id="blog">
-                        <h2>{t("aboutPage.blog.title")}</h2>
+                    <section id="contact">
+                        <h2>{t("aboutPage.contact.title")}</h2>
+                        <p>{t("aboutPage.contact.body")}</p>
+                        <ProfileActions />
+                    </section>
+
+                    <section id="identity">
+                        <h2>{t("aboutPage.identity.title")}</h2>
+                        <p>{t("aboutPage.identity.body")}</p>
+                        <table className="identity-table">
+                            <caption className="sr-only">{t("aboutPage.identity.title")}</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">{t("aboutPage.identity.platform")}</th>
+                                    <th scope="col">{t("aboutPage.identity.account")}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {profile.socials.map(({ kind, label, href }) => (
+                                    <tr key={kind}>
+                                        <th scope="row">{label}</th>
+                                        <td>
+                                            <a href={href} target="_blank" rel="noopener noreferrer" dir="ltr">
+                                                {kind === "github"
+                                                    ? `@${new URL(href).pathname.split("/").filter(Boolean).at(-1)}`
+                                                    : new URL(href).pathname.replace(/\/$/, "")}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="disclaimer">
+                        <h2>{t("aboutPage.disclaimer.title")}</h2>
                         <p>
                             <Trans
                                 t={t}
-                                i18nKey="aboutPage.blog.opinions"
+                                i18nKey="aboutPage.disclaimer.opinions"
                                 components={{ blog: <a href={blog ?? "/blog/"} /> }}
                             />
                         </p>
                         <p>
                             <Trans
                                 t={t}
-                                i18nKey="aboutPage.blog.source"
+                                i18nKey="aboutPage.disclaimer.source"
                                 components={{
                                     repository: (
                                         <a
@@ -164,14 +186,14 @@ export const AboutPage = () => {
                         <p>
                             <Trans
                                 t={t}
-                                i18nKey="aboutPage.blog.categories"
+                                i18nKey="aboutPage.disclaimer.categories"
                                 components={{ categories: <a href={`${blog ?? "/blog/"}categories.html`} /> }}
                             />
                         </p>
                         <p>
                             <Trans
                                 t={t}
-                                i18nKey="aboutPage.blog.license"
+                                i18nKey="aboutPage.disclaimer.license"
                                 components={{
                                     cc: (
                                         <a
@@ -190,11 +212,6 @@ export const AboutPage = () => {
                                 }}
                             />
                         </p>
-                    </section>
-                    <section id="contact">
-                        <h2>{t("aboutPage.contact.title")}</h2>
-                        <p>{t("aboutPage.contact.body")}</p>
-                        <ProfileActions />
                     </section>
                 </article>
             </div>

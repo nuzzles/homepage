@@ -121,3 +121,6 @@ and distinguish Spencer's contribution from the team's achievements.
   Footer credit uses coffee and Claude pixel icons with accessible names.
 - Resume links navigate in the same tab through React Router. Schedule 1:1 uses the
   Calendly logo and an external-link arrow and opens in a new tab.
+
+- Keep affiliation icons attached to their link labels as they wrap. About's contents
+  can collapse and expand, and indicate the current section while scrolling.

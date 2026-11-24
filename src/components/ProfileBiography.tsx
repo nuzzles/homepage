@@ -10,7 +10,7 @@ const AffiliationLink = ({ href, icon, children }: { href: string; icon: ReactNo
         <span aria-hidden="true" className="affiliation-icon">
             {icon}
         </span>
-        {children}
+        <span className="min-w-0">{children}</span>
     </a>
 )
 const affiliationIcon = (name: string) => <img src={`/images/affiliations/${name}.svg`} alt="" />

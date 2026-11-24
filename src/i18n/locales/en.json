@@ -151,33 +151,41 @@
         }
     },
     "aboutPage": {
+        "collapseContents": "Collapse contents",
+        "expandContents": "Expand contents",
         "title": "About",
         "description": "About Spencer Imbleau: software engineering, computer graphics, open-source work, and projects.",
         "contents": "On this page",
-        "background": {
-            "title": "A little background",
-            "body": "I like working close to the systems I’m trying to understand: rendering pixels, building tools, and turning experiments into software people can use. My work spans GPU graphics, browser applications, and the infrastructure behind them."
-        },
         "openSource": {
             "title": "Open source",
             "graphics": "I authored and maintain <bevyVello>bevy_vello</bevyVello>, the integration of Vello’s GPU-accelerated vector renderer with Bevy. Alongside other Linebender contributors, I also maintain <velloSvg>vello_svg</velloSvg> and <velato>velato</velato>, working on SVG rendering and Lottie animation.",
             "tools": "I’m a core maintainer of <trunk>Trunk</trunk>, contribute WebAssembly support to <bevy>Bevy</bevy>, and help triage compiler and standard-library issues as a member of the <rust>Rust triage team</rust>."
         },
         "projects": {
-            "title": "What I build",
+            "title": "Projects",
             "body": "Some of my work becomes a product; some starts with a question about how a system works. These are a few projects I build or help maintain.",
             "all": "Explore the projects"
         },
         "contact": {
-            "title": "Let’s talk",
+            "title": "Contact",
             "body": "For engineering, graphics, open source, or a project you’re working on, send me an email or schedule a conversation. You can also find my code and professional profile below."
         },
-        "blog": {
-            "title": "About this blog",
+        "status": {
+            "title": "Status",
+            "body": "I like working close to the systems I’m trying to understand: rendering pixels, building tools, and turning experiments into software people can use. My work spans GPU graphics, browser applications, and the infrastructure behind them."
+        },
+        "disclaimer": {
+            "title": "Disclaimer",
             "opinions": "I write about software engineering, graphics, and AI on <blog>my blog</blog>. The opinions expressed there are my own, and are not official statements of my employer or teams.",
             "source": "The source for this blog is <repository>on GitHub</repository>. Pull requests are welcome, as are <issues>issues</issues>. I also use issues to track ideas in the pipeline.",
             "categories": "Browse <categories>posts by category</categories>.",
             "license": "The text of this blog is licensed under <cc>CC BY 4.0</cc>. Feel free to quote and adapt it, as long as you give attribution. All code snippets, including the interactive demos, are licensed under <apache>Apache 2.0</apache>."
+        },
+        "identity": {
+            "title": "Identity",
+            "body": "These are my public accounts.",
+            "platform": "Platform",
+            "account": "Account"
         }
     },
     "latest": {

@@ -22,6 +22,7 @@ beforeEach(async () => {
 afterEach(async () => {
     await act(async () => root.unmount())
     container.remove()
+    vi.restoreAllMocks()
     delete document.documentElement.dataset.site
     localStorage.clear()
     document.cookie = "preferredLanguage=; Path=/; Max-Age=0"
@@ -35,6 +36,45 @@ const render = async (site: string, path: string) => {
 const languages = ["en", "fr", "fa"] as const
 
 describe("About and portfolio routes", () => {
+    it("collapses and expands the contents with an accessible toggle", async () => {
+        await render("local", "/en/spencer/about")
+        const toggle = container.querySelector<HTMLButtonElement>('button[aria-controls="about-contents-links"]')!
+        const links = container.querySelector<HTMLElement>("#about-contents-links")!
+        expect(toggle.getAttribute("aria-expanded")).toBe("true")
+        await act(async () => toggle.click())
+        expect(links.hidden).toBe(true)
+        expect(toggle.getAttribute("aria-label")).toBe("Expand contents")
+        await act(async () => toggle.click())
+        expect(links.hidden).toBe(false)
+        expect(toggle.getAttribute("aria-expanded")).toBe("true")
+    })
+
+    it("highlights the section reached by scrolling in either direction", async () => {
+        const frames: FrameRequestCallback[] = []
+        vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
+            frames.push(callback)
+            return frames.length
+        })
+        const ids = ["status", "projects", "contact", "identity", "disclaimer"]
+        let offset = 0
+        vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
+            return { top: ids.indexOf(this.id) * 400 - offset } as DOMRect
+        })
+        const frame = async () => act(async () => frames.splice(0).forEach((callback) => callback(0)))
+        await render("local", "/en/spencer/about")
+        await frame()
+        const active = () => container.querySelector('.about-contents [aria-current="location"]')?.getAttribute("href")
+        expect(active()).toBe("#status")
+        offset = 850
+        window.dispatchEvent(new Event("scroll"))
+        await frame()
+        expect(active()).toBe("#contact")
+        offset = 400
+        window.dispatchEvent(new Event("scroll"))
+        await frame()
+        expect(active()).toBe("#projects")
+    })
+
     it.each(["/en/spencer#projects", "/fr/spencer/about#contact"])(
         "scrolls to the requested section when loading %s",
         async (path) => {
@@ -65,18 +105,34 @@ describe("About and portfolio routes", () => {
         await render(site, path)
         const copy = translations[lang]
         expect(container.querySelector("h1")?.textContent).toBe(copy.aboutPage.title)
-        expect(container.querySelector("article")?.textContent).toContain(copy.aboutPage.background.body)
-        expect(container.querySelectorAll("article h2")).toHaveLength(5)
-        expect(container.querySelector('#blog a[href="https://github.com/nuzzles/homepage"]')?.textContent).toContain(
-            "GitHub"
+        expect(container.querySelector("article")?.textContent).toContain(copy.aboutPage.status.body)
+        expect([...container.querySelectorAll("article h2")].map((heading) => heading.textContent)).toEqual(
+            (["status", "projects", "contact", "identity", "disclaimer"] as const).map(
+                (key) => copy.aboutPage[key].title
+            )
         )
+        expect(container.querySelector('.identity-table a[href="https://www.github.com/nuzzles/"]')?.textContent).toBe(
+            "@nuzzles"
+        )
+        expect(
+            container.querySelector('.identity-table a[href="https://www.linkedin.com/in/simbleau/"]')?.textContent
+        ).toBe("/in/simbleau")
+        expect(
+            container.querySelector('#disclaimer a[href="https://github.com/nuzzles/homepage"]')?.textContent
+        ).toContain("GitHub")
         expect(container.querySelector('a[aria-current="page"]')?.textContent).toBe(copy.navigation.about)
         expect(container.querySelector(`a[href="/${lang}/spencer/resume"]`)).not.toBeNull()
         expect(container.querySelector('a[href="https://calendly.com/simbleau/meet"]')).not.toBeNull()
         expect(container.querySelector("button[aria-expanded]")).not.toBeNull()
-        expect(container.querySelector('#blog a[href="https://creativecommons.org/licenses/by/4.0/"]')).not.toBeNull()
-        expect(container.querySelector('#blog a[href="https://www.apache.org/licenses/LICENSE-2.0"]')).not.toBeNull()
-        expect(container.querySelector('#blog a[href="https://github.com/nuzzles/homepage/issues"]')).not.toBeNull()
+        expect(
+            container.querySelector('#disclaimer a[href="https://creativecommons.org/licenses/by/4.0/"]')
+        ).not.toBeNull()
+        expect(
+            container.querySelector('#disclaimer a[href="https://www.apache.org/licenses/LICENSE-2.0"]')
+        ).not.toBeNull()
+        expect(
+            container.querySelector('#disclaimer a[href="https://github.com/nuzzles/homepage/issues"]')
+        ).not.toBeNull()
         expect(container.querySelector('a[href$="/how-i-work"]')).toBeNull()
         expect(document.documentElement.dir).toBe(lang === "fa" ? "rtl" : "ltr")
         expect(window.location.pathname).toBe(path)

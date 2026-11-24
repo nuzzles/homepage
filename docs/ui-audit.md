@@ -3,7 +3,9 @@
 Audited November 23, 2026. The portfolio pairs bold typography and a playful portrait
 with full-width page sections, an edge-to-edge homepage action bar, internal padding of
 3.6vw (20px minimum), readable prose widths, consistent controls,
-and dedicated project and About content. This follows the measured layout on den.dev:
+and dedicated project and About content. About is organized as Status, Projects, Contact, Identity, and Disclaimer, with a
+GitHub/LinkedIn identity table, a keyboard-accessible contents toggle, and active-section
+highlighting while scrolling. Affiliation icons and link labels wrap together. This follows the measured layout on den.dev:
 96px desktop section spacing and 56px on mobile. Blog and document shells also span
 the viewport, while long-form prose retains a readable measure. The homepage and About share a spacious grouped-link
 footer with a reusable blue name squiggle and accessible coffee/Claude pixel icons.
@@ -42,7 +44,7 @@ using this site's own colors, portrait, decorations, and copy.
 
 ## Validation
 
-- `pnpm check`: Prettier, ESLint, TypeScript, 218 tests, and the Vite build.
+- `pnpm check`: Prettier, ESLint, TypeScript, 220 tests, and the Vite build.
 - `HOMEPAGE_SITE=spencer pnpm build` and `HOMEPAGE_SITE=sara pnpm build`, including Jekyll.
 - `terraform -chdir=terraform fmt -check -recursive`,
   `terraform -chdir=terraform init -backend=false -input=false -lockfile=readonly`,
