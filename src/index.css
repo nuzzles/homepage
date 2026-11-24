@@ -468,9 +468,13 @@
     margin-inline-start: 12px;
 }
 .portfolio-page .profile-hero {
+    background: var(--card);
     padding-block: 80px 112px;
     gap: 32px;
     grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.8fr);
+}
+.portfolio-page > .about-banner {
+    background: var(--card);
 }
 .hero-eyebrow {
     font-weight: 700;

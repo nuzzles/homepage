@@ -114,7 +114,8 @@ body {
 }
 
 .page-content {
-    padding-block: clamp(38px, 6vw, 72px);
+    --blog-top-padding: clamp(38px, 6vw, 72px);
+    padding-block: var(--blog-top-padding);
 }
 
 .page-heading,
@@ -498,6 +499,14 @@ table td {
 
 /* Fluid Markdown reading layouts, shared visually with About. */
 .blog-banner { padding-block: 8px 64px; border-bottom: 1px solid var(--blog-line); }
+.blog-banner, .reading-post > .post-header {
+    background: var(--blog-raised);
+    margin-inline: calc(-1 * max(20px, 3.6vw));
+    margin-top: calc(-1 * var(--blog-top-padding));
+    padding-inline: max(20px, 3.6vw);
+    padding-top: var(--blog-top-padding);
+}
+.blog-banner { padding-top: calc(var(--blog-top-padding) + 8px); }
 .blog-banner h1 { margin: 0; }
 .archive-year { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 5fr); gap: 32px; padding-top: 64px; }
 .archive-year-heading { align-self: start; position: sticky; top: 32px; }
