@@ -513,6 +513,7 @@ table td {
 .reading-contents nav { position: sticky; top: 32px; border-top: 2px solid var(--blog-blue); padding-top: 16px; max-height: calc(100dvh - 64px); overflow-y: auto; }
 .reading-contents .contents-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .contents-heading p { margin: 0; font-size: .8rem; font-weight: 700; }
+.reading-contents .contents-empty { margin: 0; color: var(--blog-muted); font-size: .9rem; line-height: 1.4; }
 .contents-heading button { background: transparent; border: 0; border-radius: 8px; min-width: 44px; min-height: 44px; color: var(--blog-ink); cursor: pointer; font: inherit; }
 .contents-heading button:hover { background: var(--blog-raised); }
 .contents-heading button:focus-visible { outline: 2px solid var(--blog-blue); outline-offset: 2px; }

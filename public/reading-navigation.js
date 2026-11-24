@@ -4,9 +4,14 @@ export function initializeContents(doc = document, win = window) {
     const article = doc.querySelector('[data-reading-content]')
     if (!contents || !article) return () => {}
     const headings = [...article.querySelectorAll('h2, h3')]
-    if (!headings.length) { contents.hidden = true; return () => {} }
     const list = contents.querySelector('.contents-links')
     const toggle = contents.querySelector('button')
+    if (!headings.length && !list.querySelector('.contents-empty')) {
+        const empty = doc.createElement('p')
+        empty.className = 'contents-empty'
+        empty.textContent = 'Nothing here.'
+        list.append(empty)
+    }
     const links = headings.map((heading, index) => {
         if (!heading.id) {
             let id = `section-${index + 1}`

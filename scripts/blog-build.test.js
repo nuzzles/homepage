@@ -86,6 +86,14 @@ beforeAll(() => {
 afterAll(() => rmSync(temp, { recursive: true, force: true }))
 
 describe("Hugo migration", () => {
+    it("renders collapsible empty contents before JavaScript runs", () => {
+        const contents = html(legacyPaths[0]).querySelector("[data-contents]")
+        expect(contents.hidden).toBe(false)
+        expect(contents.querySelector(".contents-heading p").textContent).toBe("Contents")
+        expect(contents.querySelector(".contents-empty").textContent).toBe("Nothing here.")
+        expect(contents.querySelector(".contents-links a")).toBeNull()
+        expect(contents.querySelector("button").getAttribute("aria-controls")).toBe("post-contents-links")
+    })
     it("ships shared header and footer navigation in archive and article HTML before JavaScript runs", () => {
         for (const path of ["index.html", legacyPaths[0]]) {
             const doc = html(path)

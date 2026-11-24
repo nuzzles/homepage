@@ -8,10 +8,10 @@
         {{ if eq .Section "posts" }}<p class="post-meta"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time> · {{ .ReadingTime }} minute read</p>{{ end }}
     </header>
     <div class="reading-layout">
-        <aside class="reading-contents" data-contents {{ if not .Fragments.Headings }}hidden{{ end }}>
-            <nav aria-label="On this page">
-                <div class="contents-heading"><p>On this page</p><button type="button" aria-expanded="true" aria-controls="post-contents-links" aria-label="Collapse contents"><span aria-hidden="true">[−]</span></button></div>
-                <div id="post-contents-links" class="contents-links">{{ .TableOfContents | replaceRE `<nav[^>]*>|</nav>` "" | safeHTML }}</div>
+        <aside class="reading-contents" data-contents>
+            <nav aria-label="Contents">
+                <div class="contents-heading"><p>Contents</p><button type="button" aria-expanded="true" aria-controls="post-contents-links" aria-label="Collapse contents"><span aria-hidden="true">[−]</span></button></div>
+                <div id="post-contents-links" class="contents-links">{{ if findRE `<a\s` .TableOfContents }}{{ .TableOfContents | replaceRE `<nav[^>]*>|</nav>` "" | safeHTML }}{{ else }}<p class="contents-empty">Nothing here.</p>{{ end }}</div>
             </nav>
         </aside>
         <div class="post-content e-content" data-reading-content>{{ .Content }}</div>
