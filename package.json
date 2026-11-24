@@ -20,7 +20,8 @@
         "test": "vitest run --environment jsdom",
         "test:watch": "vitest --environment jsdom",
         "check": "prettier --check . && eslint . && tsc -b && vitest run --environment jsdom && vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "setup:hugo": "node scripts/setup-hugo.mjs"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^7.3.1",
@@ -38,7 +39,9 @@
         "react-dom": "^19.2.8",
         "react-helmet-async": "^3.0.0",
         "react-i18next": "^17.0.13",
+        "react-markdown": "^10.1.0",
         "react-router-dom": "^7.18.3",
+        "remark-gfm": "^4.0.1",
         "tailwind-merge": "^3.7.1"
     },
     "devDependencies": {

@@ -1,7 +1,7 @@
 # Homepage
 
 Joint homepage of Spencer and Sara Imbleau, built with React, TypeScript, and Vite.
-Profile blogs use Jekyll. See [README.md](README.md) for setup and
+Profile blogs use Hugo. See [docs/blog-development.md](docs/blog-development.md) for setup and
 [CONTRIBUTING.md](CONTRIBUTING.md) for branch, PR, and validation conventions.
 
 ## Development and build
@@ -11,8 +11,8 @@ pnpm dev                          # joint homepage and profile blogs
 HOMEPAGE_SITE=spencer pnpm dev     # Spencer's profile site and blog
 HOMEPAGE_SITE=sara pnpm dev        # Sara's profile site and blog
 pnpm check                        # formatting, lint, types, tests, and Vite build
-HOMEPAGE_SITE=spencer pnpm build   # production profile build, including Jekyll
-HOMEPAGE_SITE=sara pnpm build      # production profile build, including Jekyll
+HOMEPAGE_SITE=spencer pnpm build   # production profile build, including Hugo
+HOMEPAGE_SITE=sara pnpm build      # production profile build, including Hugo
 ```
 
 ## Project structure
@@ -28,9 +28,9 @@ src/
   components/ui/       # owned shadcn/ui components (Radix primitives)
   index.css            # Tailwind theme tokens and shared page layouts
 blogs/
-  spencer/             # Spencer's Jekyll blog
-  sara/                # Sara's Jekyll blog
-  shared/              # shared blog layouts and includes
+  spencer/             # Spencer's Hugo blog
+  sara/                # Sara's Hugo blog
+  shared/              # shared Hugo layouts and shortcodes
 public/                # static assets and shared blog styles
 docs/personal-values.md # Spencer's How I Work reference for blog writing
 scripts/               # blog development, build, and replay asset tooling
@@ -81,7 +81,7 @@ and distinguish Spencer's contribution from the team's achievements.
   popovers, and cards. `components.json` configures the registry and aliases.
 - Use Tailwind and the semantic CSS variables in `src/index.css`; do not add MUI
   or a second component theme. Keep the cream background and blue primary color.
-- Keep the standalone Jekyll theme in `public/blog-theme.css` visually aligned.
+- Keep the standalone Hugo theme in `public/blog-theme.css` visually aligned.
 - Preserve visible keyboard focus, 44px control targets, reduced-motion support,
   and logical spacing for Persian RTL layouts. Language flag outlines stay black.
 - Résumé and How I Work navigation uses a filled primary button for the current
@@ -92,7 +92,7 @@ and distinguish Spencer's contribution from the team's achievements.
   portrait corner marks, offset blue frame, name sticker, and decorative motion.
   Motion must be brief and respect reduced-motion preferences.
 - Spencer's About page and projects live in profile configuration. Project
-  descriptions and About copy use all three locale files. Use verified project facts;
+  descriptions use all three locale files; About prose lives in translated Markdown under `src/content/about/`. Use verified project facts;
   distinguish authorship from maintenance or contributions.
 - Keep the horizontal action/social bar ordered GitHub, LinkedIn, Resume, Email,
   then Schedule 1:1. Use a PDF icon for Resume and the Calendly logo for scheduling.
@@ -103,7 +103,7 @@ and distinguish Spencer's contribution from the team's achievements.
   biography. Do not add a profile dropdown or biography expansion control.
 - The profile header links are Blog, then About. The profile name links home;
   do not add separate Home or Projects links to the header.
-- Spencer's homepage sections are Latest and Projects. Latest uses Jekyll's generated
+- Spencer's homepage sections are Latest and Projects. Latest uses Hugo's generated
   published-post feed, with date, title, and description in each row; blog titles and
   excerpts remain English. Project cards contain
   only a title, description, and boxed external-link indicator and open in new tabs.
@@ -124,3 +124,8 @@ and distinguish Spencer's contribution from the team's achievements.
 
 - Keep affiliation icons attached to their link labels as they wrap. About's contents
   can collapse and expand, and indicate the current section while scrolling.
+
+- About prose is authored in `src/content/about/{en,fr,fa}.md`. Preserve stable heading
+  anchors and component slots across translations. Blog posts live in `blogs/<profile>/content/posts/`;
+  use Hugo shortcodes and keep explicit URLs on migrated posts. See `docs/blog-development.md`.
+- Keep the footer cream at every breakpoint; do not tint it with the primary color.

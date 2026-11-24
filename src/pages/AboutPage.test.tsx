@@ -3,6 +3,7 @@ import { createRoot, type Root } from "react-dom/client"
 import { beforeEach, afterEach, describe, it, expect, vi } from "vitest"
 import App from "@/App"
 import i18n from "@/i18n/i18n"
+import { aboutSections } from "@/content/about"
 import en from "@/i18n/locales/en.json"
 import fr from "@/i18n/locales/fr.json"
 import fa from "@/i18n/locales/fa.json"
@@ -105,7 +106,9 @@ describe("About and portfolio routes", () => {
         await render(site, path)
         const copy = translations[lang]
         expect(container.querySelector("h1")?.textContent).toBe(copy.aboutPage.title)
-        expect(container.querySelector("article")?.textContent).toContain(copy.aboutPage.status.body)
+        expect(container.querySelector("#status")?.textContent).toContain(
+            aboutSections(lang)[0].body.split("\n").filter(Boolean).at(-1)
+        )
         expect([...container.querySelectorAll("article h2")].map((heading) => heading.textContent)).toEqual(
             (["status", "projects", "contact", "identity", "disclaimer"] as const).map(
                 (key) => copy.aboutPage[key].title

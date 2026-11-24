@@ -2,25 +2,23 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/hooks/useLanguage"
 
-const sections = ["status", "projects", "contact", "identity", "disclaimer"] as const
-
-export const AboutContents = () => {
+export const AboutContents = ({ sections }: { sections: { id: string; title: string }[] }) => {
     const { t, language } = useLanguage()
     const [expanded, setExpanded] = useState(true)
-    const [active, setActive] = useState<string>(sections[0])
+    const [active, setActive] = useState<string>(sections[0]?.id ?? "")
 
     useEffect(() => {
         let frame = 0
         const update = () => {
             frame = 0
-            let current: string = sections[0]
-            for (const id of sections) {
+            let current: string = sections[0]?.id ?? ""
+            for (const { id } of sections) {
                 const section = document.getElementById(id)
                 if (section && section.getBoundingClientRect().top <= 128) current = id
             }
             const pageHeight = document.documentElement.scrollHeight
             if (pageHeight > window.innerHeight && window.scrollY + window.innerHeight >= pageHeight - 2) {
-                current = sections[sections.length - 1]
+                current = sections.at(-1)?.id ?? ""
             }
             setActive(current)
         }
@@ -35,7 +33,7 @@ export const AboutContents = () => {
             window.removeEventListener("scroll", schedule)
             window.removeEventListener("resize", schedule)
         }
-    }, [language])
+    }, [language, sections])
 
     return (
         <aside className="about-contents">
@@ -54,9 +52,9 @@ export const AboutContents = () => {
                     </Button>
                 </div>
                 <div id="about-contents-links" className="contents-links" hidden={!expanded}>
-                    {sections.map((id) => (
+                    {sections.map(({ id, title }) => (
                         <a key={id} href={`#${id}`} aria-current={active === id ? "location" : undefined}>
-                            {t(`aboutPage.${id}.title`)}
+                            {title}
                         </a>
                     ))}
                 </div>

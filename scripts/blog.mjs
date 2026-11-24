@@ -4,6 +4,7 @@ import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFi
 import { tmpdir } from "node:os"
 import { dirname, isAbsolute, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { hugoBinary, setupHugo } from "./setup-hugo.mjs"
 import { compactReplayData } from "./replay-assets.mjs"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
@@ -45,11 +46,8 @@ const run = (executable, args, options = {}) =>
         ...options,
     })
 
-const bundleEnvironment = {
-    ...process.env,
-    BUNDLE_GEMFILE: join(root, "blogs", "Gemfile"),
-    BUNDLE_PATH: process.env.BUNDLE_PATH ?? join(root, "blogs", "vendor", "bundle"),
-}
+if (!process.env.HUGO_BINARY) await setupHugo()
+const hugo = process.env.HUGO_BINARY ?? hugoBinary
 
 const includeDrafts = command === "dev" || deploymentEnvironment === "dev" || deploymentEnvironment === "stg"
 const themeSource = join(root, "public/blog-theme.css")
@@ -64,18 +62,40 @@ const mediaStylesheet =
         : "/blog-media.css"
 const postStylesheets = {}
 
-const getJekyllConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode) => {
-    const override = join(tmpdir(), `homepage-jekyll-${id}-${mode}.yml`)
+const getHugoConfig = (id, blogConfig, websiteUrl, homepageUrl, basePath, mode) => {
+    const override = join(tmpdir(), `homepage-hugo-${id}-${mode}.json`)
+    const profileConfig = profiles[id]
+    const english = JSON.parse(readFileSync(join(root, "src/i18n/locales/en.json"), "utf8"))
+    const role = profileConfig.roleKey.split(".").reduce((value, key) => value[key], english)
     writeFileSync(
         override,
-        `url: ${JSON.stringify(websiteUrl)}\nhomepage_url: ${JSON.stringify(homepageUrl)}\nbaseurl: ${JSON.stringify(basePath)}\nblog_theme_stylesheet: ${JSON.stringify(themeStylesheet)}\nblog_media_stylesheet: ${JSON.stringify(mediaStylesheet)}\nblog_stylesheets: ${JSON.stringify(postStylesheets)}\nmermaid_script: ${JSON.stringify(mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js")}\n`
+        JSON.stringify({
+            baseURL: `${websiteUrl}${basePath}/`,
+            layoutDir: join(root, "blogs/shared/layouts"),
+            params: {
+                homepageURL: homepageUrl,
+                aboutURL: profileConfig.about
+                    ? `${homepageUrl}${profileConfig.about.path}`
+                    : `${websiteUrl}${basePath}/about/`,
+                fullName: profileConfig.fullName,
+                firstName: profileConfig.firstName,
+                role,
+                socials: profileConfig.socials,
+                themeStylesheet,
+                mediaStylesheet,
+                postStylesheets,
+                mermaidScript: mode === "dev" ? "/src/blog/mermaid.ts" : "/assets/mermaid/embed.js",
+            },
+        })
     )
-    return `${join(resolve(root, blogConfig.source), "_config.yml")},${override}`
+    return [join(root, "blogs/shared/hugo.json"), join(resolve(root, blogConfig.source), "hugo.json"), override].join(
+        ","
+    )
 }
 
 if (command === "build") {
     if (!blog) {
-        console.log(`No blog configured for ${requestedSite ?? "selector"}; skipping Jekyll build.`)
+        console.log(`No blog configured for ${requestedSite ?? "selector"}; skipping Hugo build.`)
         process.exit(0)
     }
 
@@ -112,11 +132,20 @@ if (command === "build") {
         }
     }
     const websiteUrl = process.env.HOMEPAGE_URL ?? `https://${profile.hostnames.prod}`
-    const config = getJekyllConfig(profileId, blog, websiteUrl, websiteUrl, blog.basePath, "build")
-    const args = ["exec", "jekyll", "build", "--source", source, "--destination", output, "--config", config]
-    if (includeDrafts) args.push("--drafts")
-    const child = run("bundle", args, { env: bundleEnvironment })
-    child.on("error", (error) => fail(`Unable to start Jekyll: ${error.message}`))
+    const config = getHugoConfig(profileId, blog, websiteUrl, websiteUrl, blog.basePath, "build")
+    const args = [
+        "--source",
+        source,
+        "--destination",
+        output,
+        "--config",
+        config,
+        "--cacheDir",
+        join(root, "node_modules/.cache/hugo-build"),
+    ]
+    if (includeDrafts) args.push("--buildDrafts", "--buildFuture")
+    const child = run(hugo, args)
+    child.on("error", (error) => fail(`Unable to start Hugo: ${error.message}`))
     child.on("exit", async (code, signal) => {
         process.exitCode = signal ? 1 : (code ?? 1)
         if (process.exitCode !== 0) return
@@ -144,7 +173,6 @@ if (command === "build") {
             id,
             blog: devProfile.blog,
             port: 4001 + index,
-            liveReloadPort: 35729 + index,
             publicBasePath: isJointSite ? `/${id}${devProfile.blog.basePath}` : devProfile.blog.basePath,
         }))
     const children = []
@@ -167,34 +195,32 @@ if (command === "build") {
     const vite = run("pnpm", ["exec", "vite"], { env: viteEnvironment })
     children.push(vite)
 
-    for (const { id, blog: devBlog, port, liveReloadPort, publicBasePath } of devBlogs) {
+    for (const { id, blog: devBlog, port, publicBasePath } of devBlogs) {
         const { source } = getBlogPaths(devBlog)
-        const destination = join(tmpdir(), `homepage-jekyll-${id}-${command}`)
+        const destination = join(tmpdir(), `homepage-hugo-${id}-${command}`)
         const publicUrl = "http://localhost:5173"
         const homepageUrl = `${publicUrl}${isJointSite ? `/${id}` : ""}`
-        const config = getJekyllConfig(id, devBlog, publicUrl, homepageUrl, publicBasePath, command)
+        const config = getHugoConfig(id, devBlog, publicUrl, homepageUrl, publicBasePath, command)
         const args = [
-            "exec",
-            "jekyll",
-            "serve",
+            "server",
             "--source",
             source,
             "--destination",
             destination,
             "--config",
             config,
-            "--host",
+            "--bind",
             "127.0.0.1",
             "--port",
             String(port),
-            "--livereload",
-            "--livereload-port",
-            String(liveReloadPort),
-            "--quiet",
+            "--appendPort=false",
+            "--disableLiveReload",
+            "--cacheDir",
+            join(root, "node_modules/.cache/hugo-build"),
+            "--noHTTPCache",
         ]
-        if (includeDrafts) args.push("--drafts")
-        const jekyll = run("bundle", args, { env: bundleEnvironment, stdio: ["inherit", "ignore", "inherit"] })
-        children.push(jekyll)
+        if (includeDrafts) args.push("--buildDrafts", "--buildFuture")
+        children.push(run(hugo, args))
     }
 
     for (const child of children) {

@@ -39,3 +39,8 @@ crash.*.log
 *.njsproj
 *.sln
 *.sw?
+
+# Hugo local build state
+blogs/**/.hugo_build.lock
+blogs/**/resources/
+blogs/**/public/

@@ -44,8 +44,8 @@ using this site's own colors, portrait, decorations, and copy.
 
 ## Validation
 
-- `pnpm check`: Prettier, ESLint, TypeScript, 220 tests, and the Vite build.
-- `HOMEPAGE_SITE=spencer pnpm build` and `HOMEPAGE_SITE=sara pnpm build`, including Jekyll.
+- `pnpm check`: Prettier, ESLint, TypeScript, 229 tests, and the Vite build.
+- `HOMEPAGE_SITE=spencer pnpm build` and `HOMEPAGE_SITE=sara pnpm build`, including Hugo.
 - `terraform -chdir=terraform fmt -check -recursive`,
   `terraform -chdir=terraform init -backend=false -input=false -lockfile=readonly`,
   and `terraform -chdir=terraform validate`.
@@ -74,3 +74,28 @@ Local adjustments set 44px control targets, strengthen button focus rings, and o
 menu and popover animations. The upstream MIT notice is retained in `src/components/ui/LICENSE.md`.
 Use `src/index.css` for app tokens and shared layouts, and `public/blog-theme.css`
 for the corresponding static blog presentation.
+
+## Hugo and Markdown reading layouts
+
+Profile blogs now build with pinned Hugo 0.170.1, installed from checksum-verified
+upstream releases. Posts retain their category/date URLs, `.html` suffixes, metadata,
+RSS and latest feed paths, category listing, and embedded demos. CI and deployment
+use the same installer. Setup and authoring guidance is in [blog development](blog-development.md).
+
+The archive uses sticky year labels and title/description rows. Articles share the
+About page's left contents/right prose arrangement, collapse control, and scroll
+highlighting. Hugo emits contents links into the HTML; JavaScript enhances them.
+Neighbouring-post timelines show the current post plus up to two posts in each
+direction, switching to a vertical layout on mobile. The blog header/footer use the
+site's wordmark, links, and coffee/Claude credit. Both React and Hugo footers use the
+same cream background at every breakpoint.
+
+About prose moved to English, French, and Persian Markdown files, with stable anchors
+and profile-backed slots for biography, projects, contact actions, and identity.
+No README files were changed.
+
+Migration tests build actual Hugo output and verify all six legacy post URLs, canonical
+metadata and schema, heading links, year grouping, categories, feeds, timeline endpoints,
+shortcode markup, and draft/scheduled-post isolation. Browser checks verified desktop
+article scroll highlighting/collapse, Mermaid rendering, replay and hex iframe content,
+mobile archive/article layout, and English/French/Persian About with no horizontal overflow.

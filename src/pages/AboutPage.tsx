@@ -1,7 +1,10 @@
 import { AboutContents } from "@/components/AboutContents"
 import { ProfileFooter } from "@/components/ProfileFooter"
 import { Helmet } from "react-helmet-async"
-import { Trans } from "react-i18next"
+import Markdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import { Link } from "react-router-dom"
+import { aboutSections } from "@/content/about"
 import { ProfileHeader } from "@/components/ProfileHeader"
 import { ProfileActions } from "@/components/ProfileActions"
 import { ProfileBiography } from "@/components/ProfileBiography"
@@ -14,7 +17,7 @@ import { getProfileHomePath, getProfileBlogPath, isProfileId } from "@/profiles"
 
 export const AboutPage = () => {
     usePageAnchor()
-    const { t, routePrefix, localizedPath } = useLanguage()
+    const { t, language, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const page = profile.about
     if (!page) return null
@@ -23,6 +26,7 @@ export const AboutPage = () => {
     const home = localizedPath(getProfileHomePath(window.location.hostname, profile.id))
     const site = getConfiguredSite()
     const blog = getProfileBlogPath(window.location.hostname, profile.id, isProfileId(site) ? site : null)
+    const sections = aboutSections(language)
     return (
         <div className="profile-page portfolio-page about-page">
             <Helmet>
@@ -48,171 +52,91 @@ export const AboutPage = () => {
                 <h1>{t(page.titleKey)}</h1>
             </header>
             <div className="about-layout">
-                <AboutContents />
+                <AboutContents sections={sections} />
                 <article className="about-prose">
-                    <section id="status">
-                        <h2>{t("aboutPage.status.title")}</h2>
-                        <ProfileBiography />
-                        <p>{t("aboutPage.status.body")}</p>
-                    </section>
-
-                    <section id="projects">
-                        <h2>{t("aboutPage.projects.title")}</h2>
-                        <p>{t("aboutPage.projects.body")}</p>
-                        <p>
-                            <Trans
-                                t={t}
-                                i18nKey="aboutPage.openSource.graphics"
+                    {sections.map(({ id, title, body }) => (
+                        <section id={id} key={id}>
+                            <h2>{title}</h2>
+                            <Markdown
+                                remarkPlugins={[remarkGfm]}
                                 components={{
-                                    bevyVello: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://github.com/linebender/bevy_vello"
-                                        />
-                                    ),
-                                    velloSvg: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://github.com/linebender/vello_svg"
-                                        />
-                                    ),
-                                    velato: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://github.com/linebender/velato"
-                                        />
-                                    ),
-                                }}
-                            />
-                        </p>
-                        <p>
-                            <Trans
-                                t={t}
-                                i18nKey="aboutPage.openSource.tools"
-                                components={{
-                                    trunk: <a target="_blank" rel="noopener noreferrer" href="https://trunkrs.dev" />,
-                                    bevy: <a target="_blank" rel="noopener noreferrer" href="https://bevy.org" />,
-                                    rust: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://rust-lang.org/governance/people/nuzzles/"
-                                        />
-                                    ),
-                                }}
-                            />
-                        </p>
-                        <ul className="about-project-list">
-                            {profile.projects?.map((project) => (
-                                <li key={project.id}>
-                                    <a href={project.href} target="_blank" rel="noopener noreferrer">
-                                        {project.name}
-                                    </a>
-                                    <p>{t(project.descriptionKey)}</p>
-                                </li>
-                            ))}
-                        </ul>
-                        <a className="text-link" href={`${home}#projects`}>
-                            {t("aboutPage.projects.all")}
-                        </a>
-                    </section>
-                    <section id="contact">
-                        <h2>{t("aboutPage.contact.title")}</h2>
-                        <p>{t("aboutPage.contact.body")}</p>
-                        <ProfileActions />
-                    </section>
-
-                    <section id="identity">
-                        <h2>{t("aboutPage.identity.title")}</h2>
-                        <p>{t("aboutPage.identity.body")}</p>
-                        <table className="identity-table">
-                            <caption className="sr-only">{t("aboutPage.identity.title")}</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">{t("aboutPage.identity.platform")}</th>
-                                    <th scope="col">{t("aboutPage.identity.account")}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {profile.socials.map(({ kind, label, href }) => (
-                                    <tr key={kind}>
-                                        <th scope="row">{label}</th>
-                                        <td>
-                                            <a href={href} target="_blank" rel="noopener noreferrer" dir="ltr">
-                                                {kind === "github"
-                                                    ? `@${new URL(href).pathname.split("/").filter(Boolean).at(-1)}`
-                                                    : new URL(href).pathname.replace(/\/$/, "")}
+                                    p: ({ children }) => {
+                                        if (children === "::biography") return <ProfileBiography />
+                                        if (children === "::contact") return <ProfileActions />
+                                        if (children === "::projects")
+                                            return (
+                                                <ul className="about-project-list">
+                                                    {profile.projects?.map((project) => (
+                                                        <li key={project.id}>
+                                                            <a
+                                                                href={project.href}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                {project.name}
+                                                            </a>
+                                                            <p>{t(project.descriptionKey)}</p>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )
+                                        if (children === "::identity")
+                                            return (
+                                                <table className="identity-table">
+                                                    <caption className="sr-only">
+                                                        {t("aboutPage.identity.title")}
+                                                    </caption>
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">{t("aboutPage.identity.platform")}</th>
+                                                            <th scope="col">{t("aboutPage.identity.account")}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {profile.socials.map(({ kind, label, href }) => (
+                                                            <tr key={kind}>
+                                                                <th scope="row">{label}</th>
+                                                                <td>
+                                                                    <a
+                                                                        href={href}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        dir="ltr"
+                                                                    >
+                                                                        {kind === "github"
+                                                                            ? `@${new URL(href).pathname.split("/").filter(Boolean).at(-1)}`
+                                                                            : new URL(href).pathname.replace(/\/$/, "")}
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            )
+                                        return <p>{children}</p>
+                                    },
+                                    a: ({ href, children }) => {
+                                        if (href === "projects") return <Link to={`${home}#projects`}>{children}</Link>
+                                        if (href === "blog" || href === "categories")
+                                            return (
+                                                <a
+                                                    href={`${blog ?? "/blog/"}${href === "categories" ? "categories.html" : ""}`}
+                                                >
+                                                    {children}
+                                                </a>
+                                            )
+                                        return (
+                                            <a href={href} target="_blank" rel="noopener noreferrer">
+                                                {children}
                                             </a>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </section>
-                    <section id="disclaimer">
-                        <h2>{t("aboutPage.disclaimer.title")}</h2>
-                        <p>
-                            <Trans
-                                t={t}
-                                i18nKey="aboutPage.disclaimer.opinions"
-                                components={{ blog: <a href={blog ?? "/blog/"} /> }}
-                            />
-                        </p>
-                        <p>
-                            <Trans
-                                t={t}
-                                i18nKey="aboutPage.disclaimer.source"
-                                components={{
-                                    repository: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://github.com/nuzzles/homepage"
-                                        />
-                                    ),
-                                    issues: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://github.com/nuzzles/homepage/issues"
-                                        />
-                                    ),
+                                        )
+                                    },
                                 }}
-                            />
-                        </p>
-                        <p>
-                            <Trans
-                                t={t}
-                                i18nKey="aboutPage.disclaimer.categories"
-                                components={{ categories: <a href={`${blog ?? "/blog/"}categories.html`} /> }}
-                            />
-                        </p>
-                        <p>
-                            <Trans
-                                t={t}
-                                i18nKey="aboutPage.disclaimer.license"
-                                components={{
-                                    cc: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://creativecommons.org/licenses/by/4.0/"
-                                        />
-                                    ),
-                                    apache: (
-                                        <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            href="https://www.apache.org/licenses/LICENSE-2.0"
-                                        />
-                                    ),
-                                }}
-                            />
-                        </p>
-                    </section>
+                            >
+                                {body}
+                            </Markdown>
+                        </section>
+                    ))}
                 </article>
             </div>
             <ProfileFooter />

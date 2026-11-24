@@ -50,7 +50,7 @@ describe("CloudFront request routing", () => {
         })
     })
 
-    it.each(["/blog/", "/blog/archive/"])("resolves the Jekyll directory URL %s", (uri) => {
+    it.each(["/blog/", "/blog/archive/"])("resolves the static blog directory URL %s", (uri) => {
         expect(runFunction(blogRouter, uri)).toMatchObject({ uri: `${uri}index.html` })
     })
 

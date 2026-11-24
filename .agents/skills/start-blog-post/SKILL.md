@@ -9,7 +9,7 @@ Help Spencer articulate the post he wants to write. Extract the experiences, jud
 
 ## Start with what is already known
 
-Read [the blog writing standard](../blog-writing/references/writing-standard.md) before proposing titles, hooks, or metadata. Use the current conversation, supplied notes, and relevant repository artifacts to prefill the brief. Inspect `blogs/spencer/_config.yml` and related posts when choosing categories, links, and image defaults. The repository supplies the author, English language, site URL, and publishing conventions; do not ask Spencer to repeat them.
+Read [the blog writing standard](../blog-writing/references/writing-standard.md) before proposing titles, hooks, or metadata. Use the current conversation, supplied notes, and relevant repository artifacts to prefill the brief. Inspect `blogs/spencer/hugo.json` and related posts when choosing categories, links, and image defaults. The repository supplies the author, English language, site URL, and publishing conventions; do not ask Spencer to repeat them.
 
 If the user has already supplied enough material, synthesize it and ask only about consequential gaps. A request to draft from complete notes does not need an interview merely because the post is new.
 
@@ -56,7 +56,7 @@ Do not require the user to know keyword research, write a meta description, or c
 - Choose a few accurate categories using existing repository conventions. Suggest relevant internal links and primary external sources with a purpose for each; do not invent URLs or add links mechanically.
 - Select a representative existing preview image when useful, or describe an image to create with its intended subject and alt text. Record missing assets as proposed. Use the configured site image if a dedicated image adds little value; image production is not required to complete intake.
 
-Follow the linked writing standard for front matter. Keep proposed search queries in the brief rather than introducing unsupported metadata fields. Record the publication date as undecided unless supplied or already implied by the task. Let the existing Jekyll templates generate canonical URLs, social tags, and structured data.
+Follow the linked writing standard for front matter. Keep proposed search queries in the brief rather than introducing unsupported metadata fields. Record the publication date as undecided unless supplied or already implied by the task. Let the existing Hugo templates generate canonical URLs, social tags, and structured data.
 
 ## Deliver a usable brief
 

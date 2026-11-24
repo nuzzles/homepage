@@ -1,0 +1,41 @@
+{
+    "disableKinds": ["taxonomy", "term", "section"],
+    "enableRobotsTXT": false,
+    "markup": {
+        "goldmark": {
+            "renderer": {
+                "unsafe": true
+            }
+        },
+        "tableOfContents": {
+            "startLevel": 2,
+            "endLevel": 3
+        },
+        "highlight": {
+            "style": "friendly",
+            "noClasses": false
+        }
+    },
+    "outputs": {
+        "home": ["HTML", "RSS", "Latest"]
+    },
+    "outputFormats": {
+        "RSS": {
+            "baseName": "feed"
+        },
+        "Latest": {
+            "mediaType": "application/json",
+            "baseName": "latest",
+            "isPlainText": true
+        }
+    },
+    "module": {
+        "mounts": [
+            {
+                "source": "assets",
+                "target": "static/assets"
+            }
+        ]
+    },
+    "locale": "en-US"
+}

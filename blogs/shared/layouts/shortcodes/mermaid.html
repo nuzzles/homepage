@@ -1,0 +1,34 @@
+<figure class="evidence-figure mermaid-figure" data-mermaid-file="{{ strings.TrimPrefix "/" (.Get "file") | relURL }}">
+    {{ if .Get "title" }}
+    <div class="mermaid-title">{{ .Get "title" }}</div>
+    {{ end }}
+    <div
+        class="mermaid-viewport"
+        role="region"
+        aria-label="{{ .Get "title" | default "Mermaid diagram" }}"
+        tabindex="0"
+    >
+        <div data-mermaid-diagram></div>
+        <p data-mermaid-status role="status" hidden></p>
+        <noscript>
+            <p>
+                Enable JavaScript to view this diagram, or
+                <a href="{{ strings.TrimPrefix "/" (.Get "file") | relURL }}">read its source</a>.
+            </p>
+        </noscript>
+    </div>
+    <div class="mermaid-controls" role="group" aria-label="Diagram controls" hidden>
+        <span class="mermaid-hint">Drag to pan · Ctrl/⌘ + scroll to zoom</span>
+        <div class="mermaid-buttons">
+            <button type="button" data-mermaid-action="out" aria-label="Zoom out" title="Zoom out (−)">−</button>
+            <output data-mermaid-zoom aria-live="polite" aria-label="Zoom level"></output>
+            <button type="button" data-mermaid-action="in" aria-label="Zoom in" title="Zoom in (+)">+</button>
+            <button type="button" data-mermaid-action="fit" title="Fit the whole diagram (F)">Fit</button>
+            <button type="button" data-mermaid-action="reset" title="Reset to natural size (0)">100%</button>
+        </div>
+    </div>
+    {{ if .Get "description" }}
+    <figcaption>{{ .Get "description" }}</figcaption>
+    {{ end }}
+</figure>
+<script type="module" src="{{ site.Params.mermaidScript }}"></script>

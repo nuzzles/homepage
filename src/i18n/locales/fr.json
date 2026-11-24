@@ -156,34 +156,20 @@
         "title": "À propos",
         "description": "À propos de Spencer Imbleau : génie logiciel, infographie, contributions open source et projets.",
         "contents": "Sur cette page",
-        "openSource": {
-            "title": "Open source",
-            "graphics": "J’ai créé et je maintiens <bevyVello>bevy_vello</bevyVello>, l’intégration du moteur de rendu vectoriel accéléré par GPU Vello dans Bevy. Avec d’autres contributeurs de Linebender, je maintiens également <velloSvg>vello_svg</velloSvg> et <velato>velato</velato>, pour le rendu SVG et les animations Lottie.",
-            "tools": "Je suis mainteneur principal de <trunk>Trunk</trunk>, je contribue à la prise en charge de WebAssembly dans <bevy>Bevy</bevy> et j’aide à trier les problèmes du compilateur et de la bibliothèque standard au sein de l’<rust>équipe de triage de Rust</rust>."
-        },
         "projects": {
-            "title": "Projets",
-            "body": "Certains de mes travaux deviennent des produits ; d’autres commencent par une question sur le fonctionnement d’un système. Voici quelques projets que je développe ou contribue à maintenir.",
-            "all": "Explorer les projets"
+            "title": "Projets"
         },
         "contact": {
-            "title": "Contact",
-            "body": "Pour parler d’ingénierie, de graphisme, d’open source ou de votre projet, envoyez-moi un courriel ou planifiez un échange. Mon code et mon profil professionnel sont également accessibles ci-dessous."
+            "title": "Contact"
         },
         "status": {
-            "title": "Situation actuelle",
-            "body": "J’aime travailler au plus près des systèmes que je cherche à comprendre : produire des images, créer des outils et transformer des expériences en logiciels utiles. Mon travail couvre le graphisme sur GPU, les applications web et leur infrastructure."
+            "title": "Situation actuelle"
         },
         "disclaimer": {
-            "title": "Avertissement",
-            "opinions": "J’écris sur le génie logiciel, le graphisme et l’IA sur <blog>mon blog</blog>. Les opinions qui y sont exprimées sont les miennes et ne constituent pas des déclarations officielles de mon employeur ou de mes équipes.",
-            "source": "Le code source de ce blog est <repository>sur GitHub</repository>. Les pull requests et les <issues>tickets</issues> sont les bienvenus. J’utilise aussi les tickets pour suivre les idées à venir.",
-            "categories": "Parcourez les <categories>articles par catégorie</categories>.",
-            "license": "Les textes de ce blog sont sous licence <cc>CC BY 4.0</cc>. Vous pouvez les citer et les adapter librement, à condition d’en mentionner l’auteur. Tous les extraits de code, y compris les démonstrations interactives, sont sous licence <apache>Apache 2.0</apache>."
+            "title": "Avertissement"
         },
         "identity": {
             "title": "Identité",
-            "body": "Voici mes comptes publics.",
             "platform": "Plateforme",
             "account": "Compte"
         }

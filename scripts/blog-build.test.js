@@ -1,0 +1,146 @@
+import { spawnSync } from "node:child_process"
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs"
+import { tmpdir } from "node:os"
+import { join, resolve } from "node:path"
+import { JSDOM } from "jsdom"
+import { afterAll, beforeAll, describe, expect, it } from "vitest"
+import { hugoBinary } from "./setup-hugo.mjs"
+
+const root = resolve(import.meta.dirname, "..")
+const temp = mkdtempSync(join(tmpdir(), "homepage-hugo-test-"))
+const output = join(temp, "public")
+const legacyPaths = [
+    "2021/05/30/hello-world.html",
+    "rust/graphics/2022/06/19/nvidia-gpu-profiling-with-rust.html",
+    "rust/graphics/2023/11/20/using-vello-for-video-games.html",
+    "rust/graphics/2024/08/01/press-bevy_vello.html",
+    "ai/2026/09/07/ai-is-still-in-its-homelab-era.html",
+    "ai/rust/2026/09/14/halo-infinite-theater-format-astra.html",
+]
+const html = (path) => new JSDOM(readFileSync(join(output, path), "utf8")).window.document
+function build(extra = []) {
+    const result = spawnSync(
+        process.env.HUGO_BINARY ?? hugoBinary,
+        [
+            "--source",
+            temp,
+            "--destination",
+            output,
+            "--config",
+            [
+                join(root, "blogs/shared/hugo.json"),
+                join(root, "blogs/spencer/hugo.json"),
+                join(temp, "runtime.json"),
+            ].join(","),
+            "--clock",
+            "2026-11-24T00:00:00Z",
+            "--cacheDir",
+            join(temp, "cache"),
+            ...extra,
+        ],
+        { encoding: "utf8" }
+    )
+    if (result.error || result.status !== 0)
+        throw new Error(`${result.error ?? ""}\n${result.stdout}\n${result.stderr}`)
+}
+beforeAll(() => {
+    cpSync(join(root, "blogs/spencer/content"), join(temp, "content"), { recursive: true })
+    cpSync(join(root, "blogs/spencer/data"), join(temp, "data"), { recursive: true })
+    mkdirSync(join(temp, "assets"))
+    writeFileSync(
+        join(temp, "runtime.json"),
+        JSON.stringify({
+            layoutDir: join(root, "blogs/shared/layouts"),
+            params: {
+                homepageURL: "https://spencer.imbleau.com",
+                aboutURL: "https://spencer.imbleau.com/about",
+                fullName: "Spencer Imbleau",
+                firstName: "Spencer",
+                themeStylesheet: "/blog-theme.css",
+                mediaStylesheet: "/blog-media.css",
+                mermaidScript: "/assets/mermaid/embed.js",
+                postStylesheets: {},
+            },
+        })
+    )
+    writeFileSync(
+        join(temp, "content/posts/draft.md"),
+        "---\ntitle: Unpublished test\ndate: 2026-11-20\ndraft: true\nurl: unpublished/\n---\nPrivate draft body.\n"
+    )
+    writeFileSync(
+        join(temp, "content/posts/future.md"),
+        "---\ntitle: Scheduled test\ndate: 2099-01-01\nurl: scheduled/\n---\nFuture post.\n"
+    )
+    build()
+})
+afterAll(() => rmSync(temp, { recursive: true, force: true }))
+
+describe("Hugo migration", () => {
+    it("preserves every published URL, canonical URL, heading link, and article schema", () => {
+        for (const path of legacyPaths) {
+            const doc = html(path)
+            expect(doc.querySelector('link[rel="canonical"]').href).toBe(`https://spencer.imbleau.com/blog/${path}`)
+            const schema = JSON.parse(doc.querySelector('script[type="application/ld+json"]').textContent)
+            expect(schema.author.name).toBe("Spencer Imbleau")
+            expect(schema.headline).toBe(doc.querySelector("h1").textContent)
+            for (const link of doc.querySelectorAll('.post-content a[href^="#"], .contents-links a')) {
+                expect(
+                    doc.getElementById(decodeURIComponent(link.hash.slice(1))),
+                    `${path}: ${link.hash}`
+                ).not.toBeNull()
+            }
+        }
+    })
+    it("groups all posts by year and preserves categories, RSS, and the published feed", () => {
+        const archive = html("index.html")
+        expect([...archive.querySelectorAll(".archive-year h2")].map((h) => h.textContent)).toEqual([
+            "2026",
+            "2024",
+            "2023",
+            "2022",
+            "2021",
+        ])
+        expect(archive.querySelectorAll(".archive-posts li")).toHaveLength(6)
+        expect(html("categories.html").querySelectorAll(".category-group")).toHaveLength(3)
+        const latest = JSON.parse(readFileSync(join(output, "latest.json"), "utf8"))
+        expect(latest).toHaveLength(3)
+        expect(latest[0].description).toContain("Infinite's")
+        const rss = new JSDOM(readFileSync(join(output, "feed.xml"), "utf8"), { contentType: "text/xml" }).window
+            .document
+        expect(rss.querySelectorAll("item")).toHaveLength(6)
+        expect(readFileSync(join(output, "sitemap.xml"), "utf8")).not.toContain("/posts/")
+        expect(html("about/index.html").querySelector('link[rel="canonical"]').href).toBe(
+            "https://spencer.imbleau.com/about"
+        )
+    })
+    it("places the current post among up to two earlier and two later posts", () => {
+        for (const index of [0, 2, 5]) {
+            const timeline = html(legacyPaths[index]).querySelector(".post-timeline")
+            expect(timeline.querySelectorAll("li")).toHaveLength(index === 2 ? 5 : 3)
+            expect(timeline.querySelectorAll('[aria-current="page"]')).toHaveLength(1)
+            const dates = [...timeline.querySelectorAll("time")].map((t) => t.dateTime)
+            expect(dates).toEqual([...dates].sort())
+        }
+    })
+    it("retains replay, hex, Mermaid, video, citations, and sandbox markup", () => {
+        const article = html(legacyPaths[5])
+        expect(article.querySelector("[data-replay-player] iframe").getAttribute("sandbox")).toBe("allow-scripts")
+        expect(article.querySelector("[data-replay-player] iframe").getAttribute("src")).toContain(
+            "/blog/assets/motion-replay/octagon.html#start=146.2"
+        )
+        expect(article.querySelector("[data-hex-text]").content.textContent).toContain("78 5E")
+        expect(article.querySelectorAll("[data-mermaid-file]")).toHaveLength(2)
+        expect(article.querySelector("video source").getAttribute("src")).toContain("/blog/assets/early-twin.webm")
+        expect(html(legacyPaths[3]).querySelector(".post-content").textContent).toContain(
+            "{{Compute-centric vector graphics using bevy_vello}}"
+        )
+    })
+    it("excludes drafts and scheduled posts in production but previews them without leaking them into feeds", () => {
+        expect(existsSync(join(output, "unpublished/index.html"))).toBe(false)
+        expect(existsSync(join(output, "scheduled/index.html"))).toBe(false)
+        build(["--buildDrafts", "--buildFuture"])
+        expect(html("index.html").querySelectorAll(".archive-posts li")).toHaveLength(8)
+        expect(html("unpublished/index.html").querySelector(".draft-marker").textContent).toBe("Draft")
+        expect(readFileSync(join(output, "latest.json"), "utf8")).not.toMatch(/Unpublished|Scheduled/)
+    })
+})

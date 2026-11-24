@@ -2,7 +2,7 @@
 
 Status: planning archive. The final post is prepared for publication on September 14, 2026.
 
-Post: [2026-09-14-halo-infinite-theater-format-astra.md](../_posts/2026-09-14-halo-infinite-theater-format-astra.md).
+Post: [2026-09-14-halo-infinite-theater-format-astra.md](../content/posts/2026-09-14-halo-infinite-theater-format-astra.md).
 
 The notes below preserve the original brief and research. The final post uses an interactive Octagon replay with a data download instead of the planned recording; the older TODOs and proposed outline do not describe its publication status.
 
@@ -44,7 +44,7 @@ Suggested caption: "Player movement and supported actions reconstructed from The
 
 ### Film breakdown
 
-The draft now includes a read-only hex/ASCII viewer beside the decompression explanation. The generic `_includes/hex-viewer.html` takes only `text` (hex bytes), `title`, and `description`; the post supplies its zlib example from `_data/halo_theater_hex.json`. There is no hardcoded Halo sample or status subheader in the component. The supplied description identifies the real 4,096-byte registry excerpt as recompressed for the demo. It has no file import, download, or standalone-viewer links. This is separate from the frame-field breakdown below.
+The draft now includes a read-only hex/ASCII viewer beside the decompression explanation. The generic `blogs/shared/layouts/shortcodes/hex-viewer.html` takes only `text` (hex bytes), `title`, and `description`; the post supplies its zlib example from `data/halo_theater_hex.json`. There is no hardcoded Halo sample or status subheader in the component. The supplied description identifies the real 4,096-byte registry excerpt as recompressed for the demo. It has no file import, download, or standalone-viewer links. This is separate from the frame-field breakdown below.
 
 - [x] Show film chunks: registry (type 1), replication (type 2), and summary events (type 3). The reusable `mermaid.html` include renders `assets/diagrams/halo-theater-structure.mermaid` in the draft.
 - [x] Diagram a replication packet's 16-byte header and variable payload. The unknown header word stays labeled unknown; the diagram distinguishes chunk types from packet types and qualifies the frame layout.
@@ -120,6 +120,6 @@ Research measurements above were read from retained notes. The two example frame
 - **Categories:** `ai reverse-engineering`
 - **Preview image:** Proposed frame breakdown or representative Octagon replay still. Use accurate alt text and identify manually added bounds if visible. Until an asset is ready, inherit the configured site image.
 - **Links:** Den's two posts and the decoder repository; source specific technical sections where useful. No internal post is required just to add an internal link.
-- **Timing:** Date undecided. The initial draft omits an explicit publication date; set it and the dated filename together when moving to `_posts`.
+- **Timing:** Date undecided. The initial draft omits an explicit publication date; set it and the dated filename together when publishing in `content/posts`.
 
-The draft belongs in `_drafts`; this outline lives in `_outlines` so Jekyll does not publish the planning material. Repository development/staging builds include drafts; production builds exclude them.
+The draft belongs in `content/posts` with `draft: true`; this outline lives in `_outlines` so Hugo does not publish the planning material. Repository development/staging builds include drafts; production builds exclude them.
