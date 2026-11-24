@@ -1,7 +1,9 @@
-import { ChevronDown } from "lucide-react"
+import { useState } from "react"
+import { ChevronDown, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { useLanguage } from "@/hooks/useLanguage"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 const languages = [
     { code: "en", label: "English", flag: "/images/flags/en.svg" },
@@ -11,13 +13,30 @@ const languages = [
 
 export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolean }) => {
     const { t, language, languageHref, rememberLanguage } = useLanguage()
+    const [hintOpen, setHintOpen] = useState(false)
     const selected = languages.find(({ code }) => code === language) ?? languages[0]
     if (englishOnly) {
         return (
-            <span className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-medium" lang="en">
-                <img className="flag hidden sm:inline" src={languages[0].flag} alt="" />
-                <span>English Only</span>
-            </span>
+            <TooltipProvider delayDuration={200}>
+                <Tooltip open={hintOpen} onOpenChange={setHintOpen}>
+                    <TooltipTrigger asChild>
+                        <Button
+                            variant="ghost"
+                            className="ms-auto shrink-0 px-3"
+                            aria-label="English Only"
+                            onClick={(event) => {
+                                event.preventDefault()
+                                setHintOpen((open) => !open)
+                            }}
+                        >
+                            <img className="flag" src={languages[0].flag} alt="" />
+                            <span className="hidden md:inline">English</span>
+                            <X aria-hidden="true" />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent collisionPadding={16}>English Only</TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
         )
     }
     return (

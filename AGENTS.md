@@ -56,7 +56,8 @@ and distinguish Spencer's contribution from the team's achievements.
 ## Language and translation rules
 
 - The blog is English only; blog posts do not need translations.
-- The blog header shows a static “English Only” label. Opinion posts use `tags: [opinion]`,
+- The blog language control keeps the English flag and replaces the dropdown caret with an X
+  and an “English Only” tooltip (hover, keyboard focus, or tap). Opinion posts use `tags: [opinion]`,
   which adds the sticky “Thinking out loud” banner and Opinion reading metadata.
   Show topic/tag links below Contents; existing categories also appear in the tag archive.
 - The résumé document itself is an English-only PDF. Do not translate the PDF.

@@ -94,6 +94,8 @@ function collectStyles(entry) {
     for (const dependency of entry.imports ?? []) collectStyles(manifest[dependency])
 }
 if (chromeEntry) collectStyles(chromeEntry)
+// SSR chrome needs render-blocking CSS in development too, before hydration loads.
+if (command === "dev") chromeStylesheets.add("/src/index.css?direct")
 
 const getHugoConfig = (websiteUrl, homepageUrl, basePath) => {
     const override = join(tmpdir(), `homepage-hugo-spencer-${command}.json`)
