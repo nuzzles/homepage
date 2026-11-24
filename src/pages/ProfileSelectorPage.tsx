@@ -61,7 +61,7 @@ export const ProfileSelectorPage = () => {
                     {PROFILE_ENTRIES.map(({ id, firstName, fullName, image, imageSrcSet, roleKey }) => (
                         <Card key={id} className="overflow-hidden shadow-none transition-shadow hover:shadow-md">
                             <a
-                                className="group block rounded-xl focus-visible:outline-offset-[-3px]"
+                                className="profile-choice group block rounded-xl"
                                 href={hrefForProfile(id)}
                                 aria-label={fullName}
                             >

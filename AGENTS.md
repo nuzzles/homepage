@@ -92,6 +92,8 @@ and distinguish Spencer's contribution from the team's achievements.
   so the React and Hugo pages stay consistent. Colors, spacing, radii, shadows, and type scales come from `src/design-tokens.css`; do not introduce a separate blog palette or font system.
 - The blog is coupled to Spencer: keep its Hugo config, content, layouts, and assets in
   `blog/`. Do not add profile-generic blog configuration or a Sara blog.
+- Keyboard focus comes from `src/focus.css` and the shared focus tokens: a square 2px outline,
+  inset for action-bar cells and menu items. Do not add competing button rings or blog focus styles.
 - Preserve visible keyboard focus, 44px control targets, reduced-motion support,
   and logical spacing for Persian RTL layouts. Language flag outlines stay black.
 - Résumé and How I Work navigation uses a filled primary button for the current
@@ -109,6 +111,7 @@ and distinguish Spencer's contribution from the team's achievements.
   then Email. All social-bar icons inherit their link or button text color. Use a PDF icon for Resume and the Calendly logo for scheduling.
   Email opens a centered modal with a blurred backdrop, Compose email and Copy email actions,
   and dismissal on outside click or Escape. Restore focus to the trigger when closed.
+  Every social-bar target uses `SocialBarAction`, with shared hover and keyboard focus behavior.
   Social-bar hover backgrounds have square corners.
   Do not add unconfirmed social accounts.
 

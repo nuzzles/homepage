@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope, faFilePdf } from "@fortawesome/free-solid-svg-icons"
 import { useTranslation } from "react-i18next"
 import { ProfileSocials } from "@/components/ProfileSocials"
+import { SocialBarAction } from "@/components/SocialBarAction"
 import {
     Dialog,
     DialogTrigger,
@@ -79,10 +80,10 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
                 }}
             >
                 <DialogTrigger asChild>
-                    <Button variant="ghost">
+                    <SocialBarAction>
                         <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
                         {t("home.revealEmail")}
-                    </Button>
+                    </SocialBarAction>
                 </DialogTrigger>
                 {revealedEmail}
             </Dialog>
@@ -96,22 +97,22 @@ export const ProfileActions = () => {
     const base = getProfileHomePath(window.location.hostname, profile.id).replace(/\/$/, "")
     return (
         <div className="profile-actions action-strip">
-            <ProfileSocials />
+            <ProfileSocials actionBar />
             {profile.calendlyUrl && (
-                <Button asChild variant="ghost">
+                <SocialBarAction asChild>
                     <a className="schedule-action" href={profile.calendlyUrl} target="_blank" rel="noopener noreferrer">
                         <span className="calendly-icon" aria-hidden="true" />
                         <span>{t("home.scheduleOneOnOne")}</span>
                         <ArrowUpRight aria-hidden="true" className="schedule-arrow" />
                     </a>
-                </Button>
+                </SocialBarAction>
             )}
-            <Button asChild variant="ghost">
+            <SocialBarAction asChild>
                 <Link className="resume-action" to={localizedPath(`${base}/resume`)}>
                     <FontAwesomeIcon icon={faFilePdf} aria-hidden="true" />
                     {t("home.resume")}
                 </Link>
-            </Button>
+            </SocialBarAction>
             <RevealEmailButton key={profile.id} encodedEmail={profile.encodedEmail} />
         </div>
     )

@@ -20,6 +20,9 @@
     --link-hover: #8a4935;
     --danger: #a33b32;
     --focus-ring: #8a4935;
+    --focus-width: 2px;
+    --focus-offset: 3px;
+    --focus-radius: 0;
     --selection: #e9d5b5;
     --overlay: rgb(20 20 19 / 25%);
     --shadow-soft: 0 2px 8px rgb(20 20 19 / 4%);

@@ -28,7 +28,7 @@ export const ProfileBiography = () => {
         bevy: <AffiliationLink href="https://github.com/bevyengine/bevy" icon={affiliationIcon("bevy")} />,
         trunk: <AffiliationLink href="https://github.com/trunk-rs/trunk" icon={affiliationIcon("wasm")} />,
         linebender: <AffiliationLink href="https://linebender.org/" icon={affiliationIcon("linebender")} />,
-        blue: <a href="https://www.blueorigin.com/" target="_blank" rel="noopener noreferrer" />,
+        blue: <AffiliationLink href="https://www.blueorigin.com/" icon={<span className="blue-origin-icon" />} />,
         uf: <a href="https://www.ufl.edu/" target="_blank" rel="noopener noreferrer" />,
     }
     return (

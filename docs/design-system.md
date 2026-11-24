@@ -48,3 +48,8 @@ logical spacing, and a more generous heading line height.
 Token contrast calculations: primary text on paper 17.50:1, secondary text on paper
 6.26:1, secondary text on raised surfaces 5.98:1, primary-button text 17.50:1, and
 link-hover text on paper 6.46:1. These are token checks, not a WCAG certification.
+
+Keyboard focus is shared through `src/focus.css`: a square 2px outline in the focus
+color, with a 3px gap. Action-bar cells and menu items inset the same outline to
+avoid clipping. Focused controls use square corners; buttons do not add a second
+box-shadow ring. Every action-bar item uses `SocialBarAction`.

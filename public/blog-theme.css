@@ -32,10 +32,6 @@ body {
     color: var(--link-hover);
 }
 
-.page-content a:focus-visible {
-    outline: 2px solid var(--link-color);
-    outline-offset: 3px;
-}
 
 .wrapper {
     box-sizing: border-box;
@@ -136,10 +132,6 @@ body {
     text-decoration: none;
 }
 
-.post-link:focus-visible::after {
-    outline: 2px solid var(--link-color);
-    outline-offset: 3px;
-}
 
 .post-meta {
     color: var(--muted-foreground);
@@ -244,10 +236,6 @@ table {
     overflow-x: auto;
 }
 
-.table-scroll:focus-visible {
-    outline: 2px solid var(--link-color);
-    outline-offset: 3px;
-}
 
 .table-scroll table {
     margin-bottom: 0;
@@ -294,10 +282,6 @@ table td {
     text-decoration: none;
 }
 
-.back-to-top a:focus-visible {
-    outline: 2px solid var(--link-color);
-    outline-offset: 2px;
-}
 
 @media (max-width: 680px) {
     .post-list {
@@ -378,7 +362,6 @@ table td {
 .reading-contents .contents-empty { margin: 0; color: var(--muted-foreground); font-size: .9rem; line-height: 1.4; }
 .contents-heading button { background: transparent; border: 0; border-radius: var(--control-radius); min-width: 44px; min-height: 44px; color: var(--foreground); cursor: pointer; font: inherit; }
 .contents-heading button:hover { background: var(--card); }
-.contents-heading button:focus-visible { outline: 2px solid var(--link-color); outline-offset: 2px; }
 .reading-contents a { display: flex; align-items: center; min-height: 44px; padding: 8px 12px; border-inline-start: 2px solid var(--border-color); color: var(--muted-foreground); font-size: .9rem; line-height: 1.4; }
 .reading-contents a.contents-subheading { padding-inline-start: 24px; font-size: .85rem; }
 .reading-contents a:hover, .reading-contents a[aria-current="location"] { color: var(--link-color); border-color: var(--link-color); background: var(--card); text-decoration: none; }
