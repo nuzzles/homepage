@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Calendar, Check, Copy, FileText, Mail } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { ProfileSocials } from "@/components/ProfileSocials"
 import { Button } from "@/components/ui/button"
 import { useProfile } from "@/hooks/useProfile"
 import { useLanguage } from "@/hooks/useLanguage"
@@ -80,6 +81,7 @@ export const ProfileActions = () => {
                     </a>
                 </Button>
             )}
+            <ProfileSocials />
         </div>
     )
 }

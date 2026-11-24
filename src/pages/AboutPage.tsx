@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async"
 import { Trans } from "react-i18next"
 import { ProfileHeader } from "@/components/ProfileHeader"
 import { ProfileActions } from "@/components/ProfileActions"
-import { ProfileSocials } from "@/components/ProfileSocials"
 import { ProfileBiography } from "@/components/ProfileBiography"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
@@ -195,7 +194,6 @@ export const AboutPage = () => {
                         <h2>{t("aboutPage.contact.title")}</h2>
                         <p>{t("aboutPage.contact.body")}</p>
                         <ProfileActions />
-                        <ProfileSocials />
                     </section>
                 </article>
             </div>

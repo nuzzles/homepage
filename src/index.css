@@ -439,6 +439,7 @@
 }
 .action-strip {
     display: grid;
+    gap: 0;
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
     border-block: 1px solid var(--color-border);
@@ -857,14 +858,11 @@
         gap: 4px;
     }
     .site-navigation > button {
-        margin-inline-start: auto;
+        margin-inline-start: 8px;
     }
     .site-nav-links {
-        order: 3;
-        width: 100%;
-        margin-top: 8px;
-        margin-inline-start: 0;
-        gap: 24px;
+        margin-inline-start: auto;
+        gap: 16px;
     }
     .portfolio-page .profile-hero {
         grid-template-columns: minmax(0, 1fr);
@@ -925,10 +923,6 @@
     .profile-brand {
         flex: 1;
     }
-    .profile-brand > button {
-        font-size: 1rem;
-        padding-inline: 4px;
-    }
     .site-navigation > button {
         padding-inline: 4px;
     }
@@ -939,10 +933,58 @@
         padding-inline: 6px;
     }
     .site-nav-links {
-        justify-content: space-between;
-        gap: 10px;
+        justify-content: flex-start;
+        gap: 12px;
     }
     .site-nav-links a {
         font-size: 0.9rem;
     }
+}
+
+.action-strip > .social-strip {
+    display: contents;
+}
+.action-strip .social-strip a {
+    margin: 0;
+    min-height: 64px;
+    justify-content: center;
+    border-inline-start: 1px solid var(--color-border);
+}
+@media (max-width: 599px) {
+    .action-strip {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    .action-strip > a,
+    .action-strip > .email-action {
+        grid-column: span 2;
+    }
+    .action-strip .social-strip a {
+        grid-column: span 3;
+        border-top: 1px solid var(--color-border);
+    }
+    .action-strip .social-strip a:first-child {
+        border-inline-start: 0;
+    }
+}
+
+@media (max-width: 599px) {
+    .action-strip:has(.social-strip a:only-child) > a,
+    .action-strip:has(.social-strip a:only-child) > .email-action {
+        grid-column: span 3;
+    }
+    .action-strip .social-strip a:only-child {
+        grid-column: 1 / -1;
+    }
+}
+
+.resume-download-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.resume-download-actions > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
 }

@@ -9,7 +9,7 @@ import { useProfile } from "@/hooks/useProfile"
 import { getProfileHomePath } from "@/profiles"
 
 export const ResumePage = () => {
-    const { t, routePrefix, localizedPath } = useLanguage()
+    const { t, language, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
     const profileId = profile.id
     const resume = profile.resume
@@ -20,6 +20,16 @@ export const ResumePage = () => {
     const [showLoadingHelp, setShowLoadingHelp] = useState(false)
     const [downloading, setDownloading] = useState(false)
     const [downloadProgress, setDownloadProgress] = useState(0)
+    const [fileSize, setFileSize] = useState<number | null>(null)
+    const fileSizeLabel =
+        fileSize === null
+            ? null
+            : new Intl.NumberFormat(language, {
+                  style: "unit",
+                  unit: fileSize >= 1_000_000 ? "megabyte" : "kilobyte",
+                  unitDisplay: "narrow",
+                  maximumFractionDigits: fileSize >= 1_000_000 ? 1 : 0,
+              }).format(fileSize / (fileSize >= 1_000_000 ? 1_000_000 : 1_000))
     const [btnWidth, setBtnWidth] = useState<number | undefined>(undefined)
     const btnRef = useRef<HTMLButtonElement>(null)
 
@@ -29,6 +39,20 @@ export const ResumePage = () => {
         const timeout = window.setTimeout(() => setShowLoadingHelp(true), 4000)
         return () => window.clearTimeout(timeout)
     }, [loading])
+
+    useEffect(() => {
+        if (!resume) return
+        const controller = new AbortController()
+        fetch(resume.pdfUrl, { method: "HEAD", signal: controller.signal })
+            .then((response) => {
+                const bytes = Number(response.headers.get("content-length"))
+                if (response.ok && bytes > 0 && Number.isFinite(bytes) && !controller.signal.aborted) setFileSize(bytes)
+            })
+            .catch(() => {
+                /* Download remains available when file metadata cannot be fetched. */
+            })
+        return () => controller.abort()
+    }, [resume])
 
     const handleDownload = async () => {
         if (btnRef.current) setBtnWidth(btnRef.current.offsetWidth)
@@ -61,6 +85,7 @@ export const ResumePage = () => {
                 blob = await res.blob()
             }
 
+            setFileSize(blob.size)
             const url = URL.createObjectURL(blob)
             const anchor = document.createElement("a")
             anchor.href = url
@@ -138,31 +163,36 @@ export const ResumePage = () => {
                             {text("goBack")}
                         </a>
                     </Button>
-                    <Button
-                        ref={btnRef}
-                        size="sm"
-                        style={{ minWidth: btnWidth }}
-                        disabled={downloading}
-                        onClick={handleDownload}
-                        aria-busy={downloading}
-                    >
-                        {downloading ? (
-                            <LoaderCircle aria-hidden="true" className="animate-spin" />
-                        ) : (
-                            <Download aria-hidden="true" />
-                        )}
-                        <span>
-                            {downloading
-                                ? downloadProgress > 0
-                                    ? `${downloadProgress}%`
-                                    : text("downloading")
-                                : text("downloadResume")}
-                        </span>
-                    </Button>
+                    <div className="resume-download-actions">
+                        <a
+                            className="text-link text-sm"
+                            href={resume?.pdfUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {text("openPdf")}
+                        </a>
+                        <Button
+                            ref={btnRef}
+                            size="sm"
+                            style={{ minWidth: btnWidth }}
+                            disabled={downloading}
+                            onClick={handleDownload}
+                            aria-busy={downloading}
+                            aria-label={downloading ? text("downloading") : text("downloadResume")}
+                            title={text("downloadResume")}
+                        >
+                            {downloading ? (
+                                <LoaderCircle aria-hidden="true" className="animate-spin" />
+                            ) : (
+                                <Download aria-hidden="true" />
+                            )}
+                            <span aria-hidden="true">
+                                {downloading && downloadProgress > 0 ? `${downloadProgress}%` : fileSizeLabel}
+                            </span>
+                        </Button>
+                    </div>
                 </div>
-                <a className="text-link mt-3 text-sm" href={resume?.pdfUrl} target="_blank" rel="noopener noreferrer">
-                    {text("openPdf")}
-                </a>
             </div>
         </>
     )

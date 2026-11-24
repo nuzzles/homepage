@@ -3,7 +3,6 @@ import { Trans } from "react-i18next"
 import { LatestPosts } from "@/components/LatestPosts"
 import { Helmet } from "react-helmet-async"
 import { ProfileHeader } from "@/components/ProfileHeader"
-import { ProfileSocials } from "@/components/ProfileSocials"
 import { ProfilePortrait } from "@/components/ProfilePortrait"
 import { ProfileActions } from "@/components/ProfileActions"
 import { ProfileBiography } from "@/components/ProfileBiography"
@@ -77,7 +76,6 @@ export const HomePage = () => {
                                 />
                             </p>
                         )}
-                        <ProfileSocials />
                     </div>
                     <ProfilePortrait />
                 </section>

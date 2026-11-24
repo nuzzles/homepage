@@ -5,18 +5,18 @@ with a clearer page hierarchy, consistent controls, and dedicated project and Ab
 The homepage and About structure take inspiration from [den.dev](https://den.dev),
 using this site's own colors, portrait, decorations, and copy.
 
-| Finding                                                         | Change                                                                                                                                         |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Uppercase display styling reduced readability.                  | Sentence-case Barlow headings and controls, a personal greeting, and a full biography at every screen size.                                    |
-| The portrait lost its distinctive framing.                      | Offset blue frame, corner marks, rotated name sticker, star, and scribble; brief entrance motion respects reduced-motion preferences.          |
-| Projects contained too many visual labels.                      | Title and description only, with a boxed external-link marker. Every project opens in a new tab.                                               |
-| The homepage did not surface recent writing.                    | Latest displays three published posts from a small Jekyll-generated JSON feed; the blog link remains available if the feed fails.              |
-| Contact actions lacked a clear home.                            | A horizontal Resume, Email, and Calendly bar; email reveals in a compact panel. GitHub and LinkedIn sit beside the introduction.               |
-| Profile switching and biography expansion added distractions.   | Removed the homepage profile dropdown and expansion controls.                                                                                  |
-| About content was split across the blog and website.            | Migrated ownership, contribution links, categories, and license details into the translated site About page. The old blog URL redirects there. |
-| Cross-page anchors could miss their target while React mounted. | Restore fragment scrolling after sections mount, with regression coverage.                                                                     |
-| MUI and custom controls duplicated the UI system.               | Owned shadcn/ui components, Radix menus, and Tailwind tokens; matching static Jekyll CSS.                                                      |
-| Document controls and email feedback were incomplete.           | Language switching, consistent active/alternate navigation, a persistent Open PDF link, and translated copy feedback.                          |
+| Finding                                                         | Change                                                                                                                                                             |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Uppercase display styling reduced readability.                  | Sentence-case Barlow headings and controls, a personal greeting, and a full biography at every screen size.                                                        |
+| The portrait lost its distinctive framing.                      | Offset blue frame, corner marks, rotated name sticker, star, and scribble; brief entrance motion respects reduced-motion preferences.                              |
+| Projects contained too many visual labels.                      | Title and description only, with a boxed external-link marker. Every project opens in a new tab.                                                                   |
+| The homepage did not surface recent writing.                    | Latest displays three published posts from a small Jekyll-generated JSON feed; the blog link remains available if the feed fails.                                  |
+| Contact actions lacked a clear home.                            | One bar contains Resume, Email, Calendly, GitHub, and LinkedIn; email reveals in a compact panel.                                                                  |
+| Profile switching and biography expansion added distractions.   | Removed the homepage profile dropdown and expansion controls. Header links are Blog then About, with the profile name linking home.                                |
+| About content was split across the blog and website.            | Migrated ownership, contribution links, categories, and license details into the translated site About page. The old blog URL redirects there.                     |
+| Cross-page anchors could miss their target while React mounted. | Restore fragment scrolling after sections mount, with regression coverage.                                                                                         |
+| MUI and custom controls duplicated the UI system.               | Owned shadcn/ui components, Radix menus, and Tailwind tokens; matching static Jekyll CSS.                                                                          |
+| Document controls and email feedback were incomplete.           | Language switching, consistent active/alternate navigation, an Open PDF link beside an accessible download icon with live file size, and translated copy feedback. |
 
 ![Refreshed Spencer homepage](ui-refresh-homepage.jpg)
 
@@ -37,7 +37,7 @@ using this site's own colors, portrait, decorations, and copy.
 
 ## Validation
 
-- `pnpm check`: Prettier, ESLint, TypeScript, 216 tests, and the Vite build.
+- `pnpm check`: Prettier, ESLint, TypeScript, 218 tests, and the Vite build.
 - `HOMEPAGE_SITE=spencer pnpm build` and `HOMEPAGE_SITE=sara pnpm build`, including Jekyll.
 - `terraform -chdir=terraform fmt -check -recursive`,
   `terraform -chdir=terraform init -backend=false -input=false -lockfile=readonly`,

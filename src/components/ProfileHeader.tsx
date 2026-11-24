@@ -17,9 +17,7 @@ export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about"
                 {profile.firstName}
             </a>
             <nav aria-label={t("navigation.label")} className="site-nav-links">
-                <a href={home} aria-current={current === "home" ? "page" : undefined}>
-                    {t("navigation.home")}
-                </a>
+                {profile.blog?.showOnHomepage && blog && <a href={blog}>{t("home.blog")}</a>}
                 {profile.about && (
                     <a
                         href={localizedPath(`${base}${profile.about.path}`)}
@@ -28,8 +26,6 @@ export const ProfileHeader = ({ current = "home" }: { current?: "home" | "about"
                         {t("navigation.about")}
                     </a>
                 )}
-                {profile.projects?.length ? <a href={`${home}#projects`}>{t("navigation.projects")}</a> : null}
-                {profile.blog?.showOnHomepage && blog && <a href={blog}>{t("home.blog")}</a>}
             </nav>
             <LanguageSwitcher />
         </header>

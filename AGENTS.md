@@ -94,13 +94,18 @@ and distinguish Spencer's contribution from the team's achievements.
 - Spencer's About page and projects live in profile configuration. Project
   descriptions and About copy use all three locale files. Use verified project facts;
   distinguish authorship from maintenance or contributions.
-- Keep Resume, Email, and Calendly in the horizontal action bar, with GitHub and LinkedIn
-  presented as clear icon-and-name links. Do not add unconfirmed social accounts.
+- Keep Resume, Email, Calendly, GitHub, and LinkedIn together in the horizontal
+  action/social bar, using clear icon-and-name links. Do not add unconfirmed social accounts.
 
 - The homepage introduces the profile with a personal greeting and always shows the full
   biography. Do not add a profile dropdown or biography expansion control.
+- The profile header links are Blog, then About. The profile name links home;
+  do not add separate Home or Projects links to the header.
 - Spencer's homepage sections are Latest and Projects. Latest uses Jekyll's generated
   published-post feed; blog titles and excerpts remain English. Project cards contain
   only a title, description, and boxed external-link indicator and open in new tabs.
 - Spencer's former blog About URL redirects to his site About page. Keep the blog's
   ownership, contribution, category, and license information on that translated page.
+
+- On the résumé page, group Open PDF beside the download icon and actual PDF file size.
+  Keep a translated accessible download label even when its visible text is only the size.

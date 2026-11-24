@@ -13,6 +13,7 @@ let container: HTMLDivElement
 let root: Root
 
 beforeEach(async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("Offline in test")))
     localStorage.clear()
     document.cookie = "preferredLanguage=; Path=/; Max-Age=0"
     await i18n.changeLanguage("en")
@@ -24,6 +25,7 @@ beforeEach(async () => {
 afterEach(async () => {
     await act(async () => root.unmount())
     container.remove()
+    vi.unstubAllGlobals()
     delete document.documentElement.dataset.site
     localStorage.clear()
     document.cookie = "preferredLanguage=; Path=/; Max-Age=0"
@@ -45,6 +47,23 @@ const renderPage = async (site: string, path: string) => {
 const languages: SupportedLanguage[] = ["en", "fr", "fa"]
 
 describe("How I Work routing", () => {
+    it.each([
+        { size: "1500000", label: "1.5MB" },
+        { size: null, label: "" },
+    ])("shows download metadata accessibly for size $size", async ({ size, label }) => {
+        vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, headers: { get: () => size } }))
+        await renderPage("spencer", "/en/resume")
+        await vi.waitFor(async () => {
+            await act(async () => {})
+            expect(container.querySelector('.resume-download-actions button[aria-label="Download"]')).not.toBeNull()
+        })
+        const controls = container.querySelector(".resume-download-actions")!
+        expect(controls.querySelector("button")?.textContent).toBe(label)
+        expect(controls.querySelector("a")?.textContent).toBe("Open PDF")
+        expect(controls.querySelector("button")?.disabled).toBe(false)
+        expect(fetch).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ method: "HEAD" }))
+    })
+
     const routes = languages.flatMap((language) =>
         ["spencer", "local"].flatMap((site) =>
             ["", "/"].map((slash) => ({
