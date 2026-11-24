@@ -36,6 +36,11 @@ describe("shared blog chrome", () => {
                 expect(links.some((link) => link.href === new URL(homepageURL).href)).toBe(true)
                 expect(links.some((link) => link.textContent === "About")).toBe(true)
                 expect(links.some((link) => link.href.includes("/sara"))).toBe(false)
+                if (section === "footer") {
+                    const workLink = container.querySelector('.footer-links a[href$="/how-i-work"]')
+                    expect(workLink?.getAttribute("href")).toBe(`${homepageURL}/how-i-work`)
+                    expect(workLink?.previousElementSibling?.getAttribute("href")).toBe(`${homepageURL}/resume`)
+                }
                 if (section === "header") {
                     expect(container.querySelector('button[aria-label="English Only"]')).not.toBeNull()
                     expect(container.querySelector('[aria-haspopup="menu"]')).toBeNull()

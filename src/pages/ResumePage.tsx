@@ -1,9 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faFilePdf } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useRef, useState } from "react"
 import { ArrowUpRight, Download, LoaderCircle } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import { ProfileHeader } from "@/components/ProfileHeader"
 import { ProfileFooter } from "@/components/ProfileFooter"
 import { ProfileDocumentNavigation } from "@/components/ProfileDocumentNavigation"
@@ -128,11 +127,10 @@ export const ResumePage = () => {
                 <main className="about-layout resume-layout">
                     <aside className="resume-sidebar">
                         <ProfileDocumentNavigation current="resume" />
-                        <p>{text("introduction")}</p>
+                        <p>{text("documentLanguage")}</p>
                     </aside>
                     <section className="resume-document" aria-label={text("iframeTitle")}>
                         <div className="resume-document-toolbar">
-                            <p>{text("documentLanguage")}</p>
                             <div className="resume-download-actions">
                                 <a
                                     className="text-link text-sm"
@@ -166,19 +164,22 @@ export const ResumePage = () => {
                         </div>
                         <div className="resume-preview relative">
                             {loading && (
-                                <div
-                                    role="status"
-                                    className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 bg-card px-6 text-center"
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faFilePdf}
-                                        className="size-10 text-primary"
-                                        aria-hidden="true"
-                                    />
-                                    <p className="text-2xl font-semibold">{text("loading")}</p>
-                                    <LoaderCircle className="size-6 animate-spin text-primary" aria-hidden="true" />
+                                <div role="status" className="resume-loading">
+                                    <span className="sr-only">{text("loading")}</span>
+                                    <div className="resume-skeleton" aria-hidden="true">
+                                        <Skeleton className="mb-4 h-8 w-2/5" />
+                                        <Skeleton className="mb-10 h-3 w-3/5" />
+                                        {[0, 1, 2].map((section) => (
+                                            <div className="mb-10" key={section}>
+                                                <Skeleton className="mb-5 h-5 w-1/4" />
+                                                <Skeleton className="mb-3 h-3 w-full" />
+                                                <Skeleton className="mb-3 h-3 w-full" />
+                                                <Skeleton className="h-3 w-4/5" />
+                                            </div>
+                                        ))}
+                                    </div>
                                     {showLoadingHelp && (
-                                        <div>
+                                        <div className="resume-loading-help">
                                             <p className="mb-2 text-sm text-muted-foreground">{text("loadingHelp")}</p>
                                             <a
                                                 className="text-link"

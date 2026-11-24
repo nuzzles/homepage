@@ -48,6 +48,25 @@ const renderPage = async (site: string, path: string) => {
 const languages: SupportedLanguage[] = ["en", "fr", "fa"]
 
 describe("How I Work routing", () => {
+    it.each(languages)("keeps the page visible while the PDF loads in %s", async (language) => {
+        await renderPage("spencer", `/${language}/resume`)
+        expect(container.querySelector(".site-navigation")).not.toBeNull()
+        expect(container.querySelector(".document-nav")).not.toBeNull()
+        expect(container.querySelector(".profile-footer")).not.toBeNull()
+        expect(container.querySelector(".resume-sidebar p")?.textContent).toBe(
+            translations[language].resumePage.documentLanguage
+        )
+        expect(container.querySelector(".resume-document-toolbar p")).toBeNull()
+        const preview = container.querySelector(".resume-preview")!
+        expect(preview.querySelector('[role="status"]')?.textContent).toContain(
+            translations[language].resumePage.loading
+        )
+        expect(preview.querySelector(".resume-skeleton")).not.toBeNull()
+        await act(async () => preview.querySelector("iframe")!.dispatchEvent(new Event("load")))
+        expect(preview.querySelector(".resume-loading")).toBeNull()
+        expect(preview.querySelector("iframe")!.style.opacity).toBe("1")
+    })
+
     it.each([
         { size: "1500000", label: "1.5MB" },
         { size: null, label: "" },
@@ -109,9 +128,12 @@ describe("How I Work routing", () => {
         expect(container.querySelector("h1")?.textContent).toBe(en.howIWorkPage.title)
     })
 
-    it.each(["", "/en", "/fr", "/fa"])("keeps How I Work off Spencer's %s homepage", async (prefix) => {
+    it.each(["", "/en", "/fr", "/fa"])("links How I Work only from Spencer's %s homepage footer", async (prefix) => {
         await renderPage("local", `${prefix}/spencer`)
-        expect(container.querySelector(`a[href="${prefix}/spencer/how-i-work"]`)).toBeNull()
+        const links = container.querySelectorAll(`a[href="${prefix}/spencer/how-i-work"]`)
+        expect(links).toHaveLength(1)
+        expect(links[0].closest(".footer-links")).not.toBeNull()
+        expect(links[0].previousElementSibling?.getAttribute("href")).toBe(`${prefix}/spencer/resume`)
     })
 
     it.each(["", "/en", "/fr", "/fa"])("connects both documents with the %s prefix", async (prefix) => {

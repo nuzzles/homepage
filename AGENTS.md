@@ -56,7 +56,7 @@ and distinguish Spencer's contribution from the team's achievements.
 ## Language and translation rules
 
 - The blog is English only; blog posts do not need translations.
-- The blog language control keeps the English flag and replaces the dropdown caret with an X
+- The blog language control uses the shared globe icon and replaces the dropdown caret with an X
   and an “English Only” tooltip (hover, keyboard focus, or tap). Opinion posts use `tags: [opinion]`,
   which adds the sticky “Opinion” banner and Opinion reading metadata.
   Show topic/tag links below Contents; existing categories also appear in the tag archive.
@@ -95,11 +95,12 @@ and distinguish Spencer's contribution from the team's achievements.
 - Keyboard focus comes from `src/focus.css` and the shared focus tokens: a square 2px outline,
   inset for action-bar cells and menu items. Do not add competing button rings or blog focus styles.
 - Preserve visible keyboard focus, 44px control targets, reduced-motion support,
-  and logical spacing for Persian RTL layouts. Language flags are rectangular and unframed. The language trigger and menu use
-  square corners, flat borders, divided rows, and the social strip’s hover/focus treatment.
-- Résumé and How I Work navigation uses a filled primary button for the current
-  page and an outlined button for the other page. Link to How I Work from the
-  résumé page, not the homepage. How I Work uses the shared Markdown reading layout,
+  and logical spacing for Persian RTL layouts. The language menu uses a globe trigger, a dark open state, a translated heading,
+  and spacious native-language choices with a check for the current language. Keep
+  all three languages visible in the menu, with the shared square keyboard-focus treatment.
+- Résumé and How I Work navigation is one shared segmented control with joined cells,
+  a filled current segment, and React Router links. Link to How I Work below Resume
+  in Spencer’s shared footer and from the résumé page; keep it out of the homepage hero. How I Work uses the shared Markdown reading layout,
   Contents sidebar, and site header/footer, with prose in `src/content/how-i-work/{en,fr,fa}.md`.
 
 - Use readable sentence-case headings and controls; never force uppercase with CSS. Keep the portrait clean: rounded photo, small line-art stars, and a restrained hatch accent.
@@ -130,6 +131,8 @@ and distinguish Spencer's contribution from the team's achievements.
 
 - The résumé page uses the shared header/footer and About-style title banner and two-column
   layout, stacking on mobile. Keep document navigation beside the preview and PDF controls above it.
+  Show the translated PDF language note beneath the segmented navigation. Keep the
+  page shell visible while the PDF loads; show a skeleton only inside the preview.
   Group Open PDF beside the download icon and actual PDF file size.
   Keep a translated accessible download label even when its visible text is only the size.
 

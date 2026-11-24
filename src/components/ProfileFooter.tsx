@@ -11,7 +11,7 @@ import { useProfileNavigation } from "@/hooks/useProfileNavigation"
 export const ProfileFooter = () => {
     const { t } = useLanguage()
     const profile = useProfile()
-    const { home, about, resume, blog, reloadDocument } = useProfileNavigation()
+    const { home, about, resume, howIWork, blog, reloadDocument } = useProfileNavigation()
     return (
         <footer className="profile-footer">
             <div className="footer-identity">
@@ -43,6 +43,11 @@ export const ProfileFooter = () => {
                 {resume && (
                     <Link to={resume} reloadDocument={reloadDocument}>
                         {t("home.resume")}
+                    </Link>
+                )}
+                {howIWork && profile.howIWork && (
+                    <Link to={howIWork} reloadDocument={reloadDocument}>
+                        {t(profile.howIWork.titleKey)}
                     </Link>
                 )}
             </nav>

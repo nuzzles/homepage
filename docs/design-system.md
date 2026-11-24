@@ -59,3 +59,8 @@ scroll highlighting, and translated Markdown. `ContentHeading` adds accessible `
 permalinks and uses `MarkerUnderline`, also used by the homepage introduction. Hugo
 heading and marker partials emit the same classes; `src/typography.css` owns their
 shared appearance. Contents labels omit the decorative permalink character.
+
+The language control takes its compact trigger, dark open state, muted panel heading,
+and generous menu spacing from Anthropic’s navigation. A globe identifies language
+selection; the menu lists all native-language names and checks the current choice.
+Keep square focus outlines and the blog’s English-only tooltip.

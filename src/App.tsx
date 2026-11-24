@@ -1,8 +1,6 @@
-import { Fragment, lazy, Suspense } from "react"
+import { Fragment } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
-import { LoaderCircle } from "lucide-react"
-import { useTranslation } from "react-i18next"
 import { HowIWorkPage } from "@/pages/HowIWorkPage"
 import { AboutPage } from "@/pages/AboutPage"
 import { HomePage } from "@/pages/HomePage"
@@ -16,7 +14,7 @@ import { getProfile, isLocalProfileHostname, isProfileId, PROFILE_IDS } from "@/
 import { getConfiguredSite } from "@/site"
 import type { ProfileId } from "@/profiles"
 
-const ResumePage = lazy(() => import("@/pages/ResumePage").then((module) => ({ default: module.ResumePage })))
+import { ResumePage } from "@/pages/ResumePage"
 
 const ProfileHomeRoute = ({ profileId }: { profileId: ProfileId }) => (
     <ProfileProvider profileId={profileId}>
@@ -25,24 +23,12 @@ const ProfileHomeRoute = ({ profileId }: { profileId: ProfileId }) => (
 )
 
 const ResumeContent = () => {
-    const { t } = useTranslation()
     const profile = useProfile()
     if (!profile.resume) {
         return <ResumeUnavailablePage />
     }
 
-    return (
-        <Suspense
-            fallback={
-                <div role="status" className="loading-status">
-                    <LoaderCircle className="animate-spin" aria-hidden="true" />
-                    {t("resumePage.loading")}
-                </div>
-            }
-        >
-            <ResumePage />
-        </Suspense>
-    )
+    return <ResumePage />
 }
 
 const ResumeRoute = ({ profileId }: { profileId: ProfileId }) => (

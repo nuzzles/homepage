@@ -150,36 +150,54 @@
     grid-template-columns: repeat(var(--action-count), minmax(0, 1fr));
     gap: var(--space-3);
 }
-.flag {
-    width: 24px;
-    height: 16px;
-    flex-shrink: 0;
-}
 .language-trigger,
 .language-menu,
 .language-option {
     border-radius: 0;
+}
+.language-trigger {
+    border: 1px solid var(--color-border);
+    gap: var(--space-2);
+    background: transparent;
     box-shadow: none;
 }
+.language-trigger[data-state="open"] {
+    background: var(--foreground);
+    border-color: var(--foreground);
+    color: var(--background);
+}
+.language-trigger[data-state="open"] .language-chevron {
+    transform: rotate(180deg);
+}
 .language-menu {
-    padding: 0;
+    width: 224px;
+    padding: var(--space-3);
+    background: var(--background);
+    box-shadow: var(--shadow-soft);
+}
+.language-menu-title {
+    min-height: 0;
+    padding: var(--space-2) var(--space-3) var(--space-3);
+    color: var(--muted-foreground);
+    font-size: var(--type-sm);
+    font-weight: 400;
 }
 .language-option {
-    gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: var(--space-3);
+    font-size: var(--type-sm);
+    line-height: var(--leading-body);
 }
-.language-option + .language-option {
-    border-top: 1px solid var(--color-border);
+.language-option[aria-current="true"] {
+    font-weight: 600;
 }
-.language-trigger:is(:hover, :focus-visible, [data-state="open"]),
 .language-option[data-highlighted] {
-    background-color: var(--color-accent);
-    color: var(--color-accent-foreground);
+    background: var(--color-accent);
+    color: var(--foreground);
 }
-.language-trigger:is(:hover, :focus-visible) .language-label,
-.language-option[data-highlighted] .language-label {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+.language-check {
+    margin-inline-start: auto;
 }
 .document-page {
     width: 100%;
@@ -207,10 +225,39 @@
     gap: var(--space-2);
     padding: var(--space-6) var(--page-gutter);
 }
-.document-nav {
+.segmented-control {
+    display: inline-grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: 22rem;
+    border: 1px solid var(--color-border);
+    background: var(--background);
+}
+.segmented-control .segment {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: var(--control-height);
+    padding: var(--space-3);
+    text-align: center;
+    font-size: var(--type-sm);
+    font-weight: 500;
+    line-height: 1.4;
+    --focus-outline-offset: -3px;
+}
+.segmented-control .segment + .segment {
+    border-inline-start: 1px solid var(--color-border);
+}
+.segmented-control .segment[aria-current="page"] {
+    background: var(--foreground);
+    color: var(--background);
+    --focus-ring: var(--background);
+}
+.segmented-control .segment:not([aria-current="page"]):is(:hover, :focus-visible) {
+    background: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 .document-actions {
     display: flex;
@@ -262,12 +309,6 @@
     color: var(--primary);
     font-size: 0.875rem;
     font-weight: 600;
-}
-.loading-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-3);
 }
 
 @media (max-width: 1023px) {
@@ -1256,13 +1297,9 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: var(--space-4);
     padding-bottom: var(--space-5);
-}
-.resume-document-toolbar > p {
-    color: var(--muted-foreground);
-    font-size: var(--type-sm);
 }
 .resume-document-toolbar .resume-download-actions > a {
     display: inline-flex;
@@ -1272,8 +1309,32 @@
 .resume-preview {
     height: clamp(640px, 85dvh, 1100px);
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     background: var(--card);
+}
+.resume-loading {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    padding: clamp(16px, 3vw, 40px);
+    background: var(--card);
+}
+.resume-skeleton {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: clamp(24px, 4vw, 56px);
+    border: 1px solid var(--color-border);
+    background: var(--background);
+}
+.resume-loading-help {
+    position: absolute;
+    inset-inline: var(--space-4);
+    bottom: var(--space-4);
+    padding: var(--space-4);
+    background: var(--background);
+    border: 1px solid var(--color-border);
+    text-align: center;
 }
 @media (max-width: 767px) {
     .resume-sidebar {

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import { getProfileHomePath } from "@/profiles"
@@ -16,13 +15,16 @@ export const ProfileDocumentNavigation = ({ current }: { current: "resume" | "ho
     ] as const
 
     return (
-        <nav aria-label={t("documentNavigation.label")} className="document-nav">
+        <nav aria-label={t("documentNavigation.label")} className="document-nav segmented-control">
             {pages.map(({ id, path, label }) => (
-                <Button key={id} asChild variant={current === id ? "default" : "outline"} size="sm">
-                    <Link to={localizedPath(`${basePath}${path}`)} aria-current={current === id ? "page" : undefined}>
-                        {label}
-                    </Link>
-                </Button>
+                <Link
+                    key={id}
+                    className="segment"
+                    to={localizedPath(`${basePath}${path}`)}
+                    aria-current={current === id ? "page" : undefined}
+                >
+                    {label}
+                </Link>
             ))}
         </nav>
     )

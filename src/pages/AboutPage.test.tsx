@@ -145,7 +145,7 @@ describe("About and portfolio routes", () => {
         expect(
             container.querySelector('#disclaimer a[href="https://github.com/nuzzles/homepage/issues"]')
         ).not.toBeNull()
-        expect(container.querySelector('a[href$="/how-i-work"]')).toBeNull()
+        expect(container.querySelector('.footer-links a[href$="/how-i-work"]')).not.toBeNull()
         expect(document.documentElement.dir).toBe(lang === "fa" ? "rtl" : "ltr")
         expect(window.location.pathname).toBe(path)
     })

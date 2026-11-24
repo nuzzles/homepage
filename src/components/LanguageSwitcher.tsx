@@ -1,14 +1,20 @@
 import { useState } from "react"
-import { ChevronDown, X } from "lucide-react"
+import { Check, ChevronDown, Globe2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu"
 import { useLanguage } from "@/hooks/useLanguage"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 const languages = [
-    { code: "en", label: "English", flag: "/images/flags/en.svg" },
-    { code: "fr", label: "Français", flag: "/images/flags/fr.svg" },
-    { code: "fa", label: "فارسی", flag: "/images/flags/fa.svg" },
+    { code: "en", label: "English" },
+    { code: "fr", label: "Français" },
+    { code: "fa", label: "فارسی" },
 ] as const
 
 export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolean }) => {
@@ -29,7 +35,7 @@ export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolea
                                 setHintOpen((open) => !open)
                             }}
                         >
-                            <img className="flag" width={24} height={16} src={languages[0].flag} alt="" />
+                            <Globe2 aria-hidden="true" />
                             <span className="language-label hidden md:inline">English</span>
                             <X aria-hidden="true" />
                         </Button>
@@ -47,31 +53,35 @@ export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolea
                     className="language-trigger ms-auto shrink-0 rounded-none px-3"
                     aria-label={t("languageSwitcher.label")}
                 >
-                    <img className="flag" width={24} height={16} src={selected.flag} alt="" />
+                    <Globe2 aria-hidden="true" />
                     <span className="language-label hidden md:inline">{selected.label}</span>
-                    <ChevronDown aria-hidden="true" />
+                    <ChevronDown className="language-chevron" aria-hidden="true" />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 align="end"
-                className="language-menu min-w-40 rounded-none p-0 shadow-none"
+                className="language-menu rounded-none"
+                sideOffset={8}
+                collisionPadding={20}
                 aria-label={t("languageSwitcher.label")}
             >
-                {languages
-                    .filter(({ code }) => code !== language)
-                    .map(({ code, label, flag }) => (
-                        <DropdownMenuItem key={code} className="language-option rounded-none" asChild>
-                            <a
-                                href={languageHref(code)}
-                                hrefLang={code}
-                                lang={code}
-                                onClick={() => rememberLanguage(code)}
-                            >
-                                <img className="flag" width={24} height={16} src={flag} alt="" />
-                                <span className="language-label">{label}</span>
-                            </a>
-                        </DropdownMenuItem>
-                    ))}
+                <DropdownMenuLabel className="language-menu-title">{t("languageSwitcher.title")}</DropdownMenuLabel>
+                {languages.map(({ code, label }) => (
+                    <DropdownMenuItem key={code} className="language-option rounded-none" asChild>
+                        <a
+                            href={languageHref(code)}
+                            hrefLang={code}
+                            lang={code}
+                            aria-current={code === language ? "true" : undefined}
+                            onClick={() => rememberLanguage(code)}
+                        >
+                            <span className="language-label" dir={code === "fa" ? "rtl" : "ltr"}>
+                                {label}
+                            </span>
+                            {code === language && <Check className="language-check" aria-hidden="true" />}
+                        </a>
+                    </DropdownMenuItem>
+                ))}
             </DropdownMenuContent>
         </DropdownMenu>
     )

@@ -69,11 +69,11 @@
         "unavailable": "No résumé available",
         "comingSoon": "Coming soon.",
         "downloading": "Downloading…",
-        "introduction": "Experience, education, and selected work. View the resume below or save a copy.",
         "documentLanguage": "PDF · English only"
     },
     "languageSwitcher": {
-        "label": "Site language:"
+        "label": "Site language:",
+        "title": "Language"
     },
     "profileSwitcher": {
         "label": "Choose profile"

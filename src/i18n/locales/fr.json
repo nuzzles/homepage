@@ -69,11 +69,11 @@
         "unavailable": "Curriculum vitæ indisponible",
         "comingSoon": "Bientôt disponible.",
         "downloading": "Téléchargement…",
-        "introduction": "Expérience, formation et réalisations. Consultez le curriculum vitæ ci-dessous ou enregistrez une copie.",
         "documentLanguage": "PDF · En anglais uniquement"
     },
     "languageSwitcher": {
-        "label": "Langue du site :"
+        "label": "Langue du site :",
+        "title": "Langue"
     },
     "profileSwitcher": {
         "label": "Choisir un profil"

@@ -110,6 +110,7 @@ describe("Hugo migration", () => {
                 "Blog",
                 "About",
                 "Resume",
+                "How I work",
             ])
             expect(doc.querySelector("footer .social-strip").textContent).toContain("GitHub")
             expect(doc.querySelector('footer [aria-label="coffee"]')).not.toBeNull()
