@@ -46,7 +46,7 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
                 <Button asChild>
                     <a href={`mailto:${email}`}>
                         <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
-                        {t("home.composeEmail")}
+                        <span>{t("home.composeEmail")}</span>
                         <ArrowUpRight aria-hidden="true" />
                     </a>
                 </Button>
@@ -56,7 +56,7 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
                     aria-label={t(copyState === "copied" ? "home.copied" : "home.copyEmail")}
                 >
                     {copyState === "copied" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-                    {t(copyState === "copied" ? "home.copied" : "home.copyEmail")}
+                    <span>{t(copyState === "copied" ? "home.copied" : "home.copyEmail")}</span>
                 </Button>
             </div>
             <span role="status" className={copyState === "failed" ? "mt-2 block text-xs text-destructive" : "sr-only"}>

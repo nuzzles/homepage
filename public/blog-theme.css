@@ -3,7 +3,7 @@
 }
 
 html {
-    min-width: 320px;
+    min-width: 0;
     color: var(--foreground);
     background: var(--background);
 }

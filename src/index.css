@@ -46,7 +46,7 @@
     }
     body {
         margin: 0;
-        min-width: 320px;
+        min-width: 0;
     }
     button,
     a {
@@ -648,6 +648,13 @@
 }
 .email-dialog-actions > * {
     flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+}
+.email-dialog-actions > * > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 .email-dialog-close {
     position: absolute;
@@ -1124,22 +1131,27 @@
     }
 }
 @media (max-width: 399px) {
-    .site-navigation {
-        column-gap: var(--space-2);
+    .email-dialog {
+        padding: var(--space-5);
     }
-    .profile-brand {
-        flex: 0 0 auto;
+    .site-navigation {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-2) var(--space-4);
+    }
+    .site-navigation .profile-brand {
+        grid-column: 1 / -1;
+        justify-self: start;
     }
     .site-navigation > button {
-        padding-inline: var(--space-1);
         margin-inline-start: 0;
+        justify-self: end;
     }
     .site-nav-links {
-        justify-content: flex-start;
-        gap: var(--space-3);
-    }
-    .site-nav-links a {
-        font-size: var(--type-sm);
+        min-width: 0;
+        flex-wrap: wrap;
+        margin-inline-start: 0;
+        gap: var(--space-1) var(--space-4);
     }
 }
 

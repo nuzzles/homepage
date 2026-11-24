@@ -120,6 +120,9 @@ and distinguish Spencer's contribution from the team's achievements.
 
 - The homepage introduces the profile with a personal greeting and always shows the full
   biography. Do not add a profile dropdown or biography expansion control.
+- Below 400px, the shared header puts the profile name on the first row and navigation
+  plus language controls on the second. Preserve full-size links and touch targets; allow
+  content to reflow below 320px instead of imposing a minimum page width.
 - The profile header links are Blog, then About. The profile name links home;
   do not add separate Home or Projects links to the header.
 - Spencer's homepage sections are Latest and Projects. Latest uses Hugo's generated
