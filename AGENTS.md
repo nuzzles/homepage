@@ -59,6 +59,8 @@ and distinguish Spencer's contribution from the team's achievements.
 - The blog language control uses the shared globe icon and replaces the dropdown caret with an X
   and an “English Only” tooltip (hover, keyboard focus, or tap). Opinion posts use `tags: [opinion]`,
   which adds the sticky “Opinion” banner and Opinion reading metadata.
+  The banner uses the amber-orange opinion token with black stripes in separate skewed panels;
+  keep generous clear space around the label and end adjacent stripes on full diagonal edges.
   Show topic/tag links below Contents; existing categories also appear in the tag archive.
 - The résumé document itself is an English-only PDF. Do not translate the PDF.
 - Everything else must be translated into every supported site language: English,

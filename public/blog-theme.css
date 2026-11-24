@@ -315,10 +315,32 @@ table td {
 .post-meta time { color: var(--foreground); }
 .post-meta-item { display: inline-flex; align-items: baseline; gap: 16px; white-space: nowrap; }
 .meta-separator { color: var(--link-color); }
-.opinion-notice { position: sticky; top: 0; z-index: 20; display: flex; margin: -1px calc(-1 * var(--page-gutter)) 48px; color: var(--foreground); background: var(--opinion-surface); }
-.opinion-notice::before, .opinion-notice::after { content: ""; flex: 1 1 0; min-width: 0; background: repeating-linear-gradient(-45deg, var(--foreground) 0 24px, var(--opinion-surface) 24px 48px); }
+.opinion-notice {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    overflow: hidden;
+    margin: -1px calc(-1 * var(--page-gutter)) 48px;
+    color: var(--foreground);
+    background: var(--opinion-surface);
+}
+/* Skew whole stripe panels so their inner edges end diagonally, never mid-stripe. */
+.opinion-notice::before,
+.opinion-notice::after {
+    content: "";
+    flex: 1 1 0;
+    min-width: 0;
+    transform: skewX(-45deg);
+}
+.opinion-notice::before {
+    background: repeating-linear-gradient(to left, var(--foreground) 0 32px, var(--opinion-surface) 32px 64px);
+}
+.opinion-notice::after {
+    background: repeating-linear-gradient(to right, var(--foreground) 0 32px, var(--opinion-surface) 32px 64px);
+}
 .reading-post:has(.opinion-notice) { --reading-top: 76px; }
-.opinion-notice span { flex: 0 0 auto; padding: var(--space-2) var(--space-8); font-size: 1rem; font-weight: 700; }
+.opinion-notice span { position: relative; flex: 0 0 auto; padding: var(--space-2) var(--space-12); font-size: 1rem; font-weight: 700; }
 .post-header:has(+ .opinion-notice) { margin-bottom: 0; border-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
