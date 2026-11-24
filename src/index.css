@@ -821,7 +821,7 @@
 .about-contents nav {
     position: sticky;
     top: 32px;
-    border-top: 2px solid var(--primary);
+    border-top: 2px solid var(--foreground);
     padding-top: 16px;
 }
 .contents-heading {

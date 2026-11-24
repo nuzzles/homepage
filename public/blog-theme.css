@@ -178,7 +178,6 @@ body {
 
 .post-header {
     margin-bottom: clamp(28px, 5vw, 48px);
-    padding-bottom: 20px;
     border-bottom: 1px solid var(--blog-line);
 }
 
@@ -394,7 +393,7 @@ table td {
 .opinion-notice { position: sticky; top: 0; z-index: 20; display: flex; justify-content: center; margin: -1px calc(-1 * max(20px, 3.6vw)) 48px; color: var(--blog-ink); background: repeating-linear-gradient(-45deg, var(--blog-ink) 0 24px, #f3c453 24px 48px); }
 .reading-post:has(.opinion-notice) { --reading-top: 76px; }
 .opinion-notice span { padding: 8px 40px; background: #f3c453; clip-path: polygon(24px 0, 100% 0, calc(100% - 24px) 100%, 0 100%); font-size: 1rem; font-weight: 700; }
-.post-header:has(+ .opinion-notice) { margin-bottom: 0; padding-bottom: 48px; border-bottom: 0; }
+.post-header:has(+ .opinion-notice) { margin-bottom: 0; border-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -406,7 +405,7 @@ table td {
     margin-inline: calc(-1 * max(20px, 3.6vw));
     margin-top: calc(-1 * var(--blog-top-padding));
     padding-inline: max(20px, 3.6vw);
-    padding-top: var(--page-banner-padding);
+    padding-block: var(--page-banner-padding);
 }
 .blog-banner h1 { margin: 0; }
 .archive-year { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 5fr); gap: 32px; padding-top: 64px; }
@@ -428,7 +427,7 @@ table td {
 .reading-layout .post-content > :first-child { margin-top: 0; }
 .reading-layout .post-content :is(h2,h3) { scroll-margin-top: var(--reading-top, 32px); }
 .reading-sidebar-inner { position: sticky; top: var(--reading-top, 32px); max-height: calc(100dvh - var(--reading-top, 32px) - 32px); overflow-y: auto; }
-.reading-contents nav { border-top: 2px solid var(--blog-blue); padding-top: 16px; }
+.reading-contents nav { border-top: 2px solid var(--blog-ink); padding-top: 16px; }
 .reading-contents .post-tags { margin-top: 24px; }
 .post-tags p { font-size: .8rem; font-weight: 700; }
 .post-tags ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
