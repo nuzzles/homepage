@@ -146,24 +146,6 @@
     height: 100%;
     object-fit: contain;
 }
-.portrait {
-    width: 100%;
-    max-width: 340px;
-    justify-self: end;
-}
-.portrait img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 16px;
-    border: 1px solid var(--color-border);
-}
-.portrait figcaption {
-    margin-top: 12px;
-    color: var(--color-muted-foreground);
-    font-size: 0.875rem;
-    text-align: center;
-}
 .action-section {
     border-top: 1px solid var(--color-border);
     padding-top: 24px;
@@ -308,10 +290,6 @@
     .profile-hero {
         grid-template-columns: 1fr;
         gap: 28px;
-    }
-    .portrait {
-        justify-self: center;
-        max-width: 280px;
     }
     .profile-actions {
         grid-template-columns: 1fr;
@@ -566,91 +544,55 @@
     font-weight: 700;
     min-height: 44px;
 }
-.playful-portrait {
+.profile-portrait {
     position: relative;
-    max-width: 340px;
-    margin-inline-end: 14px;
+    width: min(100%, 320px);
+    margin-block: 16px;
+    margin-inline: 0 20px;
+    justify-self: center;
     isolation: isolate;
 }
-.portrait-shadow {
-    position: absolute;
-    inset: 12px -12px -12px 12px;
-    background: var(--primary);
-    z-index: -1;
-}
 .portrait-photo {
-    position: relative;
-    border: 1px solid var(--foreground);
-    background: var(--card);
-    padding: 7px;
-    transform: rotate(2deg);
-    transition: transform 250ms ease;
+    overflow: hidden;
+    border-radius: 32px;
+    background: var(--muted);
+    box-shadow: 0 8px 24px rgb(23 24 19 / 8%);
 }
-.portrait-photo::before,
-.portrait-photo::after {
-    content: "";
+.portrait-photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+.portrait-hatching {
     position: absolute;
-    width: 23px;
-    height: 23px;
-    border-color: var(--foreground);
-    z-index: 1;
-}
-.portrait-photo::before {
-    top: -8px;
-    inset-inline-start: -8px;
-    border-top: 3px solid;
-    border-inline-start: 3px solid;
-}
-.portrait-photo::after {
-    bottom: -8px;
-    inset-inline-end: -8px;
-    border-bottom: 3px solid;
-    border-inline-end: 3px solid;
-}
-.playful-portrait img {
-    border: 0;
-    border-radius: 0;
-}
-.playful-portrait:hover .portrait-photo {
-    transform: rotate(0deg) translateY(-3px);
-}
-.playful-portrait figcaption {
-    position: absolute;
-    bottom: -22px;
-    inset-inline: auto -18px;
-    color: var(--foreground);
-    background: #f0b951;
-    border: 1px solid var(--foreground);
-    padding: 7px 16px;
-    font-family: "Barlow", Tahoma, sans-serif;
-    font-weight: 800;
-    font-size: 1.5rem;
-    text-transform: none;
-    transform: rotate(-5deg);
+    width: 100px;
+    height: 96px;
+    bottom: -16px;
+    inset-inline-start: -16px;
+    z-index: -1;
+    border-radius: 20px;
+    background: repeating-linear-gradient(-45deg, #e9bc59 0 3px, transparent 3px 10px);
 }
 .portrait-spark {
     position: absolute;
-    top: -35px;
-    inset-inline-end: -25px;
-    width: 64px;
-    height: 64px;
-    fill: #f0b951;
-    stroke: var(--foreground);
-    stroke-width: 2;
-    transform: rotate(10deg);
-}
-.portrait-scribble {
-    position: absolute;
-    bottom: -45px;
-    inset-inline-start: -25px;
-    width: 140px;
-    height: 60px;
-    fill: none;
+    top: -22px;
+    inset-inline-end: -20px;
+    width: 44px;
+    height: 44px;
+    fill: var(--card);
     stroke: var(--primary);
-    stroke-width: 3;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
     stroke-linecap: round;
-    stroke-dasharray: 400;
-    stroke-dashoffset: 0;
+    pointer-events: none;
+}
+.portrait-spark-small {
+    top: 34px;
+    inset-inline-end: -32px;
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.75;
 }
 .social-strip {
     display: flex;
@@ -886,14 +828,28 @@
     .hero-copy {
         animation: hero-arrive 550ms ease-out both;
     }
-    .playful-portrait {
-        animation: hero-arrive 700ms 120ms ease-out both;
+    .profile-portrait {
+        animation: hero-arrive 600ms 80ms ease-out both;
+    }
+    .portrait-photo {
+        transition:
+            transform 240ms ease-out,
+            box-shadow 240ms ease-out;
     }
     .portrait-spark {
-        animation: spark-arrive 900ms 400ms ease-out both;
+        transition: transform 320ms ease-out;
     }
-    .portrait-scribble {
-        animation: draw-scribble 1000ms 650ms ease-out both;
+    @media (hover: hover) {
+        .profile-portrait:hover .portrait-photo {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgb(23 24 19 / 10%);
+        }
+        .profile-portrait:hover .portrait-spark {
+            transform: rotate(10deg) translateY(-2px);
+        }
+        .profile-portrait:hover .portrait-spark-small {
+            transform: rotate(-12deg);
+        }
     }
     @keyframes hero-arrive {
         from {
@@ -903,24 +859,6 @@
         to {
             opacity: 1;
             translate: 0 0;
-        }
-    }
-    @keyframes spark-arrive {
-        from {
-            opacity: 0;
-            transform: rotate(-45deg) scale(0.5);
-        }
-        to {
-            opacity: 1;
-            transform: rotate(10deg) scale(1);
-        }
-    }
-    @keyframes draw-scribble {
-        from {
-            stroke-dashoffset: 400;
-        }
-        to {
-            stroke-dashoffset: 0;
         }
     }
 }
@@ -969,11 +907,9 @@
         padding-block: 40px 56px;
         gap: 48px;
     }
-    .playful-portrait {
-        justify-self: center;
-        max-width: 300px;
-        width: calc(100% - 48px);
-        margin-bottom: 16px;
+    .profile-portrait {
+        width: min(280px, calc(100% - 64px));
+        margin: 12px 0 16px;
     }
     .section-heading {
         display: block;

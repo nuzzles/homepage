@@ -98,8 +98,8 @@ and distinguish Spencer's contribution from the team's achievements.
   page and an outlined button for the other page. Link to How I Work from the
   résumé page, not the homepage. Keep its article scrollable with Go back outside.
 
-- Use readable sentence-case headings and controls; never force uppercase with CSS. Preserve the playful
-  portrait corner marks, offset blue frame, name sticker, and decorative motion.
+- Use readable sentence-case headings and controls; never force uppercase with CSS. Keep the portrait clean: rounded photo, small line-art stars, and a restrained hatch accent.
+  Avoid tilted frames, oversized stickers, corner brackets, and looping decoration.
   Motion must be brief and respect reduced-motion preferences.
 - Spencer's About page and projects live in profile configuration. Project
   descriptions use all three locale files; About prose lives in translated Markdown under `src/content/about/`. Use verified project facts;
