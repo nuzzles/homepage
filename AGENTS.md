@@ -95,7 +95,8 @@ and distinguish Spencer's contribution from the team's achievements.
 - Keyboard focus comes from `src/focus.css` and the shared focus tokens: a square 2px outline,
   inset for action-bar cells and menu items. Do not add competing button rings or blog focus styles.
 - Preserve visible keyboard focus, 44px control targets, reduced-motion support,
-  and logical spacing for Persian RTL layouts. Language flag outlines stay black.
+  and logical spacing for Persian RTL layouts. Language flags are rectangular and unframed. The language trigger and menu use
+  square corners, flat borders, divided rows, and the social strip’s hover/focus treatment.
 - Résumé and How I Work navigation uses a filled primary button for the current
   page and an outlined button for the other page. Link to How I Work from the
   résumé page, not the homepage. How I Work uses the shared Markdown reading layout,

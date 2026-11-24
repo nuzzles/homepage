@@ -117,7 +117,7 @@
             "description": "An N-body simulation built with Rust, WebAssembly, and WebGPU."
         },
         "haloMagick": {
-            "description": "Broadcasting and analysis tools for Halo esports, currently in development."
+            "description": "Procedural computer graphics and artificial intelligence tooling for Halo eSports broadcasting"
         },
         "nvtx": {
             "description": "Safe Rust bindings for the NVIDIA Tools Extension SDK (NVTX)."

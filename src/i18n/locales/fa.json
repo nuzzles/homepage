@@ -117,7 +117,7 @@
             "description": "شبیه‌سازی N جسم با Rust، WebAssembly و WebGPU."
         },
         "haloMagick": {
-            "description": "ابزارهای پخش و تحلیل برای ورزش‌های الکترونیکی Halo، در حال توسعه."
+            "description": "ابزارهای گرافیک رایانه‌ای رویه‌ای و هوش مصنوعی برای پخش ورزش‌های الکترونیکی Halo"
         },
         "nvtx": {
             "description": "رابط‌های ایمن Rust برای کیت توسعهٔ NVIDIA Tools Extension ‏(NVTX)."

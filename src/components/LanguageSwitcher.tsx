@@ -22,15 +22,15 @@ export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolea
                     <TooltipTrigger asChild>
                         <Button
                             variant="ghost"
-                            className="ms-auto shrink-0 px-3"
+                            className="language-trigger ms-auto shrink-0 rounded-none px-3"
                             aria-label="English Only"
                             onClick={(event) => {
                                 event.preventDefault()
                                 setHintOpen((open) => !open)
                             }}
                         >
-                            <img className="flag" src={languages[0].flag} alt="" />
-                            <span className="hidden md:inline">English</span>
+                            <img className="flag" width={24} height={16} src={languages[0].flag} alt="" />
+                            <span className="language-label hidden md:inline">English</span>
                             <X aria-hidden="true" />
                         </Button>
                     </TooltipTrigger>
@@ -42,25 +42,33 @@ export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolea
     return (
         <DropdownMenu dir={language === "fa" ? "rtl" : "ltr"}>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="ms-auto shrink-0 px-3" aria-label={t("languageSwitcher.label")}>
-                    <img className="flag" src={selected.flag} alt="" />
-                    <span className="hidden md:inline">{selected.label}</span>
+                <Button
+                    variant="ghost"
+                    className="language-trigger ms-auto shrink-0 rounded-none px-3"
+                    aria-label={t("languageSwitcher.label")}
+                >
+                    <img className="flag" width={24} height={16} src={selected.flag} alt="" />
+                    <span className="language-label hidden md:inline">{selected.label}</span>
                     <ChevronDown aria-hidden="true" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-40" aria-label={t("languageSwitcher.label")}>
+            <DropdownMenuContent
+                align="end"
+                className="language-menu min-w-40 rounded-none p-0 shadow-none"
+                aria-label={t("languageSwitcher.label")}
+            >
                 {languages
                     .filter(({ code }) => code !== language)
                     .map(({ code, label, flag }) => (
-                        <DropdownMenuItem key={code} asChild>
+                        <DropdownMenuItem key={code} className="language-option rounded-none" asChild>
                             <a
                                 href={languageHref(code)}
                                 hrefLang={code}
                                 lang={code}
                                 onClick={() => rememberLanguage(code)}
                             >
-                                <img className="flag" src={flag} alt="" />
-                                {label}
+                                <img className="flag" width={24} height={16} src={flag} alt="" />
+                                <span className="language-label">{label}</span>
                             </a>
                         </DropdownMenuItem>
                     ))}
