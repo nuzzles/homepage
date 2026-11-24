@@ -10,7 +10,7 @@
 
 من [bevy_vello](https://github.com/linebender/bevy_vello) را نوشته‌ام و نگهداری می‌کنم؛ ابزاری که رندر برداری شتاب‌یافته با GPU در Vello را با Bevy ادغام می‌کند. همراه با دیگر مشارکت‌کنندگان Linebender، [vello_svg](https://github.com/linebender/vello_svg) و [velato](https://github.com/linebender/velato) را نیز برای رندر SVG و انیمیشن Lottie نگهداری می‌کنم.
 
-من یکی از نگهدارندگان اصلی [Trunk](https://trunkrs.dev) هستم، در پشتیبانی WebAssembly در [Bevy](https://bevy.org) مشارکت دارم و به‌عنوان عضو [تیم تریاژ Rust](https://rust-lang.org/governance/people/nuzzles/) به دسته‌بندی مسائل کامپایلر و کتابخانهٔ استاندارد کمک می‌کنم.
+من یکی از نگهدارندگان اصلی [Trunk](https://github.com/trunk-rs/trunk) هستم، در پشتیبانی WebAssembly در [Bevy](https://bevy.org) مشارکت دارم و به‌عنوان عضو [تیم تریاژ Rust](https://rust-lang.org/governance/people/nuzzles/) به دسته‌بندی مسائل کامپایلر و کتابخانهٔ استاندارد کمک می‌کنم.
 
 ::projects
 

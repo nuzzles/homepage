@@ -112,6 +112,15 @@
         },
         "halo": {
             "description": "کتابخانه‌ای به زبان Rust برای APIهای Halo Infinite و تجزیهٔ آفلاین فایل‌های فیلم Theater."
+        },
+        "nbody": {
+            "description": "شبیه‌سازی N جسم با Rust، WebAssembly و WebGPU."
+        },
+        "haloMagick": {
+            "description": "ابزارهای پخش و تحلیل برای ورزش‌های الکترونیکی Halo، در حال توسعه."
+        },
+        "nvtx": {
+            "description": "رابط‌های ایمن Rust برای کیت توسعهٔ NVIDIA Tools Extension ‏(NVTX)."
         }
     },
     "aboutPage": {

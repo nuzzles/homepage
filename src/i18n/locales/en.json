@@ -112,6 +112,15 @@
         },
         "halo": {
             "description": "A Rust library for Halo Infinite APIs and offline parsing of Theater film files."
+        },
+        "nbody": {
+            "description": "An N-body simulation built with Rust, WebAssembly, and WebGPU."
+        },
+        "haloMagick": {
+            "description": "Broadcasting and analysis tools for Halo esports, currently in development."
+        },
+        "nvtx": {
+            "description": "Safe Rust bindings for the NVIDIA Tools Extension SDK (NVTX)."
         }
     },
     "aboutPage": {

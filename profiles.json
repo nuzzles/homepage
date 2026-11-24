@@ -69,7 +69,7 @@
             {
                 "id": "trunk",
                 "name": "Trunk",
-                "href": "https://trunkrs.dev",
+                "href": "https://github.com/trunk-rs/trunk",
                 "descriptionKey": "projects.trunk.description"
             },
             {
@@ -77,6 +77,24 @@
                 "name": "halo_api",
                 "href": "https://github.com/nuzzles/halo_api",
                 "descriptionKey": "projects.halo.description"
+            },
+            {
+                "id": "nbody",
+                "name": "nbody-wasm-sim",
+                "href": "https://github.com/nuzzles/nbody-wasm-sim",
+                "descriptionKey": "projects.nbody.description"
+            },
+            {
+                "id": "haloMagick",
+                "name": "Halo Magick",
+                "href": "https://halomagick.com",
+                "descriptionKey": "projects.haloMagick.description"
+            },
+            {
+                "id": "nvtx",
+                "name": "nvtx",
+                "href": "https://github.com/nuzzles/nvtx",
+                "descriptionKey": "projects.nvtx.description"
             }
         ]
     },

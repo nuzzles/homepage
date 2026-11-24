@@ -10,7 +10,7 @@ Some of my work becomes a product; some starts with a question about how a syste
 
 I authored and maintain [bevy_vello](https://github.com/linebender/bevy_vello), the integration of Vello’s GPU-accelerated vector renderer with Bevy. Alongside other Linebender contributors, I also maintain [vello_svg](https://github.com/linebender/vello_svg) and [velato](https://github.com/linebender/velato), working on SVG rendering and Lottie animation.
 
-I’m a core maintainer of [Trunk](https://trunkrs.dev), contribute WebAssembly support to [Bevy](https://bevy.org), and help triage compiler and standard-library issues as a member of the [Rust triage team](https://rust-lang.org/governance/people/nuzzles/).
+I’m a core maintainer of [Trunk](https://github.com/trunk-rs/trunk), contribute WebAssembly support to [Bevy](https://bevy.org), and help triage compiler and standard-library issues as a member of the [Rust triage team](https://rust-lang.org/governance/people/nuzzles/).
 
 ::projects
 

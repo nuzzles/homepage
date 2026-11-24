@@ -10,7 +10,7 @@ Certains de mes travaux deviennent des produits ; d’autres commencent par une 
 
 J’ai créé et je maintiens [bevy_vello](https://github.com/linebender/bevy_vello), l’intégration du moteur de rendu vectoriel accéléré par GPU Vello dans Bevy. Avec d’autres contributeurs de Linebender, je maintiens également [vello_svg](https://github.com/linebender/vello_svg) et [velato](https://github.com/linebender/velato), pour le rendu SVG et les animations Lottie.
 
-Je suis mainteneur principal de [Trunk](https://trunkrs.dev), je contribue à la prise en charge de WebAssembly dans [Bevy](https://bevy.org) et j’aide à trier les problèmes du compilateur et de la bibliothèque standard au sein de l’[équipe de triage de Rust](https://rust-lang.org/governance/people/nuzzles/).
+Je suis mainteneur principal de [Trunk](https://github.com/trunk-rs/trunk), je contribue à la prise en charge de WebAssembly dans [Bevy](https://bevy.org) et j’aide à trier les problèmes du compilateur et de la bibliothèque standard au sein de l’[équipe de triage de Rust](https://rust-lang.org/governance/people/nuzzles/).
 
 ::projects
 

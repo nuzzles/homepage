@@ -86,7 +86,7 @@ describe("profile controls", () => {
     })
     it("opens every project in a new tab with an external-link marker", () => {
         const cards = [...container.querySelectorAll(".project-card")]
-        expect(cards).toHaveLength(4)
+        expect(cards).toHaveLength(getProfile("spencer").projects!.length)
         for (const card of cards) {
             expect(card.getAttribute("target")).toBe("_blank")
             expect(card.getAttribute("rel")).toContain("noopener")

@@ -112,6 +112,15 @@
         },
         "halo": {
             "description": "Une bibliothèque Rust pour les API de Halo Infinite et l’analyse hors ligne des fichiers de films du mode Cinéma."
+        },
+        "nbody": {
+            "description": "Une simulation à N corps développée avec Rust, WebAssembly et WebGPU."
+        },
+        "haloMagick": {
+            "description": "Des outils de diffusion et d’analyse pour l’esport Halo, en cours de développement."
+        },
+        "nvtx": {
+            "description": "Des liaisons Rust sûres pour le SDK NVIDIA Tools Extension (NVTX)."
         }
     },
     "aboutPage": {
