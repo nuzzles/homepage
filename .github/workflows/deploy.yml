@@ -55,6 +55,15 @@ jobs:
           terraform init -input=false -lockfile=readonly \
             -reconfigure \
             -backend-config="backend-configs/${{ inputs.environment }}.hcl"
+          # Existing environments must detach Sara's retired blog function before
+          # deleting it. Distribution updates wait for CloudFront propagation.
+          # Keep this restartable if a prior deployment stopped between passes.
+          resources=$(terraform show -json | jq -r '.values.root_module.resources[]?.address')
+          if grep -Fxq 'aws_cloudfront_function.blog_router["sara"]' <<< "$resources"; then
+            terraform apply -input=false -auto-approve \
+              -var-file="environments/${{ inputs.environment }}.tfvars" \
+              -var='retain_legacy_sara_blog_router=true'
+          fi
           terraform apply -input=false -auto-approve \
             -var-file="environments/${{ inputs.environment }}.tfvars"
           targets=$(terraform output -json deployment_targets | jq -c '[to_entries[] | {site: .key} + .value]')

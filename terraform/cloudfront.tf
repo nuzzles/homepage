@@ -5,11 +5,15 @@ locals {
   blog_sites = {
     for site, config in local.profile_sites : site => config if config.blog_base_path != null
   }
-  spa_route_patterns = ["/resume*", "/en*", "/fr*", "/fa*", "/how-i-work*", "/about*"]
+  # Retain only the function during the detach pass, never Sara's blog behaviors.
+  blog_router_sites = merge(local.blog_sites, var.retain_legacy_sara_blog_router ? {
+    sara = merge(local.profile_sites.sara, { blog_base_path = "/blog" })
+  } : {})
+  spa_route_patterns = ["/resume*", "/en*", "/fr*", "/fa*", "/how-i-work*", "/about*", "/books*", "/reading-list*"]
 }
 
 resource "aws_cloudfront_function" "blog_router" {
-  for_each = local.blog_sites
+  for_each = local.blog_router_sites
 
   name    = "homepage-${var.environment}-${each.key}-blog-router"
   runtime = "cloudfront-js-1.0"

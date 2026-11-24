@@ -26,6 +26,12 @@ describe("CloudFront request routing", () => {
         .replace("${blog_base_path}", JSON.stringify("/blog"))
         .replace("${about_redirect}", JSON.stringify("/about"))
     const spaRouter = loadFunction("spa-router.js")
+    const cloudfrontConfig = readFileSync(resolve("terraform/cloudfront.tf"), "utf8")
+    const spaPatterns = Array.from(
+        cloudfrontConfig.match(/spa_route_patterns\s*=\s*\[([^\]]+)\]/)![1].matchAll(/"([^"]+)"/g),
+        (match) => match[1]
+    )
+    const hasSpaBehavior = (uri: string) => spaPatterns.some((pattern) => uri.startsWith(pattern.replace(/\*$/, "")))
 
     it.each(["/blog/about", "/blog/about/", "/blog/about/index.html", "/blog/about.html"])(
         "redirects Spencer's old About URL %s",
@@ -67,11 +73,14 @@ describe("CloudFront request routing", () => {
         "/how-i-work/",
         ...["en", "fr", "fa"].flatMap((lang) => [`/${lang}/how-i-work`, `/${lang}/how-i-work/`]),
     ])("resolves the SPA route %s", (uri) => {
+        // Test the CloudFront dispatch as well as the function in isolation.
+        expect(hasSpaBehavior(uri)).toBe(true)
         expect(runFunction(spaRouter, uri)).toMatchObject({ uri: "/index.html" })
     })
 
     it.each(["", "/en", "/fr", "/fa"])("redirects the old %s reading route to books", (prefix) => {
         for (const suffix of ["", "/"]) {
+            expect(hasSpaBehavior(`${prefix}/reading-list${suffix}`)).toBe(true)
             expect(runFunction(spaRouter, `${prefix}/reading-list${suffix}`)).toMatchObject({
                 statusCode: 308,
                 headers: { location: { value: `${prefix}/books` } },

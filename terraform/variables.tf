@@ -1,3 +1,9 @@
+variable "retain_legacy_sara_blog_router" {
+  type        = bool
+  default     = false
+  description = "Migration only: retain Sara's old function while CloudFront deploys its removal; apply again with false to delete it."
+}
+
 variable "aws_region" {
   type        = string
   description = "AWS region for the S3 origin and CloudFront certificate."
