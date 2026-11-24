@@ -105,6 +105,8 @@ describe("profile controls", () => {
         expect(fetch).toHaveBeenCalledWith("/blog/latest.json", expect.any(Object))
         expect(container.querySelector(".latest-list")?.textContent).toContain("Published post")
         expect(container.querySelector(".latest-list")?.textContent).not.toContain("Unsafe URL")
-        expect(container.querySelector(".latest-list a")?.getAttribute("target")).toBe("_blank")
+        for (const link of container.querySelectorAll(".latest-section a")) {
+            expect(link.getAttribute("target")).toBeNull()
+        }
     })
 })
