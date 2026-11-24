@@ -57,7 +57,7 @@ describe("About and portfolio routes", () => {
             frames.push(callback)
             return frames.length
         })
-        const ids = ["status", "projects", "contact", "identity", "disclaimer"]
+        const ids = ["status", "projects", "contact", "identity", "disclaimer", "credit"]
         let offset = 0
         vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
             return { top: ids.indexOf(this.id) * 400 - offset } as DOMRect
@@ -113,7 +113,7 @@ describe("About and portfolio routes", () => {
         expect(
             [...container.querySelectorAll("article h2 .heading-title")].map((heading) => heading.textContent)
         ).toEqual(
-            (["status", "projects", "contact", "identity", "disclaimer"] as const).map(
+            (["status", "projects", "contact", "identity", "disclaimer", "credit"] as const).map(
                 (key) => copy.aboutPage[key].title
             )
         )
@@ -135,7 +135,13 @@ describe("About and portfolio routes", () => {
         ).toContain("GitHub")
         expect(container.querySelector('a[aria-current="page"]')?.textContent).toBe(copy.navigation.about)
         expect(container.querySelector(`a[href="/${lang}/spencer/resume"]`)).not.toBeNull()
-        expect(container.querySelector('.identity-table a[href="https://calendly.com/simbleau/meet"]')).not.toBeNull()
+        expect(
+            container.querySelector('.identity-table a[href="https://calendly.com/simbleau/meet"]')?.textContent
+        ).toBe("simbleau")
+        for (const link of container.querySelectorAll(".identity-table a")) {
+            expect(link.querySelector(".external-link-icon")).not.toBeNull()
+        }
+        expect(container.querySelector(".identity-email-trigger svg")).toBeNull()
         expect(container.querySelector("#contact .action-strip")).toBeNull()
         expect(container.querySelector(".identity-email-trigger")?.textContent).toBe(
             copy.aboutPage.identity.revealEmail

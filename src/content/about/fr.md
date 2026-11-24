@@ -34,4 +34,8 @@ Le code source de ce blog est [sur GitHub](https://github.com/nuzzles/homepage).
 
 Les textes de ce blog sont sous licence [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Vous pouvez les citer et les adapter librement, à condition d’en mentionner l’auteur. Tous les extraits de code, y compris les démonstrations interactives, sont sous licence [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-Les illustrations de la mascotte Clawd sont réalisées par [Icons8](https://icons8.com/icons/set/anthropic-claude).
+## Crédits {#credit}
+
+Les icônes de la mascotte Clawd dans le pied de page sont réalisées par [Icons8](https://icons8.com/icons/set/anthropic-claude).
+
+La mise en page de ce site s’inspire largement de celle de [Den](https://den.dev/).
