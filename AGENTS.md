@@ -81,6 +81,16 @@ and distinguish Spencer's contribution from the team's achievements.
 
 ## UI architecture
 
+- All future UI work must be compatible with expected phone, tablet, and desktop sizes.
+  Design and verify from the smallest supported viewport, **320px wide × 480px high**, upward.
+  Check 320×480, 390×844, 768×1024, and 1440×900, plus both sides of any changed breakpoint.
+  Verify the actual rendered page after fonts, images, embeds, and hydration finish loading;
+  test translated and RTL layouts, keyboard focus, and open menus/dialogs when affected.
+  Keep controls reachable and text readable without horizontal page scrolling, clipping,
+  overlaps, or shrinking touch targets. Long pages and dialogs may scroll vertically;
+  wide code, tables, and interactive media must scroll inside their own bounded containers.
+  Inspect both page-level and component-level overflow. Do not hide page overflow to mask a
+  layout defect, or claim an embed works based only on its outer frame when it did not render.
 - Use the owned shadcn/ui components in `src/components/ui/` for buttons, menus,
   popovers, and cards. `components.json` configures the registry and aliases.
 - Use Tailwind and the semantic CSS variables in `src/index.css`; do not add MUI
@@ -148,6 +158,8 @@ and distinguish Spencer's contribution from the team's achievements.
   Apply the same fluid shell to the blog and document pages.
   Keep prose at a readable line length. Share the spacious grouped-link footer between
   the homepage and About, with a Squiggle around the home-link name in both header and footer.
+  Squiggle waves repeat at a fixed 24px spacing with a 3px stroke, independent of name width.
+  Hover/focus motion translates the whole line evenly; do not stretch, rotate, or skew it.
   Footer credit uses coffee and Claude pixel icons with accessible names.
 - `ClaudeMascot` is shared by the site and blog footer. Keep the original local Icons8
   expression SVGs and attribution on About. Track gaze and circles only within the footer and reset to the neutral pose (including circle/reaction state) on exit.
