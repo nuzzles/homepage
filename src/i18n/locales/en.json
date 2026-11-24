@@ -48,9 +48,12 @@
                 "details": ""
             }
         },
-        "copyFailed": "Could not copy. Select the email address to contact me.",
+        "copyFailed": "Could not copy. Use Compose email or select the address to copy it manually.",
         "moreAbout": "You can read more about me on the <about>About page</about>.",
-        "greeting": "Hi, <highlight>I’m {{name}}</highlight>"
+        "greeting": "Hi, <highlight>I’m {{name}}</highlight>",
+        "composeEmail": "Compose email",
+        "copyEmail": "Copy email",
+        "closeEmail": "Close email dialog"
     },
     "resumePage": {
         "title": "{{profile}} | Resume",

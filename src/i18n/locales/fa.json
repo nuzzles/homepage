@@ -48,9 +48,12 @@
                 "details": ""
             }
         },
-        "copyFailed": "کپی نشد. برای تماس، نشانی ایمیل را انتخاب کنید.",
+        "copyFailed": "کپی نشد. از دکمهٔ نوشتن ایمیل استفاده کنید یا نشانی را برای کپی دستی انتخاب کنید.",
         "moreAbout": "می‌توانید در <about>صفحهٔ دربارهٔ من</about> بیشتر با من آشنا شوید.",
-        "greeting": "سلام، <highlight>من {{name}} هستم</highlight>"
+        "greeting": "سلام، <highlight>من {{name}} هستم</highlight>",
+        "composeEmail": "نوشتن ایمیل",
+        "copyEmail": "کپی نشانی ایمیل",
+        "closeEmail": "بستن پنجرهٔ ایمیل"
     },
     "resumePage": {
         "title": "{{profile}} | رزومه",

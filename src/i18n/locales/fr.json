@@ -48,9 +48,12 @@
                 "details": ""
             }
         },
-        "copyFailed": "Copie impossible. Sélectionnez l’adresse e-mail pour me contacter.",
+        "copyFailed": "Copie impossible. Rédigez un e-mail ou sélectionnez l’adresse pour la copier manuellement.",
         "moreAbout": "Vous pouvez en apprendre davantage sur moi sur la <about>page À propos</about>.",
-        "greeting": "Bonjour, <highlight>moi c’est {{name}}</highlight>"
+        "greeting": "Bonjour, <highlight>moi c’est {{name}}</highlight>",
+        "composeEmail": "Rédiger un e-mail",
+        "copyEmail": "Copier l’adresse",
+        "closeEmail": "Fermer la fenêtre e-mail"
     },
     "resumePage": {
         "title": "{{profile}} | Curriculum vitæ",

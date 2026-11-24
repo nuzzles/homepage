@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-import { ArrowUpRight, Check, Copy, Mail } from "lucide-react"
+import { ArrowUpRight, Check, Copy, Mail, X } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { ProfileSocials } from "@/components/ProfileSocials"
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
+import {
+    Dialog,
+    DialogTrigger,
+    DialogContent,
+    DialogTitle,
+    DialogDescription,
+    DialogClose,
+} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { useProfile } from "@/hooks/useProfile"
 import { useLanguage } from "@/hooks/useLanguage"
 import { getProfileHomePath } from "@/profiles"
 
 const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     const [email, setEmail] = useState<string | null>(null)
     const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle")
     const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
@@ -27,33 +34,41 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
         timer.current = setTimeout(() => setCopyState("idle"), 3000)
     }
     const revealedEmail = email ? (
-        <PopoverContent
-            aria-label={t("home.revealEmail")}
-            sideOffset={8}
-            collisionPadding={16}
-            className="email-popover"
-        >
-            <div className="flex items-center gap-2">
-                <a className="min-w-0 flex-1 px-3 text-sm font-medium break-all" href={`mailto:${email}`}>
-                    {email}
-                </a>
+        <DialogContent className="email-dialog" dir={i18n.dir()}>
+            <DialogTitle className="email-dialog-title">{t("home.revealEmail")}</DialogTitle>
+            <DialogDescription className="email-dialog-address" dir="ltr">
+                {email}
+            </DialogDescription>
+            <div className="email-dialog-actions">
+                <Button asChild>
+                    <a href={`mailto:${email}`}>
+                        <Mail aria-hidden="true" />
+                        {t("home.composeEmail")}
+                        <ArrowUpRight aria-hidden="true" />
+                    </a>
+                </Button>
                 <Button
-                    variant="ghost"
-                    size="icon"
+                    variant="outline"
                     onClick={handleCopy}
-                    aria-label={t(copyState === "copied" ? "home.copied" : "home.copy")}
+                    aria-label={t(copyState === "copied" ? "home.copied" : "home.copyEmail")}
                 >
                     {copyState === "copied" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                    {t(copyState === "copied" ? "home.copied" : "home.copyEmail")}
                 </Button>
             </div>
             <span role="status" className={copyState === "failed" ? "mt-2 block text-xs text-destructive" : "sr-only"}>
                 {copyState === "copied" ? t("home.copied") : copyState === "failed" ? t("home.copyFailed") : ""}
             </span>
-        </PopoverContent>
+            <DialogClose asChild>
+                <Button variant="ghost" size="icon" className="email-dialog-close" aria-label={t("home.closeEmail")}>
+                    <X aria-hidden="true" />
+                </Button>
+            </DialogClose>
+        </DialogContent>
     ) : null
     return (
         <div className="email-action">
-            <Popover
+            <Dialog
                 open={Boolean(email)}
                 onOpenChange={(open) => {
                     clearTimeout(timer.current)
@@ -61,14 +76,14 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
                     setEmail(open ? atob(encodedEmail) : null)
                 }}
             >
-                <PopoverTrigger asChild>
+                <DialogTrigger asChild>
                     <Button variant="ghost">
                         <Mail aria-hidden="true" />
                         {t("home.revealEmail")}
                     </Button>
-                </PopoverTrigger>
+                </DialogTrigger>
                 {revealedEmail}
-            </Popover>
+            </Dialog>
         </div>
     )
 }

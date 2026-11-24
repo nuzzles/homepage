@@ -107,7 +107,9 @@ and distinguish Spencer's contribution from the team's achievements.
   distinguish authorship from maintenance or contributions.
 - Keep the horizontal action/social bar ordered GitHub, LinkedIn, Schedule 1:1, Resume,
   then Email. All social-bar icons inherit their link or button text color. Use a PDF icon for Resume and the Calendly logo for scheduling.
-  Email opens a copyable popover that dismisses on outside click or Escape.
+  Email opens a centered modal with a blurred backdrop, Compose email and Copy email actions,
+  and dismissal on outside click or Escape. Restore focus to the trigger when closed.
+  Social-bar hover backgrounds have square corners.
   Do not add unconfirmed social accounts.
 
 - The homepage introduces the profile with a personal greeting and always shows the full
@@ -131,7 +133,8 @@ and distinguish Spencer's contribution from the team's achievements.
   the homepage and About, with a Squiggle around the home-link name in both header and footer.
   Footer credit uses coffee and Claude pixel icons with accessible names.
 - `ClaudeMascot` is shared by the site and blog footer. Keep the original local Icons8
-  expression SVGs and attribution on About. Support directional eyes, dizziness after two quick nearby circles,
+  expression SVGs and attribution on About. Track gaze and circles only within the footer and reset circle tracking on exit.
+  Support directional eyes, dizziness after two quick nearby circles,
   idle sleep, and click/keyboard happiness; clean up global listeners and timers on unmount.
 - Resume links navigate in the same tab through React Router. Schedule 1:1 uses the
   Calendly logo and an external-link arrow and opens in a new tab.

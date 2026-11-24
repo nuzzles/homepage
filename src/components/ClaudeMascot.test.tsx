@@ -18,9 +18,16 @@ describe("footer mascot interaction", () => {
         const container = document.createElement("div")
         document.body.append(container)
         const root = createRoot(container)
-        await act(async () => root.render(<ClaudeMascot />))
+        await act(async () =>
+            root.render(
+                <footer>
+                    <ClaudeMascot />
+                </footer>
+            )
+        )
         const button = container.querySelector("button")!
-        vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
+        const footer = container.querySelector("footer")!
+        const measure = vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
             x: 100,
             y: 100,
             left: 100,
@@ -32,7 +39,15 @@ describe("footer mascot interaction", () => {
             toJSON: () => ({}),
         })
         await act(async () => window.dispatchEvent(new MouseEvent("pointermove", { clientX: 200, clientY: 124 })))
+        expect(button.dataset.state).toBe("neutral")
+        expect(measure).not.toHaveBeenCalled()
+        await act(async () => footer.dispatchEvent(new MouseEvent("pointermove", { clientX: 200, clientY: 124 })))
         expect(button.dataset.state).toBe("right")
+        measure.mockClear()
+        await act(async () => footer.dispatchEvent(new MouseEvent("pointerleave")))
+        await act(async () => window.dispatchEvent(new MouseEvent("pointermove", { clientX: 0, clientY: 124 })))
+        expect(button.dataset.state).toBe("right")
+        expect(measure).not.toHaveBeenCalled()
         await act(async () => vi.advanceTimersByTime(8000))
         expect(button.querySelector("img")?.getAttribute("src")).toBe("/images/claude/sleeping.svg")
         await act(async () => window.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab" })))

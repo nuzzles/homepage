@@ -579,14 +579,55 @@
     width: 100%;
     min-height: 64px;
     font-size: inherit;
+    border-radius: 0;
 }
-.email-popover {
-    width: max-content;
-    max-width: calc(100vw - 32px);
-    padding: 8px;
+.dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgb(23 24 19 / 25%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
-.email-popover a {
-    white-space: nowrap;
+.dialog-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 51;
+    width: min(480px, calc(100vw - 40px));
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    padding: 32px;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--card);
+    color: var(--foreground);
+    box-shadow: 0 16px 64px rgb(23 24 19 / 18%);
+}
+.email-dialog-title {
+    margin: 0;
+    padding-inline-end: 36px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.email-dialog-address {
+    margin: 16px 0 28px;
+    overflow-wrap: anywhere;
+    font-size: 1.15rem;
+}
+.email-dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.email-dialog-actions > * {
+    flex: 1 1 auto;
+}
+.email-dialog-close {
+    position: absolute;
+    top: 12px;
+    inset-inline-end: 12px;
 }
 .profile-brand {
     font-size: 1.35rem;

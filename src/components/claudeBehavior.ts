@@ -24,7 +24,7 @@ export class ClaudeBehavior {
         this.activity(now)
         this.reaction = "happy"
         this.reactionUntil = now + 2000
-        this.resetTurn()
+        this.stopTracking()
     }
 
     move(x: number, y: number, now: number) {
@@ -32,7 +32,7 @@ export class ClaudeBehavior {
         this.gaze = Math.abs(x) > Math.abs(y) ? (x > 0 ? "right" : "left") : y > 0 ? "down" : "up"
         const radius = Math.hypot(x, y)
         if (radius < 24 || radius > 180 || now < this.reactionUntil) {
-            this.resetTurn()
+            this.stopTracking()
             return
         }
         const angle = Math.atan2(y, x)
@@ -52,7 +52,7 @@ export class ClaudeBehavior {
             if (Math.abs(this.turn) >= Math.PI * 4 - 0.01) {
                 this.reaction = "dizzy"
                 this.reactionUntil = now + 2500
-                this.resetTurn()
+                this.stopTracking()
                 return
             }
         }
@@ -71,7 +71,7 @@ export class ClaudeBehavior {
         return null
     }
 
-    private resetTurn() {
+    stopTracking() {
         this.previous = null
         this.turn = 0
     }

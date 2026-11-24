@@ -36,6 +36,16 @@ describe("Claude reactions", () => {
         }
     })
 
+    it("does not combine circles across leaving and re-entering the footer", () => {
+        const behavior = new ClaudeBehavior(0)
+        for (let i = 0; i <= 48; i++) {
+            if (i === 25) behavior.stopTracking()
+            const angle = (i * Math.PI) / 12
+            behavior.move(Math.cos(angle) * 80, Math.sin(angle) * 80, i * 40)
+        }
+        expect(behavior.state(2000)).not.toBe("dizzy")
+    })
+
     it("sleeps on idle and wakes with pointer or keyboard activity", () => {
         const behavior = new ClaudeBehavior(0)
         expect(behavior.nextChange(0)).toBe(CLAUDE_IDLE_MS)

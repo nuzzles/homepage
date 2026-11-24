@@ -46,6 +46,17 @@ const button = (name: string) => [...container.querySelectorAll("button")].find(
 const reveal = async () => act(async () => button("Email").click())
 
 describe("profile controls", () => {
+    it("opens a labeled email dialog with compose and copy actions, and closes with Escape", async () => {
+        await reveal()
+        const dialog = document.querySelector('[role="dialog"]')!
+        expect(document.getElementById(dialog.getAttribute("aria-labelledby")!)?.textContent).toBe("Email")
+        expect(dialog.querySelector('a[href^="mailto:"]')?.textContent).toBe("Compose email")
+        expect(dialog.querySelector('button[aria-label="Copy email"]')).not.toBeNull()
+        expect(document.querySelector(".dialog-backdrop")).not.toBeNull()
+        await act(async () => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })))
+        expect(document.querySelector('[role="dialog"]')).toBeNull()
+    })
+
     it("reveals email only after activation and announces a successful copy", async () => {
         const writeText = vi.fn().mockResolvedValue(undefined)
         vi.stubGlobal("navigator", { clipboard: { writeText } })
@@ -53,7 +64,7 @@ describe("profile controls", () => {
         await reveal()
         const email = atob(getProfile("spencer").encodedEmail)
         expect(document.querySelector('a[href^="mailto:"]')?.getAttribute("href")).toBe(`mailto:${email}`)
-        await act(async () => document.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
+        await act(async () => document.querySelector<HTMLButtonElement>('button[aria-label="Copy email"]')!.click())
         expect(writeText).toHaveBeenCalledWith(email)
         expect(document.querySelector('[role="status"]')?.textContent).toBe("Copied!")
     })
@@ -61,7 +72,7 @@ describe("profile controls", () => {
     it("keeps the email link available and explains clipboard failure", async () => {
         vi.stubGlobal("navigator", { clipboard: { writeText: vi.fn().mockRejectedValue(new Error("denied")) } })
         await reveal()
-        await act(async () => document.querySelector<HTMLButtonElement>('button[aria-label="Copy"]')!.click())
+        await act(async () => document.querySelector<HTMLButtonElement>('button[aria-label="Copy email"]')!.click())
         expect(document.querySelector('[role="status"]')?.textContent).toContain("Could not copy")
         expect(document.querySelector('a[href^="mailto:"]')).not.toBeNull()
     })
