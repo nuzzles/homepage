@@ -585,6 +585,16 @@
     stroke-width: 3.5;
     stroke-linecap: round;
 }
+.portrait-hatching path:nth-child(3n) {
+    stroke-width: 4.5;
+}
+.portrait-hatching path:nth-child(3n + 1) {
+    stroke-width: 2.8;
+}
+.portrait-pencil-trace {
+    stroke-width: 1;
+    opacity: 0.6;
+}
 .portrait-spark {
     position: absolute;
     top: -22px;
@@ -622,11 +632,10 @@
 .social-strip a > svg {
     width: 18px;
     height: 18px;
-    color: var(--primary);
+    color: inherit;
 }
 .social-strip .social-arrow {
     width: 14px;
-    color: var(--color-muted-foreground);
 }
 .social-strip a:hover {
     color: var(--primary);
@@ -853,26 +862,30 @@
             box-shadow 240ms ease-out;
     }
     .portrait-spark {
-        animation: portrait-twinkle 4s ease-in-out infinite;
+        animation: portrait-twinkle 3.2s steps(1, end) infinite;
         transform-origin: center;
     }
     .portrait-spark-small {
-        animation-duration: 3.4s;
-        animation-delay: -1.6s;
+        animation-duration: 2.8s;
+        animation-delay: -1.2s;
     }
     @keyframes portrait-twinkle {
         0%,
         100% {
-            opacity: 0.6;
-            transform: rotate(-5deg) scale(0.88);
+            opacity: 0.7;
+            transform: rotate(-8deg) scale(0.94);
         }
-        45% {
+        25% {
             opacity: 1;
-            transform: rotate(6deg) scale(1.08);
+            transform: rotate(5deg) scale(1.06);
         }
-        65% {
-            opacity: 0.9;
-            transform: rotate(2deg) scale(1);
+        50% {
+            opacity: 0.85;
+            transform: rotate(-3deg) scale(1);
+        }
+        75% {
+            opacity: 1;
+            transform: rotate(9deg) scale(1.04);
         }
     }
     @media (hover: hover) {
@@ -1017,6 +1030,13 @@
 .action-strip .social-strip a:first-child {
     border-inline-start: 0;
 }
+.calendly-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask: url("/images/affiliations/calendly.svg") center / contain no-repeat;
+}
 .action-strip .schedule-action {
     white-space: normal;
 }
@@ -1033,12 +1053,12 @@
     .action-strip:has(.schedule-action) .social-strip a {
         grid-column: span 2;
     }
-    .action-strip:has(.schedule-action) > .email-action,
-    .action-strip:has(.schedule-action) > .schedule-action {
+    .action-strip:has(.schedule-action) > .resume-action,
+    .action-strip:has(.schedule-action) > .email-action {
         grid-column: span 3;
         border-top: 1px solid var(--color-border);
     }
-    .action-strip:has(.schedule-action) > .email-action {
+    .action-strip:has(.schedule-action) > .resume-action {
         border-inline-start: 0;
     }
 }
@@ -1054,11 +1074,11 @@
         border-inline-start: 0;
     }
     .action-strip .social-strip a:only-child,
-    .action-strip > .schedule-action {
+    .action-strip:has(.schedule-action) > .email-action {
         grid-column: 1 / -1;
         border-inline-start: 0;
     }
-    .action-strip > .schedule-action {
+    .action-strip:has(.schedule-action) > .email-action {
         border-top: 1px solid var(--color-border);
     }
 }

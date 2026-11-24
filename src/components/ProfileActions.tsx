@@ -80,8 +80,17 @@ export const ProfileActions = () => {
     return (
         <div className="profile-actions action-strip">
             <ProfileSocials />
+            {profile.calendlyUrl && (
+                <Button asChild variant="ghost">
+                    <a className="schedule-action" href={profile.calendlyUrl} target="_blank" rel="noopener noreferrer">
+                        <span className="calendly-icon" aria-hidden="true" />
+                        <span>{t("home.scheduleOneOnOne")}</span>
+                        <ArrowUpRight aria-hidden="true" className="schedule-arrow" />
+                    </a>
+                </Button>
+            )}
             <Button asChild variant="ghost">
-                <Link to={localizedPath(`${base}/resume`)}>
+                <Link className="resume-action" to={localizedPath(`${base}/resume`)}>
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                         <path d="M14 2H5a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8zM14 2v6h6" />
                         <text
@@ -100,15 +109,6 @@ export const ProfileActions = () => {
                 </Link>
             </Button>
             <RevealEmailButton key={profile.id} encodedEmail={profile.encodedEmail} />
-            {profile.calendlyUrl && (
-                <Button asChild variant="ghost">
-                    <a className="schedule-action" href={profile.calendlyUrl} target="_blank" rel="noopener noreferrer">
-                        <img src="/images/affiliations/calendly.svg" className="size-4 shrink-0" alt="" />
-                        <span>{t("home.scheduleOneOnOne")}</span>
-                        <ArrowUpRight aria-hidden="true" className="schedule-arrow" />
-                    </a>
-                </Button>
-            )}
         </div>
     )
 }

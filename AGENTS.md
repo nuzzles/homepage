@@ -100,13 +100,13 @@ and distinguish Spencer's contribution from the team's achievements.
 
 - Use readable sentence-case headings and controls; never force uppercase with CSS. Keep the portrait clean: rounded photo, small line-art stars, and a restrained hatch accent.
   Avoid tilted frames, oversized stickers, and corner brackets. Use hand-drawn accents,
-  gentle repeating star twinkles, and a yellow marker underline on the introduction.
+  repeating stop-motion star twinkles with discrete rotation steps, and a yellow marker underline on the introduction.
   All motion must respect reduced-motion preferences.
 - Spencer's About page and projects live in profile configuration. Project
   descriptions use all three locale files; About prose lives in translated Markdown under `src/content/about/`. Use verified project facts;
   distinguish authorship from maintenance or contributions.
-- Keep the horizontal action/social bar ordered GitHub, LinkedIn, Resume, Email,
-  then Schedule 1:1. Use a PDF icon for Resume and the Calendly logo for scheduling.
+- Keep the horizontal action/social bar ordered GitHub, LinkedIn, Schedule 1:1, Resume,
+  then Email. All social-bar icons inherit their link or button text color. Use a PDF icon for Resume and the Calendly logo for scheduling.
   Email opens a copyable popover that dismisses on outside click or Escape.
   Do not add unconfirmed social accounts.
 
