@@ -35,6 +35,9 @@ jobs:
       - name: Validate | Terraform
         run: terraform -chdir=terraform validate
 
+      - name: Test | Terraform policies
+        run: terraform -chdir=terraform test
+
   web:
     name: web
     runs-on: ubuntu-latest
