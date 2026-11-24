@@ -1303,7 +1303,7 @@
 .resume-preview {
     height: clamp(640px, 85dvh, 1100px);
     overflow: hidden;
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--foreground);
     background: var(--card);
 }
 .resume-loading {

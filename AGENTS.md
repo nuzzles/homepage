@@ -132,6 +132,7 @@ and distinguish Spencer's contribution from the team's achievements.
 - The résumé page uses the shared header/footer, About-style title banner, and the shared `about-layout` two-column grid.
   Put the translated language note and PDF actions in the leading sidebar, and the PDF in the
   main column, capped by `--document-width` (56rem). Link to How I Work beneath the title.
+  Give the PDF preview a square 2px foreground border matching the sidebar rule.
   On mobile, place the controls above the fluid-width preview and wrap them as needed. Keep the
   page shell visible while the PDF loads; show a skeleton only inside the preview.
   Group Open PDF beside the download icon and actual PDF file size.
