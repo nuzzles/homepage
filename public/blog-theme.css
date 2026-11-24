@@ -33,7 +33,7 @@
 @font-face {
     font-family: "Barlow Condensed";
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     font-display: swap;
     src: url("/fonts/barlow-condensed-800.woff2") format("woff2");
 }
@@ -41,7 +41,7 @@
 @font-face {
     font-family: "Barlow Condensed";
     font-style: normal;
-    font-weight: 900;
+    font-weight: 600;
     font-display: swap;
     src: url("/fonts/barlow-condensed-900.woff2") format("woff2");
 }
@@ -51,8 +51,7 @@
     --blog-blue-dark: #1838ae;
     --blog-ink: #171813;
     --blog-muted: #68675a;
-    --blog-line: #8f8b7a;
-    --blog-dot: #c6c1ae55;
+    --blog-line: #ccc7b8;
     --blog-paper: #f3eedf;
     --blog-raised: #fcfaf3;
 }
@@ -72,8 +71,6 @@ body {
     margin: 0;
     color: var(--blog-ink);
     background-color: var(--blog-paper);
-    background-image: radial-gradient(var(--blog-dot) 0.55px, transparent 0.55px);
-    background-size: 5px 5px;
     font-family: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 17px;
     line-height: 1.65;
@@ -113,7 +110,7 @@ a:focus-visible {
     padding-block: 22px 14px;
     background: transparent;
     border-top: 0;
-    border-bottom: 1px solid var(--blog-ink);
+    border-bottom: 1px solid var(--blog-line);
 }
 
 .site-header .wrapper,
@@ -140,12 +137,12 @@ a:focus-visible {
 .site-title,
 .site-title:visited {
     color: var(--blog-ink);
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 900;
-    line-height: 0.9;
+    font-family: "Barlow", Arial, sans-serif;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.3;
     letter-spacing: 0.025em;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .site-title:hover,
@@ -158,13 +155,12 @@ a:focus-visible {
     padding: 4px 8px;
     color: var(--blog-paper);
     background: var(--blog-blue);
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-family: "Barlow", Arial, sans-serif;
     font-size: 0.82rem;
-    font-weight: 800;
-    line-height: 1;
+    font-weight: 600;
+    line-height: 1.3;
     letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transform: rotate(-1.5deg);
+    text-transform: none;
 }
 
 .site-nav {
@@ -178,17 +174,17 @@ a:focus-visible {
 
 .site-nav .page-link,
 .site-nav .page-link:visited {
-    min-height: 36px;
+    min-height: 44px;
     margin: 0;
     padding: 7px 10px;
     color: var(--blog-ink);
     background: transparent;
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-family: "Barlow", Arial, sans-serif;
     font-size: 0.92rem;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.2;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0;
+    text-transform: none;
 }
 
 .site-nav .page-link:hover,
@@ -206,18 +202,18 @@ a:focus-visible {
 .post-title {
     margin: 0 0 0.35em;
     color: var(--blog-ink);
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-    font-size: clamp(4.75rem, 15vw, 9rem);
-    font-weight: 900;
-    line-height: 0.78;
+    font-family: "Barlow", Arial, sans-serif;
+    font-size: clamp(2.75rem, 8vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.1;
     letter-spacing: -0.025em;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .post-title {
     max-width: 950px;
-    font-size: clamp(3.25rem, 9vw, 6.75rem);
-    line-height: 0.88;
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    line-height: 1.15;
 }
 
 .draft-marker {
@@ -226,13 +222,12 @@ a:focus-visible {
     padding: 0.2rem 0.5rem;
     color: #fcfaf3;
     background: #d84c2f;
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-family: "Barlow", Arial, sans-serif;
     font-size: 0.8rem;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transform: rotate(-1.5deg);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0;
+    text-transform: none;
 }
 
 .post-list-heading,
@@ -241,25 +236,25 @@ a:focus-visible {
 .post-content h4,
 .home > h1:not(.page-heading),
 .home > h2:not(.post-list-heading) {
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-    font-weight: 900;
-    line-height: 1;
-    text-transform: uppercase;
+    font-family: "Barlow", Arial, sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: none;
 }
 
 .post-list-heading {
     margin: 0 0 20px;
     padding-bottom: 14px;
     color: var(--blog-blue);
-    border-bottom: 1px solid var(--blog-ink);
-    font-size: clamp(2.35rem, 6vw, 3.5rem);
+    border-bottom: 1px solid var(--blog-line);
+    font-size: clamp(1.5rem, 4vw, 2rem);
     letter-spacing: 0.01em;
 }
 
 .post-list {
     display: grid;
     gap: 20px;
-    margin: 0 8px 0 0;
+    margin: 0;
 }
 
 .post-list > li {
@@ -267,16 +262,18 @@ a:focus-visible {
     margin: 0;
     padding: clamp(18px, 3vw, 28px);
     background: var(--blog-raised);
-    border: 1px solid var(--blog-ink);
-    box-shadow: 8px 8px 0 var(--blog-blue);
+    border: 1px solid var(--blog-line);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #17181304;
     transition: transform 140ms ease-out, box-shadow 140ms ease-out;
 }
 
 .post-list > li:hover {
-    box-shadow: 5px 5px 0 var(--blog-blue);
-    transform: translate(3px, 3px);
+    box-shadow: 0 4px 16px #17181308;
+    border-color: #aaa594;
 }
 
+.post-list h2,
 .post-list h3 {
     margin: 4px 0 0;
 }
@@ -284,11 +281,11 @@ a:focus-visible {
 .post-link,
 .post-link:visited {
     color: var(--blog-ink);
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    font-weight: 800;
-    line-height: 1;
-    text-transform: uppercase;
+    font-family: "Barlow", Arial, sans-serif;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: none;
 }
 
 .post-link::after {
@@ -315,7 +312,7 @@ a:focus-visible {
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.06em;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .rss-subscribe {
@@ -324,20 +321,20 @@ a:focus-visible {
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .post {
     padding: clamp(22px, 5vw, 56px);
     background: var(--blog-raised);
-    border: 1px solid var(--blog-ink);
-    box-shadow: 10px 10px 0 var(--blog-blue);
+    border: 1px solid var(--blog-line);
+    border-radius: 12px;
 }
 
 .post-header {
     margin-bottom: clamp(28px, 5vw, 48px);
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--blog-ink);
+    border-bottom: 1px solid var(--blog-line);
 }
 
 .post-content {
@@ -347,12 +344,12 @@ a:focus-visible {
 .post-content h2 {
     margin-top: 1.5em;
     color: var(--blog-blue);
-    font-size: clamp(2.1rem, 5vw, 3.25rem);
+    font-size: clamp(1.5rem, 4vw, 2rem);
 }
 
 .post-content h3 {
     margin-top: 1.4em;
-    font-size: clamp(1.65rem, 4vw, 2.35rem);
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
 }
 
 .post-content h4 {
@@ -361,7 +358,7 @@ a:focus-visible {
 
 .post-content p,
 .post-content li {
-    max-width: 78ch;
+    max-width: 72ch;
 }
 
 .post-content img {
@@ -370,7 +367,7 @@ a:focus-visible {
     max-width: 100%;
     height: auto;
     margin: 28px auto;
-    border: 1px solid var(--blog-ink);
+    border: 1px solid var(--blog-line);
 }
 
 .post-content iframe {
@@ -379,8 +376,8 @@ a:focus-visible {
     min-height: min(68vh, 560px);
     margin: 30px 0;
     background: #000;
-    border: 1px solid var(--blog-ink);
-    box-shadow: 7px 7px 0 var(--blog-blue);
+    border: 1px solid var(--blog-line);
+    border-radius: 8px;
 }
 
 .category-list {
@@ -394,7 +391,7 @@ a:focus-visible {
 
 .category-group ul {
     margin: 0;
-    border-top: 1px solid var(--blog-ink);
+    border-top: 1px solid var(--blog-line);
     list-style: none;
 }
 
@@ -444,7 +441,7 @@ blockquote {
 
 pre,
 code {
-    border-radius: 0;
+    border-radius: 6px;
 }
 
 code {
@@ -456,7 +453,7 @@ code {
 pre {
     padding: 18px;
     background: #e8e3d1;
-    border: 1px solid var(--blog-ink);
+    border: 1px solid var(--blog-line);
 }
 
 pre code {
@@ -468,7 +465,7 @@ pre code {
 table {
     color: var(--blog-ink);
     background: var(--blog-raised);
-    border: 1px solid var(--blog-ink);
+    border: 1px solid var(--blog-line);
 }
 
 .table-scroll {
@@ -506,16 +503,16 @@ table td {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    min-height: 36px;
+    min-height: 44px;
     padding: 7px 10px;
     color: var(--blog-ink);
     background: transparent;
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-family: "Barlow", Arial, sans-serif;
     font-size: 0.92rem;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.2;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0;
+    text-transform: none;
     transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1),
         transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -559,14 +556,14 @@ table td {
     display: inline-flex;
     align-items: center;
     gap: 4.8px;
-    min-height: 36px;
+    min-height: 44px;
     padding: 6px 8px;
     color: var(--blog-ink);
     font-family: "Courier New", monospace;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.01em;
-    text-transform: uppercase;
+    text-transform: none;
     transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1),
         transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -604,12 +601,11 @@ table td {
 
 .footer-made-with {
     margin: 0 0 0 auto;
-    color: var(--blog-line);
+    color: var(--blog-muted);
     font-family: "Courier New", monospace;
     font-size: 0.68rem;
     font-weight: 600;
-    opacity: 0.55;
-    text-transform: uppercase;
+    text-transform: none;
     white-space: nowrap;
 }
 
@@ -634,20 +630,20 @@ table td {
     }
 
     .post-list {
-        margin-right: 5px;
+        margin-right: 0;
     }
 
     .post-list > li {
-        box-shadow: 5px 5px 0 var(--blog-blue);
+        box-shadow: 0 4px 16px #17181308;
     }
 
     .post {
-        box-shadow: 6px 6px 0 var(--blog-blue);
+        box-shadow: none;
     }
 
     .post-content iframe {
         min-height: 260px;
-        box-shadow: 4px 4px 0 var(--blog-blue);
+        box-shadow: none;
     }
 
     .site-footer {
@@ -667,4 +663,15 @@ table td {
         margin-left: 0;
         text-align: center;
     }
+}
+
+/* Match the app's shadcn controls without adding React to the Jekyll blog. */
+.site-nav .page-link, .back-to-top a, .footer-socials a { border-radius: 8px; }
+.site-label, .draft-marker { border-radius: 4px; }
+.post-content { overflow-wrap: anywhere; }
+.post-content h2, .post-content h3, .post-content h4 { letter-spacing: -0.015em; }
+.post-meta, .rss-subscribe, .footer-socials a, .footer-made-with { font-family: "Barlow", Arial, sans-serif; letter-spacing: 0; }
+.post-meta { font-size: 0.875rem; font-weight: 400; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

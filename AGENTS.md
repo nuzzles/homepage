@@ -25,7 +25,8 @@ src/
   components/          # shared UI
   i18n/locales/        # English, French, and Persian translations
   siteMetadata.ts      # site metadata, robots.txt, and sitemaps
-  theme/               # shared visual styles
+  components/ui/       # owned shadcn/ui components (Radix primitives)
+  index.css            # Tailwind theme tokens and shared page layouts
 blogs/
   spencer/             # Spencer's Jekyll blog
   sara/                # Sara's Jekyll blog
@@ -73,3 +74,16 @@ and distinguish Spencer's contribution from the team's achievements.
 - Run focused checks during development and the validation required by `CONTRIBUTING.md`
   before a PR is ready for review. Build each affected profile for profile or blog changes.
 - Never commit secrets, dependency directories, or generated build output.
+
+## UI architecture
+
+- Use the owned shadcn/ui components in `src/components/ui/` for buttons, menus,
+  and cards. `components.json` configures the registry and aliases.
+- Use Tailwind and the semantic CSS variables in `src/index.css`; do not add MUI
+  or a second component theme. Keep the cream background and blue primary color.
+- Keep the standalone Jekyll theme in `public/blog-theme.css` visually aligned.
+- Preserve visible keyboard focus, 44px control targets, reduced-motion support,
+  and logical spacing for Persian RTL layouts. Language flag outlines stay black.
+- Résumé and How I Work navigation uses a filled primary button for the current
+  page and an outlined button for the other page. Link to How I Work from the
+  résumé page, not the homepage. Keep its article scrollable with Go back outside.

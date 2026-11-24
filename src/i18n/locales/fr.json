@@ -44,7 +44,8 @@
             }
         },
         "readMore": "Lire la suite",
-        "readLess": "Réduire"
+        "readLess": "Réduire",
+        "copyFailed": "Copie impossible. Sélectionnez l’adresse e-mail pour me contacter."
     },
     "resumePage": {
         "title": "{{profile}} | Curriculum vitæ",
@@ -58,7 +59,8 @@
         "unavailablePageTitle": "{{profile}} | Curriculum vitæ",
         "unavailableDescription": "Le curriculum vitæ de {{profile}} sera bientôt disponible.",
         "unavailable": "Curriculum vitæ indisponible",
-        "comingSoon": "Bientôt disponible."
+        "comingSoon": "Bientôt disponible.",
+        "downloading": "Téléchargement…"
     },
     "languageSwitcher": {
         "label": "Langue du site :"

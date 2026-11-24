@@ -1,5 +1,4 @@
-import { Box } from "@mui/material"
-import { LightButton } from "@/components/LightButton"
+import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
 import { getProfileHomePath } from "@/profiles"
@@ -16,23 +15,14 @@ export const ProfileDocumentNavigation = ({ current }: { current: "resume" | "ho
     ] as const
 
     return (
-        <Box
-            component="nav"
-            aria-label={t("documentNavigation.label")}
-            sx={{ display: "flex", maxWidth: "calc(100vw - 48px)", mb: 1, gap: 0.5 }}
-        >
+        <nav aria-label={t("documentNavigation.label")} className="document-nav">
             {pages.map(({ id, path, label }) => (
-                <LightButton
-                    key={id}
-                    href={localizedPath(`${basePath}${path}`)}
-                    aria-current={current === id ? "page" : undefined}
-                    variant={current === id ? "primary" : "secondary"}
-                    size="small"
-                    sx={{ px: { xs: 1, sm: 1.5 }, fontSize: { xs: "0.75rem", sm: "0.875rem" } }}
-                >
-                    {label}
-                </LightButton>
+                <Button key={id} asChild variant={current === id ? "default" : "outline"} size="sm">
+                    <a href={localizedPath(`${basePath}${path}`)} aria-current={current === id ? "page" : undefined}>
+                        {label}
+                    </a>
+                </Button>
             ))}
-        </Box>
+        </nav>
     )
 }

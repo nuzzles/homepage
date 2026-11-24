@@ -1,7 +1,8 @@
 import { Fragment, lazy, Suspense } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
-import { Box, CircularProgress } from "@mui/material"
+import { LoaderCircle } from "lucide-react"
+import { useTranslation } from "react-i18next"
 import { HowIWorkPage } from "@/pages/HowIWorkPage"
 import { HomePage } from "@/pages/HomePage"
 import { ProfileSelectorPage } from "@/pages/ProfileSelectorPage"
@@ -23,13 +24,21 @@ const ProfileHomeRoute = ({ profileId }: { profileId: ProfileId }) => (
 )
 
 const ResumeContent = () => {
+    const { t } = useTranslation()
     const profile = useProfile()
     if (!profile.resume) {
         return <ResumeUnavailablePage />
     }
 
     return (
-        <Suspense fallback={<CircularProgress aria-label="Loading résumé" />}>
+        <Suspense
+            fallback={
+                <div role="status" className="loading-status">
+                    <LoaderCircle className="animate-spin" aria-hidden="true" />
+                    {t("resumePage.loading")}
+                </div>
+            }
+        >
             <ResumePage />
         </Suspense>
     )
@@ -84,18 +93,7 @@ function App() {
     return (
         <HelmetProvider>
             <BrowserRouter>
-                <Box
-                    component="main"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        minHeight: "100dvh",
-                        px: 1.25,
-                        py: 2.5,
-                    }}
-                >
+                <main className="app-shell">
                     <Routes>
                         <Route element={<PreferredLanguageLayout />}>
                             {howIWorkRoutes()}
@@ -133,7 +131,7 @@ function App() {
 
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
-                </Box>
+                </main>
             </BrowserRouter>
         </HelmetProvider>
     )

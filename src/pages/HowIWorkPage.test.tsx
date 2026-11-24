@@ -2,7 +2,6 @@ import { act } from "react"
 import { createRoot, type Root } from "react-dom/client"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import App from "@/App"
-import { ThemeWrapper } from "@/ThemeWrapper"
 import i18n, { languageConfig, type SupportedLanguage } from "@/i18n/i18n"
 import { savePreferredLanguage } from "@/i18n/languagePreference"
 import en from "@/i18n/locales/en.json"
@@ -36,9 +35,9 @@ const renderPage = async (site: string, path: string) => {
     window.history.replaceState({}, "", path)
     await act(async () =>
         root.render(
-            <ThemeWrapper>
+            <>
                 <App />
-            </ThemeWrapper>
+            </>
         )
     )
 }

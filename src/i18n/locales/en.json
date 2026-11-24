@@ -14,7 +14,7 @@
         "description": "This is the web page of Sara Imbleau. She is a PhD neuroscience researcher.",
         "ogDescription": "This is the web page of Sara Imbleau. She is a PhD neuroscience researcher.",
         "twitterDescription": "This is the personal profile of Sara Imbleau.",
-        "jobTitle": "Phd Neuroscience",
+        "jobTitle": "PhD Neuroscience Researcher",
         "personDescription": "PhD neuroscience researcher."
     },
     "home": {
@@ -22,7 +22,7 @@
         "sticker": "I'm Spencer.",
         "role": "Software Engineer",
         "saraSticker": "I'm Sara.",
-        "saraRole": "Phd Neuroscience",
+        "saraRole": "PhD Neuroscience Researcher",
         "startHere": "Start here.",
         "revealEmail": "reveal email",
         "copied": "copied!",
@@ -44,7 +44,8 @@
             }
         },
         "readMore": "Read more...",
-        "readLess": "Read less"
+        "readLess": "Read less",
+        "copyFailed": "Could not copy. Select the email address to contact me."
     },
     "resumePage": {
         "title": "{{profile}} | Resume",
@@ -58,7 +59,8 @@
         "unavailablePageTitle": "{{profile}} | Resume",
         "unavailableDescription": "{{profile}}'s resume is coming soon.",
         "unavailable": "No résumé available",
-        "comingSoon": "Coming soon."
+        "comingSoon": "Coming soon.",
+        "downloading": "Downloading…"
     },
     "languageSwitcher": {
         "label": "Site Language:"

@@ -1,5 +1,6 @@
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from "vite"
 import react from "@vitejs/plugin-react"
+import tailwindcss from "@tailwindcss/vite"
 import {
     getAlternateUrls,
     getRobotsTxt,
@@ -123,7 +124,7 @@ export default defineConfig(({ command }) => {
 
     return {
         clearScreen: false,
-        plugins: [react(), sitePlugin(site, documentSite)],
+        plugins: [tailwindcss(), react(), sitePlugin(site, documentSite)],
         server: Object.keys(blogProxy).length
             ? {
                   proxy: blogProxy,
@@ -138,11 +139,6 @@ export default defineConfig(({ command }) => {
                                 name: "react",
                                 test: /node_modules[\\/](react|react-dom|react-router|scheduler)/,
                                 priority: 30,
-                            },
-                            {
-                                name: "mui",
-                                test: /node_modules[\\/](@mui|@emotion)/,
-                                priority: 20,
                             },
                             {
                                 name: "i18n",

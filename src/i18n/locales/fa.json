@@ -44,7 +44,8 @@
             }
         },
         "readMore": "بیشتر بخوانید",
-        "readLess": "نمایش کمتر"
+        "readLess": "نمایش کمتر",
+        "copyFailed": "کپی نشد. برای تماس، نشانی ایمیل را انتخاب کنید."
     },
     "resumePage": {
         "title": "{{profile}} | رزومه",
@@ -58,7 +59,8 @@
         "unavailablePageTitle": "{{profile}} | رزومه",
         "unavailableDescription": "رزومه {{profile}} به‌زودی در دسترس خواهد بود.",
         "unavailable": "رزومه‌ای موجود نیست",
-        "comingSoon": "به‌زودی در دسترس خواهد بود."
+        "comingSoon": "به‌زودی در دسترس خواهد بود.",
+        "downloading": "در حال دانلود…"
     },
     "languageSwitcher": {
         "label": "زبان سایت:"
