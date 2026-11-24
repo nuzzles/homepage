@@ -107,6 +107,10 @@ export function getSitemapXml(site: BuildSite): string {
         pages.push({ route: "/resume", lastModified: profile.resume.lastModified, priority: "0.8" })
     }
 
+    if (profile?.howIWork) {
+        pages.push({ route: profile.howIWork.path, lastModified: profile.howIWork.lastModified, priority: "0.7" })
+    }
+
     const urls = languages.flatMap((language) =>
         pages.map((page) => {
             const alternates = languages
@@ -127,16 +131,6 @@ ${alternates}
     </url>`
         })
     )
-
-    // The personal manifesto is authored in English, without translated alternates.
-    if (profile?.howIWork) {
-        urls.push(`    <url>
-        <loc>${metadata.baseUrl}${profile.howIWork.path}</loc>
-        <lastmod>${profile.howIWork.lastModified}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>`)
-    }
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"

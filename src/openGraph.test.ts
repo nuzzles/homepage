@@ -52,10 +52,13 @@ describe("static Open Graph metadata", () => {
         expect(getRobotsTxt("selector")).not.toContain("/blog/sitemap.xml")
     })
 
-    it("includes the English manifesto only in Spencer's sitemap", () => {
+    it("includes translated How I Work routes only in Spencer's sitemap", () => {
         const sitemap = getSitemapXml("spencer")
-        expect(sitemap).toContain("<loc>https://spencer.imbleau.com/how-i-work</loc>")
-        expect(sitemap).not.toContain("/fr/how-i-work")
+        for (const language of ["en", "fr", "fa"]) {
+            expect(sitemap).toContain(`<loc>https://spencer.imbleau.com/${language}/how-i-work</loc>`)
+        }
+        expect(sitemap).toContain('hreflang="x-default" href="https://spencer.imbleau.com/how-i-work"')
+        expect(sitemap).not.toContain("<loc>https://spencer.imbleau.com/how-i-work</loc>")
         expect(getSitemapXml("sara")).not.toContain("/how-i-work")
         expect(getSitemapXml("selector")).not.toContain("/how-i-work")
     })

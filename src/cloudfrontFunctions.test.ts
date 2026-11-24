@@ -41,12 +41,17 @@ describe("CloudFront request routing", () => {
         expect(runFunction(blogRouter, "/images/me.webp")).toMatchObject({ uri: "/images/me.webp" })
     })
 
-    it.each(["/resume", "/en", "/fr/resume/", "/fa/", "/how-i-work", "/how-i-work/"])(
-        "resolves the SPA route %s",
-        (uri) => {
-            expect(runFunction(spaRouter, uri)).toMatchObject({ uri: "/index.html" })
-        }
-    )
+    it.each([
+        "/resume",
+        "/en",
+        "/fr/resume/",
+        "/fa/",
+        "/how-i-work",
+        "/how-i-work/",
+        ...["en", "fr", "fa"].flatMap((lang) => [`/${lang}/how-i-work`, `/${lang}/how-i-work/`]),
+    ])("resolves the SPA route %s", (uri) => {
+        expect(runFunction(spaRouter, uri)).toMatchObject({ uri: "/index.html" })
+    })
 
     it("leaves unknown routes unchanged so CloudFront can return a real 404", () => {
         expect(runFunction(spaRouter, "/missing")).toMatchObject({ uri: "/missing" })

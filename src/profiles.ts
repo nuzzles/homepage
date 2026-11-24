@@ -33,8 +33,8 @@ export interface StaticProfileMeta {
 
 export interface HowIWorkConfig {
     path: `/${string}`
-    title: string
-    description: string
+    titleKey: string
+    descriptionKey: string
     lastModified: string
 }
 
