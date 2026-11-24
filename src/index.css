@@ -1273,6 +1273,9 @@
 }
 .resume-document {
     min-width: 0;
+    width: 100%;
+    max-width: var(--document-width);
+    margin-inline: auto;
 }
 .resume-document-toolbar {
     display: flex;

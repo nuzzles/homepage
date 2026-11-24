@@ -130,7 +130,8 @@ and distinguish Spencer's contribution from the team's achievements.
   ownership, contribution, and license information on that translated page.
 
 - The résumé page uses the shared header/footer, About-style title banner, and a single-column
-  layout with a full-width PDF preview. Link to How I Work beneath the title. The toolbar
+  layout with a centered PDF preview and toolbar capped by `--document-width` (56rem).
+  The preview fills the available width on smaller screens. Link to How I Work beneath the title. The toolbar
   places the translated PDF language note on the leading side and PDF actions on the trailing side.
   Wrap the toolbar as needed on mobile. Keep the
   page shell visible while the PDF loads; show a skeleton only inside the preview.
