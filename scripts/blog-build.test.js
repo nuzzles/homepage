@@ -130,7 +130,7 @@ describe("Hugo migration", () => {
             }
         }
     })
-    it("groups all posts by year and preserves categories, RSS, and the published feed", () => {
+    it("groups all posts by year and preserves RSS and the published feed", () => {
         const archive = html("index.html")
         expect([...archive.querySelectorAll(".archive-year h2")].map((h) => h.textContent)).toEqual([
             "2026",
@@ -140,7 +140,6 @@ describe("Hugo migration", () => {
             "2021",
         ])
         expect(archive.querySelectorAll(".archive-posts li")).toHaveLength(6)
-        expect(html("categories.html").querySelectorAll(".category-group")).toHaveLength(3)
         const latest = JSON.parse(readFileSync(join(output, "latest.json"), "utf8"))
         expect(latest).toHaveLength(3)
         expect(latest[0].description).toContain("Infinite's")
@@ -152,6 +151,17 @@ describe("Hugo migration", () => {
             "https://spencer.imbleau.com/about"
         )
     })
+    it("redirects the redundant categories archive to tags without listing it in the sitemap", () => {
+        const redirect = html("categories.html")
+        expect(redirect.querySelector('link[rel="canonical"]').href).toBe("https://spencer.imbleau.com/blog/tags/")
+        expect(redirect.querySelector('meta[http-equiv="refresh"]').content).toBe("0; url=/blog/tags/")
+        expect(readFileSync(join(output, "sitemap.xml"), "utf8")).not.toContain("categories.html")
+        const topics = [...html("tags/index.html").querySelectorAll(".archive-year-heading h2")].map(
+            (h) => h.textContent
+        )
+        expect(topics).toEqual(expect.arrayContaining(["#ai", "#rust", "#graphics", "#opinion"]))
+    })
+
     it("keeps five chronological neighbours, filling the window at either end", () => {
         for (const index of [0, 2, 3, 5]) {
             const timeline = html(legacyPaths[index]).querySelector(".post-timeline")

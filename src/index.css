@@ -1223,3 +1223,44 @@
     text-decoration: underline;
     text-underline-offset: 3px;
 }
+
+.resume-sidebar p {
+    max-width: 28ch;
+    margin-block: var(--space-6);
+    color: var(--muted-foreground);
+    line-height: var(--leading-prose);
+}
+.resume-document {
+    min-width: 0;
+}
+.resume-document-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-bottom: var(--space-5);
+}
+.resume-document-toolbar > p {
+    color: var(--muted-foreground);
+    font-size: var(--type-sm);
+}
+.resume-document-toolbar .resume-download-actions > a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.resume-preview {
+    height: clamp(640px, 85dvh, 1100px);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card);
+}
+@media (max-width: 767px) {
+    .resume-sidebar {
+        margin-bottom: var(--space-8);
+    }
+    .resume-sidebar p {
+        max-width: var(--reading-width);
+    }
+}

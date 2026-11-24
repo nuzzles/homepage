@@ -121,9 +121,11 @@ and distinguish Spencer's contribution from the team's achievements.
   excerpts remain English. Project cards contain
   only a title, description, and boxed external-link indicator and open in new tabs.
 - Spencer's former blog About URL redirects to his site About page. Keep the blog's
-  ownership, contribution, category, and license information on that translated page.
+  ownership, contribution, and license information on that translated page.
 
-- On the résumé page, group Open PDF beside the download icon and actual PDF file size.
+- The résumé page uses the shared header/footer and About-style title banner and two-column
+  layout, stacking on mobile. Keep document navigation beside the preview and PDF controls above it.
+  Group Open PDF beside the download icon and actual PDF file size.
   Keep a translated accessible download label even when its visible text is only the size.
 
 - Use full-width sections with internal padding from `--page-gutter` (6.25vw, clamped to 20–120px).
@@ -133,7 +135,7 @@ and distinguish Spencer's contribution from the team's achievements.
   the homepage and About, with a Squiggle around the home-link name in both header and footer.
   Footer credit uses coffee and Claude pixel icons with accessible names.
 - `ClaudeMascot` is shared by the site and blog footer. Keep the original local Icons8
-  expression SVGs and attribution on About. Track gaze and circles only within the footer and reset circle tracking on exit.
+  expression SVGs and attribution on About. Track gaze and circles only within the footer and reset to the neutral pose (including circle/reaction state) on exit.
   Support directional eyes, dizziness after two quick nearby circles,
   idle sleep, and click/keyboard happiness; clean up global listeners and timers on unmount.
 - Resume links navigate in the same tab through React Router. Schedule 1:1 uses the

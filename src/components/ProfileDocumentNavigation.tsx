@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/hooks/useLanguage"
 import { useProfile } from "@/hooks/useProfile"
@@ -18,9 +19,9 @@ export const ProfileDocumentNavigation = ({ current }: { current: "resume" | "ho
         <nav aria-label={t("documentNavigation.label")} className="document-nav">
             {pages.map(({ id, path, label }) => (
                 <Button key={id} asChild variant={current === id ? "default" : "outline"} size="sm">
-                    <a href={localizedPath(`${basePath}${path}`)} aria-current={current === id ? "page" : undefined}>
+                    <Link to={localizedPath(`${basePath}${path}`)} aria-current={current === id ? "page" : undefined}>
                         {label}
-                    </a>
+                    </Link>
                 </Button>
             ))}
         </nav>

@@ -71,6 +71,14 @@ export class ClaudeBehavior {
         return null
     }
 
+    leave(now: number) {
+        this.activity(now)
+        this.gaze = "neutral"
+        this.reaction = "neutral"
+        this.reactionUntil = 0
+        this.stopTracking()
+    }
+
     stopTracking() {
         this.previous = null
         this.turn = 0

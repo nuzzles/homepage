@@ -68,7 +68,9 @@
         "unavailableDescription": "رزومه {{profile}} به‌زودی در دسترس خواهد بود.",
         "unavailable": "رزومه‌ای موجود نیست",
         "comingSoon": "به‌زودی در دسترس خواهد بود.",
-        "downloading": "در حال دانلود…"
+        "downloading": "در حال دانلود…",
+        "introduction": "تجربه، تحصیلات و گزیده‌ای از کارها. رزومه را در زیر ببینید یا نسخه‌ای از آن را ذخیره کنید.",
+        "documentLanguage": "PDF · فقط انگلیسی"
     },
     "languageSwitcher": {
         "label": "زبان سایت:"

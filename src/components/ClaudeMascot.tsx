@@ -45,7 +45,10 @@ export const ClaudeMascot = () => {
             behavior.happy(Date.now())
             refresh()
         }
-        const leave = () => behavior.stopTracking()
+        const leave = () => {
+            behavior.leave(Date.now())
+            refresh()
+        }
         footer.addEventListener("pointermove", move, { passive: true })
         footer.addEventListener("pointerleave", leave)
         window.addEventListener("pointerdown", activity, { passive: true })

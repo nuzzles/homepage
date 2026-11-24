@@ -117,14 +117,7 @@ export const AboutPage = () => {
                                     },
                                     a: ({ href, children }) => {
                                         if (href === "projects") return <Link to={`${home}#projects`}>{children}</Link>
-                                        if (href === "blog" || href === "categories")
-                                            return (
-                                                <a
-                                                    href={`${blog ?? "/blog/"}${href === "categories" ? "categories.html" : ""}`}
-                                                >
-                                                    {children}
-                                                </a>
-                                            )
+                                        if (href === "blog") return <a href={blog ?? "/blog/"}>{children}</a>
                                         return (
                                             <a href={href} target="_blank" rel="noopener noreferrer">
                                                 {children}

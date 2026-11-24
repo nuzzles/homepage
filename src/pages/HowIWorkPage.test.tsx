@@ -118,18 +118,20 @@ describe("How I Work routing", () => {
         await renderPage("local", `${prefix}/spencer/resume`)
         await vi.waitFor(async () => {
             await act(async () => {})
-            expect(container.querySelector("nav")).not.toBeNull()
+            expect(container.querySelector(".document-nav")).not.toBeNull()
         })
-        const nav = container.querySelector("nav")!
+        const nav = container.querySelector(".document-nav")!
         expect(nav.querySelector('a[aria-current="page"]')?.getAttribute("href")).toBe(`${prefix}/spencer/resume`)
         expect(nav.querySelector(`a[href="${prefix}/spencer/how-i-work"]`)).not.toBeNull()
         expect(container.querySelector("iframe")).not.toBeNull()
+        expect(container.querySelector(".site-navigation")).not.toBeNull()
+        expect(container.querySelector(".profile-footer")).not.toBeNull()
 
         await act(async () => {
-            window.history.pushState({}, "", `${prefix}/spencer/how-i-work`)
-            window.dispatchEvent(new PopStateEvent("popstate"))
+            nav.querySelector<HTMLAnchorElement>(`a[href="${prefix}/spencer/how-i-work"]`)!.click()
         })
-        const valuesNav = container.querySelector("nav")!
+        expect(window.location.pathname).toBe(`${prefix}/spencer/how-i-work`)
+        const valuesNav = container.querySelector(".document-nav")!
         expect(valuesNav.querySelector('a[aria-current="page"]')?.getAttribute("href")).toBe(
             `${prefix}/spencer/how-i-work`
         )

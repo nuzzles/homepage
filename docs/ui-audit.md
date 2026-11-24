@@ -26,7 +26,11 @@ for palette, typography, spacing, control tokens, and font licenses.
 - Resume navigates through React Router. External project/social links open new tabs.
 - Résumé and How I Work remain paired pages with matching primary/secondary navigation.
 - No profile switcher, extra Home/Projects header links, or biography expansion control.
-- The footer keeps the same paper surface at all breakpoints.
+- The footer keeps the same paper surface at all breakpoints and shows copyright from 2019 to the current year.
+- Footer exit resets Clawd to neutral immediately, then normal idle sleep applies.
+- Resume uses the shared site header/footer, About-style banner, a document-navigation column,
+  and Open PDF/download controls above a bounded preview. Columns stack on mobile.
+- Categories is retired: its old URL redirects to Tags, which includes existing category topics.
 
 ## Validation
 

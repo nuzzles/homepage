@@ -199,55 +199,6 @@ body {
     border-radius: var(--control-radius);
 }
 
-.category-list {
-    display: grid;
-    gap: 28px;
-}
-
-.category-group h2 {
-    margin-bottom: 12px;
-}
-
-.category-group ul {
-    margin: 0;
-    border-top: 1px solid var(--border-color);
-    list-style: none;
-}
-
-.category-group li {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: baseline;
-    gap: 18px;
-    width: 100%;
-    max-width: none;
-    padding-block: 12px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.category-group a,
-.category-group a:visited {
-    color: var(--foreground);
-    font-weight: 700;
-}
-
-.category-group a:hover,
-.category-group a:focus-visible {
-    color: var(--link-color);
-}
-
-.category-post-title {
-    display: flex;
-    min-width: 0;
-    align-items: baseline;
-    gap: 0.65rem;
-}
-
-.category-post-title .draft-marker {
-    flex: none;
-    margin: 0;
-}
-
 blockquote {
     margin-inline: 0;
     padding: 14px 18px;
@@ -474,7 +425,7 @@ table td {
 .post-content table { border-collapse: collapse; width: 100%; }
 .post-content th, .post-content td { padding: 12px; border: 1px solid var(--border-color); }
 .post-description { max-width: var(--reading-width); font-size: var(--type-lead); color: var(--muted-foreground); }
-.archive-posts, .post-timeline ol, .category-group ul, .post-tags ul { padding: 0; }
+.archive-posts, .post-timeline ol, .post-tags ul { padding: 0; }
 .contents-links ul { list-style: none; padding: 0; margin: 0; }
 .contents-links ul ul a { padding-inline-start: 24px; }
 .skip-link { position: absolute; transform: translateY(-150%); padding: 12px; background: var(--background); z-index: 10; }

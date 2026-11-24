@@ -68,7 +68,9 @@
         "unavailableDescription": "Le curriculum vitæ de {{profile}} sera bientôt disponible.",
         "unavailable": "Curriculum vitæ indisponible",
         "comingSoon": "Bientôt disponible.",
-        "downloading": "Téléchargement…"
+        "downloading": "Téléchargement…",
+        "introduction": "Expérience, formation et réalisations. Consultez le curriculum vitæ ci-dessous ou enregistrez une copie.",
+        "documentLanguage": "PDF · En anglais uniquement"
     },
     "languageSwitcher": {
         "label": "Langue du site :"

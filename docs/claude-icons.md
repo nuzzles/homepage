@@ -20,7 +20,7 @@ License: https://icons8.com/license
 
 The artwork is hosted locally and is not recolored. `ClaudeMascot` is shared
 between the React pages and Hugo's rendered/hydrated footer. It follows pointer
-direction only while the cursor is inside the footer and resets circle tracking on exit.
+direction only while the cursor is inside the footer and returns to neutral on exit, clearing circle tracking and temporary reactions.
 It gets dizzy after two nearby circles within 2.4 seconds, sleeps after eight seconds without input,
 and becomes happy for two seconds on click or keyboard activation. Expressions
 switch directly; there is no continuous motion or animation loop.

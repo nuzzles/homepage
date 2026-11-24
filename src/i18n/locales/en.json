@@ -68,7 +68,9 @@
         "unavailableDescription": "{{profile}}'s resume is coming soon.",
         "unavailable": "No résumé available",
         "comingSoon": "Coming soon.",
-        "downloading": "Downloading…"
+        "downloading": "Downloading…",
+        "introduction": "Experience, education, and selected work. View the resume below or save a copy.",
+        "documentLanguage": "PDF · English only"
     },
     "languageSwitcher": {
         "label": "Site language:"

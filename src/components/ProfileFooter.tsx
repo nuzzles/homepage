@@ -20,7 +20,7 @@ export const ProfileFooter = () => {
                 </Link>
                 <p>{t(profile.roleKey)}</p>
                 <p>
-                    © {new Date().getFullYear()} {profile.fullName}
+                    © 2019–{new Date().getFullYear()} {profile.fullName}
                 </p>
                 <p className="footer-credit">
                     <Trans
