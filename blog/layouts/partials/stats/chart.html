@@ -1,20 +1,47 @@
 {{ $metric := .metric }}
 {{ $max := 1 }}
 {{ range .rows }}{{ $max = math.Max $max (index . $metric) }}{{ end }}
+{{ $rawStep := math.Ceil (div (float $max) 5) }}
+{{ $step := $rawStep }}
+{{ $selected := false }}
+{{ range slice 1 2 5 10 20 50 100 200 500 1000 2000 5000 10000 20000 50000 100000 200000 500000 1000000 }}
+    {{ if and (not $selected) (ge . $rawStep) }}{{ $step = . }}{{ $selected = true }}{{ end }}
+{{ end }}
+{{ $ticks := int (math.Ceil (div (float $max) $step)) }}
+{{ $ceiling := mul $ticks $step }}
 <section class="stats-chart" aria-labelledby="{{ .id }}">
     <h2 class="content-heading" id="{{ .id }}"><span class="marker-underline">{{ .title }}</span><a class="heading-anchor" href="#{{ .id }}" aria-label="Link to {{ .title }}">#</a></h2>
     {{ with .description }}<p class="stats-note">{{ . }}</p>{{ end }}
-    <table>
-        <caption class="sr-only">{{ .title }}</caption>
-        <thead><tr><th scope="col">{{ .period }}</th><th scope="col">{{ .valueLabel }}</th></tr></thead>
-        <tbody>
-        {{ range .rows }}
-            {{ $value := index . $metric }}
-            <tr data-period="{{ .label }}" data-value="{{ $value }}">
-                <th scope="row">{{ .label }}</th>
-                <td><span class="stats-bar" style="--bar-width: {{ mul 100 (div (float $value) $max) }}%" aria-hidden="true"></span><span class="stats-value">{{ partial "stats/number.html" $value }}</span></td>
-            </tr>
-        {{ end }}
-        </tbody>
-    </table>
+    <div class="stats-chart-viewport">
+        <div class="stats-plot" style="--chart-columns: {{ len .rows }}" data-dense="{{ gt (len .rows) 12 }}" role="group" aria-label="{{ .title }}, from {{ (index .rows 0).label }} to {{ (index .rows (sub (len .rows) 1)).label }}. Values range from zero to {{ partial "stats/number.html" $max }}.">
+            <div class="stats-y-axis" aria-hidden="true">
+                {{ range seq 0 $ticks }}<span style="--tick-position: {{ mul 100 (div (float .) $ticks) }}%">{{ partial "stats/number.html" (mul . $step) }}</span>{{ end }}
+            </div>
+            <div class="stats-plot-area">
+                {{ range seq 0 $ticks }}<span class="stats-gridline" aria-hidden="true" style="--tick-position: {{ mul 100 (div (float .) $ticks) }}%"></span>{{ end }}
+                <div class="stats-columns">
+                    {{ range .rows }}
+                        {{ $value := index . $metric }}
+                        <div class="stats-column" role="button" tabindex="0" data-stats-popup="value" data-popup-label="{{ .label }}" data-popup-value="{{ partial "stats/number.html" $value }} {{ $.valueLabel | lower }}" aria-label="{{ .label }}: {{ partial "stats/number.html" $value }} {{ $.valueLabel | lower }}" aria-haspopup="dialog" aria-expanded="false">
+                            <span class="stats-bar" style="--bar-height: {{ mul 100 (div (float $value) $ceiling) }}%"></span>
+                            <span class="stats-x-label">{{ with .key }}{{ $month := time.AsTime (printf "%s-01" .) }}{{ $month.Format "Jan" }}<br>{{ $month.Format "2006" }}{{ else }}{{ .label }}{{ end }}</span>
+                        </div>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <details class="stats-chart-data">
+        <summary>View data table<span class="sr-only">: {{ .title }}</span></summary>
+        <table>
+            <caption class="sr-only">{{ .title }}</caption>
+            <thead><tr><th scope="col">{{ .period }}</th><th scope="col">{{ .valueLabel }}</th></tr></thead>
+            <tbody>
+            {{ range .rows }}
+                {{ $value := index . $metric }}
+                <tr data-period="{{ .label }}" data-value="{{ $value }}"><th scope="row">{{ .label }}</th><td class="stats-value">{{ partial "stats/number.html" $value }}</td></tr>
+            {{ end }}
+            </tbody>
+        </table>
+    </details>
 </section>

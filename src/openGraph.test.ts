@@ -65,12 +65,10 @@ describe("static Open Graph metadata", () => {
 
     it("includes the translated reading list only in Spencer's sitemap", () => {
         for (const language of ["en", "fr", "fa"]) {
-            expect(getSitemapXml("spencer")).toContain(
-                `<loc>https://spencer.imbleau.com/${language}/reading-list</loc>`
-            )
+            expect(getSitemapXml("spencer")).toContain(`<loc>https://spencer.imbleau.com/${language}/books</loc>`)
         }
-        expect(getSitemapXml("sara")).not.toContain("/reading-list")
-        expect(getSitemapXml("selector")).not.toContain("/reading-list")
+        expect(getSitemapXml("sara")).not.toContain("/books")
+        expect(getSitemapXml("selector")).not.toContain("/books")
     })
 
     it("includes translated About routes only in Spencer's sitemap", () => {

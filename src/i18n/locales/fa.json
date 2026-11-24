@@ -162,6 +162,7 @@
         "description": "کتاب‌هایی که خوانده‌ام، به تفکیک سال.",
         "introduction": "چند کتاب که در طول سال‌ها خوانده‌ام.",
         "bookCount_one": "{{count}} کتاب",
-        "bookCount_other": "{{count}} کتاب"
+        "bookCount_other": "{{count}} کتاب",
+        "bookshop": "از <bookshop>کتاب‌فروشی محلی</bookshop> خود حمایت کنید."
     }
 }

@@ -1,14 +1,22 @@
 function handler(event) {
     var request = event.request;
+    var oldBooksRoute = request.uri.match(/^((?:\/(?:en|fr|fa))?)\/reading-list\/?$/);
+    if (oldBooksRoute) {
+        return {
+            statusCode: 308,
+            statusDescription: "Permanent Redirect",
+            headers: { location: { value: oldBooksRoute[1] + "/books" } }
+        };
+    }
     var routes = {
-        "/reading-list": true,
-        "/reading-list/": true,
-        "/en/reading-list": true,
-        "/en/reading-list/": true,
-        "/fr/reading-list": true,
-        "/fr/reading-list/": true,
-        "/fa/reading-list": true,
-        "/fa/reading-list/": true,
+        "/books": true,
+        "/books/": true,
+        "/en/books": true,
+        "/en/books/": true,
+        "/fr/books": true,
+        "/fr/books/": true,
+        "/fa/books": true,
+        "/fa/books/": true,
 
         "/about": true,
         "/about/": true,

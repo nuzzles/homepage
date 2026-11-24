@@ -162,6 +162,7 @@
         "description": "Mes lectures, regroupées par année.",
         "introduction": "Quelques livres que j’ai lus au fil des années.",
         "bookCount_one": "{{count}} livre",
-        "bookCount_other": "{{count}} livres"
+        "bookCount_other": "{{count}} livres",
+        "bookshop": "Soutenez votre <bookshop>librairie locale</bookshop>."
     }
 }

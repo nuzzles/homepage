@@ -58,7 +58,7 @@ describe("CloudFront request routing", () => {
 
     it.each([
         "/resume",
-        ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/reading-list`, `${prefix}/reading-list/`]),
+        ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/books`, `${prefix}/books/`]),
         ...["", "/en", "/fr", "/fa"].flatMap((prefix) => [`${prefix}/about`, `${prefix}/about/`]),
         "/en",
         "/fr/resume/",
@@ -68,6 +68,15 @@ describe("CloudFront request routing", () => {
         ...["en", "fr", "fa"].flatMap((lang) => [`/${lang}/how-i-work`, `/${lang}/how-i-work/`]),
     ])("resolves the SPA route %s", (uri) => {
         expect(runFunction(spaRouter, uri)).toMatchObject({ uri: "/index.html" })
+    })
+
+    it.each(["", "/en", "/fr", "/fa"])("redirects the old %s reading route to books", (prefix) => {
+        for (const suffix of ["", "/"]) {
+            expect(runFunction(spaRouter, `${prefix}/reading-list${suffix}`)).toMatchObject({
+                statusCode: 308,
+                headers: { location: { value: `${prefix}/books` } },
+            })
+        }
     })
 
     it("leaves unknown routes unchanged so CloudFront can return a real 404", () => {

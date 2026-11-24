@@ -2,11 +2,13 @@
 {{ $words := slice }}
 {{ $totalWords := 0 }}
 {{ $days := dict }}
+{{ $dayPosts := dict }}
 {{ range $posts }}
     {{ $words = $words | append .WordCount }}
     {{ $totalWords = add $totalWords .WordCount }}
     {{ $key := .Date.Format "2006-01-02" }}
     {{ $days = merge $days (dict $key (add (index $days $key | default 0) 1)) }}
+    {{ $dayPosts = merge $dayPosts (dict $key ((index $dayPosts $key | default slice) | append (dict "title" .Title "url" .RelPermalink))) }}
 {{ end }}
 {{ $years := slice }}
 {{ $yearCounts := slice }}
@@ -27,10 +29,21 @@
     {{ $years = $years | append (dict "label" (string $year) "year" $year "posts" $count "words" $total "median" (partial "stats/median.html" $yearWords)) }}
 {{ end }}
 {{ $months := slice }}
-{{ range $posts.GroupByDate "2006-01" }}
-    {{ $total := 0 }}
-    {{ range .Pages }}{{ $total = add $total .WordCount }}{{ end }}
-    {{ $months = $months | append (dict "key" .Key "label" ((index .Pages 0).Date.Format "January 2006") "posts" (len .Pages) "words" $total) }}
+{{ $lastMonth := time.AsTime (now.Format "2006-01-01") }}
+{{ $firstMonth := $lastMonth.AddDate 0 -23 0 }}
+{{ with $posts }}
+    {{ $firstPostMonth := time.AsTime ((index . 0).Date.Format "2006-01-01") }}
+    {{ if $firstPostMonth.After $firstMonth }}{{ $firstMonth = $firstPostMonth }}{{ end }}
 {{ end }}
-{{ $months = last 24 (sort $months "key") }}
-{{ return (dict "postCount" (len $posts) "totalWords" $totalWords "medianWords" (partial "stats/median.html" $words) "medianPosts" (partial "stats/median.html" $yearCounts) "years" $years "months" $months "days" $days "firstYear" $startYear "lastYear" now.Year) }}
+{{ $monthCount := add (mul (sub $lastMonth.Year $firstMonth.Year) 12) (sub (int $lastMonth.Month) (int $firstMonth.Month)) }}
+{{ range seq 0 $monthCount }}
+    {{ $month := $firstMonth.AddDate 0 . 0 }}
+    {{ $key := $month.Format "2006-01" }}
+    {{ $total := 0 }}
+    {{ $count := 0 }}
+    {{ range $posts }}
+        {{ if eq (.Date.Format "2006-01") $key }}{{ $total = add $total .WordCount }}{{ $count = add $count 1 }}{{ end }}
+    {{ end }}
+    {{ $months = $months | append (dict "key" $key "label" ($month.Format "January 2006") "posts" $count "words" $total) }}
+{{ end }}
+{{ return (dict "postCount" (len $posts) "totalWords" $totalWords "medianWords" (partial "stats/median.html" $words) "medianPosts" (partial "stats/median.html" $yearCounts) "years" $years "months" $months "days" $days "dayPosts" $dayPosts "firstYear" $startYear "lastYear" now.Year) }}

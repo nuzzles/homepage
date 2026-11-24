@@ -1,3 +1,4 @@
+import { Trans } from "react-i18next"
 import { Helmet } from "react-helmet-async"
 import { ProfileHeader } from "@/components/ProfileHeader"
 import { ProfileFooter } from "@/components/ProfileFooter"
@@ -47,7 +48,20 @@ export const ReadingListPage = () => {
                     <h1>{t(page.titleKey)}</h1>
                 </header>
                 <div className="reading-list-content" lang={htmlLang} dir={dir}>
-                    <p className="reading-list-introduction">{t("readingListPage.introduction")}</p>
+                    <div className="reading-list-introduction">
+                        <p>{t("readingListPage.introduction")}</p>
+                        <p>
+                            <Trans
+                                t={t}
+                                i18nKey="readingListPage.bookshop"
+                                components={{
+                                    bookshop: (
+                                        <a href="https://bookshop.org/" target="_blank" rel="noopener noreferrer" />
+                                    ),
+                                }}
+                            />
+                        </p>
+                    </div>
                     {readingList.map(({ year, books }) => (
                         <section className="reading-list-year" key={year} aria-labelledby={`year-${year}`}>
                             <header>
@@ -57,8 +71,18 @@ export const ReadingListPage = () => {
                             <ul className="reading-list-books">
                                 {books.map((book) => (
                                     <li key={book.title} lang="en" dir="ltr">
-                                        <h3>{book.title}</h3>
-                                        <p>{book.author}</p>
+                                        <img
+                                            className="book-cover"
+                                            src={book.cover}
+                                            width="120"
+                                            height="180"
+                                            alt=""
+                                            loading="lazy"
+                                        />
+                                        <div>
+                                            <h3>{book.title}</h3>
+                                            <p>{book.author}</p>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>

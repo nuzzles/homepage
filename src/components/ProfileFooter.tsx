@@ -41,18 +41,22 @@ export const ProfileFooter = () => {
                     </Link>
                 )}
                 {resume && (
-                    <Link to={resume} reloadDocument={reloadDocument}>
+                    <Link className="footer-link-resume" to={resume} reloadDocument={reloadDocument}>
                         {t("home.resume")}
                     </Link>
                 )}
                 {howIWork && profile.howIWork && (
-                    <Link to={howIWork} reloadDocument={reloadDocument}>
+                    <Link className="footer-link-how-i-work" to={howIWork} reloadDocument={reloadDocument}>
                         {t(profile.howIWork.titleKey)}
                     </Link>
                 )}
-                {blog && <a href={`${blog.replace(/\/$/, "")}/stats/`}>{t("navigation.blogStats")}</a>}
+                {blog && (
+                    <a className="footer-link-stats" href={`${blog.replace(/\/$/, "")}/stats/`}>
+                        {t("navigation.blogStats")}
+                    </a>
+                )}
                 {readingList && (
-                    <Link to={readingList} reloadDocument={reloadDocument}>
+                    <Link className="footer-link-reading" to={readingList} reloadDocument={reloadDocument}>
                         {t("readingListPage.title")}
                     </Link>
                 )}

@@ -106,9 +106,23 @@ function App() {
         )
         return (
             <>
-                {profileSite === "spencer" && <Route path={`${prefix}${page.path}`} element={element} />}
+                {profileSite === "spencer" && (
+                    <>
+                        <Route path={`${prefix}${page.path}`} element={element} />
+                        <Route
+                            path={`${prefix}/reading-list`}
+                            element={<Navigate to={`${prefix}${page.path}`} replace />}
+                        />
+                    </>
+                )}
                 {isLocal && (!profileSite || profileSite === "spencer") && (
-                    <Route path={`${prefix}/spencer${page.path}`} element={element} />
+                    <>
+                        <Route path={`${prefix}/spencer${page.path}`} element={element} />
+                        <Route
+                            path={`${prefix}/spencer/reading-list`}
+                            element={<Navigate to={`${prefix}/spencer${page.path}`} replace />}
+                        />
+                    </>
                 )}
             </>
         )

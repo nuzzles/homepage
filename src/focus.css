@@ -11,3 +11,15 @@
 [role^="menuitem"] {
     --focus-outline-offset: -2px;
 }
+
+/* SVG links get a browser-specific oval ring; outline the day itself instead. */
+:root .stats-day-trigger:focus {
+    outline: none;
+}
+
+.stats-day-trigger:is(:focus-visible, [aria-expanded="true"]) .stats-day {
+    stroke: var(--focus-ring);
+    stroke-width: var(--focus-width);
+    vector-effect: non-scaling-stroke;
+    rx: 0;
+}

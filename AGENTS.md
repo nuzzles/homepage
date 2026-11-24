@@ -165,7 +165,9 @@ and distinguish Spencer's contribution from the team's achievements.
   the homepage and About, with a Squiggle around the home-link name in both header and footer.
   Squiggle waves repeat at a fixed 24px spacing with a 3px stroke, independent of name width.
   Use a continuous path with inset round endpoints so neither side is clipped.
-  Hover/focus motion smoothly translates the whole line evenly; do not stretch, rotate, or skew it.
+  On hover/focus, smoothly animate the wave phase along the line, keeping its container still.
+  Do not bob, stretch, rotate, or skew the whole underline. Honor reduced-motion preferences.
+  On wide screens, arrange footer navigation into two columns, retaining How I work below Resume.
   Footer credit uses coffee and Claude pixel icons with accessible names.
 - `ClaudeMascot` is shared by the site and blog footer. Keep the original local Icons8
   expression SVGs and attribution on About. Track gaze and circles only within the footer and reset to the neutral pose (including circle/reaction state) on exit.
@@ -193,9 +195,16 @@ and distinguish Spencer's contribution from the team's achievements.
 - All external-link indicators use Lucide `ExternalLink`, including project cards,
   social-bar links, scheduling, and PDF actions.
 - Spencer's shared footer links to Blog stats (`/blog/stats/`) and Reading list
-  (`/reading-list`). Keep stats in the English-only Hugo blog, derived at build time
+  (`/books`). Keep stats in the English-only Hugo blog, derived at build time
   from published posts; exclude drafts and future-dated posts even in previews.
-  Keep calendar overflow inside keyboard-scrollable regions and include readable numeric tables.
+  Calendars fill the available width, with full month names and Monday-first weekday labels.
+  Use only two day colors: muted for no posts and foreground black for one or more posts.
+  Reflow calendars into quarterly rows on smaller screens without horizontal scrolling. Stats graphs are full-width
+  vertical bar charts with numeric axes, gridlines, and expandable accessible data tables.
+  Show two charts per row on wide screens and all bars without horizontal scrolling;
+  reduce tick-label density on smaller charts rather than dropping data. Monthly charts
+  cover the last 24 calendar months, including zeros. Day popovers link to every post
+  on that date; bar popovers show exact values. Support hover, keyboard, tap, and Escape.
 - Reading list is Spencer-only and translated into English, French, and Persian.
   Store confirmed books and reading years in `src/content/reading-list.ts`, newest year first.
   Do not invent ratings, reviews, or completion dates.

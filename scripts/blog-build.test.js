@@ -263,14 +263,48 @@ describe("Hugo migration", () => {
     it("derives stats from published posts, including empty years and leap days", () => {
         const stats = html("stats/index.html")
         expect(stats.querySelector('[data-stat="posts"]').textContent).toBe("6")
-        expect(stats.querySelectorAll('.stats-day[data-date^="2024-"]')).toHaveLength(366)
-        expect(stats.querySelectorAll('.stats-day[data-date^="2025-"]')).toHaveLength(365)
+        expect(stats.querySelectorAll('.stats-calendar-full .stats-day[data-date^="2024-"]')).toHaveLength(366)
+        expect([...stats.querySelectorAll(".stats-legend span")].map((item) => item.textContent)).toEqual([
+            "No posts",
+            "1+ posts",
+        ])
+        const calendar = stats.querySelector(".stats-calendar")
+        expect([...calendar.querySelectorAll(".stats-weekday")].map((day) => day.textContent)).toEqual([
+            "M",
+            "T",
+            "W",
+            "T",
+            "F",
+            "S",
+            "S",
+        ])
+        expect(calendar.querySelectorAll(".stats-month")).toHaveLength(12)
+        expect(calendar.querySelector(".stats-month").textContent).toBe("January")
+        expect(calendar.querySelector('[data-date="2026-01-01"]').getAttribute("y")).toBe("68")
+        expect(calendar.querySelector('[data-date="2026-01-05"]').getAttribute("y")).toBe("26")
+        expect(calendar.querySelector('[data-date="2026-09-14"]').classList.contains("has-posts")).toBe(true)
+        const quarterDays = stats.querySelector(".stats-calendar-quarters").querySelectorAll("[data-date]")
+        expect([...quarterDays].map((day) => day.dataset.date)).toEqual(
+            [...calendar.querySelectorAll("[data-date]")].map((day) => day.dataset.date)
+        )
+        expect(stats.querySelector(".stats-calendar-quarters").querySelectorAll("svg")).toHaveLength(4)
+
+        expect(stats.querySelectorAll('.stats-calendar-full .stats-day[data-date^="2025-"]')).toHaveLength(365)
         expect(stats.querySelector('[data-date="2021-05-30"]').getAttribute("data-count")).toBe("1")
         expect(stats.querySelector('[data-date="2026-09-14"]').getAttribute("data-count")).toBe("1")
         const rows = (id) =>
-            [...stats.querySelectorAll(`#${id} ~ table tbody tr`)].map((row) => Number(row.dataset.value))
+            [...stats.querySelectorAll(`#${id} ~ details table tbody tr`)].map((row) => Number(row.dataset.value))
         expect(rows("posts-per-year")).toEqual([1, 1, 1, 1, 0, 2])
-        expect(rows("posts-per-month")).toEqual([1, 1, 1, 1, 2])
+        expect(rows("posts-per-month")).toHaveLength(24)
+        expect(rows("posts-per-month").filter(Boolean)).toEqual([2])
+        expect(stats.querySelector('#posts-per-month ~ details tr[data-period="December 2024"]').dataset.value).toBe(
+            "0"
+        )
+        expect(stats.querySelector('#posts-per-month ~ details tr[data-period="November 2026"]').dataset.value).toBe(
+            "0"
+        )
+        expect(stats.querySelector("#day-2026-09-14").content.querySelector("a").href).toContain(legacyPaths[5])
+        expect(stats.querySelector(".stats-day-trigger")).not.toBeNull()
         const words = Number(stats.querySelector('[data-stat="words"]').textContent.replaceAll(",", ""))
         expect(words).toBeGreaterThan(1000)
         for (const row of stats.querySelectorAll(".stats-chart tbody tr")) {
@@ -279,10 +313,10 @@ describe("Hugo migration", () => {
             )
         }
         expect(rows("words-per-year").reduce((sum, count) => sum + count, 0)).toBe(words)
-        expect(rows("words-per-month").reduce((sum, count) => sum + count, 0)).toBe(words)
-        expect(stats.querySelector(".stats-bar").getAttribute("style")).toMatch(/--bar-width: [\d.]+%/)
+        expect(rows("words-per-month").reduce((sum, count) => sum + count, 0)).toBe(rows("words-per-year").at(-1))
+        expect(stats.querySelector(".stats-bar").getAttribute("style")).toMatch(/--bar-height: [\d.]+%/)
         expect(stats.querySelector('a[href="https://spencer.imbleau.com/blog/stats/"]')).not.toBeNull()
-        expect(stats.querySelector('a[href="https://spencer.imbleau.com/reading-list"]')).not.toBeNull()
+        expect(stats.querySelector('a[href="https://spencer.imbleau.com/books"]')).not.toBeNull()
         expect(readFileSync(join(output, "sitemap.xml"), "utf8")).toContain("/blog/stats/")
     })
     it("excludes drafts and scheduled posts in production but previews them without leaking them into feeds", () => {
@@ -294,5 +328,15 @@ describe("Hugo migration", () => {
         expect(html("index.html").querySelectorAll(".archive-posts li")).toHaveLength(8)
         expect(html("unpublished/index.html").querySelector(".draft-marker").textContent).toBe("Draft")
         expect(readFileSync(join(output, "latest.json"), "utf8")).not.toMatch(/Unpublished|Scheduled/)
+    })
+    it("lists every post when multiple posts share a calendar day", () => {
+        writeFileSync(
+            join(temp, "content/posts/same-day.md"),
+            "---\ntitle: Another post\ndate: 2026-09-14\nurl: another-post/\n---\nAnother post body.\n"
+        )
+        build()
+        const stats = html("stats/index.html")
+        expect(stats.querySelector('[data-date="2026-09-14"]').dataset.count).toBe("2")
+        expect(stats.querySelector("#day-2026-09-14").content.querySelectorAll("a")).toHaveLength(2)
     })
 })

@@ -98,7 +98,7 @@
             }
         ],
         "readingList": {
-            "path": "/reading-list",
+            "path": "/books",
             "lastModified": "2026-11-24",
             "titleKey": "readingListPage.title",
             "descriptionKey": "readingListPage.description"
