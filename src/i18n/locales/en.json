@@ -35,8 +35,8 @@
         "andA": "and a",
         "biographies": {
             "spencer": {
-                "introduction": "Spencer is a full stack software engineer with a specialization in computer graphics and AI.",
-                "details": "Spencer is a member of the <rust>Rust team</rust>, a core contributor to the <bevy>Bevy game engine</bevy>, a maintainer of <trunk>Trunk</trunk>, and a long-standing member of the <linebender>Linebender organization</linebender>."
+                "introduction": "Software engineer building GPU-accelerated computer graphics, AI applications, and complex systems. I work primarily in Rust, TypeScript, WebAssembly, and Python.",
+                "details": "I am also a <rust>Rust triage team member</rust>, <bevy>Bevy contributor</bevy>, <trunk>Trunk core maintainer</trunk>, and <linebender>Linebender maintainer</linebender>."
             },
             "sara": {
                 "introduction": "Sara Imbleau is a PhD researcher at the <uf>University of Florida</uf>, with a specialization in computation, machine learning, and AI.",

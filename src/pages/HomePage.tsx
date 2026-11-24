@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 import { Box, Button, IconButton, Link as MuiLink, Tooltip, Typography } from "@mui/material"
 import CalendarMonth from "@mui/icons-material/CalendarMonth"
 import Check from "@mui/icons-material/Check"
@@ -10,7 +10,7 @@ import { Coffee, Feather, Keyboard, Undo2 } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { Trans, useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSquareGithub } from "@fortawesome/free-brands-svg-icons"
+import { faRust, faSquareGithub } from "@fortawesome/free-brands-svg-icons"
 import { CornerFrame } from "@/components/CornerFrame"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { LightButton } from "@/components/LightButton"
@@ -27,6 +27,39 @@ import {
     type ProfileId,
 } from "@/profiles"
 import { getConfiguredSite } from "@/site"
+
+const AffiliationLink = ({ href, icon, children }: { href: string; icon: ReactNode; children?: ReactNode }) => (
+    <MuiLink
+        href={href}
+        underline="always"
+        sx={{ display: "inline-flex", alignItems: "baseline", gap: "0.25em", maxWidth: "100%" }}
+    >
+        <Box
+            component="span"
+            aria-hidden="true"
+            sx={{
+                display: "inline-flex",
+                alignSelf: "center",
+                width: "1em",
+                height: "1em",
+                flexShrink: 0,
+                color: "text.primary",
+            }}
+        >
+            {icon}
+        </Box>
+        <span>{children}</span>
+    </MuiLink>
+)
+
+const affiliationIcon = (name: string) => (
+    <Box
+        component="img"
+        src={`/images/affiliations/${name}.svg`}
+        alt=""
+        sx={{ width: "100%", height: "100%", objectFit: "contain" }}
+    />
+)
 
 const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
     const { t } = useTranslation()
@@ -286,14 +319,34 @@ export const HomePage = () => {
                                         i18nKey={`home.biographies.${profileId}.details`}
                                         components={{
                                             rust: (
-                                                <MuiLink
+                                                <AffiliationLink
                                                     href="https://rust-lang.org/governance/people/nuzzles/"
-                                                    underline="always"
+                                                    icon={
+                                                        <FontAwesomeIcon
+                                                            icon={faRust}
+                                                            style={{ width: "100%", height: "100%" }}
+                                                        />
+                                                    }
                                                 />
                                             ),
-                                            bevy: <MuiLink href="https://bevy.org/" underline="always" />,
-                                            trunk: <MuiLink href="https://trunkrs.dev/" underline="always" />,
-                                            linebender: <MuiLink href="https://linebender.org/" underline="always" />,
+                                            bevy: (
+                                                <AffiliationLink
+                                                    href="https://github.com/bevyengine/bevy"
+                                                    icon={affiliationIcon("bevy")}
+                                                />
+                                            ),
+                                            trunk: (
+                                                <AffiliationLink
+                                                    href="https://github.com/trunk-rs/trunk"
+                                                    icon={affiliationIcon("wasm")}
+                                                />
+                                            ),
+                                            linebender: (
+                                                <AffiliationLink
+                                                    href="https://linebender.org/"
+                                                    icon={affiliationIcon("linebender")}
+                                                />
+                                            ),
                                             uf: <MuiLink href="https://www.ufl.edu/" underline="always" />,
                                         }}
                                     />

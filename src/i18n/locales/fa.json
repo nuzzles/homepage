@@ -35,8 +35,8 @@
         "andA": "و یک",
         "biographies": {
             "spencer": {
-                "introduction": "اسپنسر مهندس نرم‌افزار فول‌استک با تخصص در گرافیک کامپیوتری و هوش مصنوعی است.",
-                "details": "اسپنسر عضو <rust>تیم Rust</rust>، از مشارکت‌کنندگان اصلی <bevy>موتور بازی Bevy</bevy>، از نگه‌دارندگان <trunk>Trunk</trunk> و عضو دیرینهٔ <linebender>سازمان Linebender</linebender> است."
+                "introduction": "مهندس نرم‌افزار هستم و روی گرافیک کامپیوتری شتاب‌یافته با GPU، برنامه‌های هوش مصنوعی و سیستم‌های پیچیده کار می‌کنم. بیشتر با Rust، TypeScript، WebAssembly و Python کار می‌کنم.",
+                "details": "همچنین <rust>عضو تیم تریاژ Rust</rust>، <bevy>مشارکت‌کنندهٔ Bevy</bevy>، <trunk>نگه‌دارندهٔ اصلی Trunk</trunk> و <linebender>نگه‌دارندهٔ Linebender</linebender> هستم."
             },
             "sara": {
                 "introduction": "سارا ایمبلو پژوهشگر دکتری در <uf>دانشگاه فلوریدا</uf> با تخصص در محاسبات، یادگیری ماشین و هوش مصنوعی است.",
