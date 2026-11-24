@@ -7,10 +7,22 @@ settings:
 importers:
   .:
     dependencies:
+      "@fontsource-variable/dm-sans":
+        specifier: ^5.3.0
+        version: 5.3.0
+      "@fontsource-variable/source-serif-4":
+        specifier: ^5.3.1
+        version: 5.3.1
+      "@fontsource-variable/vazirmatn":
+        specifier: ^5.3.0
+        version: 5.3.0
       "@fortawesome/fontawesome-svg-core":
         specifier: ^7.3.1
         version: 7.3.1
       "@fortawesome/free-brands-svg-icons":
+        specifier: ^7.3.1
+        version: 7.3.1
+      "@fortawesome/free-solid-svg-icons":
         specifier: ^7.3.1
         version: 7.3.1
       "@fortawesome/react-fontawesome":
@@ -558,6 +570,18 @@ packages:
     resolution:
       { integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww== }
 
+  "@fontsource-variable/dm-sans@5.3.0":
+    resolution:
+      { integrity: sha512-BpUG5bqePiDFMBM4ZtLSlPdAIOM990uB1dlXzIf4aw21yQR7BmykedLXXXMqGWsR18aMLOsbWccwJNh3ztTQaA== }
+
+  "@fontsource-variable/source-serif-4@5.3.1":
+    resolution:
+      { integrity: sha512-4Rtay22SC4lMvw11r/+9kxANB6P3M0X8s1NudBC2v0J1KU2y3DcMoNcT3lBoZ/CqLirzf+StlO6UlJilyrvaUg== }
+
+  "@fontsource-variable/vazirmatn@5.3.0":
+    resolution:
+      { integrity: sha512-ZA68W8JHbMdNzzwjYHUWKB2PH22QpxNEnk0ukcXM+XiqYMV6ZWJZAKuNXcrMR2JjuIAwsfAU3KknCXPI6wXUvw== }
+
   "@fortawesome/fontawesome-common-types@7.3.1":
     resolution:
       { integrity: sha512-k0C0sdHmZtAo6dRDtd1Z/qcpyHbL0CKsjV8seMY/21xGhY5Wsv0XRmiI/xEEH4y2c9b1+jvgNs/3EqhV27yUEA== }
@@ -571,6 +595,11 @@ packages:
   "@fortawesome/free-brands-svg-icons@7.3.1":
     resolution:
       { integrity: sha512-8eiNzycuFhy3mZsi5EVO8JpO3H8l7/kSCl4Gk4iUew9hJuzYFqAAD6kqgeEup3+YZ9hL+5cjjorGzrRLkYuURg== }
+    engines: { node: ">=6" }
+
+  "@fortawesome/free-solid-svg-icons@7.3.1":
+    resolution:
+      { integrity: sha512-v0BLa0eqg7ubvVWeNSHVBs8fWH/GJicERZoJaxJ3FE/lj67VSqzoMg9pzfZVOfLMX10y0pGwQAuxoRVVH2patg== }
     engines: { node: ">=6" }
 
   "@fortawesome/react-fontawesome@3.5.0":
@@ -3612,6 +3641,12 @@ snapshots:
 
   "@floating-ui/utils@0.2.12": {}
 
+  "@fontsource-variable/dm-sans@5.3.0": {}
+
+  "@fontsource-variable/source-serif-4@5.3.1": {}
+
+  "@fontsource-variable/vazirmatn@5.3.0": {}
+
   "@fortawesome/fontawesome-common-types@7.3.1": {}
 
   "@fortawesome/fontawesome-svg-core@7.3.1":
@@ -3619,6 +3654,10 @@ snapshots:
       "@fortawesome/fontawesome-common-types": 7.3.1
 
   "@fortawesome/free-brands-svg-icons@7.3.1":
+    dependencies:
+      "@fortawesome/fontawesome-common-types": 7.3.1
+
+  "@fortawesome/free-solid-svg-icons@7.3.1":
     dependencies:
       "@fortawesome/fontawesome-common-types": 7.3.1
 

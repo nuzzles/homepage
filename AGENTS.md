@@ -84,12 +84,12 @@ and distinguish Spencer's contribution from the team's achievements.
 - Use the owned shadcn/ui components in `src/components/ui/` for buttons, menus,
   popovers, and cards. `components.json` configures the registry and aliases.
 - Use Tailwind and the semantic CSS variables in `src/index.css`; do not add MUI
-  or a second component theme. Keep the cream background and blue primary color.
+  or a second component theme. Use the shared Anthropic-inspired warm-neutral theme in `src/design-tokens.css`.
 - Header and footer are the same React components on the site and blog. Hugo renders
   them at build time and hydrates them; do not duplicate their markup or styles in templates.
-- Font files are declared once in `src/fonts.css`; About and Blog titles and prose share
+- Fonts are bundled locally through `src/fonts.css` (DM Sans, Source Serif 4, and Vazirmatn for Persian); About and Blog titles and prose share
   `src/typography.css`, loaded through the shared site stylesheet. Change typography there
-  so the React and Hugo pages stay consistent; do not reintroduce blog-specific font rules.
+  so the React and Hugo pages stay consistent. Colors, spacing, radii, shadows, and type scales come from `src/design-tokens.css`; do not introduce a separate blog palette or font system.
 - The blog is coupled to Spencer: keep its Hugo config, content, layouts, and assets in
   `blog/`. Do not add profile-generic blog configuration or a Sara blog.
 - Preserve visible keyboard focus, 44px control targets, reduced-motion support,
@@ -126,7 +126,7 @@ and distinguish Spencer's contribution from the team's achievements.
 - On the résumé page, group Open PDF beside the download icon and actual PDF file size.
   Keep a translated accessible download label even when its visible text is only the size.
 
-- Use full-width sections with internal padding (3.6vw, minimum 20px), following den.dev.
+- Use full-width sections with internal padding from `--page-gutter` (6.25vw, clamped to 20–120px).
   Header, hero, action bar, and footer span the viewport; do not inset the entire page.
   Apply the same fluid shell to the blog and document pages.
   Keep prose at a readable line length. Share the spacious grouped-link footer between
@@ -145,4 +145,4 @@ and distinguish Spencer's contribution from the team's achievements.
 - About prose is authored in `src/content/about/{en,fr,fa}.md`. Preserve stable heading
   anchors and component slots across translations. Blog posts live in `blog/content/posts/`;
   use Hugo shortcodes and keep explicit URLs on migrated posts. See `docs/blog-development.md`.
-- Keep the footer cream at every breakpoint; do not tint it with the primary color.
+- Keep the footer on the shared warm off-white background at every breakpoint; do not tint it with the primary color.

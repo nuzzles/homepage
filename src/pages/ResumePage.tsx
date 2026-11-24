@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useRef, useState } from "react"
-import { ArrowLeft, Download, FileText, LoaderCircle } from "lucide-react"
+import { ArrowLeft, Download, LoaderCircle } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
@@ -130,7 +132,7 @@ export const ResumePage = () => {
                             role="status"
                             className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 bg-card px-6 text-center"
                         >
-                            <FileText className="size-10 text-primary" aria-hidden="true" />
+                            <FontAwesomeIcon icon={faFilePdf} className="size-10 text-primary" aria-hidden="true" />
                             <p className="text-2xl font-semibold">{text("loading")}</p>
                             <LoaderCircle className="size-6 animate-spin text-primary" aria-hidden="true" />
                             {showLoadingHelp && (

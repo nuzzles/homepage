@@ -1,101 +1,37 @@
 # Website UI audit and shadcn refresh
 
-Audited November 23, 2026. The portfolio pairs bold typography and a playful portrait
-with full-width page sections, an edge-to-edge homepage action bar, internal padding of
-3.6vw (20px minimum), readable prose widths, consistent controls,
-and dedicated project and About content. About is organized as Status, Projects, Contact, Identity, and Disclaimer, with a
-GitHub/LinkedIn identity table, a keyboard-accessible contents toggle, and active-section
-highlighting while scrolling. Affiliation icons and link labels wrap together. This follows the measured layout on den.dev:
-96px desktop section spacing and 56px on mobile. Blog and document shells also span
-the viewport, while long-form prose retains a readable measure. The homepage and About share a spacious grouped-link
-footer with a reusable blue name squiggle and accessible coffee/Claude pixel icons.
-The homepage and About structure take inspiration from [den.dev](https://den.dev),
-using this site's own colors, portrait, decorations, and copy.
+Updated November 24, 2026. The portfolio and Hugo blog share one React header/footer
+and an Anthropic-inspired visual system. See [design-system.md](design-system.md)
+for palette, typography, spacing, control tokens, and font licenses.
 
-| Finding                                                         | Change                                                                                                                                                                                                           |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Uppercase display styling reduced readability.                  | Sentence-case Barlow headings and controls, a personal greeting, and a full biography at every screen size.                                                                                                      |
-| The portrait lost its distinctive framing.                      | Offset blue frame, corner marks, rotated name sticker, star, and scribble; brief entrance motion respects reduced-motion preferences.                                                                            |
-| Projects contained too many visual labels.                      | Title and description only, with a boxed external-link marker. Every project opens in a new tab.                                                                                                                 |
-| The homepage did not surface recent writing.                    | Latest lists three published posts as date, title, and description rows from a Jekyll-generated JSON feed; the blog link remains available if the feed fails.                                                    |
-| Contact actions lacked a clear home.                            | One bar contains GitHub, LinkedIn, Resume (PDF icon), Email, and Schedule 1:1 (Calendly logo); email opens a copyable popover. Resume uses same-tab React Router navigation; Schedule 1:1 has an external arrow. |
-| Profile switching and biography expansion added distractions.   | Removed the homepage profile dropdown and expansion controls. Header links are Blog then About, with the profile name linking home.                                                                              |
-| About content was split across the blog and website.            | Migrated ownership, contribution links, categories, and license details into the translated site About page. The old blog URL redirects there.                                                                   |
-| Cross-page anchors could miss their target while React mounted. | Restore fragment scrolling after sections mount, with regression coverage.                                                                                                                                       |
-| MUI and custom controls duplicated the UI system.               | Owned shadcn/ui components, Radix menus and popovers, and Tailwind tokens; matching static Jekyll CSS.                                                                                                           |
-| Document controls and email feedback were incomplete.           | Language switching, consistent active/alternate navigation, an Open PDF link beside an accessible download icon with live file size, and translated copy feedback.                                               |
+| Finding                                                 | Current behavior                                                                                                                                                                 |
+| ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Site and blog drifted visually.                         | Both consume `src/design-tokens.css`, `src/fonts.css`, and `src/typography.css`; Hugo renders and hydrates the shared React chrome.                                              |
+| Heavy headings and saturated colors dominated the page. | Serif display type, sans-serif body/UI type, warm paper surfaces, near-black controls, and muted decorative accents.                                                             |
+| Spacing and shapes were inconsistent.                   | Shared spacing scale, fluid gutters, balanced banners, readable prose widths, restrained borders, and reusable control/panel radii.                                              |
+| Narrow social bars crowded their actions.               | Five columns on wide screens, three/two at intermediate widths, and two columns with a full-width Email row on phones. Each action keeps inner padding and square hover corners. |
+| Email was awkward to access.                            | Centered modal with blur, Compose email and Copy email actions, translated copy feedback, outside-click/Escape dismissal, and focus restoration.                                 |
+| Portrait decorations were excessive.                    | Rounded photo, restrained hand-drawn hatch, outlined stars with discrete twinkles, and an introduction marker underline.                                                         |
+| Homepage structure was noisy.                           | Full biography, Latest and Projects sections, simple project cards, and underlined Blog/About navigation. Profile name returns home.                                             |
+| Blog discovery and navigation were limited.             | Homepage feed, grouped year archive, collapsible contents and active headings, topic links, and a five-post timeline that continues to the edge when additional posts exist.     |
+| Opinion posts needed context.                           | Sticky Thinking out loud notice, reading metadata, and compact listing badges.                                                                                                   |
+| About content was duplicated.                           | Translated Markdown on Spencer’s site; former blog About redirects there.                                                                                                        |
+| Footer details did not align.                           | Shared footer with compact pixel coffee/Clawd, stepped steam, footer-only pointer tracking, and accessible interactions.                                                         |
 
-![Refreshed Spencer homepage](ui-refresh-homepage.jpg)
+## Interaction and accessibility
 
-![Spencer About page](ui-refresh-about.jpg)
-
-## Content and routing
-
-- Monet, bevy_vello, Trunk, and halo_api are configured in `profiles.json`.
-  Cards have no category, technology, or decorative icon labels. No Mastodon link is added.
-- About, projects, navigation, and controls are translated into English, French, and Persian.
-  About follows the résumé route conventions, including bare and language-prefixed routes,
-  local profile paths, canonical metadata, sitemap entries, and CloudFront routing.
-- About, Latest, and Projects belong to Spencer. Sara retains her own profile content.
-- How I Work remains accessible through the résumé page, with a bounded scrollable article
-  and Go Back outside. Its navigation keeps the filled active and outlined alternate styles.
-- Blog content and the résumé PDF remain English only. Blog background remains `#f3eedf`.
-- README files were not changed.
+- Preserve 44px targets, visible focus, keyboard operation, reduced motion, and Persian RTL.
+- Blog and résumé PDF remain English-only; the surrounding site UI is translated.
+- Social order: GitHub, LinkedIn, Schedule 1:1, Resume, Email. Social icons inherit text color.
+- Resume navigates through React Router. External project/social links open new tabs.
+- Résumé and How I Work remain paired pages with matching primary/secondary navigation.
+- No profile switcher, extra Home/Projects header links, or biography expansion control.
+- The footer keeps the same paper surface at all breakpoints.
 
 ## Validation
 
-- `pnpm check`: Prettier, ESLint, TypeScript, 229 tests, and the Vite build.
-- `HOMEPAGE_SITE=spencer pnpm build` and `HOMEPAGE_SITE=sara pnpm build`, including Hugo.
-- `terraform -chdir=terraform fmt -check -recursive`,
-  `terraform -chdir=terraform init -backend=false -input=false -lockfile=readonly`,
-  and `terraform -chdir=terraform validate`.
-- Browser checks of the revised portfolio: 1280px homepage and About; 375px homepage;
-  320px English homepage and email reveal, French About, and Persian homepage. The full-width
-  shell and footer were also checked at 1600px and 320px. Checked horizontal overflow,
-  header wrapping, language changes, cross-page project scrolling, email copy feedback, outside-click/Escape dismissal and focus return,
-  résumé/How I Work button hierarchy, project new-tab targets, and blog About redirects.
-- Earlier refresh checks also covered the joint selector, Sara résumé state, mobile blog index
-  and article, keyboard menu opening/Escape/focus return, biography expansion, article scrolling,
-  image enlargement/Escape, and the PDF download.
-- Theme text contrast calculations: ink on cream 15.39:1, muted text on cream 5.22:1,
-  and white on primary blue 7.16:1. These are token checks, not a WCAG certification.
-
-The in-app browser displayed the external résumé iframe but not its PDF contents;
-embedded PDF rendering remains a browser-dependent manual check. The direct download
-worked. This was a visual and interaction audit, not a comprehensive screen-reader,
-physical-device, or cross-browser certification.
-
-## Component maintenance
-
-`components.json` configures shadcn's `new-york` registry and the `@/` aliases.
-Button, card, dropdown-menu, and popover source originated from the official
-[shadcn registry](https://ui.shadcn.com/r/styles/new-york/button.json).
-Local adjustments set 44px control targets, strengthen button focus rings, and omit
-menu and popover animations. The upstream MIT notice is retained in `src/components/ui/LICENSE.md`.
-Use `src/index.css` for app tokens and shared layouts, and `public/blog-theme.css`
-for the corresponding static blog presentation.
-
-## Hugo and Markdown reading layouts
-
-Profile blogs now build with pinned Hugo 0.170.1, installed from checksum-verified
-upstream releases. Posts retain their category/date URLs, `.html` suffixes, metadata,
-RSS and latest feed paths, category listing, and embedded demos. CI and deployment
-use the same installer. Setup and authoring guidance is in [blog development](blog-development.md).
-
-The archive uses sticky year labels and title/description rows. Articles share the
-About page's left contents/right prose arrangement, collapse control, and scroll
-highlighting. Hugo emits contents links into the HTML; JavaScript enhances them.
-Neighbouring-post timelines show the current post plus up to two posts in each
-direction, switching to a vertical layout on mobile. The blog header/footer use the
-site's wordmark, links, and coffee/Claude credit. Both React and Hugo footers use the
-same cream background at every breakpoint.
-
-About prose moved to English, French, and Persian Markdown files, with stable anchors
-and profile-backed slots for biography, projects, contact actions, and identity.
-No README files were changed.
-
-Migration tests build actual Hugo output and verify all six legacy post URLs, canonical
-metadata and schema, heading links, year grouping, categories, feeds, timeline endpoints,
-shortcode markup, and draft/scheduled-post isolation. Browser checks verified desktop
-article scroll highlighting/collapse, Mermaid rendering, replay and hex iframe content,
-mobile archive/article layout, and English/French/Persian About with no horizontal overflow.
+Run `pnpm check`, `HOMEPAGE_SITE=spencer pnpm build`, and `HOMEPAGE_SITE=sara pnpm build`.
+Browser checks cover desktop and narrow layouts, shared About/Blog typography,
+translated layouts, the email modal, navigation, social-bar sizing, and the footer.
+The PDF frame’s contents depend on the browser’s PDF viewer; the download and page
+controls are independently usable.

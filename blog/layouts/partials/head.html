@@ -10,7 +10,7 @@
     {{ with .Params.image }}{{ $image = strings.TrimPrefix "/" .path | absURL }}{{ $alt = .alt }}{{ end }}
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}" />
-    <meta name="theme-color" content="#f3eedf" />
+    <meta name="theme-color" content="#faf9f5" />
     <meta name="author" content="{{ site.Params.fullName }}" />
     <link rel="canonical" href="{{ .Permalink }}" />
     <meta property="og:title" content="{{ $title }}" />

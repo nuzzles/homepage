@@ -1,0 +1,78 @@
+/* Shared by the React site, Hugo reading layouts, and owned UI components. */
+:root {
+    --background: #faf9f5;
+    --foreground: #141413;
+    --card: #f5f4ed;
+    --muted: #e8e6dc;
+    --muted-foreground: #5e5d59;
+    --primary: #141413;
+    --primary-hover: #30302e;
+    --primary-foreground: #faf9f5;
+    --border-color: #dedcd1;
+    --input-border: #87867f;
+    --accent-surface: #e8e6dc;
+    --accent-ink: #8a4935;
+    --accent-art: #c7785b;
+    --highlight: #e6cfa0;
+    --marker-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 18' preserveAspectRatio='none'%3E%3Cpath d='M4 11Q80 3 150 8T295 6M7 14Q105 9 184 12T290 10' fill='none' stroke='%23e6cfa0' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E");
+    --opinion-surface: #e9d5b5;
+    --link-color: #30302e;
+    --link-hover: #8a4935;
+    --danger: #a33b32;
+    --focus-ring: #8a4935;
+    --selection: #e9d5b5;
+    --overlay: rgb(20 20 19 / 25%);
+    --shadow-soft: 0 2px 8px rgb(20 20 19 / 4%);
+    --shadow-dialog: 0 16px 64px rgb(20 20 19 / 14%);
+
+    --font-body: "DM Sans Variable", "Vazirmatn Variable", Arial, sans-serif;
+    --font-display: "Source Serif 4 Variable", "Vazirmatn Variable", Georgia, serif;
+    --type-xs: 0.8125rem;
+    --type-sm: 0.9375rem;
+    --type-body: 1rem;
+    --type-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+    --type-title: 1.25rem;
+    --type-section: clamp(1.5rem, 3vw, 2rem);
+    --type-display: clamp(2.5rem, 5.5vw, 4.5rem);
+    --leading-body: 1.65;
+    --leading-prose: 1.8;
+    --leading-heading: 1.12;
+    --tracking-heading: -0.025em;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+    --page-gutter: clamp(20px, 6.25vw, 120px);
+    --section-space: clamp(56px, 6.25vw, 96px);
+    --page-banner-padding: clamp(48px, 6.25vw, 96px);
+    --layout-gap: clamp(24px, 4vw, 64px);
+    --reading-width: 68ch;
+    --control-height: 44px;
+    --control-radius: 10px;
+    --panel-radius: 12px;
+    --portrait-radius: 24px;
+    --motion-fast: 160ms;
+}
+
+:lang(fa) {
+    --font-body: "Vazirmatn Variable", Tahoma, sans-serif;
+    --font-display: "Vazirmatn Variable", Tahoma, sans-serif;
+    --tracking-heading: 0;
+    --leading-heading: 1.4;
+}
+
+@media (max-width: 767px) {
+    :root {
+        --section-space: 56px;
+        --page-banner-padding: 40px;
+    }
+}

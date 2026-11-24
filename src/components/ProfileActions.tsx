@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-import { ArrowUpRight, Check, Copy, Mail, X } from "lucide-react"
+import { ArrowUpRight, Check, Copy, X } from "lucide-react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faEnvelope, faFilePdf } from "@fortawesome/free-solid-svg-icons"
 import { useTranslation } from "react-i18next"
 import { ProfileSocials } from "@/components/ProfileSocials"
 import {
@@ -42,7 +44,7 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
             <div className="email-dialog-actions">
                 <Button asChild>
                     <a href={`mailto:${email}`}>
-                        <Mail aria-hidden="true" />
+                        <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
                         {t("home.composeEmail")}
                         <ArrowUpRight aria-hidden="true" />
                     </a>
@@ -78,7 +80,7 @@ const RevealEmailButton = ({ encodedEmail }: { encodedEmail: string }) => {
             >
                 <DialogTrigger asChild>
                     <Button variant="ghost">
-                        <Mail aria-hidden="true" />
+                        <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
                         {t("home.revealEmail")}
                     </Button>
                 </DialogTrigger>
@@ -106,20 +108,7 @@ export const ProfileActions = () => {
             )}
             <Button asChild variant="ghost">
                 <Link className="resume-action" to={localizedPath(`${base}/resume`)}>
-                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                        <path d="M14 2H5a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8zM14 2v6h6" />
-                        <text
-                            x="12"
-                            y="17"
-                            textAnchor="middle"
-                            stroke="none"
-                            fill="currentColor"
-                            fontSize="7"
-                            fontWeight="700"
-                        >
-                            PDF
-                        </text>
-                    </svg>
+                    <FontAwesomeIcon icon={faFilePdf} aria-hidden="true" />
                     {t("home.resume")}
                 </Link>
             </Button>

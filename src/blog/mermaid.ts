@@ -1,21 +1,24 @@
 import mermaid from "mermaid"
 import { setupDiagramViewer } from "./mermaid-viewer.ts"
 
+const styles = getComputedStyle(document.documentElement)
+const token = (name: string) => styles.getPropertyValue(name).trim()
+
 mermaid.initialize({
     startOnLoad: false,
     securityLevel: "strict",
     suppressErrorRendering: true,
     theme: "base",
-    fontFamily: "Barlow, Arial, sans-serif",
+    fontFamily: token("--font-body"),
     themeVariables: {
         fontSize: "16px",
-        primaryColor: "#fcfaf3",
-        primaryTextColor: "#171813",
-        primaryBorderColor: "#8f8b7a",
-        lineColor: "#68675a",
-        secondaryColor: "#e5eaff",
-        tertiaryColor: "#f3eedf",
-        edgeLabelBackground: "#f3eedf",
+        primaryColor: token("--card"),
+        primaryTextColor: token("--foreground"),
+        primaryBorderColor: token("--input-border"),
+        lineColor: token("--muted-foreground"),
+        secondaryColor: token("--muted"),
+        tertiaryColor: token("--background"),
+        edgeLabelBackground: token("--background"),
     },
     flowchart: { htmlLabels: false, curve: "linear", nodeSpacing: 24, rankSpacing: 28, wrappingWidth: 240 },
 })

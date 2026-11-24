@@ -21,7 +21,7 @@
     display: block;
     width: 100%;
     height: auto;
-    border: 1px solid var(--blog-ink);
+    border: 1px solid var(--foreground);
     background: #000;
 }
 
@@ -51,9 +51,9 @@
     width: 44px;
     height: 44px;
     padding: 0;
-    border: 1px solid var(--blog-ink);
-    background: var(--blog-paper, #fcfaf3);
-    color: var(--blog-ink, #171813);
+    border: 1px solid var(--foreground);
+    background: var(--background);
+    color: var(--foreground);
     cursor: pointer;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .replay-expand:focus-visible {
-    outline: 3px solid var(--blog-blue);
+    outline: 3px solid var(--focus-ring);
     outline-offset: 3px;
 }
 
@@ -79,7 +79,7 @@
     width: 100%;
     height: 100%;
     height: 100dvh;
-    background: var(--blog-paper, #fcfaf3);
+    background: var(--background);
     padding-bottom: env(safe-area-inset-bottom);
     box-sizing: border-box;
 }

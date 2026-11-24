@@ -1,11 +1,11 @@
 /* Generated using: hugo gen chromastyles --style=friendly */
 
-/* Background */ .bg { background-color:#f0f0f0; }
-/* PreWrapper */ .chroma { background-color:#f0f0f0;-webkit-text-size-adjust:none; }
+/* Background */ .bg { background-color:var(--card); }
+/* PreWrapper */ .chroma { background-color:var(--card);-webkit-text-size-adjust:none; }
 /* LineLink */ .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
 /* LineTableTD */ .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
 /* LineTable */ .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
-/* LineHighlight */ .chroma .hl { background-color:#d8d8d8 }
+/* LineHighlight */ .chroma .hl { background-color:var(--muted) }
 /* LineNumbersTable */ .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
 /* LineNumbers */ .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
 /* Line */ .chroma .line { display:flex; }
