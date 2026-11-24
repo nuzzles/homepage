@@ -40,7 +40,7 @@ export const LatestPosts = () => {
         <section className="latest-section" aria-labelledby="latest-title">
             <div className="section-heading">
                 <h2 id="latest-title">{t("latest.title")}</h2>
-                <a className="text-link" href={blog} target="_blank" rel="noopener noreferrer">
+                <a className="text-link" href={blog}>
                     {t("latest.more")} <ArrowRight aria-hidden="true" />
                 </a>
             </div>
@@ -51,9 +51,7 @@ export const LatestPosts = () => {
                             {new Intl.DateTimeFormat(language, { dateStyle: "medium" }).format(new Date(post.date))}
                         </time>
                         <h3 lang="en">
-                            <a href={post.url} target="_blank" rel="noopener noreferrer">
-                                {post.title}
-                            </a>
+                            <a href={post.url}>{post.title}</a>
                             {post.opinion === true && <span className="opinion-badge">Opinion</span>}
                         </h3>
                         <p lang="en">{post.description}</p>

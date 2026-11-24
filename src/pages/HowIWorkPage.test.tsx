@@ -160,6 +160,18 @@ describe("How I Work routing", () => {
         expect(valuesNav.querySelectorAll("a")).toHaveLength(1)
         expect(valuesNav.querySelector(`a[href="${prefix}/spencer/resume"]`)).not.toBeNull()
         expect(container.querySelector('article[aria-labelledby="how-i-work-title"]')).not.toBeNull()
+
+        // Footer navigation starts at the top, including a repeat visit to the current document.
+        for (const destination of ["resume", "resume", "how-i-work", "how-i-work"]) {
+            const scroller = document.scrollingElement ?? document.documentElement
+            scroller.scrollTop = 1200
+            const href = `${prefix}/spencer/${destination}`
+            await act(async () => {
+                container.querySelector<HTMLAnchorElement>(`.footer-links a[href="${href}"]`)!.click()
+            })
+            expect(window.location.pathname).toBe(href)
+            expect(scroller.scrollTop).toBe(0)
+        }
     })
 
     const unavailable = ["", "/en", "/fr", "/fa"].flatMap((prefix) => [
