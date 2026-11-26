@@ -428,6 +428,25 @@ html[data-navigating]::before {
     align-items: center;
     gap: 6px;
 }
+.profile-footer.profile-footer-compact {
+    display: block;
+    margin-block-start: 0;
+    border-top: 0;
+    padding-block: var(--space-6);
+}
+.profile-footer-compact .footer-identity {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6) var(--space-8);
+}
+@media (max-width: 767px) {
+    .profile-footer-compact .footer-identity {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
 .footer-coffee {
     width: 22px;
     height: 22px;
@@ -675,6 +694,7 @@ html[data-navigating]::before {
     filter: drop-shadow(var(--shadow-soft));
 }
 .portrait-photo {
+    position: relative;
     padding: var(--space-2);
     background: var(--background);
     clip-path: polygon(
@@ -1005,6 +1025,31 @@ html[data-navigating]::before {
     }
     .profile-portrait {
         animation: hero-arrive 600ms 80ms ease-out both;
+    }
+    .portrait-photo::after {
+        content: "";
+        position: absolute;
+        inset: var(--space-2);
+        pointer-events: none;
+        background: linear-gradient(
+            110deg,
+            transparent 40%,
+            color-mix(in srgb, var(--background) 32%, transparent) 50%,
+            transparent 60%
+        );
+        background-size: 300% 100%;
+        background-repeat: no-repeat;
+        animation: portrait-shine 9s ease-in-out infinite;
+    }
+    @keyframes portrait-shine {
+        0%,
+        70% {
+            background-position: 150% 0;
+        }
+        90%,
+        100% {
+            background-position: -50% 0;
+        }
     }
     @keyframes hero-arrive {
         from {
