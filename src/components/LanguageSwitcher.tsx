@@ -46,7 +46,7 @@ export const LanguageSwitcher = ({ englishOnly = false }: { englishOnly?: boolea
         )
     }
     return (
-        <DropdownMenu dir={language === "fa" ? "rtl" : "ltr"}>
+        <DropdownMenu dir={language === "fa" ? "rtl" : "ltr"} modal={false}>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="ghost"

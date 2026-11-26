@@ -2,6 +2,7 @@ import "@/i18n/i18n"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import "./index.css"
+import "./navigation"
 import App from "./App.tsx"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

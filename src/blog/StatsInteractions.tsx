@@ -109,7 +109,7 @@ export function StatsInteractions() {
             (
                 contentRef.current?.querySelector<HTMLElement>("a") ??
                 contentRef.current?.querySelector<HTMLElement>("button")
-            )?.focus()
+            )?.focus({ preventScroll: true })
     }, [selection])
     return (
         <Popover
@@ -118,7 +118,20 @@ export function StatsInteractions() {
                 if (!open) setSelection(null)
             }}
         >
-            {selection && <PopoverAnchor virtualRef={{ current: selection.element }} />}
+            {selection && (
+                <PopoverAnchor
+                    virtualRef={{
+                        current: {
+                            getBoundingClientRect: () => {
+                                const bar = selection.element.querySelector(".stats-bar")
+                                const rect = (bar ?? selection.element).getBoundingClientRect()
+                                // Position value details at the bar tip, not outside the full plot.
+                                return bar ? new DOMRect(rect.x, rect.y, rect.width, 0) : rect
+                            },
+                        },
+                    }}
+                />
+            )}
             <PopoverContent
                 ref={contentRef}
                 id="stats-popover"
@@ -127,13 +140,15 @@ export function StatsInteractions() {
                 side="top"
                 sideOffset={8}
                 collisionPadding={16}
+                sticky="always"
+                updatePositionStrategy="always"
                 onOpenAutoFocus={(event) => {
                     event.preventDefault()
                     if (selection?.activated)
                         (
                             contentRef.current?.querySelector<HTMLElement>("a") ??
                             contentRef.current?.querySelector<HTMLElement>("button")
-                        )?.focus()
+                        )?.focus({ preventScroll: true })
                 }}
                 onCloseAutoFocus={(event) => event.preventDefault()}
                 onInteractOutside={(event) => {
