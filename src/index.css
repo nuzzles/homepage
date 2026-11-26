@@ -69,6 +69,26 @@
     justify-content: center;
     padding: var(--space-8) var(--space-6);
 }
+
+html[data-navigating]::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: 3px;
+    z-index: 100;
+    background: var(--foreground);
+    pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+    html[data-navigating]::before {
+        animation: navigation-pulse 800ms ease-in-out infinite alternate;
+    }
+    @keyframes navigation-pulse {
+        to {
+            opacity: 0.35;
+        }
+    }
+}
 .profile-page {
     width: 100%;
     max-width: 1080px;
@@ -721,7 +741,6 @@
     gap: var(--space-2);
     min-height: 44px;
     font-size: 1rem;
-    font-weight: 600;
 }
 .social-strip a > svg {
     width: 18px;
@@ -1152,6 +1171,7 @@
     gap: var(--space-3);
     justify-content: center;
     font-size: 1rem;
+    font-weight: 500;
     border-radius: 0;
     box-shadow: none;
 }
@@ -1473,15 +1493,17 @@
 }
 
 .stats-popover {
-    width: min(360px, calc(100vw - 32px));
-    max-height: min(360px, calc(100dvh - 32px));
+    width: max-content;
+    max-width: min(320px, calc(100vw - 32px));
+    max-height: min(320px, var(--radix-popover-content-available-height));
     overflow-y: auto;
+    overflow-wrap: anywhere;
     border: 1px solid var(--foreground);
     border-radius: 0;
     background: var(--background);
-    padding: var(--space-4);
+    padding: var(--space-3);
     color: var(--foreground);
-    box-shadow: var(--shadow-dialog);
+    box-shadow: var(--shadow-soft);
 }
 .stats-popover-heading {
     display: flex;
@@ -1498,8 +1520,8 @@
 }
 .stats-popover-value {
     display: block;
-    font-size: var(--type-title);
-    margin-top: var(--space-2);
+    font-size: var(--type-body);
+    font-weight: 500;
 }
 .stats-popover ul {
     list-style: none;

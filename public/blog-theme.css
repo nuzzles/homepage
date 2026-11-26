@@ -446,9 +446,11 @@ table td {
 /* Hugo prose keeps its own rhythm; site chrome uses the homepage baseline. */
 .blog-chrome { font-size: 1rem; line-height: 1.5; }
 
-/* Build-time writing statistics. Calendars scroll locally; tables remain readable at 320px. */
-.stats-introduction { max-width: var(--reading-width); margin-block: var(--section-space) var(--space-12); font-size: var(--type-lead); line-height: var(--leading-prose); }
-.stats-totals { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); margin: 0 0 var(--section-space); }
+/* Build-time writing statistics share one vertical rhythm at every viewport. */
+.blog-stats { display: flex; flex-direction: column; gap: var(--section-space); }
+.blog-stats > [data-stats-interactions] { display: none; }
+.stats-introduction { max-width: var(--reading-width); margin: 0; font-size: var(--type-lead); line-height: var(--leading-prose); }
+.stats-totals { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); margin: 0; }
 .stats-totals > div { border-top: 2px solid var(--foreground); padding-top: var(--space-4); }
 .stats-totals dt { font-weight: 600; }
 .stats-totals dd { margin: 0; display: flex; flex-direction: column; }
@@ -462,9 +464,11 @@ table td {
 .stats-day { fill: var(--border-color); background: var(--border-color); }
 .stats-day.has-posts { fill: var(--foreground); background: var(--foreground); }
 .stats-activity > h2 { padding-bottom: var(--space-6); border-bottom: 2px solid var(--foreground); }
-.stats-calendar-year { container-type: inline-size; min-width: 0; padding-block: var(--space-8); }
+.stats-calendar-year { container-type: inline-size; min-width: 0; margin-top: var(--space-8); }
+.stats-calendar-year + .stats-calendar-year { margin-top: var(--section-space); }
 .stats-year-label { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-4); margin-bottom: var(--space-2); border-bottom: 2px solid var(--foreground); }
 .stats-year-label h3 { font-size: var(--type-title); margin: 0; }
+.stats-year-label p { margin: 0; }
 .stats-calendar-full, .stats-calendar-quarters { padding-block: var(--space-2); }
 .stats-calendar-quarters { display: none; }
 @container (max-width: 799px) {
@@ -476,10 +480,10 @@ table td {
 }
 .stats-calendar { display: block; width: 100%; min-width: 0; max-width: 100%; height: auto; }
 .stats-calendar text { fill: var(--muted-foreground); font: 11px var(--font-body); }
-.stats-charts { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--section-space); margin-top: var(--section-space); }
+.stats-charts { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--section-space); }
 .stats-chart { min-width: 0; container-type: inline-size; }
 .stats-chart > h2 { padding-bottom: var(--space-6); border-bottom: 2px solid var(--foreground); }
-.stats-chart-viewport { width: 100%; padding-block: var(--space-6) var(--space-2); }
+.stats-chart-viewport { width: 100%; padding-block: 0 var(--space-2); }
 .stats-plot { width: 100%; padding-block: var(--space-2) var(--space-16); position: relative; font-variant-numeric: tabular-nums; }
 .stats-plot-area { position: relative; height: 280px; margin-inline-start: var(--space-16); border-inline-start: 1px solid var(--border-color); }
 .stats-y-axis { position: absolute; top: var(--space-2); left: 0; height: 280px; width: var(--space-12); color: var(--muted-foreground); font-size: var(--type-sm); }
@@ -496,7 +500,7 @@ table td {
 .stats-chart th { color: var(--foreground); background: transparent; text-align: start; font-weight: 500; }
 .stats-chart thead { border-bottom: 2px solid var(--foreground); }
 .stats-chart td { text-align: end; }
-.stats-method { margin-top: var(--section-space); }
+.stats-method { margin: 0; }
 @media (min-width: 600px) {
     .stats-totals { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .stats-totals strong { font-size: clamp(2.5rem, 5vw, 5rem); }
