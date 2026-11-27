@@ -43,7 +43,7 @@ afterEach(async () => {
 })
 
 const button = (name: string) => [...container.querySelectorAll("button")].find((el) => el.textContent === name)!
-const reveal = async () => act(async () => button("Email").click())
+const reveal = async () => act(async () => button("Reveal email").click())
 
 describe("profile controls", () => {
     it("opens a labeled email dialog with compose and copy actions, and closes with Escape", async () => {
