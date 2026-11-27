@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process"
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs"
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
 import { JSDOM } from "jsdom"
@@ -192,7 +192,7 @@ describe("Hugo migration", () => {
         ])
         expect(archive.querySelectorAll(".archive-posts li")).toHaveLength(6)
         const latest = JSON.parse(readFileSync(join(output, "latest.json"), "utf8"))
-        expect(latest).toHaveLength(3)
+        expect(latest).toHaveLength(5)
         expect(latest[0].description).toContain("Infinite's")
         const rss = new JSDOM(readFileSync(join(output, "feed.xml"), "utf8"), { contentType: "text/xml" }).window
             .document
@@ -239,7 +239,7 @@ describe("Hugo migration", () => {
         const badge = archive.querySelector(".opinion-badge")
         expect(archive.querySelectorAll(".opinion-badge")).toHaveLength(1)
         expect(badge.textContent).toBe("Opinion")
-        expect(badge.closest("h3").querySelector("a").getAttribute("href")).toContain(legacyPaths[4])
+        expect(badge.closest("li").querySelector("h3 a").getAttribute("href")).toContain(legacyPaths[4])
         const latest = JSON.parse(readFileSync(join(output, "latest.json"), "utf8"))
         expect(latest.filter((post) => post.opinion).map((post) => post.title)).toEqual(["AI is in its homelab era"])
     })
@@ -336,7 +336,8 @@ describe("Hugo migration", () => {
         const publishedStats = html("stats/index.html").querySelector(".blog-stats").textContent
         build(["--buildDrafts", "--buildFuture"])
         expect(html("stats/index.html").querySelector(".blog-stats").textContent).toBe(publishedStats)
-        expect(html("index.html").querySelectorAll(".archive-posts li")).toHaveLength(8)
+        const postCount = readdirSync(join(temp, "content/posts")).filter((name) => name.endsWith(".md")).length
+        expect(html("index.html").querySelectorAll(".archive-posts li")).toHaveLength(postCount)
         expect(html("unpublished/index.html").querySelector(".draft-marker").textContent).toBe("Draft")
         expect(readFileSync(join(output, "latest.json"), "utf8")).not.toMatch(/Unpublished|Scheduled/)
     })

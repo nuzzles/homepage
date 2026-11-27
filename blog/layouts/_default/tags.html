@@ -9,7 +9,7 @@
     <header class="archive-year-heading"><h2 id="tag-{{ . | anchorize }}">#{{ . }}</h2></header>
     <ol class="archive-posts">
         {{ range $posts }}{{ if in (partial "post-tags.html" .) $tag }}
-        <li><div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>{{ partial "draft.html" . }}<h3><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ partial "opinion-badge.html" . }}</h3></div><p>{{ .Description | default (.Summary | plainify) }}</p></li>
+        <li><div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>{{ partial "archive-post-badges.html" . }}</div><p>{{ .Description | default (.Summary | plainify) }}</p></li>
         {{ end }}{{ end }}
     </ol>
 </section>

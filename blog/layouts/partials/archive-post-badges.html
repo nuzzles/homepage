@@ -1,0 +1,3 @@
+{{ if or .Draft (partial "is-opinion.html" .) }}
+<div class="post-badges">{{ partial "draft.html" . }}{{ partial "opinion-badge.html" . }}</div>
+{{ end }}

@@ -140,8 +140,10 @@ and distinguish Spencer's contribution from the team's achievements.
 - The profile header links are Blog, then About. The profile name links home;
   do not add separate Home or Projects links to the header.
 - Spencer's homepage sections are Latest and Projects. Latest uses Hugo's generated
-  published-post feed, with date, title, and description in each row; blog titles and
-  excerpts remain English. Project cards contain
+  post feed, with the five newest posts and a date, title, and description in each row. Local development includes drafts
+  with a translated Draft badge; built feeds exclude drafts, and future-dated posts stay excluded.
+  Show Draft and Opinion badges beneath each title; blog titles and excerpts remain English.
+  Project cards contain
   only a title, description, and boxed external-link indicator and open in new tabs.
   The external-link marker uses the shared yellow accent, a 36px square, and a 22px icon.
 - Spencer's former blog About URL redirects to his site About page. Keep the blog's

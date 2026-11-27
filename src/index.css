@@ -873,7 +873,8 @@ html[data-navigating]::before {
     font-size: 0.9rem;
     line-height: 1.8;
 }
-.opinion-badge {
+.opinion-badge,
+.post-badges .draft-marker {
     display: inline-block;
     padding: var(--space-1) var(--space-2);
     border-radius: 3px;
@@ -884,6 +885,18 @@ html[data-navigating]::before {
     line-height: 1.2;
     vertical-align: middle;
     white-space: nowrap;
+}
+.post-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+.post-badges .draft-marker {
+    margin: 0;
+    background: var(--danger);
+    color: var(--primary-foreground);
 }
 .latest-list h3,
 .archive-posts h3 {
