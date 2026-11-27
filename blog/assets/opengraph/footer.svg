@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+    <desc>Shared blog sharing footer. The warm card color fades upward behind the black IM logo and author name.</desc>
+    <defs>
+        <linearGradient id="footer-fade" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#f5f4ed" />
+            <stop offset="0.35" stop-color="#f5f4ed" stop-opacity="0.98" />
+            <stop offset="0.65" stop-color="#f5f4ed" stop-opacity="0.6" />
+            <stop offset="1" stop-color="#f5f4ed" stop-opacity="0" />
+        </linearGradient>
+    </defs>
+    <rect y="400" width="1200" height="230" fill="url(#footer-fade)" />
+    <svg x="64" y="550" width="48" height="48" viewBox="0 0 200 200">
+        <desc>DM Sans 750, outlined. Colors match src/design-tokens.css.</desc>
+        <rect width="200" height="200" fill="#141413" />
+        <path aria-label="IM" d="M40 140.934V59.066H56.081V140.934ZM72.163 140.934V59.066H91.392L116.18 109.784L140.798 59.066H160V140.934H143.919V86.318L122.44 129.473H109.678L88.244 86.408V140.934Z" fill="#faf9f5" />
+    </svg>
+</svg>

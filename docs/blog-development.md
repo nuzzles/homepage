@@ -44,6 +44,34 @@ draft: true
 ---
 ```
 
+## Blog sharing images
+
+Hugo generates a 1200×630 PNG for each post from its title, categories (or Opinion tag), and
+publication month. The template uses Source Serif 4 titles, DM Sans metadata, Spencer's portrait,
+and the shared black IM logo. A warm gradient rises from the bottom behind the author name.
+It wraps titles using the font's character widths and reduces the
+type size when needed. Images have content-based URLs and are shared by Open Graph, X, and article
+structured data. Archive pages retain the shared Imbleau banner.
+
+An `image` front-matter block replaces the title and portrait with a photo or screenshot, including
+the Halo Theater image. Store the source in `blog/assets/` and use `/assets/filename.png` as its `path`.
+Hugo crops it to 1200×630 and adds the same gradient, logo, and author name; the source stays unchanged.
+To shorten only the text drawn in an image, add `opengraph: { title: "Shorter image title" }`.
+This does not change the article heading or metadata title. No manual export is needed; run
+`HOMEPAGE_SITE=spencer pnpm dev` or the normal profile build to preview the resulting `og:image` URL.
+
+The reusable layout lives in `blog/layouts/partials/opengraph/`. Its artwork and font resources live
+in `blog/assets/opengraph/`: `base.svg` is the editable source for `base.png`, and `footer.svg` is the
+source for the transparent `footer.png` shared by all post images. The palette was exported from
+`src/design-tokens.css`; the embedded portrait
+and monogram come from `public/images/me-384.webp` and `public/logo.svg`. Update the SVG and PNG together
+when changing the static artwork. The TrueType fonts are medium-weight instances of the installed
+`@fontsource-variable` families; `serif-widths.json` stores their title-font advances in ems. Keep that
+file in sync when changing the title font. Their licenses are in `public/fonts/source-serif-4-OFL.txt`
+and `public/fonts/dm-sans-OFL.txt`. Generation uses Hugo's built-in image filters without new dependencies.
+
+## Content shortcodes
+
 Use Hugo shortcodes for assets and demos:
 
 ```text

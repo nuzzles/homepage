@@ -33,6 +33,10 @@
         "mounts": [
             {
                 "source": "assets",
+                "target": "assets"
+            },
+            {
+                "source": "assets",
                 "target": "static/assets"
             }
         ]

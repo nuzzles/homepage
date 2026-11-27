@@ -1,0 +1,5 @@
+{{- $width := 0.0 -}}
+{{- range split .text "" -}}
+    {{- $width = add $width (index $.widths . | default 0.6) -}}
+{{- end -}}
+{{- return (mul $width .size) -}}

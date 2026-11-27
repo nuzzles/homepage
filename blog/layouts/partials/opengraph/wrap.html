@@ -1,0 +1,25 @@
+{{- $lines := slice -}}
+{{- $line := "" -}}
+{{- range findRE `\S+` .text -}}
+    {{- $candidate := . -}}
+    {{- if $line }}{{ $candidate = printf "%s %s" $line . }}{{ end -}}
+    {{- $width := partial "opengraph/measure.html" (dict "text" $candidate "size" $.size "widths" $.widths) -}}
+    {{- if le $width $.maxWidth -}}
+        {{- $line = $candidate -}}
+    {{- else -}}
+        {{- with $line }}{{ $lines = $lines | append . }}{{ end -}}
+        {{- $line = "" -}}
+        {{- range split . "" -}}
+            {{- $candidate = printf "%s%s" $line . -}}
+            {{- $width = partial "opengraph/measure.html" (dict "text" $candidate "size" $.size "widths" $.widths) -}}
+            {{- if and $line (gt $width $.maxWidth) -}}
+                {{- $lines = $lines | append $line -}}
+                {{- $line = . -}}
+            {{- else -}}
+                {{- $line = $candidate -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- with $line }}{{ $lines = $lines | append . }}{{ end -}}
+{{- return $lines -}}

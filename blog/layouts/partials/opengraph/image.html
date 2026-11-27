@@ -1,0 +1,50 @@
+{{- $base := resources.Get "opengraph/base.png" -}}
+{{- $footer := resources.Get "opengraph/footer.png" -}}
+{{- $serif := resources.Get "opengraph/serif-medium.ttf" -}}
+{{- $sans := resources.Get "opengraph/sans-medium.ttf" -}}
+{{- $widths := resources.Get "opengraph/serif-widths.json" | transform.Unmarshal -}}
+{{- $colors := resources.Get "opengraph/colors.json" | transform.Unmarshal -}}
+{{- $image := $base -}}
+{{- with .Params.image -}}
+    {{- $path := strings.TrimPrefix "assets/" (strings.TrimPrefix "/" .path) -}}
+    {{- with resources.Get $path -}}
+        {{- $image = .Fill "1200x630 Center png" -}}
+    {{- else -}}
+        {{- errorf "Open Graph image not found in blog/assets: %s" $path -}}
+    {{- end -}}
+{{- end -}}
+{{- $image = $image.Filter (images.Overlay $footer 0 0) -}}
+{{- if not .Params.image -}}
+    {{- $title := .Params.opengraph.title | default .Title | plainify | htmlUnescape -}}
+    {{- $size := 84 -}}
+    {{- $lines := slice -}}
+    {{- range slice 84 80 76 72 68 64 60 56 52 48 44 40 36 32 28 24 -}}
+        {{- $size = . -}}
+        {{- $lines = partial "opengraph/wrap.html" (dict "text" $title "size" $size "maxWidth" 704 "widths" $widths) -}}
+        {{- if le (mul (len $lines) (mul $size 1.12)) 330 }}{{ break }}{{ end -}}
+    {{- end -}}
+    {{- if gt (mul (len $lines) (mul $size 1.12)) 330 -}}
+        {{- errorf "Open Graph title is too long for %s; set a shorter opengraph.title in front matter" .File.Path -}}
+    {{- end -}}
+
+    {{- $category := "Notes" -}}
+    {{- with .Params.categories -}}
+        {{- $labels := slice -}}
+        {{- range . -}}
+            {{- $label := title . -}}
+            {{- if eq . "ai" }}{{ $label = "AI" }}{{ end -}}
+            {{- $labels = $labels | append $label -}}
+        {{- end -}}
+        {{- $category = delimit $labels " · " -}}
+    {{- end -}}
+    {{- if in (.Params.tags | default slice) "opinion" }}{{ $category = "Opinion" }}{{ end -}}
+    {{- $metadata := printf "%s  /  %s" $category (.Date.Format "January 2006") -}}
+    {{- $image = $image.Filter (images.Text $metadata (dict "font" $sans "size" 24 "color" (index $colors "muted-foreground") "x" 64 "y" 60)) -}}
+
+    {{- $step := int (mul $size 1.12) -}}
+    {{- range $index, $line := $lines -}}
+        {{- $image = $image.Filter (images.Text $line (dict "font" $serif "size" $size "color" $colors.foreground "x" 64 "y" (add 148 (mul $index $step)))) -}}
+    {{- end -}}
+{{- end -}}
+{{- $image = $image.Filter (images.Text site.Params.fullName (dict "font" $serif "size" 30 "color" $colors.foreground "x" 132 "y" 553)) -}}
+{{- return $image -}}

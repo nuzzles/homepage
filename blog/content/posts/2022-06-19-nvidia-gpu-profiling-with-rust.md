@@ -3,6 +3,11 @@ title: "NVIDIA GPU profiling with Rust"
 description: "The NVIDIA Tools Exension SDK (NVTX) has a lot to offer for GPU and CPU profiling. This blog shows how to leverage these tools with Rust, and how we can make sense of the results."
 date: 2022-06-19
 categories: ["rust", "graphics"]
+image:
+    path: /assets/opengraph/nvidia-profiler-trace.png
+    width: 1200
+    height: 630
+    alt: NVIDIA GPU profiling with Rust above an NVTX profiler trace showing annotated thread activity
 url: rust/graphics/2022/06/19/nvidia-gpu-profiling-with-rust.html
 ---
 

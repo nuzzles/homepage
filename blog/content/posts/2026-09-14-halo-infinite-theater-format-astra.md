@@ -6,10 +6,10 @@ categories: ["ai", "rust"]
 stylesheets:
     - /assets/css/halo-theater.css
 image:
-    path: /assets/halo-infinite-theater.png
-    width: 1080
-    height: 573
-    alt: Halo Infinite Theater replay with a match timeline, event markers, and playback controls
+    path: /assets/opengraph/halo-theater-title.png
+    width: 1200
+    height: 630
+    alt: Reverse-engineering Halo Infinite's Theater films over a gameplay screenshot with a match timeline and playback controls
 url: ai/rust/2026/09/14/halo-infinite-theater-format-astra.html
 ---
 

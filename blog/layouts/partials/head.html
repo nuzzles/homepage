@@ -7,7 +7,24 @@
     {{ $description := .Description | default site.Params.description }}
     {{ $image := printf "%s/og-banner.png" site.Params.homepageURL }}
     {{ $alt := site.Params.fullName }}
-    {{ with .Params.image }}{{ $image = strings.TrimPrefix "/" .path | absURL }}{{ $alt = .alt }}{{ end }}
+    {{ $imageWidth := 1280 }}
+    {{ $imageHeight := 640 }}
+    {{ if eq .Section "posts" }}
+        {{ $generated := partial "opengraph/image.html" . }}
+        {{ $publicURL := urls.Parse site.Params.blogURL }}
+        {{ $image = printf "%s://%s%s" $publicURL.Scheme $publicURL.Host $generated.RelPermalink }}
+        {{ $imageWidth = $generated.Width }}
+        {{ $imageHeight = $generated.Height }}
+        {{ $alt = printf "%s — %s" .Title site.Params.fullName }}
+        {{ with .Params.image.alt }}{{ $alt = printf "%s — %s" . site.Params.fullName }}{{ end }}
+    {{ else }}
+        {{ with .Params.image }}
+            {{ $image = strings.TrimPrefix "/" .path | absURL }}
+            {{ $alt = .alt }}
+            {{ $imageWidth = .width | default 0 }}
+            {{ $imageHeight = .height | default 0 }}
+        {{ end }}
+    {{ end }}
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}" />
     <meta name="theme-color" content="#faf9f5" />
@@ -20,6 +37,8 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:image" content="{{ $image }}" />
     <meta property="og:image:alt" content="{{ $alt }}" />
+    {{ with $imageWidth }}<meta property="og:image:width" content="{{ . }}" />{{ end }}
+    {{ with $imageHeight }}<meta property="og:image:height" content="{{ . }}" />{{ end }}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $title }}" />
     <meta name="twitter:description" content="{{ $description }}" />
@@ -35,7 +54,11 @@
     {{ else }}<meta property="og:type" content="website" />{{ end }}
     <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ "feed.xml" | absURL }}" />
     <link rel="sitemap" type="application/xml" href="{{ "sitemap.xml" | absURL }}" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#141413" />
+    <link rel="manifest" href="/site.webmanifest" />
     {{ range site.Params.chromeStylesheets }}<link rel="stylesheet" href="{{ . }}" />{{ end }}
     {{ if site.Params.chromeDev }}
     <script type="module">

@@ -4,6 +4,11 @@ description: "Lessons from making the first modern compute-centric vector graphi
 date: 2023-11-20
 lastmod: 2024-01-15
 categories: ["rust", "graphics"]
+image:
+    path: /assets/opengraph/vong-closeup.png
+    width: 1200
+    height: 630
+    alt: High performance vector graphic video games, with a close-up of Vong's egg and bacon artwork
 youtubeId: hNu5oF18j5g
 vongDemo: https://nuzzles.github.io/vong/
 url: rust/graphics/2023/11/20/using-vello-for-video-games.html
