@@ -1034,7 +1034,7 @@ html[data-navigating]::before {
         background: linear-gradient(
             110deg,
             transparent 40%,
-            color-mix(in srgb, var(--background) 32%, transparent) 50%,
+            color-mix(in srgb, var(--background) 16%, transparent) 50%,
             transparent 60%
         );
         background-size: 300% 100%;
