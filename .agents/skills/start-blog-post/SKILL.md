@@ -1,17 +1,17 @@
 ---
 name: start-blog-post
-description: Interview Spencer to turn a new blog idea into a writing brief and a Hugo draft outline with human-writing placeholders. Use when starting or scoping a new post; use blog-writing for drafting, revising, or reviewing established prose.
+description: Interview Spencer, critique and iterate on an outline until he approves it, then create a writing brief and a Hugo draft with human-writing placeholders. Use when starting or scoping a new post; use blog-writing for drafting, revising, or reviewing established prose.
 ---
 
 # Start Blog Post
 
-Help Spencer articulate the post he wants to write. Extract the experiences, judgments, and technical details only he can supply; do the editorial and SEO synthesis yourself. The default result is a writing brief and a Hugo draft outline for Spencer to fill in, with `TODO - Human writing` in every section. Write prose only when he requests it.
+Help Spencer articulate the post he wants to write. Extract the experiences, judgments, and technical details only he can supply; do the editorial and SEO synthesis yourself. The default result is a writing brief and a Hugo draft outline for Spencer to fill in, with `TODO - Human writing` in every section. Scrutinize and revise the proposed outline with him until he explicitly approves it before creating the post scaffold. Write prose only when he requests it.
 
 ## Start with what is already known
 
 Read [the blog writing standard](../blog-writing/references/writing-standard.md) before proposing titles, hooks, or metadata. Use the current conversation, supplied notes, and relevant repository artifacts to prefill the brief. Inspect `blog/hugo.json` and related posts when choosing categories, links, and image defaults. The repository supplies the author, English language, site URL, and publishing conventions; do not ask Spencer to repeat them.
 
-Use the interview to establish the outline Spencer wants to write: the point of the post, the sections he wants, and their order. If the conversation already supplies these, use those answers and ask only about consequential gaps. Respect an explicit request to draft prose from complete notes.
+Use the interview to establish the outline Spencer wants to write: the point of the post, the sections he wants, and their order. If the conversation already supplies these, use those answers and ask only about consequential gaps. Complete notes can shorten the interview, but do not replace approval of the proposed outline.
 
 ## Interview in short rounds
 
@@ -46,6 +46,19 @@ Separate author-supplied facts from your proposals and unresolved questions. Nev
 - Narrow unsupported claims, identify them as opinion or hypothesis when appropriate, or record the specific evidence still needed. The intake can finish with an evidence plan; do not describe an unsupported claim as verified or the post as ready to publish.
 - Outline only the sections needed to deliver the payoff, based on the interview. Give each section its job and supporting example or artifact in the brief. Distinguish proposed headings from sections the author requested, and resolve consequential outline choices with him. Preserve the author's voice using a few of their own useful phrases.
 
+## Scrutinize the outline and iterate until approval
+
+Treat the first outline as a proposal. Review it as an editor, rather than simply arranging every idea the author mentions:
+
+- Does the sequence deliver the title's promise and a clear payoff for the intended reader?
+- Does each section advance the story or argument? Identify repetition, tangents, missing transitions, and conclusions that do not follow from the preceding material.
+- Are central claims grounded in the author's experience or an explicit evidence plan? Challenge unsupported leaps and distinguish observations from predictions or opinions.
+- Is the scope practical for one post, and does the opening reach the subject quickly enough?
+
+Present the complete proposed outline with each section's purpose and supporting material or evidence gap, followed by a concise critique of the most consequential weaknesses. Recommend concrete changes such as cutting, merging, reordering, or reframing sections. Ask focused questions about unresolved choices, use the answers to revise, and show the updated outline with a short explanation of what changed. Repeat this review-and-revision loop until Spencer explicitly approves the current outline; do not rubber-stamp it or prolong it for optional polish after approval.
+
+Ask for approval of the concrete outline when it is ready for a decision. Answers to interview questions, individual edits, silence, or a general request to start a post are not outline approval. Do not create the post scaffold or begin prose drafting before that approval. Once approved, use that outline without asking again. Apply later changes explicitly requested by Spencer; bring agent-proposed material changes to its premise, scope, or section order back for approval. Outline approval does not mean the unfinished post is ready to publish.
+
 ## Derive SEO from the reader's intent
 
 Do not require the user to know keyword research, write a meta description, or choose a slug. Translate the reader's question and the author's angle into a concrete recommendation:
@@ -72,7 +85,7 @@ Record the template/custom choice, source or proposed subject, crop, alt text, a
 
 ## Deliver the brief and human-writing outline
 
-Finish when the reader, premise, payoff, and grounded opening direction are clear and the major claims have evidence or an explicit plan. Do not prolong the interview for optional polish. If the user asks to proceed with incomplete answers, produce a provisional brief with visible assumptions and precise gaps; avoid filling missing facts with plausible prose.
+Complete the intake once Spencer has explicitly approved the outline, the reader, premise, payoff, and grounded opening direction are clear, and the major claims have evidence or an explicit plan. Do not prolong the interview for optional polish. If the user asks to proceed with incomplete answers, produce a provisional brief and outline with visible assumptions and precise gaps for his approval; avoid filling missing facts with plausible prose.
 
 Provide a concise brief in the conversation, or save it at the requested location when the user wants a file. Include:
 
@@ -83,7 +96,7 @@ Provide a concise brief in the conversation, or save it at the requested locatio
 - **SEO proposal:** search intent, primary query and any research basis, slug, description, categories, useful links, preview image plan, and publication timing if known.
 - **Author notes and open decisions:** phrases to preserve, constraints, next action for the reader if relevant, and unresolved questions that materially affect drafting or publication.
 
-Clearly distinguish confirmed facts, editorial recommendations, and unknowns. Unless the user asks for a brief only, create the outline in `blog/content/posts/` using the repository's Hugo conventions:
+Clearly distinguish confirmed facts, editorial recommendations, and unknowns. After outline approval, unless the user asks for a brief only, create the approved outline in `blog/content/posts/` using the repository's Hugo conventions:
 
 - Set `draft: true`, retain the chosen title, and include a stable `url`, description, and appropriate categories and tags. For an undecided publication date, use today's date as a working date in both the filename and front matter, and note in the brief that it is provisional.
 - Turn the interview's outline into descriptive `##` headings, using `###` only where needed. Put the exact standalone text `TODO - Human writing` in every section and planned subsection, including the opening. The page title comes from front matter; do not duplicate it as a Markdown heading.
@@ -91,4 +104,4 @@ Clearly distinguish confirmed facts, editorial recommendations, and unknowns. Un
 - Use the generated Open Graph template unless a custom image is chosen, and record that decision in the brief. Follow the image guidance above when producing artwork.
 - Check formatting and build the draft in a local preview. Confirm the outline renders and a normal production build excludes it from public pages, feeds, stats, and the sitemap. Follow repository validation requirements before opening a PR.
 
-Deliver the draft path with the concise brief and any unresolved decisions. Keep unfinished posts as drafts. If the user explicitly requests prose, continue using [blog-writing](../blog-writing/SKILL.md) with this brief and the requested scope; an ordinary request to start a post means the human-writing outline above.
+Deliver the draft path with the concise brief and any unresolved decisions. Keep unfinished posts as drafts. If the user explicitly requests prose and has approved the outline, continue using [blog-writing](../blog-writing/SKILL.md) with this brief and the requested scope; an ordinary request to start a post means the human-writing outline above.
