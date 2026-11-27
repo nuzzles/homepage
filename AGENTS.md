@@ -81,6 +81,13 @@ and distinguish Spencer's contribution from the team's achievements.
 - Follow existing UI and routing patterns when adding pages.
 - Run focused checks during development and the validation required by `CONTRIBUTING.md`
   before a PR is ready for review. Build each affected profile for profile or blog changes.
+- Every AI-authored or AI-updated PR with visual changes must include screenshots embedded in
+  its PR description or a PR comment before it is ready for review. Capture the actual rendered
+  result at mobile (including 320px wide) and desktop sizes, with before/after views when fixing
+  a visual bug; include affected translated/RTL or interactive states when relevant. Keep the
+  screenshots current with the PR, label viewports and states, and use reviewer-accessible image
+  URLs rather than local filesystem paths. For motion changes, also attach a short recording or
+  animated capture. State device/browser verification limits; screenshots do not prove gestures.
 - Never commit secrets, dependency directories, or generated build output.
 
 ## UI architecture
