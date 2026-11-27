@@ -44,7 +44,7 @@ beforeAll(() => {
     cpSync(join(root, "blog/content"), join(temp, "content"), { recursive: true })
     cpSync(join(root, "blog/data"), join(temp, "data"), { recursive: true })
     mkdirSync(join(temp, "assets"))
-    for (const directory of ["hex-viewer", "motion-replay", "diagrams"]) {
+    for (const directory of ["hex-viewer", "motion-replay", "diagrams", "opengraph"]) {
         cpSync(join(root, "blog/assets", directory), join(temp, "assets", directory), { recursive: true })
     }
     writeFileSync(

@@ -7,7 +7,22 @@
     {{ $description := .Description | default site.Params.description }}
     {{ $image := printf "%s/og-banner.png" site.Params.homepageURL }}
     {{ $alt := site.Params.fullName }}
-    {{ with .Params.image }}{{ $image = strings.TrimPrefix "/" .path | absURL }}{{ $alt = .alt }}{{ end }}
+    {{ $imageWidth := 1280 }}
+    {{ $imageHeight := 640 }}
+    {{ if and (eq .Section "posts") (not .Params.image) }}
+        {{ $generated := partial "opengraph/image.html" . }}
+        {{ $publicURL := urls.Parse site.Params.blogURL }}
+        {{ $image = printf "%s://%s%s" $publicURL.Scheme $publicURL.Host $generated.RelPermalink }}
+        {{ $imageWidth = $generated.Width }}
+        {{ $imageHeight = $generated.Height }}
+        {{ $alt = printf "%s — %s" .Title site.Params.fullName }}
+    {{ end }}
+    {{ with .Params.image }}
+        {{ $image = strings.TrimPrefix "/" .path | absURL }}
+        {{ $alt = .alt }}
+        {{ $imageWidth = .width | default 0 }}
+        {{ $imageHeight = .height | default 0 }}
+    {{ end }}
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}" />
     <meta name="theme-color" content="#faf9f5" />
@@ -20,6 +35,8 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:image" content="{{ $image }}" />
     <meta property="og:image:alt" content="{{ $alt }}" />
+    {{ with $imageWidth }}<meta property="og:image:width" content="{{ . }}" />{{ end }}
+    {{ with $imageHeight }}<meta property="og:image:height" content="{{ . }}" />{{ end }}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $title }}" />
     <meta name="twitter:description" content="{{ $description }}" />
