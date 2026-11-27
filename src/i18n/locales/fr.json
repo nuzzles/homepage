@@ -152,6 +152,7 @@
     },
     "latest": {
         "title": "Derniers articles",
+        "draft": "Brouillon",
         "more": "Voir tous les articles"
     },
     "heading": {

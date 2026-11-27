@@ -31,7 +31,11 @@ Keep the explicit `url` on migrated posts: it preserves their original category/
 URLs, including `.html`. New posts can choose a short `url`, such as `my-post/`.
 Dates and category arrays belong in front matter. Use `draft: true` for unfinished
 posts. Development and staging builds include drafts and future posts; production
-excludes them. The homepage feed always excludes drafts and scheduled posts.
+excludes them. The homepage feed includes drafts during local development (`pnpm dev`),
+with a Draft badge in Latest. Latest shows up to five posts, with Draft and Opinion badges
+below their titles. Built feeds, including staging, exclude drafts; scheduled
+posts are excluded from the homepage feed in every environment. RSS and stats remain
+limited to published posts.
 
 ```yaml
 ---

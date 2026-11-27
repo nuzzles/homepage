@@ -4,7 +4,14 @@ import { useLanguage } from "@/hooks/useLanguage"
 import { getSpencerBlogPath, isProfileId } from "@/profiles"
 import { getConfiguredSite } from "@/site"
 
-type Post = { title: string; url: string; date: string; description: string; opinion?: boolean }
+type Post = {
+    title: string
+    url: string
+    date: string
+    description: string
+    opinion?: boolean
+    draft?: boolean
+}
 export const LatestPosts = () => {
     const { t, language } = useLanguage()
     const site = getConfiguredSite()
@@ -28,7 +35,7 @@ export const LatestPosts = () => {
                         typeof post.date === "string" &&
                         Number.isFinite(Date.parse(post.date))
                 )
-                if (!controller.signal.aborted) setPosts(valid.slice(0, 3))
+                if (!controller.signal.aborted) setPosts(valid.slice(0, 5))
             })
             .catch(() => {
                 /* The blog link remains available if the feed cannot load. */
@@ -50,10 +57,21 @@ export const LatestPosts = () => {
                         <time dateTime={post.date}>
                             {new Intl.DateTimeFormat(language, { dateStyle: "medium" }).format(new Date(post.date))}
                         </time>
-                        <h3 lang="en">
-                            <a href={post.url}>{post.title}</a>
-                            {post.opinion === true && <span className="opinion-badge">Opinion</span>}
-                        </h3>
+                        <div>
+                            <h3 lang="en">
+                                <a href={post.url}>{post.title}</a>
+                            </h3>
+                            {(post.draft === true || post.opinion === true) && (
+                                <div className="post-badges">
+                                    {post.draft === true && <span className="draft-marker">{t("latest.draft")}</span>}
+                                    {post.opinion === true && (
+                                        <span className="opinion-badge" lang="en">
+                                            Opinion
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                         <p lang="en">{post.description}</p>
                     </li>
                 ))}

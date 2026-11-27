@@ -152,6 +152,7 @@
     },
     "latest": {
         "title": "Latest",
+        "draft": "Draft",
         "more": "See more posts"
     },
     "heading": {

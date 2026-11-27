@@ -35,7 +35,7 @@ export const ProfileActions = () => {
                 <EmailDialog key={profile.id} encodedEmail={profile.encodedEmail}>
                     <SocialBarAction>
                         <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
-                        {t("home.revealEmail")}
+                        {t("aboutPage.identity.revealEmail")}
                     </SocialBarAction>
                 </EmailDialog>
             </div>
