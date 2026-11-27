@@ -22,17 +22,39 @@ Keep these traits:
 
 The voice can be raw without being careless. Older spelling or grammar errors are not style. Correct mistakes while retaining cadence and deliberate informality.
 
-## What to avoid
+## Avoid formulaic AI prose
 
-- essay-style throat clearing, formal thesis announcements, and broad scene-setting;
-- generic transitions such as “Moreover,” “In conclusion,” or “It is important to note”;
-- inflated novelty, performance, or universality claims;
-- corporate polish, promotional superlatives, and calls to “unlock” or “leverage” ideas;
-- explaining familiar concepts longer than the post needs;
-- three restatements of a point that landed the first time;
-- forced jokes, recurring bits, or whimsy in every heading;
-- invented quotations, measurements, citations, personal memories, or certainty;
-- turning a short useful post into a comprehensive guide without being asked.
+Spencer wants writing that readers skeptical of AI prose will still want to read. Apply these rules to proposed titles, hooks, outlines, guidance, drafts, revisions, and editorial suggestions. Never introduce the stock patterns below to make his writing sound more polished, profound, or persuasive. Review your own proposed wording before presenting it.
+
+| Pattern to avoid                                                                                                                                                 | Editing direction                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Stock contrasts: “It's not X, it's Y,” “not just X, but Y,” “less about X, more about Y,” or a clipped “X. Not Y.”                                               | State the intended point directly. Explain a real technical comparison through its actual differences and consequences.  |
+| Repeated parallel clauses, three-part slogans, and adjective triplets such as “powerful, seamless, and intuitive”                                                | Keep only the independently useful details; let the material determine list length and sentence structure.               |
+| Artificial punchlines and question-answer hooks: “The catch?”, “The result?”, “Here's the thing,” “Let that sink in,” “Read that again”                          | Give the finding or constraint immediately. Preserve real questions that the post investigates.                          |
+| Chains of dramatic fragments or one-line paragraphs; identical sentence openings and paragraph rhythms                                                           | Follow the thought in connected prose. Keep Spencer's intentional fragments and emphasis without manufacturing a rhythm. |
+| Generic openings: “In today's rapidly evolving landscape,” “In an era of,” “Let's dive in,” or announcing what the article will explore                          | Open with the actual problem, observation, or event. Supply only the background needed to understand it.                 |
+| Canned transitions and emphasis: “Moreover,” “Furthermore,” “It's worth noting,” “Importantly,” “At its core”                                                    | Connect ideas through their specific relationship or remove the transition.                                              |
+| Decorative vocabulary: “delve,” “tapestry,” “unlock,” “leverage,” “foster,” “seamless,” “robust,” “transformative,” or “game-changing” without a precise purpose | Use familiar words and concrete behavior. Retain a term when its established technical meaning is necessary.             |
+| Inflated significance: “a testament to,” “a pivotal moment,” “underscores the importance,” or tagging a fact with a grand “-ing” clause                          | State the supported effect and its scope; omit a significance claim that adds no information.                            |
+| Empty abstractions, stacked modifiers, invented compound labels, and metaphors about journeys, orchestras, ecosystems, or frontiers                              | Name the actor, action, and object. Keep literal domain terms and the author's own useful imagery.                       |
+| Vague authority: “experts agree,” “many people believe,” “research shows,” or treating one source as a consensus                                                 | Attribute the particular claim to an identifiable source, or identify it as Spencer's observation or judgment.           |
+| Empty balance and disclaimer padding: generic “both sides,” “challenges and opportunities,” “it depends,” or repeated caveats                                    | Explain the specific tradeoff or uncertainty once. Preserve qualifications that affect correctness.                      |
+| Thesaurus variation: renaming the same system in each paragraph, or replacing plain “is” and “has” with ornate phrases                                           | Repeat the accurate name when helpful and use simple verbs. Consistent technical terminology matters.                    |
+| Automatic bold lead-ins, emoji, title-case headings, decorative tables, and turning all prose into bullets                                                       | Use sentence-case headings and ordinary paragraphs; use lists and tables when their structure helps the reader.          |
+| Em dashes and parenthetical asides used repeatedly to manufacture drama                                                                                          | Choose punctuation that fits the sentence. Do not remove the author's punctuation mechanically or impose a quota.        |
+| Repeated mini-summaries, “In conclusion,” “Ultimately,” “the future is bright,” and a compulsory lesson or call to action                                        | End when the point has landed, with an actual result, unresolved question, or next step if useful.                       |
+| Overfamiliar reassurance, flattery, invented confessions, and borrowed authenticity such as “if I'm being honest”                                                | Use only the author's supplied experience and attitude; do not add emotion or praise to simulate a personal voice.       |
+
+Also avoid explaining familiar concepts beyond the reader's needs, forced jokes in every heading, and chatbot residue such as “Certainly,” “Here is the revised version,” or “I hope this helps” inside the article. Keep the intentional TODOs in an unfinished outline; resolve them through human writing or an explicit drafting request before publication.
+
+These are editorial preferences and recurring complaints, not proof of authorship. Reader reactions vary, and no finite checklist can guarantee acceptance. Do not use detector scores, intentional mistakes, slang, or random sentence variation to make text appear human. Improve the actual writing and preserve Spencer's voice. Quoted material, code, and established technical names must remain accurate; do not rewrite them merely because they contain a listed word or pattern.
+
+Before suggesting an edit, check its meaning, factual support, and cadence against the author's surrounding prose. Remove filler, repeated conclusions, and unsupported emphasis from your proposal. If a sentence already works, leave it alone. In proofreading, flag substantial voice or structure changes separately; do not replace the author's distinctive language wholesale.
+
+Sources consulted for this editorial guidance:
+
+- Colin Gorrie, [“Why ChatGPT writes like that”](https://www.deadlanguagesociety.com/p/rhetorical-analysis-ai), July 9, 2025: a linguistic analysis of repeated parallelism, antithesis, and three-part constructions.
+- [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), consulted November 26, 2026: an evolving editor-maintained catalog of examples, including inflated significance, superficial analysis, vague attribution, and formulaic structure. Its Wikipedia-specific formatting rules do not apply to this Markdown blog, and its observations are not a universal detection test.
 
 ## Proofreading policy
 
@@ -101,7 +123,7 @@ For a production check from the repository root, run `pnpm setup:hugo` and `HOME
 
 - The opening reaches the subject immediately.
 - The post earns its length; no section exists merely to sound complete.
-- Grammar and spelling are clean without erasing Spencer's cadence.
+- Grammar and spelling are clean without erasing Spencer's cadence; proposed edits have passed the formulaic-prose review above.
 - Every major claim has a credible source and reader-visible evidence or is explicitly bounded.
 - Plots, diagrams, screenshots, and demos are interpretable, tested, accessible, and attributed.
 - Code and commands are correct for the stated versions and environment.

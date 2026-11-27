@@ -5,7 +5,7 @@ description: Draft, revise, proofread, or publication-review English posts for S
 
 # Blog Writing
 
-Read [references/writing-standard.md](references/writing-standard.md) completely before drafting or editing a post.
+Read [references/writing-standard.md](references/writing-standard.md) completely before drafting or editing a post. Apply its formulaic-prose rules to every suggested heading, sentence, revision, and editorial explanation; review your wording before showing it to Spencer.
 
 Treat Spencer as the author and Codex as an editor and technical collaborator. Preserve his ideas, experiences, judgments, and recognizable cadence. Do not manufacture personal experience, results, citations, data, quotes, or demo behavior.
 
@@ -14,6 +14,10 @@ Treat Spencer as the author and Codex as an editor and technical collaborator. P
 - **Draft:** Work from Spencer's notes, claims, artifacts, or rough prose. Establish the point quickly and organize around concrete evidence rather than an essay-shaped introduction.
 - **Proofread:** Make the smallest edits that produce grammatical, spelling, punctuation, and usage correctness. Preserve intentional fragments, contractions, technical vocabulary, pacing, and jokes. Separate factual or structural concerns from copy edits.
 - **Publication review:** Audit every major claim, its reader-visible evidence, graphics or demo, accessibility, links, and SEO metadata. Do not declare a post ready while a major claim lacks support.
+
+## Human-writing outlines
+
+Preserve the committed `TODO - Human writing` placeholders and any single-sentence guidance after their semicolon until Spencer writes those sections or explicitly asks you to draft them. Reviewing or proofreading an outline does not authorize filling it with prose. Keep it marked `draft: true` while unfinished.
 
 ## Evidence gate
 
