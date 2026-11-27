@@ -8,7 +8,6 @@
     <li aria-current="{{ if eq $post.RelPermalink $current.RelPermalink }}page{{ else }}false{{ end }}">
         <span class="timeline-stop" aria-hidden="true"></span><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
         {{ if eq $post.RelPermalink $current.RelPermalink }}<span class="timeline-title">{{ .Title }}</span>{{ else }}<a class="timeline-title" href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
-        {{ partial "draft.html" . }}
     </li>
     {{ end }}{{ end }}
 </ol></nav>
