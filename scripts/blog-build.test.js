@@ -47,7 +47,9 @@ beforeAll(() => {
     for (const directory of ["hex-viewer", "motion-replay", "diagrams", "opengraph"]) {
         cpSync(join(root, "blog/assets", directory), join(temp, "assets", directory), { recursive: true })
     }
-    cpSync(join(root, "blog/assets/halo-infinite-theater.png"), join(temp, "assets/halo-infinite-theater.png"))
+    for (const image of ["halo-infinite-theater.png", "NSight_Systems_Example.png"]) {
+        cpSync(join(root, "blog/assets", image), join(temp, "assets", image))
+    }
     writeFileSync(
         join(temp, "runtime.json"),
         JSON.stringify({

@@ -3,6 +3,11 @@ title: "NVIDIA GPU profiling with Rust"
 description: "The NVIDIA Tools Exension SDK (NVTX) has a lot to offer for GPU and CPU profiling. This blog shows how to leverage these tools with Rust, and how we can make sense of the results."
 date: 2022-06-19
 categories: ["rust", "graphics"]
+image:
+    path: /assets/NSight_Systems_Example.png
+    width: 1445
+    height: 1034
+    alt: NVIDIA Nsight Systems GPU metrics showing activity, clock frequency, warp occupancy, and memory bandwidth
 url: rust/graphics/2022/06/19/nvidia-gpu-profiling-with-rust.html
 ---
 
