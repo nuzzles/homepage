@@ -1,3 +1,6 @@
+import { ArrowUp } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Link } from "react-router-dom"
 import { Trans } from "react-i18next"
 import { ProfileSocials } from "@/components/ProfileSocials"
@@ -36,6 +39,30 @@ export const ProfileFooter = ({ compact = false }: { compact?: boolean }) => {
                         }}
                     />
                 </p>
+                {profile.footerBackToTop && (
+                    <TooltipProvider delayDuration={200}>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="icon"
+                                    className="rounded-none text-foreground"
+                                    aria-label={t("footer.backToTop")}
+                                    onClick={() => {
+                                        window.scrollTo({ top: 0, behavior: "instant" })
+                                        document
+                                            .querySelector<HTMLAnchorElement>(".site-navigation .profile-brand")
+                                            ?.focus({ preventScroll: true })
+                                    }}
+                                >
+                                    <ArrowUp aria-hidden="true" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent collisionPadding={20}>{t("footer.backToTop")}</TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                )}
             </div>
             {!compact && (
                 <>
