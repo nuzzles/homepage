@@ -23,6 +23,7 @@ export const ResumePage = () => {
     const [downloading, setDownloading] = useState(false)
     const [downloadProgress, setDownloadProgress] = useState(0)
     const [fileSize, setFileSize] = useState<number | null>(null)
+    const [fileSizeLoading, setFileSizeLoading] = useState(true)
     const fileSizeLabel =
         fileSize === null
             ? null
@@ -52,6 +53,9 @@ export const ResumePage = () => {
             })
             .catch(() => {
                 /* Download remains available when file metadata cannot be fetched. */
+            })
+            .finally(() => {
+                if (!controller.signal.aborted) setFileSizeLoading(false)
             })
         return () => controller.abort()
     }, [resume])
@@ -156,9 +160,15 @@ export const ResumePage = () => {
                                     ) : (
                                         <Download aria-hidden="true" />
                                     )}
-                                    <span aria-hidden="true">
-                                        {downloading && downloadProgress > 0 ? `${downloadProgress}%` : fileSizeLabel}
-                                    </span>
+                                    {fileSizeLoading && fileSize === null && !downloading ? (
+                                        <Skeleton aria-hidden="true" className="h-3 w-14 bg-primary-foreground/25" />
+                                    ) : (
+                                        <span aria-hidden="true" className="min-w-14 tabular-nums">
+                                            {downloading && downloadProgress > 0
+                                                ? `${downloadProgress}%`
+                                                : fileSizeLabel}
+                                        </span>
+                                    )}
                                 </Button>
                             </div>
                         </div>
