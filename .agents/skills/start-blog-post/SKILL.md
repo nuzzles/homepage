@@ -1,23 +1,23 @@
 ---
 name: start-blog-post
-description: Interview Spencer to turn a new blog idea into a writing brief with a reader, angle, hook, evidence plan, outline, and SEO metadata. Use when starting or scoping a new post; use blog-writing for drafting, revising, or reviewing established prose.
+description: Interview Spencer to turn a new blog idea into a writing brief and a Hugo draft outline with human-writing placeholders. Use when starting or scoping a new post; use blog-writing for drafting, revising, or reviewing established prose.
 ---
 
 # Start Blog Post
 
-Help Spencer articulate the post he wants to write. Extract the experiences, judgments, and technical details only he can supply; do the editorial and SEO synthesis yourself. The result is a brief that the `blog-writing` skill can draft from without guessing the central argument or inventing personal experience.
+Help Spencer articulate the post he wants to write. Extract the experiences, judgments, and technical details only he can supply; do the editorial and SEO synthesis yourself. The default result is a writing brief and a Hugo draft outline for Spencer to fill in, with `TODO - Human writing` in every section. Write prose only when he requests it.
 
 ## Start with what is already known
 
 Read [the blog writing standard](../blog-writing/references/writing-standard.md) before proposing titles, hooks, or metadata. Use the current conversation, supplied notes, and relevant repository artifacts to prefill the brief. Inspect `blog/hugo.json` and related posts when choosing categories, links, and image defaults. The repository supplies the author, English language, site URL, and publishing conventions; do not ask Spencer to repeat them.
 
-If the user has already supplied enough material, synthesize it and ask only about consequential gaps. A request to draft from complete notes does not need an interview merely because the post is new.
+Use the interview to establish the outline Spencer wants to write: the point of the post, the sections he wants, and their order. If the conversation already supplies these, use those answers and ask only about consequential gaps. Respect an explicit request to draft prose from complete notes.
 
 ## Interview in short rounds
 
 Ask one to three related questions at a time, starting with the largest uncertainty. Use the available conversational question tool when appropriate, or ordinary questions when it is unavailable. Let the user answer before asking the next dependent round. Continue independent reading or research while awaiting an answer.
 
-Prefer plain questions about the work over marketing terminology. Accept rough notes and stream-of-consciousness answers. Reflect back the emerging point briefly so the user can correct it. Skip questions already answered; follow up when an answer is too broad to guide the post. Do not present this whole coverage list as a questionnaire.
+Prefer plain questions about the work over marketing terminology. Accept rough notes and stream-of-consciousness answers. Reflect back the emerging point and proposed section order briefly so the user can correct them. Ask which ideas or sections must be included or excluded before settling an outline when his preferences are still unknown. Skip questions already answered; follow up when an answer is too broad to guide the post. Do not present this whole coverage list as a questionnaire.
 
 Establish the following, adapting the order and depth to the post:
 
@@ -44,7 +44,7 @@ Separate author-supplied facts from your proposals and unresolved questions. Nev
 - Propose a small set of distinct titles and opening hooks when the angle is still unsettled. Recommend one and explain how the post will deliver on its promise. A hook should reach the subject immediately and use the author's actual material; avoid generic scene-setting and exaggerated novelty.
 - Build a compact claim-to-evidence map. For each major claim, record its scope, source or artifact, reader-visible evidence where relevant, and any gap. For measurements, ask for the environment, workload, baseline, method, and limitations that affect interpretation. For demos, establish the behavior to demonstrate and available source or reproduction details.
 - Narrow unsupported claims, identify them as opinion or hypothesis when appropriate, or record the specific evidence still needed. The intake can finish with an evidence plan; do not describe an unsupported claim as verified or the post as ready to publish.
-- Outline only the sections needed to deliver the payoff. Give each section its job and supporting example or artifact. Preserve the author's voice using a few of their own useful phrases.
+- Outline only the sections needed to deliver the payoff, based on the interview. Give each section its job and supporting example or artifact in the brief. Distinguish proposed headings from sections the author requested, and resolve consequential outline choices with him. Preserve the author's voice using a few of their own useful phrases.
 
 ## Derive SEO from the reader's intent
 
@@ -70,7 +70,7 @@ Use the existing Hugo image pipeline described in [Blog sharing images](../../..
 
 Record the template/custom choice, source or proposed subject, crop, alt text, and any unresolved author selection in the brief. The implementation notes own build commands and resource details; use the existing templates rather than adding a separate sharing-image system.
 
-## Deliver a usable brief
+## Deliver the brief and human-writing outline
 
 Finish when the reader, premise, payoff, and grounded opening direction are clear and the major claims have evidence or an explicit plan. Do not prolong the interview for optional polish. If the user asks to proceed with incomplete answers, produce a provisional brief with visible assumptions and precise gaps; avoid filling missing facts with plausible prose.
 
@@ -83,4 +83,12 @@ Provide a concise brief in the conversation, or save it at the requested locatio
 - **SEO proposal:** search intent, primary query and any research basis, slug, description, categories, useful links, preview image plan, and publication timing if known.
 - **Author notes and open decisions:** phrases to preserve, constraints, next action for the reader if relevant, and unresolved questions that materially affect drafting or publication.
 
-Clearly distinguish confirmed facts, editorial recommendations, and unknowns. If drafting is already requested, continue using [blog-writing](../blog-writing/SKILL.md) with this brief; do not ask for permission again. Otherwise, completing the brief fulfills the intake task.
+Clearly distinguish confirmed facts, editorial recommendations, and unknowns. Unless the user asks for a brief only, create the outline in `blog/content/posts/` using the repository's Hugo conventions:
+
+- Set `draft: true`, retain the chosen title, and include a stable `url`, description, and appropriate categories and tags. For an undecided publication date, use today's date as a working date in both the filename and front matter, and note in the brief that it is provisional.
+- Turn the interview's outline into descriptive `##` headings, using `###` only where needed. Put the exact standalone text `TODO - Human writing` in every section and planned subsection, including the opening. The page title comes from front matter; do not duplicate it as a Markdown heading.
+- Leave the body for Spencer to write. Keep section purposes, author notes, evidence gaps, and suggested examples in the brief or short HTML comments alongside the relevant placeholder. Do not turn interview notes into finished paragraphs or invent experiences to fill a section.
+- Use the generated Open Graph template unless a custom image is chosen, and record that decision in the brief. Follow the image guidance above when producing artwork.
+- Check formatting and build the draft in a local preview. Confirm the outline renders and a normal production build excludes it from public pages, feeds, stats, and the sitemap. Follow repository validation requirements before opening a PR.
+
+Deliver the draft path with the concise brief and any unresolved decisions. Keep unfinished posts as drafts. If the user explicitly requests prose, continue using [blog-writing](../blog-writing/SKILL.md) with this brief and the requested scope; an ordinary request to start a post means the human-writing outline above.
