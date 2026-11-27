@@ -9,19 +9,21 @@
     {{ $alt := site.Params.fullName }}
     {{ $imageWidth := 1280 }}
     {{ $imageHeight := 640 }}
-    {{ if and (eq .Section "posts") (not .Params.image) }}
+    {{ if eq .Section "posts" }}
         {{ $generated := partial "opengraph/image.html" . }}
         {{ $publicURL := urls.Parse site.Params.blogURL }}
         {{ $image = printf "%s://%s%s" $publicURL.Scheme $publicURL.Host $generated.RelPermalink }}
         {{ $imageWidth = $generated.Width }}
         {{ $imageHeight = $generated.Height }}
         {{ $alt = printf "%s — %s" .Title site.Params.fullName }}
-    {{ end }}
-    {{ with .Params.image }}
-        {{ $image = strings.TrimPrefix "/" .path | absURL }}
-        {{ $alt = .alt }}
-        {{ $imageWidth = .width | default 0 }}
-        {{ $imageHeight = .height | default 0 }}
+        {{ with .Params.image.alt }}{{ $alt = printf "%s — %s" . site.Params.fullName }}{{ end }}
+    {{ else }}
+        {{ with .Params.image }}
+            {{ $image = strings.TrimPrefix "/" .path | absURL }}
+            {{ $alt = .alt }}
+            {{ $imageWidth = .width | default 0 }}
+            {{ $imageHeight = .height | default 0 }}
+        {{ end }}
     {{ end }}
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}" />
