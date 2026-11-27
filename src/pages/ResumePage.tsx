@@ -161,7 +161,10 @@ export const ResumePage = () => {
                                         <Download aria-hidden="true" />
                                     )}
                                     {fileSizeLoading && fileSize === null && !downloading ? (
-                                        <Skeleton aria-hidden="true" className="h-3 w-14 bg-primary-foreground/25" />
+                                        <Skeleton
+                                            aria-hidden="true"
+                                            className="h-[1lh] w-14 bg-primary-foreground/25"
+                                        />
                                     ) : (
                                         <span aria-hidden="true" className="min-w-14 tabular-nums">
                                             {downloading && downloadProgress > 0
