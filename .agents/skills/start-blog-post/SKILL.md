@@ -5,7 +5,7 @@ description: Propose a first outline, interview Spencer and iterate until he app
 
 # Start Blog Post
 
-Help Spencer articulate the post he wants to write. Extract the experiences, judgments, and technical details only he can supply; do the editorial and SEO synthesis yourself. The default result is a writing brief and a committed Hugo draft outline for Spencer to fill in, with `TODO - Human writing` in every section and optional single-sentence guidance on the same line. Scrutinize and revise the proposed outline with him until he explicitly approves it before creating the post scaffold. Write prose only when he requests it.
+Help Spencer articulate the post he wants to write. Extract the experiences, judgments, and technical details only he can supply; do the editorial and SEO synthesis yourself. The default result is a writing brief and a committed Hugo draft outline for Spencer to fill in, with `TODO - Human writing` in every section and optional guidance of one or two concise sentences on the same line. Scrutinize and revise the proposed outline with him until he explicitly approves it before creating the post scaffold. Write prose only when he requests it.
 
 ## Start with what is already known
 
@@ -101,8 +101,8 @@ Provide a concise brief in the conversation, or save it at the requested locatio
 Clearly distinguish confirmed facts, editorial recommendations, and unknowns. After outline approval, unless the user asks for a brief only, create the approved outline in `blog/content/posts/` using the repository's Hugo conventions:
 
 - Set `draft: true`, retain the chosen title, and include a stable `url`, description, and appropriate categories and tags. For an undecided publication date, use today's date as a working date in both the filename and front matter, and note in the brief that it is provisional.
-- Use the approved section order and numbered, descriptive `##` headings, with `###` only where needed. Follow each section or planned subsection, including the opening, with a blank line and the plain-text paragraph `TODO - Human writing`. When guidance is useful, append `; ` and exactly one concise sentence on that same paragraph line. Omit the semicolon when there is no guidance. The page title comes from front matter; do not duplicate it as a Markdown heading.
-- Commit the TODO text and optional guidance as visible Markdown in the actual post file. Do not leave them only in the conversation, hide them in HTML comments, or replace them with finished prose. Use the guidance sentence for the section's purpose or most useful evidence prompt; keep longer notes in the brief.
+- Use the approved section order and numbered, descriptive `##` headings, with `###` only where needed. Follow each section or planned subsection, including the opening, with a blank line and the plain-text paragraph `TODO - Human writing`. When guidance is useful, append `; ` and one or two concise sentences on that same paragraph line. Omit the semicolon when there is no guidance. The page title comes from front matter; do not duplicate it as a Markdown heading.
+- Commit the TODO text and optional guidance as visible Markdown in the actual post file. Do not leave them only in the conversation, hide them in HTML comments, or replace them with finished prose. Use the guidance for the section's purpose or most useful evidence prompt; keep longer notes in the brief.
 - Use the generated Open Graph template unless a custom image is chosen, and record that decision in the brief. Follow the image guidance above when producing artwork.
 - Check formatting and build the draft in a local preview. Confirm the outline renders and a normal production build excludes it from public pages, feeds, stats, and the sitemap. Follow repository validation requirements before opening a PR.
 

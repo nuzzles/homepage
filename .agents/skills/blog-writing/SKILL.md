@@ -17,7 +17,7 @@ Treat Spencer as the author and Codex as an editor and technical collaborator. P
 
 ## Human-writing outlines
 
-Preserve the committed `TODO - Human writing` placeholders and any single-sentence guidance after their semicolon until Spencer writes those sections or explicitly asks you to draft them. Reviewing or proofreading an outline does not authorize filling it with prose. Keep it marked `draft: true` while unfinished.
+Preserve the committed `TODO - Human writing` placeholders and any guidance of one or two sentences after their semicolon until Spencer writes those sections or explicitly asks you to draft them. Reviewing or proofreading an outline does not authorize filling it with prose. Keep it marked `draft: true` while unfinished.
 
 ## Evidence gate
 
