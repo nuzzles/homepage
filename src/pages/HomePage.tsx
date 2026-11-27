@@ -17,6 +17,7 @@ export const HomePage = () => {
     usePageAnchor()
     const { t, routePrefix, localizedPath } = useLanguage()
     const profile = useProfile()
+    const hasLatestPosts = profile.id === "spencer"
     const profileBaseUrl = profile.canonicalUrl
     const canonicalUrl = `${profileBaseUrl}${routePrefix}/`
     const base = getProfileHomePath(window.location.hostname, profile.id).replace(/\/$/, "")
@@ -86,9 +87,9 @@ export const HomePage = () => {
                     <ProfilePortrait />
                 </section>
                 <ProfileActions />
-                {profile.id === "spencer" && <LatestPosts />}
+                {hasLatestPosts && <LatestPosts />}
                 <ProjectsSection />
-                <ProfileFooter />
+                <ProfileFooter compact={!hasLatestPosts && !profile.projects?.length} />
             </article>
         </>
     )
