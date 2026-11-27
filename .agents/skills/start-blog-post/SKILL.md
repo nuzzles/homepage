@@ -54,9 +54,21 @@ Do not require the user to know keyword research, write a meta description, or c
 - When current search results or competing coverage would materially change the angle, research them with available tools. Cite the sources and distinguish observed coverage from inference. Without research, label query choices as editorial hypotheses; never invent search volume, difficulty, rankings, or traffic forecasts.
 - Recommend a specific, honest title, a short descriptive slug, and a unique standalone description, usually about 120–160 characters. Use the important topic terms naturally. Avoid rigid title character limits, keyword stuffing, or promises the evidence cannot support.
 - Choose a few accurate categories using existing repository conventions. Suggest relevant internal links and primary external sources with a purpose for each; do not invent URLs or add links mechanically.
-- Select a representative existing preview image when useful, or describe an image to create with its intended subject and alt text. Record missing assets as proposed. Use the configured site image if a dedicated image adds little value; image production is not required to complete intake.
+- Include an Open Graph image plan using the guidance below: choose the generated post template or a relevant custom image, with the source and alt text when known.
 
 Follow the linked writing standard for front matter. Keep proposed search queries in the brief rather than introducing unsupported metadata fields. Record the publication date as undecided unless supplied or already implied by the task. Let the existing Hugo templates generate canonical URLs, social tags, and structured data.
+
+## Plan the blog Open Graph image
+
+Use the existing Hugo image pipeline described in [Blog sharing images](../../../docs/blog-development.md#blog-sharing-images). Include an image decision in every brief:
+
+- **Choose useful artwork.** Prefer actual screenshots, metrics, gameplay, or other visuals from the post when they make its subject recognizable in a small sharing card. Preserve source images and factual content. When custom artwork adds little, use the generated title-and-portrait card. Record missing assets as proposed; producing an image is not required to finish an intake brief.
+- **Keep the shared styling.** Blog images are 1200×630 PNGs. Use the warm-neutral colors from `src/design-tokens.css`, Source Serif 4 for titles and the author name, and DM Sans for metadata and the original black IM monogram. Keep titles free of underlines and omit a bottom-right domain label.
+- **Reuse the author footer.** Every card, including photos and screenshots, has the shared black IM and Spencer Imbleau name over a warm gradient fading upward from the bottom. Use `blog/assets/opengraph/footer.png` through `blog/layouts/partials/opengraph/image.html`; avoid a solid footer band or baking a second footer into custom artwork.
+- **Configure the source correctly.** Store custom artwork in `blog/assets/` and set the post's `image` front matter with its `/assets/...` path, source `width` and `height`, and descriptive `alt`. Hugo crops it to 1200×630 and adds the footer. A custom image replaces the template's title and portrait; compose a readable serif title into it unless the author chooses image-only artwork, and keep that text in sync with the post. For generated title cards, `opengraph: { title: "Shorter image title" }` changes only the artwork title.
+- **Review the actual output.** When creating artwork, build or serve Spencer's blog and inspect the generated PNG at full size and at a small sharing-preview size, starting at 320px wide. Preserve the useful subject and readable title without cropping key details or adding thick side borders. Display the image at its native aspect ratio without letterboxing. Confirm Open Graph, X, and article structured data use the same image URL and correct dimensions. When the user requests approval, show rendered proposals before applying them; retain any selection already made.
+
+Record the template/custom choice, source or proposed subject, crop, alt text, and any unresolved author selection in the brief. The implementation notes own build commands and resource details; use the existing templates rather than adding a separate sharing-image system.
 
 ## Deliver a usable brief
 

@@ -4,10 +4,10 @@ description: "The NVIDIA Tools Exension SDK (NVTX) has a lot to offer for GPU an
 date: 2022-06-19
 categories: ["rust", "graphics"]
 image:
-    path: /assets/NSight_Systems_Example.png
-    width: 1445
-    height: 1034
-    alt: NVIDIA Nsight Systems GPU metrics showing activity, clock frequency, warp occupancy, and memory bandwidth
+    path: /assets/opengraph/nvidia-profiler-trace.png
+    width: 1200
+    height: 630
+    alt: NVIDIA GPU profiling with Rust above an NVTX profiler trace showing annotated thread activity
 url: rust/graphics/2022/06/19/nvidia-gpu-profiling-with-rust.html
 ---
 
