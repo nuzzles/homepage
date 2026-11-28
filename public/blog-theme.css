@@ -483,7 +483,7 @@ table td {
 .stats-charts { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--section-space); }
 .stats-chart { min-width: 0; container-type: inline-size; }
 .stats-chart > h2 { padding-bottom: var(--space-6); border-bottom: 2px solid var(--foreground); }
-.stats-chart-viewport { width: 100%; padding-block: 0 var(--space-2); }
+.stats-chart-viewport { position: relative; width: 100%; padding-block: 0 var(--space-2); }
 .stats-plot { width: 100%; padding-block: var(--space-2) var(--space-16); position: relative; font-variant-numeric: tabular-nums; }
 .stats-plot-area { position: relative; height: 280px; margin-inline-start: var(--space-16); border-inline-start: 1px solid var(--border-color); }
 .stats-y-axis { position: absolute; top: var(--space-2); left: 0; height: 280px; width: var(--space-12); color: var(--muted-foreground); font-size: var(--type-sm); }
@@ -530,3 +530,9 @@ table td {
 @media (min-width: 1024px) {
     .stats-charts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--section-space) var(--layout-gap); }
 }
+
+/* ECharts is loaded only on the stats page; keep Hugo's plot until it is ready. */
+.stats-chart-viewport[data-enhanced="true"] > .stats-plot { display: none; }
+.stats-chart-viewport:not([data-enhanced="true"]) .stats-chart-enhancement { position: absolute; visibility: hidden; width: 100%; }
+.stats-library-chart { width: 100%; height: 340px; min-width: 0; font-family: var(--font-body); }
+@media (max-height: 600px) { .stats-library-chart { height: 260px; } }

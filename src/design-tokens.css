@@ -26,6 +26,8 @@
     --focus-radius: 0;
     --selection: #e9d5b5;
     --overlay: rgb(20 20 19 / 25%);
+    --tooltip-radius: 4px;
+    --shadow-tooltip: 0 2px 8px rgb(20 20 19 / 16%);
     --shadow-soft: 0 2px 8px rgb(20 20 19 / 4%);
     --shadow-dialog: 0 16px 64px rgb(20 20 19 / 14%);
 

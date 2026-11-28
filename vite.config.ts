@@ -159,6 +159,11 @@ export default defineConfig(({ command }) => {
                                 priority: 10,
                             },
                             {
+                                name: "stats-charts",
+                                test: /node_modules[\\/](echarts|zrender)/,
+                                priority: 20,
+                            },
+                            {
                                 name: "vendor",
                                 test: /node_modules/,
                             },

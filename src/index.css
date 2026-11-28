@@ -1517,34 +1517,27 @@ html[data-navigating]::before {
 
 .stats-popover {
     width: max-content;
-    max-width: min(320px, calc(100vw - 32px));
-    max-height: min(320px, var(--radix-popover-content-available-height));
+    max-width: min(360px, calc(100vw - 32px));
+    max-height: min(360px, var(--radix-popover-content-available-height));
     overflow-y: auto;
     overflow-wrap: anywhere;
     border: 1px solid var(--foreground);
-    border-radius: 0;
+    border-radius: var(--tooltip-radius);
     background: var(--background);
-    padding: var(--space-3);
+    padding: var(--space-3) var(--space-4);
     color: var(--foreground);
-    box-shadow: var(--shadow-soft);
+    font-size: var(--type-body);
+    box-shadow: var(--shadow-tooltip);
 }
 .stats-popover-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-}
-.stats-popover-heading p {
     margin: 0;
-    font-weight: 600;
-}
-.stats-popover-heading button {
-    flex-shrink: 0;
+    font-size: var(--type-body);
+    font-weight: 400;
 }
 .stats-popover-value {
     display: block;
     font-size: var(--type-body);
-    font-weight: 500;
+    font-weight: 600;
 }
 .stats-popover ul {
     list-style: none;
@@ -1555,6 +1548,7 @@ html[data-navigating]::before {
     display: block;
     min-height: var(--control-height);
     padding-block: var(--space-2);
+    font-weight: 500;
     text-decoration: underline;
     text-underline-offset: 3px;
 }

@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react"
-import { X } from "lucide-react"
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react"
 import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
+
+const StatsCharts = lazy(() => import("./StatsCharts").catch(() => ({ default: () => <></> })))
 
 type Target = HTMLElement | SVGElement
 interface Selection {
@@ -14,6 +14,7 @@ interface Selection {
 
 /** Enhances Hugo's static charts with the site's shared accessible popover. */
 export function StatsInteractions() {
+    const [hasCharts] = useState(() => Boolean(document.querySelector(".stats-chart")))
     const [selection, setSelection] = useState<Selection | null>(null)
     const contentRef = useRef<HTMLDivElement>(null)
     const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
@@ -106,79 +107,73 @@ export function StatsInteractions() {
     // A click/Enter on an already hovered day must still move focus into its links.
     useEffect(() => {
         if (selection?.activated)
-            (
-                contentRef.current?.querySelector<HTMLElement>("a") ??
-                contentRef.current?.querySelector<HTMLElement>("button")
-            )?.focus({ preventScroll: true })
+            (contentRef.current?.querySelector<HTMLElement>("a") ?? contentRef.current)?.focus({ preventScroll: true })
     }, [selection])
     return (
-        <Popover
-            open={Boolean(selection)}
-            onOpenChange={(open) => {
-                if (!open) setSelection(null)
-            }}
-        >
-            {selection && (
-                <PopoverAnchor
-                    virtualRef={{
-                        current: {
-                            getBoundingClientRect: () => {
-                                const bar = selection.element.querySelector(".stats-bar")
-                                const rect = (bar ?? selection.element).getBoundingClientRect()
-                                // Position value details at the bar tip, not outside the full plot.
-                                return bar ? new DOMRect(rect.x, rect.y, rect.width, 0) : rect
-                            },
-                        },
-                    }}
-                />
-            )}
-            <PopoverContent
-                ref={contentRef}
-                id="stats-popover"
-                className="stats-popover"
-                aria-label={selection?.label}
-                side="top"
-                sideOffset={8}
-                collisionPadding={16}
-                sticky="always"
-                updatePositionStrategy="always"
-                onOpenAutoFocus={(event) => {
-                    event.preventDefault()
-                    if (selection?.activated)
-                        (
-                            contentRef.current?.querySelector<HTMLElement>("a") ??
-                            contentRef.current?.querySelector<HTMLElement>("button")
-                        )?.focus({ preventScroll: true })
+        <>
+            <Suspense fallback={null}>{hasCharts && <StatsCharts />}</Suspense>
+            <Popover
+                open={Boolean(selection)}
+                onOpenChange={(open) => {
+                    if (!open) setSelection(null)
                 }}
-                onCloseAutoFocus={(event) => event.preventDefault()}
-                onInteractOutside={(event) => {
-                    // The virtual anchor is outside Radix's trigger tree. Keep its
-                    // pointer/focus events from immediately dismissing the popup.
-                    if (event.target instanceof Element && event.target.closest("[data-stats-popup]"))
-                        event.preventDefault()
-                }}
-                onEscapeKeyDown={dismiss}
-                onPointerEnter={cancelClose}
-                onPointerLeave={scheduleClose}
-                onBlur={scheduleClose}
             >
-                <div className="stats-popover-heading">
-                    <p>{selection?.label}</p>
-                    <Button variant="ghost" size="icon" aria-label="Close details" onClick={dismiss}>
-                        <X aria-hidden="true" />
-                    </Button>
-                </div>
-                {selection?.value && <strong className="stats-popover-value">{selection.value}</strong>}
-                {Boolean(selection?.links.length) && (
-                    <ul>
-                        {selection?.links.map((link) => (
-                            <li key={link.href}>
-                                <a href={link.href}>{link.title}</a>
-                            </li>
-                        ))}
-                    </ul>
+                {selection && (
+                    <PopoverAnchor
+                        virtualRef={{
+                            current: {
+                                getBoundingClientRect: () => {
+                                    const bar = selection.element.querySelector(".stats-bar")
+                                    const rect = (bar ?? selection.element).getBoundingClientRect()
+                                    // Position value details at the bar tip, not outside the full plot.
+                                    return bar ? new DOMRect(rect.x, rect.y, rect.width, 0) : rect
+                                },
+                            },
+                        }}
+                    />
                 )}
-            </PopoverContent>
-        </Popover>
+                <PopoverContent
+                    ref={contentRef}
+                    id="stats-popover"
+                    className="stats-popover"
+                    aria-label={selection?.label}
+                    side="top"
+                    sideOffset={8}
+                    collisionPadding={16}
+                    sticky="always"
+                    updatePositionStrategy="always"
+                    onOpenAutoFocus={(event) => {
+                        event.preventDefault()
+                        if (selection?.activated)
+                            (contentRef.current?.querySelector<HTMLElement>("a") ?? contentRef.current)?.focus({
+                                preventScroll: true,
+                            })
+                    }}
+                    onCloseAutoFocus={(event) => event.preventDefault()}
+                    onInteractOutside={(event) => {
+                        // The virtual anchor is outside Radix's trigger tree. Keep its
+                        // pointer/focus events from immediately dismissing the popup.
+                        if (event.target instanceof Element && event.target.closest("[data-stats-popup]"))
+                            event.preventDefault()
+                    }}
+                    onEscapeKeyDown={dismiss}
+                    onPointerEnter={cancelClose}
+                    onPointerLeave={scheduleClose}
+                    onBlur={scheduleClose}
+                >
+                    <p className="stats-popover-heading">{selection?.label}</p>
+                    {selection?.value && <strong className="stats-popover-value">{selection.value}</strong>}
+                    {Boolean(selection?.links.length) && (
+                        <ul>
+                            {selection?.links.map((link) => (
+                                <li key={link.href}>
+                                    <a href={link.href}>{link.title}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </PopoverContent>
+            </Popover>
+        </>
     )
 }
