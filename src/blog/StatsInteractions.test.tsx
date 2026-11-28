@@ -40,12 +40,14 @@ describe("stats popovers", () => {
         expect(document.activeElement).toBe(trigger)
         expect(trigger.getAttribute("aria-expanded")).toBe("false")
     })
-    it("shows zero values on click and closes from the dismiss button", async () => {
+    it("shows zero values on click and closes with Escape", async () => {
         const trigger = document.querySelector<HTMLButtonElement>('[data-stats-popup="value"]')!
         await act(async () => trigger.click())
         expect(document.querySelector(".stats-popover-value")?.textContent).toBe("0 posts")
         expect(document.querySelector('[role="dialog"]')?.getAttribute("aria-label")).toBe("January 2025")
-        await act(async () => document.querySelector<HTMLButtonElement>('[aria-label="Close details"]')!.click())
+        await act(async () =>
+            document.activeElement?.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))
+        )
         expect(document.querySelector('[role="dialog"]')).toBeNull()
         expect(document.activeElement).toBe(trigger)
     })

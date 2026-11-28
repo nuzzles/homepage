@@ -1530,25 +1530,9 @@ html[data-navigating]::before {
     box-shadow: var(--shadow-tooltip);
 }
 .stats-popover-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-}
-.stats-popover-heading p {
     margin: 0;
     font-size: var(--type-body);
     font-weight: 400;
-}
-.stats-popover-close {
-    flex-shrink: 0;
-    min-height: var(--space-12);
-    padding-inline: var(--space-2);
-    border-radius: var(--tooltip-radius);
-}
-.stats-popover-close svg {
-    width: var(--space-6);
-    height: var(--space-6);
 }
 .stats-popover-value {
     display: block;
@@ -1559,18 +1543,6 @@ html[data-navigating]::before {
     list-style: none;
     padding: 0;
     margin: var(--space-2) 0 0;
-}
-.stats-popover li {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-2);
-}
-.stats-popover li::before {
-    content: "";
-    flex: 0 0 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent-yellow);
 }
 .stats-popover a {
     display: block;

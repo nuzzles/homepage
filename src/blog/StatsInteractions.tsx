@@ -1,7 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react"
-import { X } from "lucide-react"
 import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
 
 const StatsCharts = lazy(() => import("./StatsCharts").catch(() => ({ default: () => <></> })))
 
@@ -109,10 +107,7 @@ export function StatsInteractions() {
     // A click/Enter on an already hovered day must still move focus into its links.
     useEffect(() => {
         if (selection?.activated)
-            (
-                contentRef.current?.querySelector<HTMLElement>("a") ??
-                contentRef.current?.querySelector<HTMLElement>("button")
-            )?.focus({ preventScroll: true })
+            (contentRef.current?.querySelector<HTMLElement>("a") ?? contentRef.current)?.focus({ preventScroll: true })
     }, [selection])
     return (
         <>
@@ -150,10 +145,9 @@ export function StatsInteractions() {
                     onOpenAutoFocus={(event) => {
                         event.preventDefault()
                         if (selection?.activated)
-                            (
-                                contentRef.current?.querySelector<HTMLElement>("a") ??
-                                contentRef.current?.querySelector<HTMLElement>("button")
-                            )?.focus({ preventScroll: true })
+                            (contentRef.current?.querySelector<HTMLElement>("a") ?? contentRef.current)?.focus({
+                                preventScroll: true,
+                            })
                     }}
                     onCloseAutoFocus={(event) => event.preventDefault()}
                     onInteractOutside={(event) => {
@@ -167,19 +161,7 @@ export function StatsInteractions() {
                     onPointerLeave={scheduleClose}
                     onBlur={scheduleClose}
                 >
-                    <div className="stats-popover-heading">
-                        <p>{selection?.label}</p>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="stats-popover-close"
-                            aria-label="Close details"
-                            onClick={dismiss}
-                        >
-                            Close
-                            <X aria-hidden="true" />
-                        </Button>
-                    </div>
+                    <p className="stats-popover-heading">{selection?.label}</p>
                     {selection?.value && <strong className="stats-popover-value">{selection.value}</strong>}
                     {Boolean(selection?.links.length) && (
                         <ul>
