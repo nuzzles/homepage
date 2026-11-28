@@ -488,13 +488,17 @@ html[data-navigating]::before {
     margin: 0;
 }
 .footer-links a,
-.profile-footer .social-strip a {
+.profile-footer .social-strip > :is(a, button) {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     padding: 0;
     font-size: 1.1rem;
     font-weight: 600;
+    max-width: 100%;
+    justify-content: start;
+    text-align: start;
+    white-space: normal;
 }
 .footer-links a:hover {
     color: var(--primary);
@@ -759,14 +763,16 @@ html[data-navigating]::before {
     gap: var(--space-2) var(--space-6);
     margin-top: var(--space-5);
 }
-.social-strip a {
+.social-strip a,
+.social-strip > button {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     min-height: 44px;
     font-size: 1rem;
 }
-.social-strip a > svg {
+.social-strip a > svg,
+.social-strip > button > svg {
     width: 18px;
     height: 18px;
     color: inherit;
@@ -777,7 +783,8 @@ html[data-navigating]::before {
     height: 1rem;
     flex-shrink: 0;
 }
-.social-strip a:hover {
+.social-strip a:hover,
+.social-strip > button:hover {
     color: var(--primary);
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -1506,8 +1513,8 @@ html[data-navigating]::before {
         grid-template-columns: minmax(0, 1fr);
     }
     .profile-footer:has(.footer-links-grouped) .social-strip {
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: var(--space-3) var(--space-6);
     }
 }

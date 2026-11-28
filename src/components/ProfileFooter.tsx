@@ -73,7 +73,7 @@ export const ProfileFooter = ({ compact = false }: { compact?: boolean }) => {
                             </div>
                         )}
                     </nav>
-                    <ProfileSocials />
+                    <ProfileSocials contactActions />
                 </>
             )}
         </footer>
