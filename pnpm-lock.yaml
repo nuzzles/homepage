@@ -49,6 +49,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      echarts:
+        specifier: ^6.1.0
+        version: 6.1.0
       i18next:
         specifier: ^26.4.2
         version: 26.4.2(typescript@6.0.3)
@@ -1951,6 +1954,10 @@ packages:
     resolution:
       { integrity: sha512-EUBjM+B+lkDE41iE82DDSCfkoPGfXx8IxFxPMjNzm/Uk4xDet77rTN9wqlxlVg71kK7XGuUMv6wUxJUwwv+Xyw== }
 
+  echarts@6.1.0:
+    resolution:
+      { integrity: sha512-q0yaFPggC9FUdsWH4blavRWFmxdrIodbkoKNAjJudAI6CA9gNPxHtV2RcZNEepZVlk4yvBYkOkbk6HIVpIyHZA== }
+
   electron-to-chromium@1.5.421:
     resolution:
       { integrity: sha512-cUhfpHQy+PGbt+X90DMcAVazDCziIZr73hpxD4LRs4BGQoJCifPzTfQWa7S6c+uhokTOBe8tot09GBSEO6c9LA== }
@@ -3067,6 +3074,10 @@ packages:
       { integrity: sha512-JfJeIHke7y2egdGGgRAvpCwYFUsHlM2gPcrVOxFkznt/4uzQ7HFmvE63iFHVLBJNDuyDOQgijDK/tXH/f6Msjg== }
     engines: { node: ">=6.10" }
 
+  tslib@2.3.0:
+    resolution:
+      { integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg== }
+
   tslib@2.9.1:
     resolution:
       { integrity: sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA== }
@@ -3335,6 +3346,10 @@ packages:
   zod@4.5.4:
     resolution:
       { integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA== }
+
+  zrender@6.1.0:
+    resolution:
+      { integrity: sha512-oEGMDB6pOP2S6OwRR4PdVv610zrjnA3Bh+JnSG12fYJlBKjtNAoEb5fSUoCOOINlH96I2fU38/A2UpRKs67xYQ== }
 
   zwitch@2.0.4:
     resolution:
@@ -4769,6 +4784,11 @@ snapshots:
     optionalDependencies:
       "@types/trusted-types": 2.0.7
 
+  echarts@6.1.0:
+    dependencies:
+      tslib: 2.3.0
+      zrender: 6.1.0
+
   electron-to-chromium@1.5.421: {}
 
   elkjs@0.9.3: {}
@@ -5889,6 +5909,8 @@ snapshots:
 
   ts-dedent@2.3.0: {}
 
+  tslib@2.3.0: {}
+
   tslib@2.9.1: {}
 
   type-check@0.4.0:
@@ -6071,5 +6093,9 @@ snapshots:
       zod: 4.5.4
 
   zod@4.5.4: {}
+
+  zrender@6.1.0:
+    dependencies:
+      tslib: 2.3.0
 
   zwitch@2.0.4: {}
