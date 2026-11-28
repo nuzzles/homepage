@@ -7,9 +7,8 @@ import {
     type GridComponentOption,
     type TooltipComponentOption,
 } from "echarts/components"
-import { init, use as registerCharts, type ComposeOption, type EChartsType } from "echarts/core"
+import { init, use as registerCharts, type ComposeOption } from "echarts/core"
 import { SVGRenderer } from "echarts/renderers"
-import { Button } from "@/components/ui/button"
 
 registerCharts([BarChart, GridComponent, TooltipComponent, SVGRenderer])
 
@@ -24,21 +23,8 @@ interface ChartData {
 }
 const number = new Intl.NumberFormat("en", { maximumFractionDigits: 2 })
 
-function Chart({ viewport, id, title, unit, rows }: ChartData) {
+function Chart({ viewport, title, unit, rows }: ChartData) {
     const host = useRef<HTMLDivElement>(null)
-    const chart = useRef<EChartsType | null>(null)
-    const [selected, setSelected] = useState(0)
-    const hide = () => {
-        chart.current?.dispatchAction({ type: "hideTip" })
-        chart.current?.dispatchAction({ type: "updateAxisPointer", currTrigger: "leave" })
-        chart.current?.dispatchAction({ type: "downplay", seriesIndex: 0 })
-    }
-    const inspect = (index: number) => {
-        setSelected(index)
-        chart.current?.dispatchAction({ type: "showTip", seriesIndex: 0, dataIndex: index })
-        chart.current?.dispatchAction({ type: "downplay", seriesIndex: 0 })
-        chart.current?.dispatchAction({ type: "highlight", seriesIndex: 0, dataIndex: index })
-    }
     useEffect(() => {
         const element = host.current!
         const styles = getComputedStyle(document.documentElement)
@@ -104,7 +90,6 @@ function Chart({ viewport, id, title, unit, rows }: ChartData) {
             ],
         }
         instance.setOption(option)
-        chart.current = instance
         viewport.setAttribute("data-enhanced", "true")
         const resize = new ResizeObserver(() => {
             instance.resize()
@@ -133,7 +118,6 @@ function Chart({ viewport, id, title, unit, rows }: ChartData) {
             document.removeEventListener("pointerdown", outside)
             viewport.removeAttribute("data-enhanced")
             instance.dispose()
-            chart.current = null
         }
     }, [viewport, rows, unit])
     return (
@@ -144,29 +128,6 @@ function Chart({ viewport, id, title, unit, rows }: ChartData) {
                 role="img"
                 aria-label={`${title}. Exact values in the data table below.`}
             />
-            <div className="stats-chart-controls">
-                <label htmlFor={`${id}-inspect`}>
-                    Inspect<span className="sr-only">: {title}</span>
-                </label>
-                <select
-                    id={`${id}-inspect`}
-                    value={selected}
-                    onFocus={() => inspect(selected)}
-                    onChange={(event) => inspect(Number(event.target.value))}
-                >
-                    {rows.map((row, index) => (
-                        <option value={index} key={row.label}>
-                            {row.label}
-                        </option>
-                    ))}
-                </select>
-                <Button variant="outline" size="sm" onClick={hide}>
-                    Clear<span className="sr-only"> selected value: {title}</span>
-                </Button>
-                <output className="sr-only" aria-live="polite">
-                    {rows[selected].label}: {number.format(rows[selected].value)} {unit}
-                </output>
-            </div>
         </div>
     )
 }

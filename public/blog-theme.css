@@ -535,7 +535,4 @@ table td {
 .stats-chart-viewport[data-enhanced="true"] > .stats-plot { display: none; }
 .stats-chart-viewport:not([data-enhanced="true"]) .stats-chart-enhancement { position: absolute; visibility: hidden; width: 100%; }
 .stats-library-chart { width: 100%; height: 340px; min-width: 0; font-family: var(--font-body); }
-.stats-chart-controls { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
-.stats-chart-controls label { font-size: var(--type-sm); color: var(--muted-foreground); }
-.stats-chart-controls select { min-height: var(--control-height); max-width: 100%; padding: var(--space-2); border: 1px solid var(--border-color); background: var(--background); color: var(--foreground); font: inherit; }
 @media (max-height: 600px) { .stats-library-chart { height: 260px; } }

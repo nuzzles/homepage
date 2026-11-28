@@ -22,7 +22,7 @@
         {{ partial "stats/chart.html" (dict "id" "words-per-month" "title" "Words per month" "description" "The last 24 calendar months, including months with no posts." "period" "Month" "valueLabel" "Words" "metric" "words" "rows" $stats.months) }}
         {{ partial "stats/chart.html" (dict "id" "median-words" "title" "Median words per post" "period" "Year" "valueLabel" "Words" "metric" "median" "rows" $stats.years) }}
     </div>
-    <p class="stats-note stats-method">Updated whenever the site builds. Drafts and future-dated posts are excluded. Years without posts count toward the yearly median. Word counts use Hugo’s count of each rendered post.</p>
+    <p class="stats-note stats-method">Last updated on <time datetime="{{ now.Format "2006-01-02" }}">{{ now.Format "January 2, 2006" }}</time>.</p>
     {{ else }}<p>No published posts yet.</p>{{ end }}
     <div data-stats-interactions></div>
 </div>
