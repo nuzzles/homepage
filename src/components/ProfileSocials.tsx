@@ -40,14 +40,14 @@ export const ProfileSocials = ({
                     {profile.calendlyUrl && (
                         <a href={profile.calendlyUrl} target="_blank" rel="noopener noreferrer">
                             <span className="calendly-icon" aria-hidden="true" />
-                            <span>{t("home.scheduleOneOnOne")}</span>
+                            <span>{t("footer.calendly")}</span>
                             <ExternalLink aria-hidden="true" className="external-link-icon" />
                         </a>
                     )}
                     <EmailDialog key={profile.id} encodedEmail={profile.encodedEmail}>
                         <Button variant="ghost" className="rounded-none hover:bg-transparent">
                             <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
-                            <span>{t("aboutPage.identity.revealEmail")}</span>
+                            <span>{t("home.revealEmail")}</span>
                         </Button>
                     </EmailDialog>
                 </>
