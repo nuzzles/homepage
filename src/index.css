@@ -478,6 +478,7 @@ html[data-navigating]::before {
     pointer-events: none;
 }
 .footer-links,
+.footer-link-group,
 .profile-footer .social-strip {
     display: flex;
     flex-direction: column;
@@ -487,13 +488,17 @@ html[data-navigating]::before {
     margin: 0;
 }
 .footer-links a,
-.profile-footer .social-strip a {
+.profile-footer .social-strip > :is(a, button) {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     padding: 0;
     font-size: 1.1rem;
     font-weight: 600;
+    max-width: 100%;
+    justify-content: start;
+    text-align: start;
+    white-space: normal;
 }
 .footer-links a:hover {
     color: var(--primary);
@@ -758,14 +763,16 @@ html[data-navigating]::before {
     gap: var(--space-2) var(--space-6);
     margin-top: var(--space-5);
 }
-.social-strip a {
+.social-strip a,
+.social-strip > button {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     min-height: 44px;
     font-size: 1rem;
 }
-.social-strip a > svg {
+.social-strip a > svg,
+.social-strip > button > svg {
     width: 18px;
     height: 18px;
     color: inherit;
@@ -776,7 +783,8 @@ html[data-navigating]::before {
     height: 1rem;
     flex-shrink: 0;
 }
-.social-strip a:hover {
+.social-strip a:hover,
+.social-strip > button:hover {
     color: var(--primary);
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -1488,30 +1496,26 @@ html[data-navigating]::before {
     }
 }
 
-@media (min-width: 1024px) {
-    .profile-footer:has(.footer-links a:nth-child(6)) {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr);
+.profile-footer:has(.footer-links-grouped) {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr);
+}
+.footer-links.footer-links-grouped {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+}
+.footer-link-group {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+@media (max-width: 1023px) {
+    .profile-footer:has(.footer-links-grouped) {
+        grid-template-columns: minmax(0, 1fr);
     }
-    .footer-links:has(a:nth-child(6)) {
+    .profile-footer:has(.footer-links-grouped) .social-strip {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--space-3) var(--space-8);
-    }
-    .footer-links .footer-link-resume {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    .footer-links .footer-link-how-i-work {
-        grid-column: 1;
-        grid-row: 3;
-    }
-    .footer-links .footer-link-stats {
-        grid-column: 2;
-        grid-row: 2;
-    }
-    .footer-links .footer-link-reading {
-        grid-column: 2;
-        grid-row: 3;
+        gap: var(--space-3) var(--space-6);
     }
 }
 

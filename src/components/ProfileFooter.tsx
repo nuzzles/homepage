@@ -58,36 +58,41 @@ export const ProfileFooter = ({ compact = false }: { compact?: boolean }) => {
             </div>
             {!compact && (
                 <>
-                    <nav className="footer-links" aria-label={t("footer.navigation")}>
-                        {blog && <a href={blog}>{t("home.blog")}</a>}
-                        {about && (
-                            <Link to={about} reloadDocument={reloadDocument}>
-                                {t("navigation.about")}
-                            </Link>
-                        )}
-                        {resume && (
-                            <Link className="footer-link-resume" to={resume} reloadDocument={reloadDocument}>
-                                {t("home.resume")}
-                            </Link>
-                        )}
-                        {howIWork && profile.howIWork && (
-                            <Link className="footer-link-how-i-work" to={howIWork} reloadDocument={reloadDocument}>
-                                {t(profile.howIWork.titleKey)}
-                            </Link>
-                        )}
+                    <nav
+                        className={`footer-links${blog ? " footer-links-grouped" : ""}`}
+                        aria-label={t("footer.navigation")}
+                    >
+                        <div className="footer-link-group">
+                            {blog && <a href={blog}>{t("home.blog")}</a>}
+                            {about && (
+                                <Link to={about} reloadDocument={reloadDocument}>
+                                    {t("navigation.about")}
+                                </Link>
+                            )}
+                            {resume && (
+                                <Link to={resume} reloadDocument={reloadDocument}>
+                                    {t("home.resume")}
+                                </Link>
+                            )}
+                            {howIWork && profile.howIWork && (
+                                <Link to={howIWork} reloadDocument={reloadDocument}>
+                                    {t(profile.howIWork.titleKey)}
+                                </Link>
+                            )}
+                        </div>
                         {blog && (
-                            <a className="footer-link-stats" href={`${blog.replace(/\/$/, "")}/stats/`}>
-                                {t("navigation.blogStats")}
-                            </a>
+                            <div className="footer-link-group">
+                                <a href={`${blog.replace(/\/$/, "")}/stats/`}>{t("navigation.blogStats")}</a>
+                                {readingList && (
+                                    <Link to={readingList} reloadDocument={reloadDocument}>
+                                        {t("readingListPage.title")}
+                                    </Link>
+                                )}
+                                <a href={`${blog.replace(/\/$/, "")}/tags/`}>{t("navigation.tags")}</a>
+                            </div>
                         )}
-                        {readingList && (
-                            <Link className="footer-link-reading" to={readingList} reloadDocument={reloadDocument}>
-                                {t("readingListPage.title")}
-                            </Link>
-                        )}
-                        {blog && <a href={`${blog.replace(/\/$/, "")}/tags/`}>{t("navigation.tags")}</a>}
                     </nav>
-                    <ProfileSocials />
+                    <ProfileSocials contactActions />
                 </>
             )}
         </footer>
