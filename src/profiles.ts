@@ -42,6 +42,7 @@ export interface ProjectConfig {
 export interface ProfileConfig {
     firstName: string
     fullName: string
+    footerBackToTop: boolean
     primaryInfrastructure?: boolean
     hostnames: Record<DeploymentEnvironment, string>
     image: string
