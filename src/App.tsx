@@ -1,6 +1,7 @@
 import { Fragment } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
+import { ProjectsPage } from "@/pages/ProjectsPage"
 import { ReadingListPage } from "@/pages/ReadingListPage"
 import { HowIWorkPage } from "@/pages/HowIWorkPage"
 import { AboutPage } from "@/pages/AboutPage"
@@ -60,6 +61,24 @@ function App() {
     const isLocal = isLocalProfileHostname(window.location.hostname)
     const profileSite = isProfileId(site) ? site : null
     const homeElement = profileSite ? <ProfileHomeRoute profileId={profileSite} /> : <ProfileSelectorPage />
+
+    const projectsRoutes = (prefix = "") => {
+        const page = getProfile("spencer").projectsPage
+        if (!page) return null
+        const element = (
+            <ProfileProvider profileId="spencer">
+                <ProjectsPage />
+            </ProfileProvider>
+        )
+        return (
+            <>
+                {profileSite === "spencer" && <Route path={`${prefix}${page.path}/:projectSlug?`} element={element} />}
+                {isLocal && (!profileSite || profileSite === "spencer") && (
+                    <Route path={`${prefix}/spencer${page.path}/:projectSlug?`} element={element} />
+                )}
+            </>
+        )
+    }
 
     const aboutRoutes = (prefix = "") => {
         const page = getProfile("spencer").about
@@ -138,6 +157,7 @@ function App() {
                             {howIWorkRoutes()}
                             {readingListRoutes()}
                             {aboutRoutes()}
+                            {projectsRoutes()}
                             <Route path="/" element={homeElement} />
                             {profileSite && <Route path="/resume" element={<ResumeRoute profileId={profileSite} />} />}
                             {isLocal && getLocalUnprefixedProfileRoutes()}
@@ -148,6 +168,7 @@ function App() {
                             {howIWorkRoutes("/en")}
                             {readingListRoutes("/en")}
                             {aboutRoutes("/en")}
+                            {projectsRoutes("/en")}
                             <Route path="/en" element={homeElement} />
                             {profileSite && (
                                 <Route path="/en/resume" element={<ResumeRoute profileId={profileSite} />} />
@@ -160,6 +181,7 @@ function App() {
                             {howIWorkRoutes("/fr")}
                             {readingListRoutes("/fr")}
                             {aboutRoutes("/fr")}
+                            {projectsRoutes("/fr")}
                             <Route path="/fr" element={homeElement} />
                             {profileSite && (
                                 <Route path="/fr/resume" element={<ResumeRoute profileId={profileSite} />} />
@@ -172,6 +194,7 @@ function App() {
                             {howIWorkRoutes("/fa")}
                             {readingListRoutes("/fa")}
                             {aboutRoutes("/fa")}
+                            {projectsRoutes("/fa")}
                             <Route path="/fa" element={homeElement} />
                             {profileSite && (
                                 <Route path="/fa/resume" element={<ResumeRoute profileId={profileSite} />} />

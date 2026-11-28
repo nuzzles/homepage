@@ -9,6 +9,15 @@ function handler(event) {
         };
     }
     var routes = {
+        "/projects": true,
+        "/projects/": true,
+        "/en/projects": true,
+        "/en/projects/": true,
+        "/fr/projects": true,
+        "/fr/projects/": true,
+        "/fa/projects": true,
+        "/fa/projects/": true,
+
         "/books": true,
         "/books/": true,
         "/en/books": true,
@@ -51,7 +60,7 @@ function handler(event) {
         "/fa/resume/": true
     };
 
-    if (routes[request.uri]) {
+    if (routes[request.uri] || /^\/(?:en\/|fr\/|fa\/)?projects\/[a-z0-9-]+\/?$/.test(request.uri)) {
         request.uri = "/index.html";
     }
 

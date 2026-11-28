@@ -37,6 +37,13 @@ export interface ProjectConfig {
     name: string
     href: string
     descriptionKey: string
+    feature?: {
+        slug: string
+        image: string
+        imageAltKey: string
+        categoryKey: string
+        lastModified: string
+    }
 }
 
 export interface ProfileConfig {
@@ -56,6 +63,7 @@ export interface ProfileConfig {
     staticMeta: StaticProfileMeta
     lastModified: string
     howIWork?: ProfilePageConfig
+    projectsPage?: ProfilePageConfig
     readingList?: ProfilePageConfig
     about?: ProfilePageConfig
     projects?: readonly ProjectConfig[]

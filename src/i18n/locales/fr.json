@@ -106,16 +106,22 @@
     "projects": {
         "title": "Projets",
         "monet": {
-            "description": "Un moteur 3D déclaratif et un studio collaboratif pour l’habillage graphique de diffusions et d’événements en direct."
+            "description": "Un moteur 3D déclaratif et un studio collaboratif pour l’habillage graphique de diffusions et d’événements en direct.",
+            "category": "Graphisme et collaboration",
+            "imageAlt": "Le site de Monet présentant son studio de graphisme pour la diffusion"
         },
         "bevyVello": {
-            "description": "L’intégration du rendu vectoriel accéléré par GPU de Vello dans le moteur de jeu Bevy."
+            "description": "L’intégration du rendu vectoriel accéléré par GPU de Vello dans le moteur de jeu Bevy.",
+            "category": "Graphisme vectoriel",
+            "imageAlt": "Un tigre dessiné en graphisme vectoriel avec bevy_vello"
         },
         "trunk": {
             "description": "Un outil de compilation Rust WebAssembly, du développement local avec rechargement à chaud à la préparation pour la production."
         },
         "halo": {
-            "description": "Une bibliothèque Rust pour les API de Halo Infinite et l’analyse hors ligne des fichiers de films du mode Cinéma."
+            "description": "Une bibliothèque Rust pour les API de Halo Infinite et l’analyse hors ligne des fichiers de films du mode Cinéma.",
+            "category": "Rétro-ingénierie",
+            "imageAlt": "Un inspecteur de paquets du mode Cinéma de Halo Infinite affichant les données décodées d’une partie"
         },
         "nbody": {
             "description": "Une simulation à N corps développée avec Rust, WebAssembly et WebGPU."
@@ -177,5 +183,14 @@
         "title": "Page introuvable",
         "description": "Cette page est introuvable. Elle a peut-être été déplacée ou le lien est incorrect.",
         "goHome": "Retour à l’accueil"
+    },
+    "projectsPage": {
+        "description": "Produits, graphisme et outils. Quelques projets que je développe ou contribue à maintenir.",
+        "more": "Tous les projets",
+        "heading": "Une sélection de <em>projets.</em>",
+        "featured": "Projet à la une",
+        "other": "Autres projets",
+        "visit": "Voir le projet",
+        "back": "Tous les projets"
     }
 }

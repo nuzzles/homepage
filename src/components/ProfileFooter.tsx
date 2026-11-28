@@ -13,7 +13,7 @@ import { useProfileNavigation } from "@/hooks/useProfileNavigation"
 export const ProfileFooter = ({ compact = false }: { compact?: boolean }) => {
     const { t } = useLanguage()
     const profile = useProfile()
-    const { home, about, resume, howIWork, readingList, blog, reloadDocument } = useProfileNavigation()
+    const { home, about, projects, resume, howIWork, readingList, blog, reloadDocument } = useProfileNavigation()
     return (
         <footer className={`profile-footer${compact ? " profile-footer-compact" : ""}`}>
             <div className="footer-identity">
@@ -64,6 +64,11 @@ export const ProfileFooter = ({ compact = false }: { compact?: boolean }) => {
                     >
                         <div className="footer-link-group">
                             {blog && <a href={blog}>{t("home.blog")}</a>}
+                            {projects && (
+                                <Link to={projects} reloadDocument={reloadDocument}>
+                                    {t("projects.title")}
+                                </Link>
+                            )}
                             {about && (
                                 <Link to={about} reloadDocument={reloadDocument}>
                                     {t("navigation.about")}

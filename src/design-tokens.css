@@ -39,6 +39,8 @@
     --type-lead: clamp(1.125rem, 1.5vw, 1.25rem);
     --type-title: 1.25rem;
     --type-section: clamp(1.5rem, 3vw, 2rem);
+    --type-portfolio: clamp(2.75rem, 8vw, 7.5rem);
+    --type-project-title: clamp(2rem, 3.5vw, 3.5rem);
     --type-display: clamp(2.5rem, 5.5vw, 4.5rem);
     --leading-body: 1.65;
     --leading-prose: 1.8;

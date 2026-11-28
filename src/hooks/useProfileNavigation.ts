@@ -17,6 +17,7 @@ export function useProfileNavigation() {
     return {
         home: localizedPath(base || "/"),
         about: profile.about ? localizedPath(`${base}${profile.about.path}`) : null,
+        projects: profile.projectsPage ? localizedPath(`${base}${profile.projectsPage.path}`) : null,
         readingList: profile.readingList ? localizedPath(`${base}${profile.readingList.path}`) : null,
         resume: profile.resume ? localizedPath(`${base}/resume`) : null,
         howIWork:

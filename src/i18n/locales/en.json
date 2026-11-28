@@ -106,16 +106,22 @@
     "projects": {
         "title": "Projects",
         "monet": {
-            "description": "A declarative 3D engine and collaborative studio for broadcast and live-event graphics."
+            "description": "A declarative 3D engine and collaborative studio for broadcast and live-event graphics.",
+            "category": "Graphics & collaboration",
+            "imageAlt": "Monet’s website showing its broadcast graphics studio"
         },
         "bevyVello": {
-            "description": "Bringing Vello’s GPU-accelerated vector graphics to the Bevy game engine."
+            "description": "Bringing Vello’s GPU-accelerated vector graphics to the Bevy game engine.",
+            "category": "Vector graphics",
+            "imageAlt": "A tiger drawn with vector graphics in bevy_vello"
         },
         "trunk": {
             "description": "A Rust WebAssembly build tool, from local development and hot reload to production packaging."
         },
         "halo": {
-            "description": "A Rust library for Halo Infinite APIs and offline parsing of Theater film files."
+            "description": "A Rust library for Halo Infinite APIs and offline parsing of Theater film files.",
+            "category": "Reverse engineering",
+            "imageAlt": "A Halo Infinite Theater packet inspector showing decoded match data"
         },
         "nbody": {
             "description": "An N-body simulation built with Rust, WebAssembly, and WebGPU."
@@ -177,5 +183,14 @@
         "title": "Page not found",
         "description": "This page could not be found. It may have moved, or the link may be incorrect.",
         "goHome": "Go to the homepage"
+    },
+    "projectsPage": {
+        "description": "Products, graphics, and tools. A collection of things I build and help maintain.",
+        "more": "All projects",
+        "heading": "Selected <em>works.</em>",
+        "featured": "Featured project",
+        "other": "Other projects",
+        "visit": "Visit project",
+        "back": "All projects"
     }
 }

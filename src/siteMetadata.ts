@@ -114,6 +114,23 @@ export function getSitemapXml(site: BuildSite): string {
         pages.push({ route: profile.howIWork.path, lastModified: profile.howIWork.lastModified, priority: "0.7" })
     }
 
+    if (profile?.projectsPage) {
+        pages.push({
+            route: profile.projectsPage.path,
+            lastModified: profile.projectsPage.lastModified,
+            priority: "0.8",
+        })
+        for (const project of profile.projects ?? []) {
+            if (project.feature) {
+                pages.push({
+                    route: `${profile.projectsPage.path}/${project.feature.slug}`,
+                    lastModified: project.feature.lastModified,
+                    priority: "0.7",
+                })
+            }
+        }
+    }
+
     if (profile?.readingList) {
         pages.push({ route: profile.readingList.path, lastModified: profile.readingList.lastModified, priority: "0.6" })
     }

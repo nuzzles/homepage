@@ -58,13 +58,27 @@
                 "id": "monet",
                 "name": "Monet",
                 "href": "https://monet3d.com",
-                "descriptionKey": "projects.monet.description"
+                "descriptionKey": "projects.monet.description",
+                "feature": {
+                    "slug": "monet",
+                    "image": "/projects/monet.webp",
+                    "imageAltKey": "projects.monet.imageAlt",
+                    "categoryKey": "projects.monet.category",
+                    "lastModified": "2026-11-28"
+                }
             },
             {
                 "id": "bevyVello",
                 "name": "bevy_vello",
                 "href": "https://github.com/linebender/bevy_vello",
-                "descriptionKey": "projects.bevyVello.description"
+                "descriptionKey": "projects.bevyVello.description",
+                "feature": {
+                    "slug": "bevy-vello",
+                    "image": "/projects/bevy-vello.webp",
+                    "imageAltKey": "projects.bevyVello.imageAlt",
+                    "categoryKey": "projects.bevyVello.category",
+                    "lastModified": "2026-11-28"
+                }
             },
             {
                 "id": "trunk",
@@ -76,7 +90,14 @@
                 "id": "halo",
                 "name": "halo_api",
                 "href": "https://github.com/nuzzles/halo_api",
-                "descriptionKey": "projects.halo.description"
+                "descriptionKey": "projects.halo.description",
+                "feature": {
+                    "slug": "halo-api",
+                    "image": "/projects/halo-api.webp",
+                    "imageAltKey": "projects.halo.imageAlt",
+                    "categoryKey": "projects.halo.category",
+                    "lastModified": "2026-11-28"
+                }
             },
             {
                 "id": "nbody",
@@ -103,7 +124,13 @@
             "titleKey": "readingListPage.title",
             "descriptionKey": "readingListPage.description"
         },
-        "footerBackToTop": true
+        "footerBackToTop": true,
+        "projectsPage": {
+            "path": "/projects",
+            "lastModified": "2026-11-28",
+            "titleKey": "projects.title",
+            "descriptionKey": "projectsPage.description"
+        }
     },
     "sara": {
         "firstName": "Sara",

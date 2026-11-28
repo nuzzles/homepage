@@ -119,6 +119,7 @@ describe("Hugo migration", () => {
             expect(doc.querySelector('.site-navigation [aria-current="page"]').textContent).toBe("Blog")
             expect([...doc.querySelectorAll("footer .footer-links a")].map((a) => a.textContent)).toEqual([
                 "Blog",
+                "Projects",
                 "About",
                 "Resume",
                 "How I work",
